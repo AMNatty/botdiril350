@@ -1,0 +1,7 @@
+.settings
+logs
+target
+settings.json
+.project
+.classpath
+data/
