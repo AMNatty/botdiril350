@@ -9,12 +9,10 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 
 import cz.tefek.botdiril.BotMain;
+import cz.tefek.botdiril.framework.command.CommandContext;
 
 public class BotConfig
 {
-    /** The secret key to run CuteBot */
-    private String key;
-
     private static final String configFile = "settings.json";
 
     /**
@@ -35,6 +33,7 @@ public class BotConfig
         {
             var cfg = new BotConfig();
             cfg.key = "insert Discord API key here";
+            cfg.messageQueueBounds = 16384;
 
             // Create a pretty-printed JSON            
             var gson = new GsonBuilder().setPrettyPrinting().create();
@@ -58,6 +57,12 @@ public class BotConfig
         return cfg;
     }
 
+    /** The secret key to run CuteBot */
+    private String key;
+
+    /** The limit of how many {@link CommandContext}s can a message queue take */
+    private int messageQueueBounds;
+
     /**
      * Gets the Discord bot key
      * 
@@ -65,6 +70,16 @@ public class BotConfig
      */
     public String getKey()
     {
-        return key;
+        return this.key;
+    }
+
+    /**
+     * The limit of how many {@link CommandContext}s can a message queue take
+     * 
+     * @returns The bounds
+     */
+    public int getMessageQueueBounds()
+    {
+        return this.messageQueueBounds;
     }
 }
