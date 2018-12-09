@@ -4,26 +4,27 @@ import cz.tefek.botdiril.data.IDataJson;
 
 public class GuildConfig implements IDataJson
 {
-    public GuildConfig()
+    private long id;
+    private String prefix;
+    private Long loggingChannel;
+
+    public GuildConfig(long id)
     {
+        this.id = id;
 
-    }
-
-    @Override
-    public void deserialize()
-    {
-
+        try
+        {
+            this.deserialize();
+        }
+        catch (Exception e)
+        {
+            // It doesn't exist
+        }
     }
 
     @Override
     public String getPath()
     {
-        return null;
-    }
-
-    @Override
-    public void serialize()
-    {
-
+        return "data/guild/g_" + id + ".json";
     }
 }
