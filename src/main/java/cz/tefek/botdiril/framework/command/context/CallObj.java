@@ -1,18 +1,18 @@
-package cz.tefek.botdiril.framework.command;
+package cz.tefek.botdiril.framework.command.context;
 
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.SelfUser;
-import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 
 /**
  * Wrapper data structure holding contextual information about a certain command
  * invocation.
  */
-public class CallObj
+public abstract class CallObj
 {
     /**
      * The command target user. Can be null.
@@ -20,29 +20,14 @@ public class CallObj
     public User target;
 
     /**
-     * The command caller, mapped to a member. Can be null.
-     */
-    public Member targetMember;
-
-    /**
      * The command caller.
      */
     public User caller;
 
     /**
-     * The command caller, mapped to the member.
+     * The channel the command was invoked in.
      */
-    public Member callerMember;
-
-    /**
-     * The text channel the command was inovked in.
-     */
-    public TextChannel textChannel;
-
-    /**
-     * The guild the command was invoked in.
-     */
-    public Guild guild;
+    public MessageChannel channel;
 
     /**
      * An instance of {@link JDA}.
@@ -72,25 +57,49 @@ public class CallObj
     /**
      * Create an empty call structure.
      */
-    public CallObj()
+    protected CallObj()
     {
     }
 
     /**
      * Copy the call structure and spoof the target user.
      */
-    public CallObj(CallObj co, User user)
+    protected CallObj(CallObj co, User user)
     {
         this.caller = co.caller;
-        this.callerMember = co.callerMember;
-        this.textChannel = co.textChannel;
-        this.guild = co.guild;
         this.jda = co.jda;
         this.message = co.message;
         this.bot = co.bot;
         this.messageContentsDisplay = co.messageContentsDisplay;
         this.messageContentsRaw = co.messageContentsRaw;
         this.target = user;
-        this.targetMember = this.guild.getMember(this.target);
+    }
+
+    /**
+     * Shorthand to quickly respond with a message.
+     */
+    public void respond(String text)
+    {
+        this.channel.sendMessage(text).submit();
+    }
+
+    /**
+     * Shorthand to quickly respond with an embed message.
+     */
+    public void respond(EmbedBuilder embedBuilder)
+    {
+        this.channel.sendMessage(embedBuilder.build()).submit();
+    }
+
+    /**
+     * Shorthand to quickly respond with an text + embed message.
+     */
+    public void respond(String text, EmbedBuilder embedBuilder)
+    {
+        var message = new MessageBuilder();
+        message.setContent(text);
+        message.setEmbed(embedBuilder.build());
+
+        this.channel.sendMessage(message.build()).submit();
     }
 }

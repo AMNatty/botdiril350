@@ -3,8 +3,8 @@ package cz.tefek.botdiril.framework;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import cz.tefek.botdiril.config.BotConfig;
-import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Worker;
+import cz.tefek.botdiril.framework.command.context.CommandContext;
 
 /**
  * Used by {@link Worker}s to take and process pending {@link CommandContext}s.

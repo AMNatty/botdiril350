@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 
 import cz.tefek.botdiril.BotMain;
-import cz.tefek.botdiril.framework.command.CommandContext;
+import cz.tefek.botdiril.framework.command.context.CommandContext;
 
 public class BotConfig
 {
@@ -27,13 +27,17 @@ public class BotConfig
         var file = new File(configFile);
 
         /*
-         * Generate a config file if one doesn't exist.
+         * Generate a config file with the default values if it doesn't exist.
          * */
         if (!(file.exists() && !file.isDirectory()))
         {
+            // Default config, let the user modify it to their needs
             var cfg = new BotConfig();
-            cfg.key = "insert Discord API key here";
+            cfg.key = "insert Discord bot key here";
             cfg.messageQueueBounds = 16384;
+            cfg.port = 49306;
+            cfg.clientId = -1;
+            cfg.clientSecret = "insert Discord app client secret";
 
             // Create a pretty-printed JSON            
             var gson = new GsonBuilder().setPrettyPrinting().create();
@@ -57,14 +61,23 @@ public class BotConfig
         return cfg;
     }
 
-    /** The secret key to run CuteBot */
+    /** The secret key to run Botdiril. */
     private String key;
 
-    /** The limit of how many {@link CommandContext}s can a message queue take */
+    /** The limit of how many {@link CommandContext}s can a message queue take. */
     private int messageQueueBounds;
 
+    /** The OAuth2 client secret. */
+    private String clientSecret;
+
+    /** Botdiril's client ID. */
+    private long clientId;
+
+    /** Web server port. */
+    private int port;
+
     /**
-     * Gets the Discord bot key
+     * Gets the Discord bot key.
      * 
      * @return The key
      */
@@ -74,12 +87,42 @@ public class BotConfig
     }
 
     /**
-     * The limit of how many {@link CommandContext}s can a message queue take
+     * The limit of how many {@link CommandContext}s can a message queue take.
      * 
      * @returns The bounds
      */
     public int getMessageQueueBounds()
     {
         return this.messageQueueBounds;
+    }
+
+    /**
+     * Gets the OAuth2 client secret.
+     * 
+     * @return The OAuth2 client secret
+     */
+    public String getClientSecret()
+    {
+        return this.clientSecret;
+    }
+
+    /**
+     * Gets the Discord client ID.
+     * 
+     * @return The Discord client ID
+     */
+    public long getClientId()
+    {
+        return clientId;
+    }
+
+    /**
+     * Gets the web server port.
+     * 
+     * @return The port number
+     */
+    public int getPort()
+    {
+        return port;
     }
 }

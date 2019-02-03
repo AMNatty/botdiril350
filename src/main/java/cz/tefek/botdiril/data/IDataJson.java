@@ -25,6 +25,9 @@ public interface IDataJson extends IData
         gson.fromJson(reader, getClass());
     }
 
+    /**
+     * Generate the path of this file.
+     */
     public String getPath();
 
     @Override
