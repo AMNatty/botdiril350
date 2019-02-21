@@ -8,6 +8,6 @@ public class Worker extends Thread
 {
     public Worker()
     {
-        // TODO Auto-generated constructor stub
+
     }
 }

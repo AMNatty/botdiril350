@@ -10,6 +10,19 @@ import java.io.Writer;
 
 public interface IDataJson extends IData
 {
+    /**
+     * Checks if the config file exists and is readable.
+     * 
+     * @return <code>true</code> if the config file exists and is reabable,
+     *         <code>false</code> otherwise
+     */
+    public default boolean configFileAvailable()
+    {
+        var file = new File(this.getPath());
+
+        return file.canRead();
+    }
+
     @Override
     public default void deserialize() throws Exception
     {
@@ -26,7 +39,7 @@ public interface IDataJson extends IData
     }
 
     /**
-     * Generate the path of this file.
+     * Generate the path of this config file.
      */
     public String getPath();
 

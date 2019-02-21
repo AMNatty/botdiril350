@@ -11,6 +11,10 @@ import java.nio.file.Files;
 import cz.tefek.botdiril.BotMain;
 import cz.tefek.botdiril.framework.command.context.CommandContext;
 
+/**
+ * Structure class holding the basic information needed to run the bot. Contains
+ * a convenient factory method to load from a JSON file.
+ */
 public class BotConfig
 {
     private static final String configFile = "settings.json";
@@ -38,6 +42,7 @@ public class BotConfig
             cfg.port = 49306;
             cfg.clientId = -1;
             cfg.clientSecret = "insert Discord app client secret";
+            cfg.globalPrefix = "botdiril.";
 
             // Create a pretty-printed JSON            
             var gson = new GsonBuilder().setPrettyPrinting().create();
@@ -76,6 +81,39 @@ public class BotConfig
     /** Web server port. */
     private int port;
 
+    /** Global command prefix. */
+    private String globalPrefix;
+
+    /**
+     * Gets the Discord client ID.
+     * 
+     * @return The Discord client ID
+     */
+    public long getClientId()
+    {
+        return this.clientId;
+    }
+
+    /**
+     * Gets the OAuth2 client secret.
+     * 
+     * @return The OAuth2 client secret
+     */
+    public String getClientSecret()
+    {
+        return this.clientSecret;
+    }
+
+    /**
+     * Gets the global command prefix.
+     * 
+     * @return The prefix
+     */
+    public String getGlobalPrefix()
+    {
+        return this.globalPrefix;
+    }
+
     /**
      * Gets the Discord bot key.
      * 
@@ -97,32 +135,12 @@ public class BotConfig
     }
 
     /**
-     * Gets the OAuth2 client secret.
-     * 
-     * @return The OAuth2 client secret
-     */
-    public String getClientSecret()
-    {
-        return this.clientSecret;
-    }
-
-    /**
-     * Gets the Discord client ID.
-     * 
-     * @return The Discord client ID
-     */
-    public long getClientId()
-    {
-        return clientId;
-    }
-
-    /**
      * Gets the web server port.
      * 
      * @return The port number
      */
     public int getPort()
     {
-        return port;
+        return this.port;
     }
 }
