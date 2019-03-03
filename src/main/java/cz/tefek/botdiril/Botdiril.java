@@ -1,7 +1,6 @@
 package cz.tefek.botdiril;
 
 import java.util.Map;
-import java.util.TreeMap;
 
 import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.bot.sharding.ShardManager;
@@ -11,6 +10,7 @@ import java.text.MessageFormat;
 
 import cz.tefek.botdiril.config.BotConfig;
 import cz.tefek.botdiril.data.config.guild.GuildConfig;
+import cz.tefek.botdiril.data.config.guild.GuildConfigMap;
 import cz.tefek.botdiril.framework.command.Worker;
 import cz.tefek.botdiril.listener.MainListener;
 import cz.tefek.botdiril.servlet.ServletController;
@@ -121,26 +121,9 @@ public class Botdiril
      */
     public void start() throws Exception
     {
-        this.guildConfigurations = new TreeMap<>() {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 8624204310268503779L;
+        this.guildConfigurations = new GuildConfigMap();
 
-            @Override
-            public GuildConfig put(Long key, GuildConfig value)
-            {
-                if (value == null)
-                {
-                    throw new IllegalArgumentException("Null is not a valid GuildConfig!");
-                }
-                else
-                {
-                    return super.put(key, value);
-                }
-            }
-        };
-
+        // Approximate amount of threads to create
         var workerCount = Runtime.getRuntime().availableProcessors() + 2;
 
         this.workers = new Worker[workerCount];
@@ -148,6 +131,7 @@ public class Botdiril
         for (int i = 0; i < this.workers.length; i++)
         {
             this.workers[i] = new Worker();
+            BotMain.logger.info(String.format("Initializing worked ID %d/%d.", i + 1, this.workers.length));
         }
 
         this.listener = new MainListener();

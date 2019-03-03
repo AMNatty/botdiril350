@@ -3,7 +3,7 @@ package cz.tefek.botdiril;
 /**
  * Enum containing possible exit codes of the application.
  */
-public enum EExitValue
+public enum EnumExitValue
 {
     /**
      * The application exited with no issues.
@@ -16,13 +16,13 @@ public enum EExitValue
 
     private int code;
 
-    EExitValue(int code)
+    EnumExitValue(int code)
     {
         this.code = code;
     }
 
     /**
-     * Gets the code of this {@link EExitValue}.
+     * Gets the code of this {@link EnumExitValue}.
      */
     public int getCode()
     {

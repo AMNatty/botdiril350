@@ -45,7 +45,7 @@ public class BotMain
             logger.fatal("The system will now exit.");
 
             LogManager.shutdown();
-            System.exit(EExitValue.EXCEPTION_DURING_INITIALIZATION.getCode());
+            System.exit(EnumExitValue.EXCEPTION_DURING_INITIALIZATION.getCode());
         }
     }
 }
