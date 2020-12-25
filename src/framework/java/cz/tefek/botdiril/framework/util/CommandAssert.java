@@ -14,12 +14,9 @@ import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.CommandStorage;
 import cz.tefek.botdiril.framework.command.invoke.CommandException;
 import cz.tefek.botdiril.userdata.IIdentifiable;
-import cz.tefek.botdiril.userdata.UserInventory;
 import cz.tefek.botdiril.userdata.achievement.Achievement;
 import cz.tefek.botdiril.userdata.card.Card;
 import cz.tefek.botdiril.userdata.item.Item;
-import cz.tefek.botdiril.userdata.timers.Timer;
-import cz.tefek.pluto.chrono.MiniTime;
 
 public class CommandAssert
 {
@@ -60,21 +57,6 @@ public class CommandAssert
         if (o1 == o2)
         {
             throw new CommandException(errorMessage);
-        }
-    }
-
-    // TIMER
-
-    /**
-     * Put a $ somewhere in the message to print the time there
-     */
-    public static void assertTimer(UserInventory ui, Timer timer, String errorMessage)
-    {
-        var tm = ui.useTimer(timer);
-
-        if (tm != -1)
-        {
-            throw new CommandException(errorMessage.replaceAll("\\$", MiniTime.formatDiff(tm)));
         }
     }
 
@@ -642,8 +624,6 @@ public class CommandAssert
         }
 
     }
-
-    // TIMERS
 
     public static void stringNotTooLong(String s, int length, String errorMessage) throws CommandException
     {

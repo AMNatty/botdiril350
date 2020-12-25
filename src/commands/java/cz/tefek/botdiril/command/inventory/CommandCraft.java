@@ -56,7 +56,7 @@ public class CommandCraft
 
             if (has < itAmt)
             {
-                missing.add(new ItemPair(it, itAmt - has));
+                missing.add(ItemPair.of(it, itAmt - has));
             }
         }
 

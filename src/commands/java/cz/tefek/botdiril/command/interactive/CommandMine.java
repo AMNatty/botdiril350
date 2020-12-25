@@ -21,7 +21,8 @@ import cz.tefek.botdiril.userdata.stat.EnumStat;
 import cz.tefek.botdiril.userdata.tempstat.Curser;
 import cz.tefek.botdiril.userdata.tempstat.EnumBlessing;
 import cz.tefek.botdiril.userdata.tempstat.EnumCurse;
-import cz.tefek.botdiril.userdata.timers.Timers;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
+import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.util.BotdirilFmt;
 
 @Command(value = "mine", category = CommandCategory.INTERACTIVE, description = "Mine to get some sweet stuff.")
@@ -30,7 +31,7 @@ public class CommandMine
     @CmdInvoke
     public static void mine(CallObj co, @CmdPar("pickaxe") Item item)
     {
-        CommandAssert.assertTimer(co.ui, Timers.mine, "You still need to wait **$** to **mine**.");
+        TimerUtil.require(co.ui, EnumTimer.MINE, "You still need to wait **$** to **mine**.");
 
         CommandAssert.assertTrue(item instanceof ItemPickaxe, "That's not a valid pickaxe.");
 
@@ -60,7 +61,7 @@ public class CommandMine
         if (mineResult.isInstantlyRefreshed())
         {
             resultStr.append("*You mine with such precision that you feel like mining again instantly.*\n");
-            co.ui.resetTimer(Timers.mine);
+            co.ui.resetTimer(EnumTimer.MINE);
         }
 
         resultStr.append(String.format("You are mining with a **%s**", pick.inlineDescription()));

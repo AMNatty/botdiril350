@@ -16,7 +16,6 @@ import cz.tefek.botdiril.userdata.card.Cards;
 import cz.tefek.botdiril.userdata.items.Items;
 import cz.tefek.botdiril.userdata.metrics.UserMetrics;
 import cz.tefek.botdiril.userdata.properties.PropertyObject;
-import cz.tefek.botdiril.userdata.timers.Timers;
 import cz.tefek.botdiril.userdata.xp.XPRewards;
 import cz.tefek.botdiril.util.BotdirilLog;
 
@@ -61,8 +60,6 @@ public class BotMain
                 Items.load();
 
                 Cards.load();
-
-                Timers.load();
 
                 Achievements.load();
 

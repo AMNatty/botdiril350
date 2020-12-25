@@ -90,7 +90,7 @@ public class Items
 
         toolBox = new Item("toolbox", Icons.ITEM_SUSPICIOUS_METAL_BOX, "Tool Box", "I wonder what it's for.");
         ShopEntries.addCoinSell(toolBox, 4_000);
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(trash, 10), new ItemPair(greenGem, 12), new ItemPair(strangeMetal, 3)), 1, toolBox));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(trash, 10), ItemPair.of(greenGem, 12), ItemPair.of(strangeMetal, 3)), 1, toolBox));
 
         coal = new Item("coal", Icons.MINE_COAL, "Coal", "A very common resource, used as a fuel.");
         ShopEntries.addCoinSell(coal, 3);
@@ -122,17 +122,17 @@ public class Items
 
         gemdiril = new Item("gemdiril", Icons.GEM_GEMDIRIL, "Gemdiril", "A very rare gem of an unknown value.");
         CraftingEntries.add(new Recipe(List.of(
-            new ItemPair(redGem, 256),
-            new ItemPair(greenGem, 256),
-            new ItemPair(blueGem, 192),
-            new ItemPair(purpleGem, 192),
-            new ItemPair(rainbowGem, 128),
-            new ItemPair(blackGem, 128),
-            new ItemPair(kekium, 1_234_567)),
+            ItemPair.of(redGem, 256),
+            ItemPair.of(greenGem, 256),
+            ItemPair.of(blueGem, 192),
+            ItemPair.of(purpleGem, 192),
+            ItemPair.of(rainbowGem, 128),
+            ItemPair.of(blackGem, 128),
+            ItemPair.of(kekium, 1_234_567)),
             1, gemdiril));
 
         repairKit = new Item("repairkit", Icons.ITEM_REPAIR_KIT, "Repair Kit", "It's handy to have one of these at your disposal when handling fragile tools. Will be **automatically** used and consumed to avoid breaking a tool.");
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(toolBox, 1), new ItemPair(oil, 1)), 1, repairKit));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(toolBox, 1), ItemPair.of(oil, 1)), 1, repairKit));
 
         Scrolls.load();
 

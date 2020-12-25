@@ -10,7 +10,6 @@ import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 import cz.tefek.botdiril.framework.command.invoke.CmdPar;
-import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.userdata.UserInventory;
 import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.userdata.items.Items;
@@ -18,7 +17,8 @@ import cz.tefek.botdiril.userdata.properties.PropertyObject;
 import cz.tefek.botdiril.userdata.stat.EnumStat;
 import cz.tefek.botdiril.userdata.tempstat.Curser;
 import cz.tefek.botdiril.userdata.tempstat.EnumBlessing;
-import cz.tefek.botdiril.userdata.timers.Timers;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
+import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.util.BotdirilFmt;
 import cz.tefek.botdiril.util.BotdirilRnd;
 
@@ -83,13 +83,13 @@ public class CommandNuke
             return;
         }
 
-        CommandAssert.assertTimer(co.ui, Timers.steal, "You need to wait **$** before trying to **nuke** someone again (this command shares its cooldown with *steal*).");
+        TimerUtil.require(co.ui, EnumTimer.STEAL, "You need to wait **$** before trying to **nuke** someone again (this command shares its cooldown with *steal*).");
 
         var otherProps = new PropertyObject(co.db, userInv.getFID());
 
         if (Curser.isBlessed(otherProps, EnumBlessing.NUKE_IMMUNE))
         {
-            co.ui.resetTimer(Timers.steal);
+            co.ui.resetTimer(EnumTimer.STEAL);
 
             var eb = new EmbedBuilder();
             eb.setTitle("Nuke");

@@ -9,7 +9,8 @@ import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 import cz.tefek.botdiril.framework.command.invoke.CmdPar;
 import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.userdata.icon.Icons;
-import cz.tefek.botdiril.userdata.timers.Timers;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
+import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.util.BotdirilFmt;
 
 @Command(value = "payoutmegakeks", aliases = { "payoutmega",
@@ -42,7 +43,7 @@ public class CommandPayoutMegaKeks
 
         CommandAssert.assertEquals("confirm", confirmation, "Type `%s%s confirm` to confirm this transaction.".formatted(co.usedPrefix, co.usedAlias));
 
-        CommandAssert.assertTimer(co.ui, Timers.payout, "You need to wait **$** before paying out again.");
+        TimerUtil.require(co.ui, EnumTimer.PAYOUT, "You need to wait **$** before paying out again.");
 
         var gets = conversion.apply(has);
 

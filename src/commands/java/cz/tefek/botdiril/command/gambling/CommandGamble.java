@@ -12,7 +12,8 @@ import cz.tefek.botdiril.gamelogic.gamble.GambleInput;
 import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.userdata.tempstat.Curser;
 import cz.tefek.botdiril.userdata.tempstat.EnumCurse;
-import cz.tefek.botdiril.userdata.timers.Timers;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
+import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.userdata.xp.XPRewards;
 import cz.tefek.botdiril.util.BotdirilFmt;
 
@@ -25,7 +26,7 @@ public class CommandGamble
         CommandAssert.numberMoreThanZeroL(keks, "You can't gamble zero keks...");
 
         var gambleInput = new GambleInput(keks,
-            co.ui.useTimer(Timers.gambleXP) == -1,
+            TimerUtil.tryConsume(co.ui, EnumTimer.GAMBLE_XP),
             Curser.isCursed(co, EnumCurse.CANT_WIN_JACKPOT),
             co.po.getJackpot(),
             co.po.getJackpotStored());

@@ -27,7 +27,7 @@ public class UserCards
                     continue;
                 }
 
-                var cp = new CardPair(item, eq.getLong("cr_amount"));
+                var cp = CardPair.of(item, eq.getLong("cr_amount"));
                 cp.setLevel(eq.getInt("cr_level"));
                 cp.setLevel(eq.getInt("cr_xp"));
 

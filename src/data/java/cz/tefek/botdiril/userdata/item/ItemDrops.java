@@ -60,7 +60,7 @@ public class ItemDrops implements Iterable<ItemPair>
     @Override
     public @NotNull Iterator<ItemPair> iterator()
     {
-        return this.lootMap.entrySet().stream().map(entry -> new ItemPair(entry.getKey(), entry.getValue())).iterator();
+        return this.lootMap.entrySet().stream().map(entry -> ItemPair.of(entry.getKey(), entry.getValue())).iterator();
     }
 
     public long totalCount()
@@ -70,7 +70,7 @@ public class ItemDrops implements Iterable<ItemPair>
 
     public Stream<ItemPair> stream()
     {
-        return this.lootMap.entrySet().stream().map(entry -> new ItemPair(entry.getKey(), entry.getValue()));
+        return this.lootMap.entrySet().stream().map(entry -> ItemPair.of(entry.getKey(), entry.getValue()));
     }
 
     public void each(BiConsumer<Item, Long> consumer)

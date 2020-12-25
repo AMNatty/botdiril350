@@ -3,13 +3,15 @@ package cz.tefek.botdiril.command.general;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 
+import java.util.Arrays;
+
 import cz.tefek.botdiril.framework.command.CallObj;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 import cz.tefek.botdiril.framework.command.invoke.CmdPar;
 import cz.tefek.botdiril.userdata.UserInventory;
-import cz.tefek.botdiril.userdata.timers.Timers;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
 import cz.tefek.pluto.chrono.MiniTime;
 
 @Command(value = "timers", aliases = {
@@ -25,7 +27,7 @@ public class CommandTimers
 
         final var ui = new UserInventory(co.db, user.getIdLong());
 
-        Timers.allTimers.forEach(t ->
+        Arrays.stream(EnumTimer.values()).forEach(t ->
         {
             var remaining = ui.checkTimer(t);
 

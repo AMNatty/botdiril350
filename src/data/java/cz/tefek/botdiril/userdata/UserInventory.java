@@ -12,7 +12,8 @@ import cz.tefek.botdiril.userdata.card.Card;
 import cz.tefek.botdiril.userdata.item.Item;
 import cz.tefek.botdiril.userdata.item.ItemCurrency;
 import cz.tefek.botdiril.userdata.item.ItemDrops;
-import cz.tefek.botdiril.userdata.timers.Timer;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
+import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.userdata.xp.XPRewards;
 
 public class UserInventory
@@ -188,28 +189,31 @@ public class UserInventory
     /// TIMERS
     ///
 
-    public long getTimer(Timer timer)
+    public long getTimer(EnumTimer timer)
     {
         return this.db.getValueOr("SELECT tm_time FROM " + TABLE_TIMERS + " WHERE fk_us_id=? AND fk_il_id=?",
-            "tm_time", Long.class, 0L, this.fkid, timer.getID());
+            "tm_time", Long.class, TimerUtil.TIMER_OFF_COOLDOWN, this.fkid, timer.getID());
     }
 
-    public long checkTimer(Timer timer)
+    public long checkTimer(EnumTimer timer)
     {
         var tt = this.getTimer(timer);
-        if (System.currentTimeMillis() > tt)
+        long currentTime = System.currentTimeMillis();
+
+        if (currentTime > tt)
         {
-            return -1;
+            return TimerUtil.TIMER_OFF_COOLDOWN;
         }
-        return tt - System.currentTimeMillis();
+
+        return tt - currentTime;
     }
 
-    public void resetTimer(Timer timer)
+    public void resetTimer(EnumTimer timer)
     {
         this.setTimer(timer, 0);
     }
 
-    public void setTimer(Timer timer, long timestamp)
+    public void setTimer(EnumTimer timer, long timestamp)
     {
         this.db.exec("SELECT tm_time FROM " + TABLE_TIMERS + " WHERE fk_us_id=? AND fk_il_id=?", stat ->
         {
@@ -228,29 +232,34 @@ public class UserInventory
         }, this.fkid, timer.getID());
     }
 
-    public long useTimer(Timer timer)
+    public long useTimer(EnumTimer timer)
     {
         var tt = this.getTimer(timer);
-        if (System.currentTimeMillis() > tt)
+        long currentTime = System.currentTimeMillis();
+
+        if (currentTime > tt)
         {
-            this.setTimer(timer, System.currentTimeMillis() + timer.getTimeOffset());
-            return -1;
+            this.setTimer(timer, currentTime + timer.getTimeOffset());
+            return TimerUtil.TIMER_OFF_COOLDOWN;
         }
-        return tt - System.currentTimeMillis();
+        return tt - currentTime;
     }
 
     // This differentiates in the fact that this overrides the time even when
     // waiting
-    public long useTimerOverride(Timer timer)
+    public long useTimerOverride(EnumTimer timer)
     {
         var tt = this.getTimer(timer);
-        if (System.currentTimeMillis() > tt)
+        long currentTime = System.currentTimeMillis();
+
+        if (currentTime > tt)
         {
-            this.setTimer(timer, System.currentTimeMillis() + timer.getTimeOffset());
-            return -1;
+            this.setTimer(timer, currentTime + timer.getTimeOffset());
+            return TimerUtil.TIMER_OFF_COOLDOWN;
         }
-        this.setTimer(timer, System.currentTimeMillis() + timer.getTimeOffset());
-        return tt - System.currentTimeMillis();
+
+        this.setTimer(timer, currentTime + timer.getTimeOffset());
+        return tt - currentTime;
     }
 
     ///

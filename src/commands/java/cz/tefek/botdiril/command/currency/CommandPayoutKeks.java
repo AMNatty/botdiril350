@@ -9,7 +9,8 @@ import cz.tefek.botdiril.framework.command.invoke.ParType;
 import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.userdata.stat.EnumStat;
-import cz.tefek.botdiril.userdata.timers.Timers;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
+import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.util.BotdirilFmt;
 
 @Command(value = "payoutkeks", aliases = {
@@ -23,7 +24,7 @@ public class CommandPayoutKeks
     {
         CommandAssert.numberMoreThanZeroL(keks, "You can't pay out zero keks.");
 
-        CommandAssert.assertTimer(co.ui, Timers.payout, "You need to wait **$** before paying out again.");
+        TimerUtil.require(co.ui, EnumTimer.PAYOUT, "You need to wait **$** before paying out again.");
 
         var tokens = keks / conversionRate;
         co.ui.addKeks(-keks);

@@ -9,7 +9,8 @@ import cz.tefek.botdiril.framework.command.invoke.ParType;
 import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.gamelogic.coinflip.EnumCoinSides;
 import cz.tefek.botdiril.userdata.icon.Icons;
-import cz.tefek.botdiril.userdata.timers.Timers;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
+import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.userdata.xp.XPRewards;
 import cz.tefek.botdiril.util.BotdirilRnd;
 
@@ -27,7 +28,7 @@ public class CommandCoinFlip
     {
         CommandAssert.numberMoreThanZeroL(keks, "You can't gamble zero keks...");
 
-        if (co.ui.useTimer(Timers.gambleXP) == -1)
+        if (TimerUtil.tryConsume(co.ui, EnumTimer.GAMBLE_XP))
         {
             var lvl = co.ui.getLevel();
             co.ui.addXP(co, Math.round(XPRewards.getXPAtLevel(lvl) * XPRewards.getLevel(lvl).getGambleFalloff() * BotdirilRnd.RDG.nextUniform(0.00001, 0.0001)));

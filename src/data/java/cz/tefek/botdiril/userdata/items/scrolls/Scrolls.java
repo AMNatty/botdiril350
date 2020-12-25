@@ -8,7 +8,7 @@ import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.userdata.item.*;
 import cz.tefek.botdiril.userdata.items.Items;
 import cz.tefek.botdiril.userdata.tempstat.Curser;
-import cz.tefek.botdiril.userdata.timers.Timers;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
 import cz.tefek.botdiril.userdata.xp.XPRewards;
 import cz.tefek.botdiril.util.BotdirilFmt;
 
@@ -28,7 +28,7 @@ public class Scrolls
     public static void load()
     {
         scrollOfCombining = new Item("scrollofcombining", Icons.SCROLL, "Scroll of Combining", "Crafting ingredient for some magical recipes.");
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(Items.blueGem, 1)), 2, Scrolls.scrollOfCombining));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(Items.blueGem, 1)), 2, Scrolls.scrollOfCombining));
 
         final long LESSER_INTELLIGENCE_XP = 2_000;
         scrollOfLesserIntelligence = new ItemScroll("lesserscrollofintelligence", Icons.SCROLL, "Lesser Scroll of Intelligence", (co, amount) -> {
@@ -42,22 +42,22 @@ public class Scrolls
             co.ui.addXP(co, INTELLIGENCE_XP * amount);
         }, "Use to instantly gain **%s XP**.".formatted(BotdirilFmt.format(INTELLIGENCE_XP)));
         CraftingEntries.add(new Recipe(Arrays.asList(
-            new ItemPair(Scrolls.scrollOfLesserIntelligence, 5),
-            new ItemPair(Items.greenGem, 30),
-            new ItemPair(Scrolls.scrollOfCombining, 5),
-            new ItemPair(Items.trash, 32)),
+            ItemPair.of(Scrolls.scrollOfLesserIntelligence, 5),
+            ItemPair.of(Items.greenGem, 30),
+            ItemPair.of(Scrolls.scrollOfCombining, 5),
+            ItemPair.of(Items.trash, 32)),
             1, scrollOfIntelligence));
 
         scrollOfRefreshing = new ItemScroll("scrollofrefreshing", Icons.SCROLL, "Scroll of Refreshing", (co, amount) -> {
-            co.ui.resetTimer(Timers.daily);
+            co.ui.resetTimer(EnumTimer.DAILY);
             co.respond("You refreshed your **daily** command cooldown!");
         }, "Instantly refresh the cooldown of your **daily** loot.");
         CraftingEntries.add(new Recipe(Arrays.asList(
-            new ItemPair(Items.timewarpCrystal, 3),
-            new ItemPair(Items.greenGem, 12),
-            new ItemPair(Items.blueGem, 3),
-            new ItemPair(scrollOfCombining, 5),
-            new ItemPair(Items.trash, 24)),
+            ItemPair.of(Items.timewarpCrystal, 3),
+            ItemPair.of(Items.greenGem, 12),
+            ItemPair.of(Items.blueGem, 3),
+            ItemPair.of(scrollOfCombining, 5),
+            ItemPair.of(Items.trash, 24)),
             1, scrollOfRefreshing));
 
         final long ABUNDANCE_LIMIT = 5_000_000;
@@ -73,12 +73,12 @@ public class Scrolls
             co.ui.addXP(co, MAJOR_INTELLIGENCE_XP * amount);
         }, "Use to instantly gain **%s XP**.".formatted(BotdirilFmt.format(MAJOR_INTELLIGENCE_XP)));
         CraftingEntries.add(new Recipe(Arrays.asList(
-            new ItemPair(Scrolls.scrollOfLesserIntelligence, 20),
-            new ItemPair(Items.dust, 1_000_000_000),
-            new ItemPair(Scrolls.scrollOfCombining, 50),
-            new ItemPair(Items.blueGem, 25),
-            new ItemPair(Items.rainbowGem, 5),
-            new ItemPair(Items.strangeMetal, 1)),
+            ItemPair.of(Scrolls.scrollOfLesserIntelligence, 20),
+            ItemPair.of(Items.dust, 1_000_000_000),
+            ItemPair.of(Scrolls.scrollOfCombining, 50),
+            ItemPair.of(Items.blueGem, 25),
+            ItemPair.of(Items.rainbowGem, 5),
+            ItemPair.of(Items.strangeMetal, 1)),
             1, scrollOfIntelligenceMajor));
 
         scrollOfIntelligenceII = new ItemScroll("scrollofintelligenceii", Icons.SCROLL_UNIQUE, "Scroll of Intelligence II", (co, amount) -> {
@@ -125,8 +125,8 @@ public class Scrolls
 
         }, "Reverse your gems!");
         CraftingEntries.add(new Recipe(List.of(
-            new ItemPair(Items.timewarpCrystal),
-            new ItemPair(Scrolls.scrollOfCombining)),
+            ItemPair.of(Items.timewarpCrystal),
+            ItemPair.of(Scrolls.scrollOfCombining)),
             1, scrollOfSwapping));
 
         scrollOfBlessing = new ItemScroll("scrollofblessing", Icons.SCROLL_RARE, "Scroll of Blessing", (co, amount) -> {
@@ -135,8 +135,8 @@ public class Scrolls
 
         }, "You feel blessed.");
         CraftingEntries.add(new Recipe(Arrays.asList(
-            new ItemPair(Items.rainbowGem, 10),
-            new ItemPair(Items.timewarpCrystal)),
+            ItemPair.of(Items.rainbowGem, 10),
+            ItemPair.of(Items.timewarpCrystal)),
             1, scrollOfBlessing));
     }
 }

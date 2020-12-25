@@ -39,7 +39,7 @@ public class CardDrops implements Iterable<CardPair>
     @Override
     public @NotNull Iterator<CardPair> iterator()
     {
-        return this.lootMap.entrySet().stream().map(entry -> new CardPair(entry.getKey(), entry.getValue())).iterator();
+        return this.lootMap.entrySet().stream().map(entry -> CardPair.of(entry.getKey(), entry.getValue())).iterator();
     }
 
     public long totalCount()
@@ -49,7 +49,7 @@ public class CardDrops implements Iterable<CardPair>
 
     public Stream<CardPair> stream()
     {
-        return this.lootMap.entrySet().stream().map(entry -> new CardPair(entry.getKey(), entry.getValue()));
+        return this.lootMap.entrySet().stream().map(entry -> CardPair.of(entry.getKey(), entry.getValue()));
     }
 
     public void each(BiConsumer<Card, Long> consumer)

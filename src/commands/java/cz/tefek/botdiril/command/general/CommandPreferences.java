@@ -3,6 +3,7 @@ package cz.tefek.botdiril.command.general;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 import cz.tefek.botdiril.framework.command.CallObj;
 import cz.tefek.botdiril.framework.command.Command;
@@ -28,7 +29,7 @@ public class CommandPreferences
         Arrays.stream(EnumUserPreference.values()).forEach(pref ->
         {
             var indicator = UserPreferences.isBitEnabled(co.po, pref) ? "on" : "off";
-            eb.addField(pref.getLocalizedName(), String.format("**ID:**`%s`\n**Status:** *%s*", pref.getID(), indicator), true);
+            eb.addField(pref.getLocalizedName(), String.format("**ID:**`%s`\n**Status:** *%s*", pref.toString().toLowerCase(Locale.ROOT), indicator), true);
         });
 
         co.respond(eb.build());

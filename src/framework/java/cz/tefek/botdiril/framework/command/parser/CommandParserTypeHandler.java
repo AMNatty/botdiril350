@@ -167,7 +167,7 @@ public class CommandParserTypeHandler
         {
             @SuppressWarnings("unchecked")
             var enumClass = (Class<E>) clazz;
-            var val = EnumUtils.getEnum(enumClass, arg);
+            var val = EnumUtils.getEnumIgnoreCase(enumClass, arg);
 
             if (val == null)
             {

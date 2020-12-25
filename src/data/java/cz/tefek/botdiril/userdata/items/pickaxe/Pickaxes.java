@@ -103,69 +103,69 @@ public class Pickaxes
         }
 
         ShopEntries.addCoinBuy(pickaxeI, 500);
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(Items.coal, 80)), 1, pickaxeI));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(Items.coal, 80)), 1, pickaxeI));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeI, 3), new ItemPair(Items.iron, 40)), 1, pickaxeII));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeI, 3), ItemPair.of(Items.iron, 40)), 1, pickaxeII));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeII, 2), new ItemPair(Items.copper, 40)), 1, pickaxeIII));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeII, 2), ItemPair.of(Items.copper, 40)), 1, pickaxeIII));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeIII, 1), new ItemPair(Items.uranium, 10)), 1, pickaxeIV));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeIII, 1), ItemPair.of(Items.uranium, 10)), 1, pickaxeIV));
 
         CraftingEntries.add(new Recipe(List.of(
-            new ItemPair(Items.coal, 6_000),
-            new ItemPair(Items.iron, 2_400),
-            new ItemPair(Items.copper, 150),
-            new ItemPair(Items.uranium, 15),
-            new ItemPair(Items.gold, 5),
-            new ItemPair(Items.redGem, 1)),
+            ItemPair.of(Items.coal, 6_000),
+            ItemPair.of(Items.iron, 2_400),
+            ItemPair.of(Items.copper, 150),
+            ItemPair.of(Items.uranium, 15),
+            ItemPair.of(Items.gold, 5),
+            ItemPair.of(Items.redGem, 1)),
             1, pickaxeV));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeV, 3), new ItemPair(Items.copper, 80)), 1, pickaxeVI));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeV, 3), ItemPair.of(Items.copper, 80)), 1, pickaxeVI));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeVI, 3), new ItemPair(Items.uranium, 100)), 1, pickaxeVII));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeVI, 3), ItemPair.of(Items.uranium, 100)), 1, pickaxeVII));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeVII, 3), new ItemPair(Items.gold, 500)), 1, pickaxeVIII));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeVII, 3), ItemPair.of(Items.gold, 500)), 1, pickaxeVIII));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeVIII, 3), new ItemPair(Items.platinum, 400)), 1, pickaxeIX));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeVIII, 3), ItemPair.of(Items.platinum, 400)), 1, pickaxeIX));
 
         CraftingEntries.add(new Recipe(List.of(
-            new ItemPair(Items.coal, 512_000),
-            new ItemPair(Items.iron, 256_000),
-            new ItemPair(Items.copper, 32_768),
-            new ItemPair(Items.uranium, 3_072),
-            new ItemPair(Items.gold, 2_048),
-            new ItemPair(Items.redGem, 2),
-            new ItemPair(Items.purpleGem, 1)),
+            ItemPair.of(Items.coal, 512_000),
+            ItemPair.of(Items.iron, 256_000),
+            ItemPair.of(Items.copper, 32_768),
+            ItemPair.of(Items.uranium, 3_072),
+            ItemPair.of(Items.gold, 2_048),
+            ItemPair.of(Items.redGem, 2),
+            ItemPair.of(Items.purpleGem, 1)),
             1, pickaxeX));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeX, 3), new ItemPair(Items.gold, 600)), 1, pickaxeXI));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeX, 3), ItemPair.of(Items.gold, 600)), 1, pickaxeXI));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeXI, 3), new ItemPair(Items.platinum, 300)), 1, pickaxeXII));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeXI, 3), ItemPair.of(Items.platinum, 300)), 1, pickaxeXII));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeXII, 3), new ItemPair(Items.kekium, 200)), 1, pickaxeXIII));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeXII, 3), ItemPair.of(Items.kekium, 200)), 1, pickaxeXIII));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeXIII, 3), new ItemPair(Items.emerald, 300)), 1, pickaxeXIV));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeXIII, 3), ItemPair.of(Items.emerald, 300)), 1, pickaxeXIV));
 
         CraftingEntries.add(new Recipe(List.of(
-            new ItemPair(Items.coal, 128_000_000),
-            new ItemPair(Items.iron, 48_912_000),
-            new ItemPair(Items.copper, 5_242_880),
-            new ItemPair(Items.uranium, 655_360),
-            new ItemPair(Items.gold, 320_768),
-            new ItemPair(Items.platinum, 64_000),
-            new ItemPair(Items.redGem, 8),
-            new ItemPair(Items.purpleGem, 4),
-            new ItemPair(Items.blackGem, 1)),
+            ItemPair.of(Items.coal, 128_000_000),
+            ItemPair.of(Items.iron, 48_912_000),
+            ItemPair.of(Items.copper, 5_242_880),
+            ItemPair.of(Items.uranium, 655_360),
+            ItemPair.of(Items.gold, 320_768),
+            ItemPair.of(Items.platinum, 64_000),
+            ItemPair.of(Items.redGem, 8),
+            ItemPair.of(Items.purpleGem, 4),
+            ItemPair.of(Items.blackGem, 1)),
             1, pickaxeXV));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeXV, 4), new ItemPair(Items.kekium, 1_600)), 1, pickaxeXVI));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeXV, 4), ItemPair.of(Items.kekium, 1_600)), 1, pickaxeXVI));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeXVI, 5), new ItemPair(Items.emerald, 150)), 1, pickaxeXVII));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeXVI, 5), ItemPair.of(Items.emerald, 150)), 1, pickaxeXVII));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeXVII, 6), new ItemPair(Items.diamond, 200)), 1, pickaxeXVIII));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeXVII, 6), ItemPair.of(Items.diamond, 200)), 1, pickaxeXVIII));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeXVIII, 7), new ItemPair(Items.gemdiril, 1)), 1, pickaxeXIX));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeXVIII, 7), ItemPair.of(Items.gemdiril, 1)), 1, pickaxeXIX));
 
-        CraftingEntries.add(new Recipe(List.of(new ItemPair(pickaxeXIX, 1), new ItemPair(Items.strangeMetal, 1_000)), 1, pickaxeXX));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeXIX, 1), ItemPair.of(Items.strangeMetal, 1_000)), 1, pickaxeXX));
     }
 }

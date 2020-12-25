@@ -5,13 +5,13 @@ import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 import cz.tefek.botdiril.framework.command.invoke.CommandException;
-import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.gamelogic.daily.DailyRewards;
 import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.userdata.stat.EnumStat;
 import cz.tefek.botdiril.userdata.tempstat.Curser;
 import cz.tefek.botdiril.userdata.tempstat.EnumCurse;
-import cz.tefek.botdiril.userdata.timers.Timers;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
+import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.util.BotdirilFmt;
 
 @Command(value = "daily", category = CommandCategory.CURRENCY, description = "Get yourself some free daily stuff.")
@@ -20,7 +20,7 @@ public class CommandDaily
     @CmdInvoke
     public static void daily(CallObj co)
     {
-        CommandAssert.assertTimer(co.ui, Timers.daily, "You need to wait **$** to use **daily** again.");
+        TimerUtil.require(co.ui, EnumTimer.DAILY, "You need to wait **$** to use **daily** again.");
 
         if (Curser.isCursed(co, EnumCurse.CANT_TAKE_DAILY))
         {

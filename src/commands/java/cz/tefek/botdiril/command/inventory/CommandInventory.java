@@ -72,7 +72,7 @@ public class CommandInventory
                     continue;
                 }
 
-                ips.add(new ItemPair(item, eq.getLong("it_amount")));
+                ips.add(ItemPair.of(item, eq.getLong("it_amount")));
             }
 
             return ips;

@@ -5,16 +5,26 @@ public class ItemPair
     private final Item item;
     private long amount;
 
-    public ItemPair(Item item, long amount)
+    private ItemPair(Item item, long amount)
     {
         this.item = item;
         this.amount = amount;
     }
 
-    public ItemPair(Item item)
+    private ItemPair(Item item)
     {
         this.item = item;
         this.amount = 1;
+    }
+
+    public static ItemPair of(Item item, long amount)
+    {
+        return new ItemPair(item, amount);
+    }
+
+    public static ItemPair of(Item item)
+    {
+        return new ItemPair(item);
     }
 
     public Item getItem()

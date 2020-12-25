@@ -46,7 +46,7 @@ public class Crates
 
         crateIron = new ItemKekCrate("ironcrate", Icons.CRATE_IRON, "Iron Crate",
             9, CratePools.uncommonCrate, 80_000, 120_000, "Despite the name, I don't think the crate is trash tier.");
-        CraftingEntries.add(new Recipe(Arrays.asList(new ItemPair(Items.iron, 1_000), new ItemPair(crateBasic)), 1, crateIron));
+        CraftingEntries.add(new Recipe(Arrays.asList(ItemPair.of(Items.iron, 1_000), ItemPair.of(crateBasic)), 1, crateIron));
 
 
         crateEpic = new ItemCrateGeneric("epiccrate", Icons.CRATE_EPIC, "Epic Crate",
@@ -65,7 +65,7 @@ public class Crates
 
         crateGolden = new ItemKekCrate("goldencrate", Icons.CRATE_GOLDEN, "Golden Crate",
             12, CratePools.goldenCrate, 2_000_000, 5_000_000, "Ever wondered where all the keks you gamble away go? They are in these crates.");
-        CraftingEntries.add(new Recipe(Arrays.asList(new ItemPair(Items.gold, 1_000), new ItemPair(crateLegendary)), 1, crateGolden));
+        CraftingEntries.add(new Recipe(Arrays.asList(ItemPair.of(Items.gold, 1_000), ItemPair.of(crateLegendary)), 1, crateGolden));
 
 
         crateUltimate = new ItemCrateGeneric("ultimatecrate", Icons.CRATE_ULTIMATE, "Ultimate Crate",

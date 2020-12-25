@@ -6,13 +6,13 @@ import cz.tefek.botdiril.framework.command.CallObj;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
-import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.userdata.card.Card;
 import cz.tefek.botdiril.userdata.card.CardDrops;
 import cz.tefek.botdiril.userdata.pools.CardPools;
 import cz.tefek.botdiril.userdata.tempstat.Curser;
 import cz.tefek.botdiril.userdata.tempstat.EnumCurse;
-import cz.tefek.botdiril.userdata.timers.Timers;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
+import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.userdata.xp.XPRewards;
 
 @Command(value = "draw", category = CommandCategory.ITEMS, levelLock = 5, description = "Draws some cards.")
@@ -21,7 +21,7 @@ public class CommandDraw
     @CmdInvoke
     public static void draw(CallObj co)
     {
-        CommandAssert.assertTimer(co.ui, Timers.draw, "You need to wait $ before drawing cards again.");
+        TimerUtil.require(co.ui, EnumTimer.DRAW, "You need to wait $ before drawing cards again.");
 
         var lc = new CardDrops();
 

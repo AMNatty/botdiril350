@@ -40,7 +40,7 @@ public class Cards
                     var cc = new Card(CardSet.league, rarity, jchi.getString("id"), jchi.getString("name"));
                     ShopEntries.addCoinSell(cc, rarity.getBasePrice());
                     ShopEntries.addDisenchant(cc, rarity.getBasePrice() * 100);
-                    CraftingEntries.add(new Recipe(List.of(new ItemPair(Items.dust, rarity.getBasePrice() * 3 * 100)), 1, cc));
+                    CraftingEntries.add(new Recipe(List.of(ItemPair.of(Items.dust, rarity.getBasePrice() * 3 * 100)), 1, cc));
                     cc.setCollection(collID);
                     cc.setCollectionName(collName);
                 });
@@ -66,7 +66,7 @@ public class Cards
                 var cc = new Card(CardSet.csgo, rarity, jch.getString("id"), jch.getString("name"));
                 ShopEntries.addCoinSell(cc, rarity.getBasePrice());
                 ShopEntries.addDisenchant(cc, rarity.getBasePrice() * 100);
-                CraftingEntries.add(new Recipe(List.of(new ItemPair(Items.dust, rarity.getBasePrice() * 3 * 100)), 1, cc));
+                CraftingEntries.add(new Recipe(List.of(ItemPair.of(Items.dust, rarity.getBasePrice() * 3 * 100)), 1, cc));
                 cc.setCustomImage(jch.getString("iconurl"));
             });
         }

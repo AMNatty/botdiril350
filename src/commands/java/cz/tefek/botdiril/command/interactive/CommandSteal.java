@@ -21,7 +21,8 @@ import cz.tefek.botdiril.userdata.stat.EnumStat;
 import cz.tefek.botdiril.userdata.tempstat.Curser;
 import cz.tefek.botdiril.userdata.tempstat.EnumBlessing;
 import cz.tefek.botdiril.userdata.tempstat.EnumCurse;
-import cz.tefek.botdiril.userdata.timers.Timers;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
+import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.userdata.xp.XPRewards;
 import cz.tefek.botdiril.util.BotdirilFmt;
 import cz.tefek.botdiril.util.BotdirilRnd;
@@ -33,7 +34,7 @@ public class CommandSteal
     @CmdInvoke
     public static void steal(CallObj co, @CmdPar("who to rob") User user)
     {
-        CommandAssert.assertTimer(co.ui, Timers.steal, "You need to wait **$** before trying to **steal** again.");
+        TimerUtil.require(co.ui, EnumTimer.STEAL, "You need to wait **$** before trying to **steal** again.");
 
         CommandAssert.assertNotEquals(co.caller.getIdLong(), user.getIdLong(), "You can't rob yourself. Or can you? :thinking:");
 
@@ -61,7 +62,7 @@ public class CommandSteal
 
         if (Curser.isBlessed(otherProps, EnumBlessing.STEAL_IMMUNE))
         {
-            co.ui.resetTimer(Timers.steal);
+            co.ui.resetTimer(EnumTimer.STEAL);
 
             var eb = new EmbedBuilder();
             eb.setTitle("Steal");

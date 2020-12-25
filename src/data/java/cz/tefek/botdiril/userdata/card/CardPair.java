@@ -7,16 +7,26 @@ public class CardPair
     private int level;
     private long xp;
 
-    public CardPair(Card item)
+    private CardPair(Card item)
     {
         this.card = item;
         this.amount = 1;
     }
 
-    public CardPair(Card item, long amount)
+    private CardPair(Card item, long amount)
     {
         this.card = item;
         this.amount = amount;
+    }
+
+    public static CardPair of(Card item)
+    {
+        return new CardPair(item);
+    }
+
+    public static CardPair of(Card item, long amount)
+    {
+        return new CardPair(item, amount);
     }
 
     public void addAmount(long amt)
