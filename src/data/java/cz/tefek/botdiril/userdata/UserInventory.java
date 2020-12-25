@@ -137,14 +137,14 @@ public class UserInventory
         return this.fkid;
     }
 
-    public UIObj getUserDataObj()
+    public UIObject getUserDataObj()
     {
         return this.db.exec("SELECT * FROM " + TABLE_USER + " WHERE us_id=?", stat ->
         {
             var rs = stat.executeQuery();
             rs.next();
 
-            return new UIObj(rs.getInt("us_level"),
+            return new UIObject(rs.getInt("us_level"),
                 rs.getLong("us_xp"),
                 rs.getLong("us_coins"),
                 rs.getLong("us_keks"),

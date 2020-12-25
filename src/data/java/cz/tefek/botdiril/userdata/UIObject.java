@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.userdata;
 
-public class UIObj
+public class UIObject
 {
     private final int level;
     private final long xp;
@@ -12,7 +12,7 @@ public class UIObj
     private final long tokens;
     private final long cards;
 
-    public UIObj(int level, long xp, long coins, long keks, long dust, long megakeks, long keys, long tokens, long cards)
+    public UIObject(int level, long xp, long coins, long keks, long dust, long megakeks, long keys, long tokens, long cards)
     {
         this.level = level;
         this.xp = xp;
