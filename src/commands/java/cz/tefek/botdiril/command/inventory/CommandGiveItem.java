@@ -1,6 +1,5 @@
 package cz.tefek.botdiril.command.inventory;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 
 import cz.tefek.botdiril.framework.command.CallObj;
@@ -8,17 +7,9 @@ import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 import cz.tefek.botdiril.framework.command.invoke.CmdPar;
+import cz.tefek.botdiril.framework.command.invoke.CommandException;
 import cz.tefek.botdiril.framework.command.invoke.ParType;
-import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.userdata.IIdentifiable;
-import cz.tefek.botdiril.userdata.UserInventory;
-import cz.tefek.botdiril.userdata.card.Card;
-import cz.tefek.botdiril.userdata.item.Item;
-import cz.tefek.botdiril.userdata.item.ItemCurrency;
-import cz.tefek.botdiril.userdata.stat.EnumStat;
-import cz.tefek.botdiril.userdata.tempstat.Curser;
-import cz.tefek.botdiril.userdata.tempstat.EnumCurse;
-import cz.tefek.botdiril.util.BotdirilRnd;
 
 @Command(value = "give", aliases = { "giveitem", "givecard",
         "gift" }, category = CommandCategory.ITEMS, description = "Give someone an item or a card.", levelLock = 5)
@@ -27,23 +18,10 @@ public class CommandGiveItem
     @CmdInvoke
     public static void give(CallObj co, @CmdPar("user") User recipient, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
+        throw new CommandException("Sorry, gifting has been temporarily disabled to prevent abuse.");
+
+        /*
         CommandAssert.numberMoreThanZeroL(amount, "You can't give zero items.");
-
-        if (item instanceof ItemCurrency)
-        {
-            var ic = (ItemCurrency) item;
-
-            switch (ic.getCurrency())
-            {
-                case XP, KEYS, MEGAKEKS -> {
-                    co.respond("Sorry, gifting of this item has been temporarily disabled.");
-                    return;
-                }
-                default -> {
-
-                }
-            }
-        }
 
         if (recipient.getIdLong() == co.caller.getIdLong())
         {
@@ -82,11 +60,15 @@ public class CommandGiveItem
 
             co.respond(eb.build());
         }
+        */
     }
 
     @CmdInvoke
     public static void giveOne(CallObj co, @CmdPar("user") User recipient, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
     {
+        throw new CommandException("Sorry, gifting has been temporarily disabled to prevent abuse.");
+
+        /*
         if (item instanceof Item)
         {
             CommandAssert.numberMoreThanZeroL(co.ui.howManyOf((Item) item), "You don't have that item to give it to someone.");
@@ -97,5 +79,6 @@ public class CommandGiveItem
         }
 
         give(co, recipient, item, 1);
+         */
     }
 }

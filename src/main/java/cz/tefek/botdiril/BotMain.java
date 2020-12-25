@@ -14,6 +14,7 @@ import cz.tefek.botdiril.userdata.UserInventory;
 import cz.tefek.botdiril.userdata.achievement.Achievements;
 import cz.tefek.botdiril.userdata.card.Cards;
 import cz.tefek.botdiril.userdata.items.Items;
+import cz.tefek.botdiril.userdata.metrics.UserMetrics;
 import cz.tefek.botdiril.userdata.properties.PropertyObject;
 import cz.tefek.botdiril.userdata.timers.Timers;
 import cz.tefek.botdiril.userdata.xp.XPRewards;
@@ -48,6 +49,8 @@ public class BotMain
                 ItemLookup.prepare(db);
 
                 UserInventory.initTables(db);
+
+                UserMetrics.initTable(db);
 
                 ServerPreferences.load(db);
 

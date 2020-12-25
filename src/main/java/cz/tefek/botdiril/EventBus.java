@@ -14,6 +14,7 @@ import cz.tefek.botdiril.framework.command.CallObj;
 import cz.tefek.botdiril.framework.command.parser.CommandParser;
 import cz.tefek.botdiril.framework.sql.DBConnection;
 import cz.tefek.botdiril.framework.util.PrefixUtil;
+import cz.tefek.botdiril.userdata.metrics.UserMetrics;
 import cz.tefek.botdiril.util.BotdirilLog;
 import cz.tefek.botdiril.serverdata.ServerPreferences;
 import cz.tefek.botdiril.userdata.UserInventory;
@@ -102,9 +103,14 @@ public class EventBus extends ListenerAdapter
                     }
 
                     if (CommandParser.parse(co))
+                    {
+                        UserMetrics.updateMetrics(co.db, co.ui);
                         co.db.commit();
+                    }
                     else
+                    {
                         co.db.rollback();
+                    }
                 }
                 catch (Exception e)
                 {
