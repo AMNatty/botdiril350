@@ -22,29 +22,26 @@ public class CratePools
     public static final LootPool<Item> staticRewards = new LootPool<>();
 
     public static final PoolDrawer<Item> basicCrate = new PoolDrawer<Item>()
-        .add(10, terribleRewards)
-        .add(50, badRewards)
+        .add(5, terribleRewards)
+        .add(20, badRewards)
         .add(16, normalRewards)
         .add(1, goodRewards);
 
     public static final PoolDrawer<Item> uncommonCrate = new PoolDrawer<Item>()
         .add(5, terribleRewards)
-        .add(60, badRewards)
+        .add(20, badRewards)
         .add(36, normalRewards)
-        .add(4, goodRewards)
+        .add(8, goodRewards)
         .add(1, greatRewards);
 
     public static final PoolDrawer<Item> epicCrate = new PoolDrawer<Item>()
-        .add(40, terribleRewards)
-        .add(52, normalRewards)
-        .add(16, goodRewards)
-        .add(2, greatRewards);
+        .add(4, terribleRewards)
+        .add(12, normalRewards)
+        .add(1, goodRewards);
 
     public static final PoolDrawer<Item> legendaryCrate = new PoolDrawer<Item>()
-        .add(120, terribleRewards)
-        .add(60, normalRewards)
         .add(100, goodRewards)
-        .add(25, greatRewards)
+        .add(4, greatRewards)
         .add(1, amazingRewards);
 
     public static final PoolDrawer<Item> goldenCrate = new PoolDrawer<Item>()
@@ -55,7 +52,7 @@ public class CratePools
         .add(1, goldenRewards);
 
     public static final PoolDrawer<Item> ultimateCrate = new PoolDrawer<Item>()
-        .add(100, terribleRewards)
+        .add(40, terribleRewards)
         .add(80, goodRewards)
         .add(20, greatRewards)
         .add(4, amazingRewards)
@@ -77,24 +74,21 @@ public class CratePools
     static
     {
         terribleRewards.add(Items.trash);
-        terribleRewards.add(CardPacks.cardPackBasic);
 
-        badRewards.add(Pickaxes.pickaxeI);
-        badRewards.add(Items.uranium);
+        badRewards.add(Pickaxes.pickaxeII);
 
         normalRewards.add(CardPacks.cardPackNormal);
         normalRewards.add(Scrolls.scrollOfLesserIntelligence);
-        normalRewards.add(Pickaxes.pickaxeII);
+        normalRewards.add(Items.redGem);
+        normalRewards.add(Items.greenGem);
 
-        goodRewards.add(Items.redGem);
-        goodRewards.add(Items.greenGem);
         goodRewards.add(Scrolls.scrollOfCombining);
         goodRewards.add(Pickaxes.pickaxeIV);
+        goodRewards.add(Items.purpleGem);
+        goodRewards.add(Items.blueGem);
 
         greatRewards.add(Items.toolBox);
         greatRewards.add(CardPacks.cardPackGood);
-        greatRewards.add(Items.purpleGem);
-        greatRewards.add(Items.blueGem);
         greatRewards.add(Pickaxes.pickaxeV);
 
         amazingRewards.add(Items.emerald);
