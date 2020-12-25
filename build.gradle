@@ -1,0 +1,80 @@
+plugins {
+    id "java"
+    id "application"
+}
+
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
+    gradleVersion = '6.6.1'
+}
+
+group 'cz.tefek'
+version '350.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_15
+    targetCompatibility = JavaVersion.VERSION_15
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "src/main/java"
+            srcDir "src/uss/java"
+            srcDir "src/framework/java"
+            srcDir "src/data/java"
+            srcDir "src/gamelogic/java"
+            srcDir "src/commands/java"
+        }
+
+        resources {
+            srcDir "src/main/resources"
+            srcDir "src/uss/resources"
+            srcDir "src/framework/resources"
+            srcDir "src/data/resources"
+            srcDir "src/gamelogic/resources"
+            srcDir "src/commands/resources"
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+mainClassName = "cz.tefek.botdiril.BotMain"
+
+dependencies {
+    implementation group: 'org.jetbrains', name: 'annotations', version: '20.1.0'
+
+    implementation group: 'com.mchange', name: 'c3p0', version: '0.9.5.5'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.2'
+
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.8.0-beta4'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.8.0-beta4'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.14.0'
+
+    //TODO: Remove this dependency
+    implementation group: 'org.json', name: 'json', version: '20201115'
+
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+    implementation group: 'com.google.guava', name: 'guava', version: '30.0-jre'
+
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+    implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9'
+    implementation group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
+
+    implementation group: 'net.dv8tion', name: 'JDA', version: '4.2.0_223'
+
+    implementation group: 'cz.tefek', name: 'plutolib', version: '20.2.0.0-alpha.2'
+}

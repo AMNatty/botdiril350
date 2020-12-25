@@ -1,0 +1,30 @@
+package cz.tefek.botdiril.command.debug;
+
+import net.dv8tion.jda.api.EmbedBuilder;
+
+import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.Command;
+import cz.tefek.botdiril.framework.command.CommandCategory;
+import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
+
+@Command(aliases = { "heap",
+        "ram" }, category = CommandCategory.SUPERUSER, description = "Shows some memory information.", value = "memory")
+public class CommandRAM
+{
+    @CmdInvoke
+    public static void print(CallObj co)
+    {
+        var eb = new EmbedBuilder();
+        eb.setAuthor("Botdiril Debug Commands", null, co.bot.getEffectiveAvatarUrl());
+        eb.setTitle("Memory information.");
+        eb.setColor(0x008080);
+
+        var rt = Runtime.getRuntime();
+
+        eb.addField("Maximum memory", rt.maxMemory() / 1000000 + " MB", false);
+        eb.addField("Used memory", rt.totalMemory() / 1000000 + " MB", false);
+        eb.addField("Free memory", rt.freeMemory() / 1000000 + " MB", false);
+
+        co.respond(eb.build());
+    }
+}

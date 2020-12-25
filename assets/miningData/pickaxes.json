@@ -1,0 +1,162 @@
+[
+    {
+        "roman_numeral": "I",
+        "tier": 0,
+        "mini_tier": 1,
+        "budget": 50,
+        "multiplier": 1.1,
+        "break_chance": 0.0
+    },
+    {
+        "roman_numeral": "II",
+        "tier": 0,
+        "mini_tier": 2,
+        "budget": 150,
+        "multiplier": 1.2,
+        "break_chance": 0.1
+    },
+    {
+        "roman_numeral": "III",
+        "tier": 0,
+        "mini_tier": 3,
+        "budget": 250,
+        "multiplier": 1.3,
+        "break_chance": 0.15
+    },
+    {
+        "roman_numeral": "IV",
+        "tier": 0,
+        "mini_tier": 4,
+        "budget": 400,
+        "multiplier": 1.4,
+        "break_chance": 0.20
+    },
+    {
+        "roman_numeral": "V",
+        "tier": 1,
+        "mini_tier": 0,
+        "budget": 800,
+        "multiplier": 2.0,
+        "break_chance": 0.025
+    },
+    {
+        "roman_numeral": "VI",
+        "tier": 1,
+        "mini_tier": 1,
+        "budget": 2000,
+        "multiplier": 2.1,
+        "break_chance": 0.075
+    },
+    {
+        "roman_numeral": "VII",
+        "tier": 1,
+        "mini_tier": 2,
+        "budget": 5000,
+        "multiplier": 2.2,
+        "break_chance": 0.125
+    },
+    {
+        "roman_numeral": "VIII",
+        "tier": 1,
+        "mini_tier": 3,
+        "budget": 12000,
+        "multiplier": 2.3,
+        "break_chance": 0.175
+    },
+    {
+        "roman_numeral": "IX",
+        "tier": 1,
+        "mini_tier": 4,
+        "budget": 30000,
+        "multiplier": 2.4,
+        "break_chance": 0.225
+    },
+    {
+        "roman_numeral": "X",
+        "tier": 2,
+        "mini_tier": 0,
+        "budget": 56000,
+        "multiplier": 3.0,
+        "break_chance": 0.05
+    },
+    {
+        "roman_numeral": "XI",
+        "tier": 2,
+        "mini_tier": 1,
+        "budget": 112000,
+        "multiplier": 3.1,
+        "break_chance": 0.10
+    },
+    {
+        "roman_numeral": "XII",
+        "tier": 2,
+        "mini_tier": 2,
+        "budget": 220000,
+        "multiplier": 3.2,
+        "break_chance": 0.15
+    },
+    {
+        "roman_numeral": "XIII",
+        "tier": 2,
+        "mini_tier": 3,
+        "budget": 480000,
+        "multiplier": 3.3,
+        "break_chance": 0.20
+    },
+    {
+        "roman_numeral": "XIV",
+        "tier": 2,
+        "mini_tier": 4,
+        "budget": 1000000,
+        "multiplier": 3.4,
+        "break_chance": 0.25
+    },
+    {
+        "roman_numeral": "XV",
+        "tier": 3,
+        "mini_tier": 0,
+        "budget": 2000000,
+        "multiplier": 4.0,
+        "break_chance": 0.075
+    },
+    {
+        "roman_numeral": "XVI",
+        "tier": 3,
+        "mini_tier": 1,
+        "budget": 5000000,
+        "multiplier": 4.1,
+        "break_chance": 0.15
+    },
+    {
+        "roman_numeral": "XVII",
+        "tier": 3,
+        "mini_tier": 2,
+        "budget": 12500000,
+        "multiplier": 4.2,
+        "break_chance": 0.20
+    },
+    {
+        "roman_numeral": "XVIII",
+        "tier": 3,
+        "mini_tier": 3,
+        "budget": 28000000,
+        "multiplier": 4.3,
+        "break_chance": 0.25
+    },
+    {
+        "roman_numeral": "XIX",
+        "tier": 3,
+        "mini_tier": 4,
+        "budget": 50000000,
+        "multiplier": 4.4,
+        "break_chance": 0.30
+    },
+    {
+        "roman_numeral": "XX",
+        "tier": 4,
+        "mini_tier": 0,
+        "budget": 100000000,
+        "multiplier": 5.0,
+        "break_chance": 0.50
+    }
+]

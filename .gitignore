@@ -1,0 +1,13 @@
+/.settings
+/logs/
+/build/
+/output/
+/target/
+/settings.json
+/.project
+/.classpath
+/.gradle/
+/*.log
+/.idea
+/*.iml
+/uss_data
