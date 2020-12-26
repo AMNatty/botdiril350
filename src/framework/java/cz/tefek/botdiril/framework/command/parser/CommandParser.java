@@ -123,7 +123,12 @@ public class CommandParser
             catch (CommandException e)
             {
                 co.db.rollback();
-                co.respond(e.getMessage());
+
+                if (e.isEmbedded())
+                    co.respond(e.getEmbed());
+                else
+                    co.respond(e.getMessage());
+
                 return false;
             }
             catch (DBException e)

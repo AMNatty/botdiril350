@@ -21,7 +21,6 @@ public class CardPacks
 
         cardPackNormal = new ItemCardPackSimple("cardpack", Icons.CARDPACK_NORMAL, "Card Pack",
             CardPools.basicToLimited, 8, "Contains a variety of cards ranging from basic and common to mythical and limited cards.");
-        ShopEntries.addCoinBuy(cardPackNormal, 1_000_000);
 
         cardPackGood = new ItemCardPackSimple("goodcardpack", Icons.CARDPACK_GOOD, "Good Card Pack",
             CardPools.rareOrBetter, 8, "For the true collectors, drops legacy/rare cards or better.");

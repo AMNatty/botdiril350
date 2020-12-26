@@ -16,6 +16,7 @@ import cz.tefek.botdiril.userdata.card.Cards;
 import cz.tefek.botdiril.userdata.items.Items;
 import cz.tefek.botdiril.userdata.metrics.UserMetrics;
 import cz.tefek.botdiril.userdata.properties.PropertyObject;
+import cz.tefek.botdiril.userdata.timers.EnumTimer;
 import cz.tefek.botdiril.userdata.xp.XPRewards;
 import cz.tefek.botdiril.util.BotdirilLog;
 
@@ -61,7 +62,9 @@ public class BotMain
 
                 Cards.load();
 
-                Achievements.load();
+                Class.forName(EnumTimer.class.getName());
+
+                Class.forName(Achievements.class.getName());
 
                 XPRewards.populate();
 

@@ -24,7 +24,6 @@ public class MineAPI
 
     private static void generateMinerals(ItemDrops drops, double pickaxeBudget)
     {
-
         for (var mineral : minerals)
         {
             double sellVal = ShopEntries.getSellValue(mineral);
@@ -122,7 +121,7 @@ public class MineAPI
 
         loot.addItem(Items.timewarpCrystal, BotdirilRnd.RDG.nextPoisson(0.02 + 0.01 * rareDropMultiplier));
         loot.addItem(Items.keys, BotdirilRnd.RDG.nextPoisson(0.03));
-        loot.addItem(Items.strangeMetal, BotdirilRnd.RDG.nextPoisson(0.05 + 0.02 * rareDropMultiplier));
+        loot.addItem(Items.strangeMetal, BotdirilRnd.RDG.nextPoisson(0.1 + 0.015 * rareDropMultiplier));
         loot.addItem(Items.oil, BotdirilRnd.RDG.nextPoisson(0.027));
         loot.addItem(Items.goldenOil, BotdirilRnd.RDG.nextPoisson(0.003));
         loot.addItem(Scrolls.scrollOfLesserIntelligence, BotdirilRnd.RDG.nextPoisson(0.05 * rareDropMultiplier));

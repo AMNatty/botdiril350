@@ -7,8 +7,10 @@ import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 
-@Command(aliases = { "heap",
-        "ram" }, category = CommandCategory.SUPERUSER, description = "Shows some memory information.", value = "memory")
+@Command(value = "memory",
+    aliases = { "heap", "ram" },
+    category = CommandCategory.SUPERUSER,
+    description = "Shows some memory information.")
 public class CommandRAM
 {
     @CmdInvoke

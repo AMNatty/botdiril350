@@ -21,9 +21,7 @@ public class Cards
         {
             var jobj = new JSONObject(new JSONTokener(br));
 
-            CardSet.league = new CardSet(jobj.getString("set"), jobj.getString("setName"), jobj.getString("idPrefix"));
-            CardSet.league.setDrops(true);
-            CardSet.league.setDescription(jobj.getString("description"));
+            CardSet.league = new CardSet(jobj.getString("set"), jobj.getString("setName"), jobj.getString("idPrefix"), true, jobj.getString("description"));
 
             jobj.getJSONArray("items").forEach(ch ->
             {
@@ -38,9 +36,9 @@ public class Cards
 
                     var rarity = jchi.getEnum(EnumCardRarity.class, "rarity");
                     var cc = new Card(CardSet.league, rarity, jchi.getString("id"), jchi.getString("name"));
-                    ShopEntries.addCoinSell(cc, rarity.getBasePrice());
-                    ShopEntries.addDisenchant(cc, rarity.getBasePrice() * 100);
-                    CraftingEntries.add(new Recipe(List.of(ItemPair.of(Items.dust, rarity.getBasePrice() * 3 * 100)), 1, cc));
+                    var dustValue = rarity.getBasePrice();
+                    ShopEntries.addDisenchant(cc, dustValue);
+                    CraftingEntries.add(new Recipe(List.of(ItemPair.of(Items.dust, dustValue * 10)), 1, cc));
                     cc.setCollection(collID);
                     cc.setCollectionName(collName);
                 });
@@ -51,6 +49,7 @@ public class Cards
             throw new MajorFailureException("League of Legends skin data not found or malformed! Aborting.", e);
         }
 
+        /*
         try (var br = new FileReader("assets/cardSets/csgo-g.json"))
         {
             var jobj = new JSONObject(new JSONTokener(br));
@@ -75,7 +74,6 @@ public class Cards
             throw new MajorFailureException("CS:GO skin data not found or malformed! Aborting.", e);
         }
 
-        /*
         try (var br = new FileReader("assets/cardSets/terraria-g.json"))
         {
             var jobj = new JSONObject(new JSONTokener(br));

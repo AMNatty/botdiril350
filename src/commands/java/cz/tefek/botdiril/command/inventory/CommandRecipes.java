@@ -13,6 +13,7 @@ import cz.tefek.botdiril.framework.command.invoke.CmdPar;
 import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.userdata.card.Card;
 import cz.tefek.botdiril.userdata.item.CraftingEntries;
+import cz.tefek.botdiril.userdata.item.Item;
 import cz.tefek.botdiril.userdata.item.Recipe;
 import cz.tefek.botdiril.userdata.item.ShopEntries;
 import cz.tefek.botdiril.util.BotdirilFmt;
@@ -34,17 +35,17 @@ public class CommandRecipes
             return Integer.MIN_VALUE;
         }
 
-        if (!ShopEntries.canBeBought(i2.getResult()) && !ShopEntries.canBeBought(i1.getResult()))
+        if (!ShopEntries.canBeBought((Item) i2.getResult()) && !ShopEntries.canBeBought((Item) i1.getResult()))
         {
             return Integer.MIN_VALUE + 1;
         }
 
-        if (!ShopEntries.canBeBought(i2.getResult()))
+        if (!ShopEntries.canBeBought((Item) i2.getResult()))
         {
             return Integer.MIN_VALUE + 1;
         }
 
-        if (!ShopEntries.canBeBought(i1.getResult()))
+        if (!ShopEntries.canBeBought((Item) i1.getResult()))
         {
             return Integer.MAX_VALUE - 1;
         }

@@ -9,6 +9,7 @@ import cz.tefek.botdiril.framework.sql.DBConnection;
 import cz.tefek.botdiril.framework.sql.SqlFoundation;
 import cz.tefek.botdiril.userdata.achievement.Achievement;
 import cz.tefek.botdiril.userdata.card.Card;
+import cz.tefek.botdiril.userdata.card.EnumCardModifier;
 import cz.tefek.botdiril.userdata.item.Item;
 import cz.tefek.botdiril.userdata.item.ItemCurrency;
 import cz.tefek.botdiril.userdata.item.ItemDrops;
@@ -290,7 +291,6 @@ public class UserInventory
             };
         }
 
-
         return this.db.getValueOr("SELECT it_amount FROM " + TABLE_INVENTORY + " WHERE fk_us_id=? AND fk_il_id=?",
             "it_amount", Long.class, 0L, this.fkid, item.getID());
     }
@@ -472,9 +472,9 @@ public class UserInventory
 
     public void addXP(CallObj co, long xp)
     {
-        this.addXP(xp);
+        var preAddXP = this.getXP();
+        var currentXP = preAddXP + xp;
 
-        var currentXP = this.getXP();
         var lvl = this.getLevel();
         var i = lvl;
         var xpSum = XPRewards.getXPAtLevel(i);
@@ -540,6 +540,47 @@ public class UserInventory
 
             return null;
         }, this.fkid, item.getID());
+    }
+
+    public void addCardXP(CallObj co, Card card, long xp)
+    {
+        var preAddXP = this.getCardXP(card);
+        var currentXP = preAddXP + xp;
+        var lvl = this.getCardLevel(card);
+
+        var maxTier = EnumCardModifier.getMaxLevel();
+        var maxLevel = maxTier.getLevel();
+
+        var newLevel = lvl;
+
+        var tier = EnumCardModifier.getByLevel(newLevel);
+        assert tier != null;
+        var xpSum = tier.getXPForLevelUp();
+        var consumedXP = 0L;
+
+        while (xpSum <= currentXP)
+        {
+            consumedXP = xpSum;
+
+            if (++newLevel >= maxLevel)
+            {
+                newLevel = maxLevel;
+                break;
+            }
+
+            tier = EnumCardModifier.getByLevel(newLevel);
+            assert tier != null;
+            xpSum += tier.getXPForLevelUp();
+        }
+
+        var newXP = currentXP - consumedXP;
+
+        this.db.simpleUpdate("UPDATE " + TABLE_CARDS + " SET cr_xp=?, cr_level=? WHERE fk_us_id=? AND fk_il_id=?", newXP, newLevel, this.fkid, card.getID());
+
+        if (newLevel > lvl)
+        {
+            co.respond(String.format("*Your **%s** advanced to **level %d**: **%s**!*", card.inlineDescription(), newLevel, tier.getLocalizedName()));
+        }
     }
 
     public void addItem(Item item)

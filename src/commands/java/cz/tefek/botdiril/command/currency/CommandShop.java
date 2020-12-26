@@ -8,8 +8,6 @@ import cz.tefek.botdiril.framework.command.CallObj;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
-import cz.tefek.botdiril.userdata.IIdentifiable;
-import cz.tefek.botdiril.userdata.card.Card;
 import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.userdata.item.Item;
 import cz.tefek.botdiril.userdata.item.ShopEntries;
@@ -32,17 +30,12 @@ public class CommandShop
             .sorted(Comparator.comparing(ShopEntries::getCoinPrice))
             .forEach(item -> addItems(eb, item));
 
-        Card.cards().stream()
-            .filter(ShopEntries::canBeBought)
-            .sorted(Comparator.comparing(ShopEntries::getCoinPrice))
-            .forEach(card -> addItems(eb, card));
-
         eb.setFooter("Tip: Use `%sbuy <item> [amount]`, `%ssell <item> [amount]` or `%siteminfo <item>`.".replace("%s", co.usedPrefix), null);
 
         co.respond(eb.build());
     }
 
-    private static void addItems(EmbedBuilder eb, IIdentifiable item)
+    private static void addItems(EmbedBuilder eb, Item item)
     {
         StringBuilder sub = new StringBuilder();
 

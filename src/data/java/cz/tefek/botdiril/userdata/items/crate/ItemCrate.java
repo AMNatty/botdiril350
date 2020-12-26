@@ -7,7 +7,7 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 
 public abstract class ItemCrate extends Item implements IOpenable
 {
-    public static int DISPLAY_LIMIT = 20;
+    public static final int DISPLAY_LIMIT = 20;
 
     public ItemCrate(String name, String icon, String localizedName, String description)
     {

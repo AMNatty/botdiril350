@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.Comparator;
+import java.util.Locale;
 
 import cz.tefek.botdiril.framework.command.CallObj;
 import cz.tefek.botdiril.framework.command.Command;
@@ -71,7 +72,7 @@ public class CommandMyCards
             .skip((page - 1) * CARDS_PER_PAGE).limit(CARDS_PER_PAGE)
             .forEach(ip ->  eb.addField(ip.getCard().inlineDescription(), String.format("Count: **%d**\nID: **%s**", ip.getAmount(), ip.getCard().getName()), true));
 
-        eb.setFooter("Use `" + co.usedPrefix + co.usedAlias + " " + user.getIdLong() + " <page>` to go to another page.", null);
+        eb.setFooter(String.format(Locale.ROOT, "Use `%s%s %d <page>` to go to another page.", co.usedPrefix, co.usedAlias, user.getIdLong()), null);
 
         co.respond(eb.build());
     }

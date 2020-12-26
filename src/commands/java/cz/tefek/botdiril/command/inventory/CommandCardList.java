@@ -40,7 +40,7 @@ public class CommandCardList
         eb.setColor(0x008080);
         eb.setDescription(String.format("**Page %d/%d**\nUse `%s%s <page>` to browse.", page, pages, co.usedPrefix, co.usedAlias));
 
-        items.stream().skip(itemsPerPage * (page - 1)).limit(itemsPerPage).forEach(it ->
+        items.stream().sorted(Comparator.comparing(Card::getLocalizedName)).skip(itemsPerPage * (page - 1)).limit(itemsPerPage).forEach(it ->
             eb.addField(it.inlineDescription(), "**ID: **" + it.getName(), true));
 
         eb.setFooter("Use `" + co.usedPrefix + "cardinfo <card id>` to show more information about a card.", null);

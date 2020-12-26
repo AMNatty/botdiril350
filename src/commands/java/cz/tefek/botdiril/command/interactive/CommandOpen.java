@@ -5,6 +5,7 @@ import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 import cz.tefek.botdiril.framework.command.invoke.CmdPar;
+import cz.tefek.botdiril.framework.command.invoke.ParType;
 import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.userdata.item.IOpenable;
 import cz.tefek.botdiril.userdata.icon.Icons;
@@ -24,7 +25,7 @@ public class CommandOpen
     }
 
     @CmdInvoke
-    public static void open(CallObj co, @CmdPar("what to open") Item item, @CmdPar("how many to open") long amount)
+    public static void open(CallObj co, @CmdPar("what to open") Item item, @CmdPar(value = "how many to open", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
         CommandAssert.assertTrue(item instanceof IOpenable, "This item cannot be opened.");
 

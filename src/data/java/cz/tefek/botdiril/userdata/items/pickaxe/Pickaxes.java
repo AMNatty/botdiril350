@@ -8,7 +8,6 @@ import java.util.List;
 import cz.tefek.botdiril.MajorFailureException;
 import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.userdata.item.*;
-import cz.tefek.botdiril.userdata.item.Recipe;
 import cz.tefek.botdiril.userdata.items.Items;
 import cz.tefek.botdiril.util.BotdirilFmt;
 

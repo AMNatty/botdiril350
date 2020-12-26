@@ -8,6 +8,8 @@ import cz.tefek.botdiril.framework.command.invoke.CmdPar;
 import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.userdata.item.Item;
+import cz.tefek.botdiril.userdata.item.ItemAssert;
+import cz.tefek.botdiril.userdata.item.ItemPair;
 import cz.tefek.botdiril.userdata.items.pickaxe.ItemPickaxe;
 import cz.tefek.botdiril.userdata.items.Items;
 
@@ -30,13 +32,8 @@ public class CommandSmith
 
         CommandAssert.assertNotNull(prevPick, "That pickaxe cannot be smithed.");
 
-        CommandAssert.numberMoreThanZeroL(co.ui.howManyOf(Items.strangeMetal), String.format("**You need %s to do this.**.", Items.strangeMetal.inlineDescription()));
+        ItemAssert.consumeItems(co.ui, "smith this pickaxe", ItemPair.of(Items.strangeMetal), ItemPair.of(prevPick, SMITH_CONVERSION));
 
-        var prevCount = co.ui.howManyOf(prevPick);
-        CommandAssert.numberNotBelowL(prevCount, SMITH_CONVERSION, String.format("**You need %d more %s to do this.**.", SMITH_CONVERSION - prevCount, prevPick.inlineDescription()));
-
-        co.ui.addItem(Items.strangeMetal, -1);
-        co.ui.addItem(prevPick, -SMITH_CONVERSION);
         co.ui.addItem(pick, 1);
 
         co.respond(String.format("You crafted **a %s** from **%d %s** and **one %s**",

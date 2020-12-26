@@ -8,8 +8,6 @@ import cz.tefek.botdiril.framework.command.invoke.CmdPar;
 import cz.tefek.botdiril.framework.command.invoke.CommandException;
 import cz.tefek.botdiril.framework.command.invoke.ParType;
 import cz.tefek.botdiril.framework.util.CommandAssert;
-import cz.tefek.botdiril.userdata.IIdentifiable;
-import cz.tefek.botdiril.userdata.card.Card;
 import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.userdata.item.Item;
 import cz.tefek.botdiril.userdata.item.ShopEntries;
@@ -20,36 +18,29 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 public class CommandExchange
 {
     @CmdInvoke
-    public static void buy(CallObj co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
+    public static void buy(CallObj co, @CmdPar(value = "item", type = ParType.ITEM_OR_CARD) Item item)
     {
         if (!ShopEntries.canBeBoughtForTokens(item))
         {
-            throw new CommandException("That item / card cannot be bought, sorry.");
+            throw new CommandException("That item cannot be bought, sorry.");
         }
 
         if (ShopEntries.getTokenPrice(item) > co.ui.getKekTokens())
         {
-            throw new CommandException("You can't afford that item / card, sorry.");
+            throw new CommandException("You can't afford that item, sorry.");
         }
 
         buy(co, item, 1);
     }
 
     @CmdInvoke
-    public static void buy(CallObj co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD_BUY_TOKENS) long amount)
+    public static void buy(CallObj co, @CmdPar(value = "item") Item item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_BUY_TOKENS) long amount)
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't buy zero items.");
 
         var price = amount * ShopEntries.getTokenPrice(item);
 
-        if (item instanceof Item)
-        {
-            co.ui.addItem((Item) item, amount);
-        }
-        else if (item instanceof Card)
-        {
-            co.ui.addCard((Card) item, amount);
-        }
+        co.ui.addItem(item, amount);
 
         co.ui.addKekTokens(-price);
 

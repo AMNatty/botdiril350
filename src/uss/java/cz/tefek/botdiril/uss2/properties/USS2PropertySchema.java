@@ -10,8 +10,8 @@ import cz.tefek.botdiril.util.BotdirilLog;
 
 public abstract class USS2PropertySchema
 {
-    public static int DOES_NOT_EXIST_IN_VERSION = -1;
-    public static int MAX_VERSION = 0xff;
+    public static final int DOES_NOT_EXIST_IN_VERSION = -1;
+    public static final int MAX_VERSION = 0xff;
 
     private final List<USS2Property> properties;
 
@@ -117,7 +117,7 @@ public abstract class USS2PropertySchema
         return ussByte;
     }
 
-    public abstract class USS2Property
+    public static abstract class USS2Property
     {
         private final int version;
         private final int objectSize;
@@ -141,7 +141,7 @@ public abstract class USS2PropertySchema
         }
     }
 
-    public final class USS2Int extends USS2Property
+    public static final class USS2Int extends USS2Property
     {
         private USS2Int(int version)
         {
@@ -165,7 +165,7 @@ public abstract class USS2PropertySchema
         }
     }
 
-    public final class USS2Long extends USS2Property
+    public static final class USS2Long extends USS2Property
     {
         private USS2Long(int version)
         {
@@ -189,7 +189,7 @@ public abstract class USS2PropertySchema
         }
     }
 
-    public final class USS2Double extends USS2Property
+    public static final class USS2Double extends USS2Property
     {
         private USS2Double(int version)
         {
@@ -213,7 +213,7 @@ public abstract class USS2PropertySchema
         }
     }
 
-    public final class USS2Byte extends USS2Property
+    public static final class USS2Byte extends USS2Property
     {
         public USS2Byte(int version)
         {
@@ -237,7 +237,7 @@ public abstract class USS2PropertySchema
         }
     }
 
-    public final class USS2String extends USS2Property
+    public static final class USS2String extends USS2Property
     {
         private USS2String(int version, int length)
         {

@@ -15,12 +15,12 @@ public class ShopEntries
 
     // ADDING
 
-    public static void addCoinBuy(IIdentifiable item, long amount)
+    public static void addCoinBuy(Item item, long amount)
     {
         buysCoins.put(item.getID(), amount);
     }
 
-    public static void addCoinSell(IIdentifiable item, long amount)
+    public static void addCoinSell(Item item, long amount)
     {
         sellsCoins.put(item.getID(), amount);
     }
@@ -37,9 +37,14 @@ public class ShopEntries
 
     // CHECKING
 
-    public static boolean canBeBought(IIdentifiable item)
+    public static boolean canBeBought(Item item)
     {
         return buysCoins.containsKey(item.getID());
+    }
+
+    public static boolean canBeSold(Item item)
+    {
+        return sellsCoins.containsKey(item.getID());
     }
 
     public static boolean canBeBoughtForTokens(IIdentifiable item)
@@ -50,11 +55,6 @@ public class ShopEntries
     public static boolean canBeDisenchanted(IIdentifiable item)
     {
         return yieldsDust.containsKey(item.getID());
-    }
-
-    public static boolean canBeSold(IIdentifiable item)
-    {
-        return sellsCoins.containsKey(item.getID());
     }
 
     // REMOVING

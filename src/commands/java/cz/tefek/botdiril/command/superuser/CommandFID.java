@@ -21,6 +21,7 @@ public class CommandFID
     @CmdInvoke
     public static void show(CallObj co, @CmdPar("user") User user)
     {
-        co.respond("%s's FID: **%d**".formatted(user.getAsMention(), new UserInventory(co.db, user.getIdLong()).getFID()));
+        var tgtUI = new UserInventory(co.db, user.getIdLong());
+        co.respond("%s's FID: **%d**".formatted(user.getAsMention(), tgtUI.getFID()));
     }
 }

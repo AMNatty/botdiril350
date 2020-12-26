@@ -44,11 +44,11 @@ public class CommandParserTypeHandler
 
         if (prevArg instanceof Card)
         {
-            return CommandAssert.parseAmount(arg, co.ui.howManyOf((Card) prevArg), "Amount could not be parsed, you can either use absolute numbers (0, 1, 2, 3, ...), percent (65%) or everything/half");
+            return CommandAssert.parseAmount(arg, co.ui.howManyOf((Card) prevArg), "Amount could not be parsed, you can either use absolute numbers (0, 1, 2, 3, ...), percent (65%) or everything/half.");
         }
         else if (prevArg instanceof Item)
         {
-            return CommandAssert.parseAmount(arg, co.ui.howManyOf((Item) prevArg), "Amount could not be parsed, you can either use absolute numbers (0, 1, 2, 3, ...), percent (65%) or everything/half");
+            return CommandAssert.parseAmount(arg, co.ui.howManyOf((Item) prevArg), "Amount could not be parsed, you can either use absolute numbers (0, 1, 2, 3, ...), percent (65%) or everything/half.");
         }
 
         throw new CommandException("Internal error. Please contact an administrator. Code: **PREV_PARAM_NEITHER_CARD_OR_ITEM**");
@@ -61,23 +61,23 @@ public class CommandParserTypeHandler
 
         var prevArg = argArr[i - 1];
 
-        if (!(prevArg instanceof IIdentifiable))
+        if (!(prevArg instanceof Item))
             throw new CommandException("Internal error. Please contact an administrator. Code: **NO_PREV_PARAM_NOT_ITEM**");
 
-        var item = (IIdentifiable) argArr[i - 1];
+        var item = (Item) argArr[i - 1];
 
         return switch (type)
         {
-            case AMOUNT_ITEM_OR_CARD_BUY_COINS -> {
+            case AMOUNT_ITEM_BUY_COINS -> {
                 if (!ShopEntries.canBeBought(item))
-                    throw new CommandException("That item / card cannot be bought.");
+                    throw new CommandException("That item cannot be bought.");
 
                 yield CommandAssert.parseBuy(arg, ShopEntries.getCoinPrice(item), co.ui.getCoins(), "Could not parse the amount you are trying to buy.");
             }
 
-            case AMOUNT_ITEM_OR_CARD_BUY_TOKENS -> {
+            case AMOUNT_ITEM_BUY_TOKENS -> {
                 if (!ShopEntries.canBeBoughtForTokens(item))
-                    throw new CommandException("That item / card cannot be bought.");
+                    throw new CommandException("That item cannot be bought.");
 
                 yield CommandAssert.parseBuy(arg, ShopEntries.getTokenPrice(item), co.ui.getKekTokens(), "Could not parse the amount you are trying to buy.");
             }
@@ -109,7 +109,7 @@ public class CommandParserTypeHandler
                 case AMOUNT_ITEM_OR_CARD ->
                     parseAmount(co, argArr, i, arg);
 
-                case AMOUNT_ITEM_OR_CARD_BUY_COINS, AMOUNT_ITEM_OR_CARD_BUY_TOKENS ->
+                case AMOUNT_ITEM_BUY_COINS, AMOUNT_ITEM_BUY_TOKENS ->
                     parseAmountBuy(co, argArr, type, i, arg);
 
                 default -> throw new CommandException("Internal error. Please contact an administrator. Code: **UNEXPECTED_PAR_TYPE**");

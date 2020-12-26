@@ -97,22 +97,28 @@ public class CommandSell
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't sell zero items / cards.");
 
-        if (!ShopEntries.canBeSold(item))
-        {
-            throw new CommandException("That item / card cannot be sold.");
-        }
-
         if (item instanceof Item)
         {
-            CommandAssert.numberNotAboveL(amount, co.ui.howManyOf((Item) item), "You don't have that many items of that type.");
-            co.ui.addItem((Item) item, -amount);
+            var iitem = (Item) item;
+
+            if (!ShopEntries.canBeSold(iitem))
+            {
+                throw new CommandException("That item / card cannot be sold.");
+            }
+
+            CommandAssert.numberNotAboveL(amount, co.ui.howManyOf(iitem), "You don't have that many items of that type.");
+            co.ui.addItem(iitem, -amount);
+
+            sellRoutine(co, item.inlineDescription(), amount, amount * ShopEntries.getSellValue(item));
         }
         else if (item instanceof Card)
         {
-            CommandAssert.numberNotAboveL(amount, co.ui.howManyOf((Card) item), "You don't have that many items of that type.");
-            co.ui.addCard((Card) item, -amount);
-        }
+            var card = (Card) item;
+            CommandAssert.numberNotAboveL(amount, co.ui.howManyOf(card) - 1, "You don't have that many cards of that type. Keep in mind you need to keep at least one card of each type once you receive it.");
+            co.ui.addCard(card, -amount);
+            var cardLevel = co.ui.getCardLevel(card);
 
-        sellRoutine(co, item.inlineDescription(), amount, amount * ShopEntries.getSellValue(item));
+            sellRoutine(co, item.inlineDescription(), amount, amount * Card.getPrice(card, cardLevel));
+        }
     }
 }

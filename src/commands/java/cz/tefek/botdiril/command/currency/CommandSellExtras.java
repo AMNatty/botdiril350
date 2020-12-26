@@ -6,11 +6,10 @@ import cz.tefek.botdiril.framework.command.CallObj;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
-import cz.tefek.botdiril.util.BotdirilLog;
 import cz.tefek.botdiril.userdata.UserInventory;
 import cz.tefek.botdiril.userdata.card.Card;
 import cz.tefek.botdiril.userdata.icon.Icons;
-import cz.tefek.botdiril.userdata.item.ShopEntries;
+import cz.tefek.botdiril.util.BotdirilLog;
 
 @Command(value = "sellextras", aliases = { "sellduplicates", "selldupes",
         "sd" }, category = CommandCategory.ITEMS, description = "Sells your duplicate cards.")
@@ -39,7 +38,8 @@ public class CommandSellExtras
 
                 var amountToSell = eq.getLong("cr_amount") - 1;
                 cards.addAndGet(amountToSell);
-                coins.addAndGet(ShopEntries.getSellValue(item) * amountToSell);
+                var cardLevel = eq.getInt("cr_level");
+                coins.addAndGet(Card.getPrice(item, cardLevel) * amountToSell);
             }
 
             return true;

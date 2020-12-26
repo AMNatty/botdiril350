@@ -10,15 +10,17 @@ public class CardSet
     private final String setLocalizedName;
     private final String setPrefix;
 
-    private boolean drops;
+    private final boolean drops;
 
-    private String description;
+    private final String description;
 
-    public CardSet(String collectionName, String collectionLocalizedName, String collectionPrefix)
+    public CardSet(String collectionName, String collectionLocalizedName, String collectionPrefix, boolean drops, String description)
     {
         this.setName = collectionName;
         this.setLocalizedName = collectionLocalizedName;
         this.setPrefix = collectionPrefix;
+        this.drops = drops;
+        this.description = description;
     }
 
     public boolean canDrop()
@@ -44,15 +46,5 @@ public class CardSet
     public String getSetPrefix()
     {
         return this.setPrefix;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
-    public void setDrops(boolean drops)
-    {
-        this.drops = drops;
     }
 }

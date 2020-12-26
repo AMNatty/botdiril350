@@ -74,11 +74,10 @@ public class Scrolls
         }, "Use to instantly gain **%s XP**.".formatted(BotdirilFmt.format(MAJOR_INTELLIGENCE_XP)));
         CraftingEntries.add(new Recipe(Arrays.asList(
             ItemPair.of(Scrolls.scrollOfLesserIntelligence, 20),
-            ItemPair.of(Items.dust, 1_000_000_000),
             ItemPair.of(Scrolls.scrollOfCombining, 50),
             ItemPair.of(Items.blueGem, 25),
-            ItemPair.of(Items.rainbowGem, 5),
-            ItemPair.of(Items.strangeMetal, 1)),
+            ItemPair.of(Items.rainbowGem, 10),
+            ItemPair.of(Items.strangeMetal, 3)),
             1, scrollOfIntelligenceMajor));
 
         scrollOfIntelligenceII = new ItemScroll("scrollofintelligenceii", Icons.SCROLL_UNIQUE, "Scroll of Intelligence II", (co, amount) -> {

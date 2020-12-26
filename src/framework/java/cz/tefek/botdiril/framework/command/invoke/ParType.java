@@ -21,7 +21,7 @@ public enum ParType
     /** Long.class/long.class only, the previous parameter must be ITEM or CARD */
     AMOUNT_ITEM_OR_CARD,
     /** Long.class/long.class only, the previous parameter must be ITEM */
-    AMOUNT_ITEM_OR_CARD_BUY_COINS,
+    AMOUNT_ITEM_BUY_COINS,
     /** Long.class/long.class only, the previous parameter must be ITEM */
-    AMOUNT_ITEM_OR_CARD_BUY_TOKENS
+    AMOUNT_ITEM_BUY_TOKENS
 }

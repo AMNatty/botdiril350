@@ -117,7 +117,7 @@ public class ItemLookup
 
         try
         {
-            return mappings.get("name");
+            return mappings.get(name);
         }
         catch (NullPointerException e)
         {

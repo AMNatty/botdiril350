@@ -11,7 +11,8 @@ public enum EnumTimer
     DRAW("draw", "Draw", TimeUnit.MINUTES.toMillis(6)),
     STEAL("steal", "Steal / Nuke", TimeUnit.HOURS.toMillis(1)),
     PAYOUT("payout", "Payout", TimeUnit.MINUTES.toMillis(1)),
-    GAMBLE_XP("gamblexp", "Gambling XP", TimeUnit.SECONDS.toMillis(75));
+    GAMBLE_XP("gamblexp", "Gambling XP", TimeUnit.SECONDS.toMillis(75)),
+    TRAIN("cardtrain", "Card Training", TimeUnit.SECONDS.toMillis(30));
 
     private final int id;
     private final String name;
