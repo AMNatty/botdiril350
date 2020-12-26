@@ -476,8 +476,9 @@ public class UserInventory
         var currentXP = preAddXP + xp;
 
         var lvl = this.getLevel();
-        var i = lvl;
-        var xpSum = XPRewards.getXPAtLevel(i);
+        var newLevel = lvl;
+        var xpSum = XPRewards.getXPAtLevel(newLevel);
+        var consumedXP = 0L;
 
         var rewards = new ItemDrops();
 
@@ -485,35 +486,39 @@ public class UserInventory
 
         while (xpSum <= currentXP)
         {
-            if (++i >= maxLevel)
+            consumedXP = xpSum;
+
+            if (++newLevel >= maxLevel)
             {
                 this.setXP(0);
-                i = maxLevel;
+                consumedXP = currentXP;
+                newLevel = maxLevel;
                 break;
             }
 
-            rewards.add(XPRewards.getRewardsForLvl(i));
+            rewards.add(XPRewards.getRewardsForLvl(newLevel));
 
-            xpSum += XPRewards.getXPAtLevel(i);
+            xpSum += XPRewards.getXPAtLevel(newLevel);
         }
 
-        if (i > lvl)
+        this.setXP(currentXP - consumedXP);
+
+        if (newLevel > lvl)
         {
-            this.setXP(currentXP - (xpSum - XPRewards.getXPAtLevel(i)));
             rewards.each(this::addItem);
-            this.setLevel(i);
+            this.setLevel(newLevel);
 
             var rw = rewards.stream().map(ip -> ip.getAmount() + "x " + ip.getItem().inlineDescription()).collect(Collectors.joining("\n"));
 
-            var cmds = CommandStorage.commandsInLevelRange(lvl, i);
+            var cmds = CommandStorage.commandsInLevelRange(lvl, newLevel);
 
             if (cmds.size() > 0)
             {
-                co.respond(String.format("***You advanced to level %d!***\n**Rewards:**\n%s\n**You unlocked the following commands:**\n%s", i, rw, cmds.stream().map(cmd -> '`' + cmd.value() + '`').collect(Collectors.joining("\n"))));
+                co.respond(String.format("***You advanced to level %d!***\n**Rewards:**\n%s\n**You unlocked the following commands:**\n%s", newLevel, rw, cmds.stream().map(cmd -> '`' + cmd.value() + '`').collect(Collectors.joining("\n"))));
             }
             else
             {
-                co.respond(String.format("***You advanced to level %d!***\n**Rewards:**\n%s", i, rw));
+                co.respond(String.format("***You advanced to level %d!***\n**Rewards:**\n%s", newLevel, rw));
             }
         }
     }
