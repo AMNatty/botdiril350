@@ -14,7 +14,7 @@ import cz.tefek.botdiril.framework.command.invoke.CommandException;
 import cz.tefek.botdiril.framework.util.CommandAssert;
 
 @Command(value = "help", aliases = {
-        "usage" }, category = CommandCategory.GENERAL, description = "General help command.")
+        "usage", "commands", "command" }, category = CommandCategory.GENERAL, description = "General help command.")
 public class CommandHelp
 {
     @CmdInvoke

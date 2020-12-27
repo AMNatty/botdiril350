@@ -13,7 +13,7 @@ import cz.tefek.botdiril.userdata.item.Item;
 import cz.tefek.botdiril.userdata.item.ShopEntries;
 import cz.tefek.botdiril.util.BotdirilFmt;
 
-@Command(value = "buy", aliases = { "b", "bi" }, category = CommandCategory.CURRENCY, description = "Buy items from the shop.", levelLock = 2)
+@Command(value = "buy", aliases = { "b", "bi" }, category = CommandCategory.CURRENCY, description = "Buy items from the shop.")
 public class CommandBuy
 {
     @CmdInvoke

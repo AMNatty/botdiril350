@@ -211,7 +211,7 @@ public class CommandAssert
             }
             else
             {
-                if (amountString.equalsIgnoreCase("all") || amountString.equalsIgnoreCase("everything"))
+                if (amountString.equalsIgnoreCase("all") || amountString.equalsIgnoreCase("everything") || amountString.equalsIgnoreCase("maxh"))
                 {
                     amount = base;
                 }

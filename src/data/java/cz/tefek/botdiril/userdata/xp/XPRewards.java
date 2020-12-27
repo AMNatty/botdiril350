@@ -94,7 +94,7 @@ public class XPRewards
             loot.addItem(Items.timewarpCrystal, 1);
 
         if (level % 30 == 0)
-            loot.addItem(Items.oil, 1 + level / 1000);
+            loot.addItem(Items.oil, 3 + level / 1000);
 
         if (level % 40 == 0)
             loot.addItem(Items.goldenOil, 1 + level / 2500);

@@ -101,7 +101,7 @@ public class Pickaxes
             throw new MajorFailureException("Pickaxe item data not found or malformed!", e);
         }
 
-        ShopEntries.addCoinBuy(pickaxeI, 500);
+        ShopEntries.addCoinBuy(pickaxeI, 150);
         CraftingEntries.add(new Recipe(List.of(ItemPair.of(Items.coal, 80)), 1, pickaxeI));
 
         CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeI, 3), ItemPair.of(Items.iron, 40)), 1, pickaxeII));

@@ -18,7 +18,7 @@ import cz.tefek.botdiril.userdata.card.CardPair;
 import cz.tefek.botdiril.userdata.card.UserCards;
 
 @Command(value = "collection", aliases = { "mycards",
-        "cardcollection" }, category = CommandCategory.ITEMS, description = "Displays your card collection.")
+        "cardcollection", "cards" }, category = CommandCategory.ITEMS, description = "Displays your card collection.")
 public class CommandMyCards
 {
     private static final long CARDS_PER_PAGE = 18;
