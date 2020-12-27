@@ -33,7 +33,7 @@ public class CommandDaily
         var coins = result.getCoins();
         var keks = result.getKeks();
         var megaKeks = result.getMegaKeks();
-        var keys = result.getMegaKeks();
+        var keys = result.getKeys();
 
         co.ui.addXP(co, xp);
         co.ui.addCoins(coins);

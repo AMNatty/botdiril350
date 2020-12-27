@@ -39,25 +39,38 @@ public class CommandCardInfo
 
         eb.addField("Rarity:", card.getCardRarity().getCardIcon() + " " + card.getCardRarity().getRarityName(), true);
 
-        var level = co.ui.getCardLevel(card);
-        var tier = EnumCardModifier.getByLevel(level);
-        assert tier != null;
-        eb.setTitle("%s %s".formatted(tier.getLocalizedName(), card.getLocalizedName()));
-        eb.addField("Level:", BotdirilFmt.format(level), true);
+        boolean hasCard = co.ui.howManyOf(card) > 0;
 
-        var xpForLevelUp = tier.getXPForLevelUp();
+        if (hasCard)
+        {
+            var level = co.ui.getCardLevel(card);
+            var tier = EnumCardModifier.getByLevel(level);
+            assert tier != null;
+            eb.setTitle("%s %s".formatted(tier.getLocalizedName(), card.getLocalizedName()));
+            eb.addField("Level:", BotdirilFmt.format(level), true);
 
-        if (xpForLevelUp == Long.MAX_VALUE)
-            eb.addField("XP:", BotdirilFmt.format(co.ui.getCardXP(card)), true);
+            var xpForLevelUp = tier.getXPForLevelUp();
+
+            if (xpForLevelUp == Long.MAX_VALUE)
+                eb.addField("XP:", BotdirilFmt.format(co.ui.getCardXP(card)), true);
+            else
+                eb.addField("XP:", "%s / %s".formatted(BotdirilFmt.format(co.ui.getCardXP(card)), BotdirilFmt.format(xpForLevelUp)), true);
+
+            eb.addField(new Field("Sells for:", "%s %s".formatted(BotdirilFmt.format(Card.getPrice(card, level)), EnumCurrency.COINS.getIcon()), true));
+        }
         else
-            eb.addField("XP:", "%s / %s".formatted(BotdirilFmt.format(co.ui.getCardXP(card)), BotdirilFmt.format(xpForLevelUp)), true);
+        {
+            eb.setTitle("%s".formatted(card.getLocalizedName()));
+
+            eb.addField("XP / Level", "Obtain this card to level it up!" , true);
+
+            eb.addField(new Field("Sells for:", "%s %s".formatted(BotdirilFmt.format(Card.getPrice(card, 0)), EnumCurrency.COINS.getIcon()), true));
+        }
 
         if (card.hasCollection())
         {
             eb.addField("Collection:", card.getCollectionName(), true);
         }
-
-        eb.addField(new Field("Sells for:", "%s %s".formatted(BotdirilFmt.format(Card.getPrice(card, level)), EnumCurrency.COINS.getIcon()), true));
 
         var recipe = CraftingEntries.search(card);
 

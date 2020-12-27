@@ -39,8 +39,9 @@ public class CommandDisenchant
         }
         else if (item instanceof Card)
         {
-            CommandAssert.numberNotAboveL(amount, co.ui.howManyOf((Card) item), "You don't have that many items of that type.");
-            co.ui.addCard((Card) item, -amount);
+            var card = (Card) item;
+            CommandAssert.numberNotAboveL(amount, co.ui.howManyOf(card) - 1, "You don't have that many cards of that type. Keep in mind you need to keep at least one card of each type once you receive it.");
+            co.ui.addCard(card, -amount);
         }
 
         var value = amount * ShopEntries.getDustForDisenchanting(item);

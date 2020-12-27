@@ -135,7 +135,7 @@ public class Items
 
         Scrolls.load();
 
-        max = new Item("Max", Icons.OTHER_MAX, "Max the Doggo", "The goodest boy on Earth.");
+        max = new Item("max", Icons.OTHER_MAX, "Max the Doggo", "The goodest boy on Earth.");
 
         Pickaxes.load();
         Crates.load();

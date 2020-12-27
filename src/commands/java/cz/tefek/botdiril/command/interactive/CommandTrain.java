@@ -9,6 +9,7 @@ import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 import cz.tefek.botdiril.framework.command.invoke.CmdPar;
 import cz.tefek.botdiril.framework.command.invoke.CommandException;
 import cz.tefek.botdiril.framework.command.invoke.ParType;
+import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.gamelogic.card.TrainAPI;
 import cz.tefek.botdiril.userdata.card.Card;
 import cz.tefek.botdiril.userdata.icon.IconUtil;
@@ -54,6 +55,8 @@ public class CommandTrain
     @CmdInvoke
     public static void train(CallObj co, @CmdPar("card to train") Card card, @CmdPar("training item") Item item, @CmdPar(value = "amount of training item", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
+        CommandAssert.numberMoreThanZeroL(co.ui.howManyOf(card), "*You need to have at least one card of this kind to train it.*");
+
         TimerUtil.require(co.ui, EnumTimer.TRAIN, "You need to wait **$** before attempting to **train a card** again.");
 
         if (!TrainAPI.TRAINING_ITEMS.containsKey(item))
@@ -89,7 +92,6 @@ public class CommandTrain
         eb.setThumbnail(IconUtil.urlFromIcon(co.jda, card));
         eb.addField("XP received", BotdirilFmt.format(xp), true);
         eb.addField("Multiplier", BotdirilFmt.format(Math.round(outcome.getMultiplier() * 100)) + " %", true);
-        eb.setFooter("Please view this table on a desktop computer for optimal view.");
 
         co.respond(eb.build());
 

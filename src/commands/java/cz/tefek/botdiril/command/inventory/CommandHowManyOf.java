@@ -11,7 +11,7 @@ import cz.tefek.botdiril.userdata.card.Card;
 import cz.tefek.botdiril.userdata.item.Item;
 import cz.tefek.botdiril.util.BotdirilFmt;
 
-@Command(value = "howmanyof", aliases = { "countcards", "countitems", "cc",
+@Command(value = "howmanyof", aliases = { "countcards", "countitems", "cc", "ic",
         "amount" }, category = CommandCategory.ITEMS, description = "Tells the count of an item or card.")
 public class CommandHowManyOf
 {
