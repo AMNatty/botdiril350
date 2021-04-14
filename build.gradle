@@ -60,6 +60,10 @@ application {
     mainClass = 'cz.tefek.botdiril.BotMain'
 }
 
+applicationDistribution.from("assets") {
+    into "assets"
+}
+
 dependencies {
     implementation group: 'org.jetbrains', name: 'annotations', version: '20.1.0'
 
