@@ -3,6 +3,17 @@ Botdiril Partially Rewritten (Again)
 
 Documentation WIP.
 
+## Dependencies
+
+All dependencies except [PlutoEngine](https://github.com/493msi/plutoengine/packages/730518) should
+be automatically pulled by Gradle.
+
+## Running manually
+
+```shell
+./gradlew run
+```
+
 ## Building the docker image
 
 GitHub packages is a temporary solution until PlutoEngine is uploaded to Maven central.
