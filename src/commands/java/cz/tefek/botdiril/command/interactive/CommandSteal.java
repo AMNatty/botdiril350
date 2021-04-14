@@ -47,9 +47,9 @@ public class CommandSteal
 
         var lvlOther = other.getLevel();
 
-        var lvlMod = Math.pow(10, (lvlOther - userLevel) / 100.0);
+        var lvlMod = Math.pow(2.5, -Math.abs(lvlOther - userLevel) / 100.0);
 
-        var maxSteal = Math.round(Math.pow(userLevel * 100, 1.8));
+        var maxSteal = Math.round(Math.pow(userLevel * 100, 1.8) * lvlMod);
 
         var mod = BotdirilRnd.RANDOM.nextDouble() * 0.8 - 0.4;
 
@@ -91,7 +91,7 @@ public class CommandSteal
             maxSteal *= 100;
         }
 
-        var stole = Math.min(Math.round(other.getCoins() * mod), Math.round(maxSteal * lvlMod));
+        var stole = Math.min(Math.round(other.getCoins() * mod), maxSteal);
 
         if (stole <= 0)
         {

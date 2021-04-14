@@ -13,6 +13,7 @@ import cz.tefek.botdiril.framework.command.invoke.CmdPar;
 import cz.tefek.botdiril.userdata.UserInventory;
 import cz.tefek.botdiril.userdata.properties.PropertyObject;
 import cz.tefek.botdiril.userdata.stat.EnumStat;
+import cz.tefek.botdiril.util.BotdirilFmt;
 
 @Command(value = "stats", description = "Show your stats.", category = CommandCategory.GENERAL)
 public class CommandStats
@@ -40,7 +41,7 @@ public class CommandStats
         eb.setColor(0x008080);
         eb.setDescription(user.getAsMention() + "'s stats.");
 
-        Arrays.stream(EnumStat.values()).forEach(es -> eb.addField(es.getLocalizedName(), String.valueOf(po.getStat(es)), true));
+        Arrays.stream(EnumStat.values()).forEach(es -> eb.addField(es.getLocalizedName(), BotdirilFmt.format(po.getStat(es)), true));
 
         co.respond(eb.build());
     }

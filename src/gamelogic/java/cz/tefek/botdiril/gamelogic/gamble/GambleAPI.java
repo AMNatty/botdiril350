@@ -6,9 +6,9 @@ import cz.tefek.botdiril.gamelogic.weighted.IWeightedRandom;
 
 public class GambleAPI
 {
-    public static final LongUnaryOperator JACKPOT_POOL_CONVERSION = keks -> keks / 3;
-    public static final LongUnaryOperator JACKPOT_STORE_CONVERSION = keks -> keks / 10;
-    public static final LongUnaryOperator POOL_STORE_CONVERSION = keks -> keks / 10;
+    public static final LongUnaryOperator JACKPOT_POOL_CONVERSION = keks -> keks / 8;
+    public static final LongUnaryOperator JACKPOT_STORE_CONVERSION = keks -> keks / 25;
+    public static final LongUnaryOperator POOL_STORE_CONVERSION = keks -> keks / 25;
 
     public static final LongUnaryOperator XP_CONVERSION = keks -> Math.round(Math.pow(keks, 0.25));
     public static final LongUnaryOperator XP_CONVERSION_BOOSTED = keks -> Math.round(Math.pow(keks, 0.40));

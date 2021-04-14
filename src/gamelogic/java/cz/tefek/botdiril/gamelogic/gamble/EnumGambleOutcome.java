@@ -7,7 +7,7 @@ public enum EnumGambleOutcome implements IWeightedRandom<EnumGambleOutcome>
 {
     LOSE_EVERYTHING("Lose everything",
         "You lost everything - **%s** " + Icons.KEK + "... But don't worry! Some of those keks get stored in your jackpot pool!",
-        3.85,
+        6.8,
         gi -> GambleResult.of(-gi.getGambledKeks())),
 
     LOSE_THREE_QUARTERS("Lose 75%",
@@ -22,27 +22,27 @@ public enum EnumGambleOutcome implements IWeightedRandom<EnumGambleOutcome>
 
     LOSE_QUARTER("Lose 25%",
         "You **lost %s** " + Icons.KEK + ". (-25%%)",
-        65,
+        72,
         gi -> GambleResult.of(Math.round(-gi.getGambledKeks() * 0.25))),
 
     WIN_THIRD("Win 33%",
         "You **win %s** " + Icons.KEK + ". (+33%%)",
-        45,
+        40,
         gi -> GambleResult.of(Math.round(gi.getGambledKeks() * 0.33))),
 
     WIN_HALF("Win 50%",
         "You **win %s** " + Icons.KEK + ". (+50%%)",
-        20,
+        22,
         gi -> GambleResult.of(Math.round(gi.getGambledKeks() * 0.5))),
 
     WIN_DOUBLE("Win 100%",
         "You doubled your bet! **+%s** " + Icons.KEK + ". (+100%%)",
-        12.5,
+        8,
         gi -> GambleResult.of(gi.getGambledKeks())),
 
     WIN_TRIPLE("Win 200%",
         "POGKEK. You **win %s** " + Icons.KEK + ". (+200%%)",
-        7.5,
+        5,
         gi -> GambleResult.of(gi.getGambledKeks() * 2)),
 
     WIN_QUADRUPLE("Win 300%!",
@@ -52,7 +52,7 @@ public enum EnumGambleOutcome implements IWeightedRandom<EnumGambleOutcome>
 
     JACKPOT("JACKPOT!!!",
         Icons.OTHER_KEKOVERDRIVE + " YOU WIN THE JACKPOT! **+%s** " + Icons.KEK + ".",
-        0.15,
+        0.2,
         gi -> GambleResult.of(gi.getJackpotPool()));
 
     private final String shortName;

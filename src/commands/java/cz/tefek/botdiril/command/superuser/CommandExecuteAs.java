@@ -33,6 +33,8 @@ public class CommandExecuteAs
         cobj.guild = co.guild;
         cobj.textChannel = co.textChannel;
         cobj.bot = co.bot;
+        cobj.usedAlias = co.usedAlias;
+        cobj.usedPrefix = co.usedPrefix;
 
         co.respond(String.format("Executing `%s` as `%s`.", command, member.getEffectiveName()));
 

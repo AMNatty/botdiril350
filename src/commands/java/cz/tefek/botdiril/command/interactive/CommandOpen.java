@@ -8,8 +8,10 @@ import cz.tefek.botdiril.framework.command.invoke.CmdPar;
 import cz.tefek.botdiril.framework.command.invoke.ParType;
 import cz.tefek.botdiril.framework.util.CommandAssert;
 import cz.tefek.botdiril.userdata.item.IOpenable;
-import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.userdata.item.Item;
+import cz.tefek.botdiril.userdata.item.ItemAssert;
+import cz.tefek.botdiril.userdata.item.ItemPair;
+import cz.tefek.botdiril.userdata.items.Items;
 import cz.tefek.botdiril.userdata.tempstat.Curser;
 import cz.tefek.botdiril.userdata.tempstat.EnumBlessing;
 import cz.tefek.botdiril.util.BotdirilRnd;
@@ -27,32 +29,32 @@ public class CommandOpen
     @CmdInvoke
     public static void open(CallObj co, @CmdPar("what to open") Item item, @CmdPar(value = "how many to open", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
-        CommandAssert.assertTrue(item instanceof IOpenable, "This item cannot be opened.");
+        CommandAssert.assertTrue(item instanceof IOpenable, "*This item cannot be opened.*");
 
         var openable = (IOpenable) item;
 
-        CommandAssert.numberInBoundsInclusiveL(amount, 1, 32, "You can open 32 crates at most and one at least (obviously).");
+        final long limit = 64;
+        CommandAssert.numberInBoundsInclusiveL(amount, 1, limit, "*You can open **%d %s** at most at once and one at least (obviously).*".formatted(limit, item.inlineDescription()));
 
         CommandAssert.numberNotBelowL(co.ui.howManyOf(item), amount, "You don't have " + amount + " " + item.inlineDescription() + "s...");
 
         if (openable.requiresKey())
         {
-            var keys = co.ui.getKeys();
-            CommandAssert.numberNotBelowL(keys, amount, String.format("You don't have enough %s for this.", Icons.KEY));
+            ItemAssert.consumeItems(co.ui, "open **%d %s**".formatted(amount, item.inlineDescription()), ItemPair.of(Items.keys, amount));
+
+            if (Curser.isBlessed(co, EnumBlessing.CHANCE_NOT_TO_CONSUME_KEY))
+            {
+                long keysBack = 0;
+
+                for (int i = 0; i < amount; i++)
+                    if (BotdirilRnd.rollChance(0.25))
+                        keysBack++;
+
+                co.ui.addKeys(keysBack);
+            }
         }
 
         openable.open(co, amount);
         co.ui.addItem(item, -amount);
-
-        if (openable.requiresKey())
-        {
-            for (int i = 0; i < amount; i++)
-            {
-                if (!Curser.isBlessed(co, EnumBlessing.CHANCE_NOT_TO_CONSUME_KEY) || BotdirilRnd.rollChance(0.75))
-                {
-                    co.ui.addKeys(-1);
-                }
-            }
-        }
     }
 }

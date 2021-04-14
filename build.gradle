@@ -42,13 +42,23 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
+    maven {
+        name 'GitHubPackages'
+        url 'https://maven.pkg.github.com/493msi/plutoengine/'
+        credentials {
+            username = '493msi'
+            password = System.getenv('GITHUB_PACKAGES_KEY')
+        }
+    }
 }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-mainClassName = "cz.tefek.botdiril.BotMain"
+application {
+    mainClass = 'cz.tefek.botdiril.BotMain'
+}
 
 dependencies {
     implementation group: 'org.jetbrains', name: 'annotations', version: '20.1.0'

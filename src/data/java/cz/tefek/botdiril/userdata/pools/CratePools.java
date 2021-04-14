@@ -51,7 +51,6 @@ public class CratePools
         .add(1, goldenRewards);
 
     public static final PoolDrawer<Item> ultimateCrate = new PoolDrawer<Item>()
-        .add(10, terribleRewards)
         .add(40, goodRewards)
         .add(20, greatRewards)
         .add(4, amazingRewards)

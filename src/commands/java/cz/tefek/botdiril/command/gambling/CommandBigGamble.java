@@ -23,6 +23,8 @@ public class CommandBigGamble
 {
     private static final BiFunction<Long, Integer, Double> getChanceToLoseEverything = (amount, level) -> Math.sqrt(Math.max(amount - 1, 0)) / (Math.pow(level, 0.75) + 25.0);
 
+    private static final double LOW_CHANCE_PROTECTION = 0.15;
+
     @CmdInvoke
     public static void gamble(CallObj co, @CmdPar(value = "amount", type = ParType.AMOUNT_MEGA_KEKS) long amount)
     {
@@ -40,7 +42,7 @@ public class CommandBigGamble
             chanceToLoseEverything *= 2;
         }
 
-        if (BotdirilRnd.rollChance(chanceToLoseEverything))
+        if (BotdirilRnd.rollChance(chanceToLoseEverything) && chanceToLoseEverything > LOW_CHANCE_PROTECTION)
         {
             co.respond(String.format("**You lost every single %s.**", Icons.MEGAKEK));
             co.po.incrementStat(EnumStat.TIMES_LOST_ALL_MEGAKEKS);
@@ -77,7 +79,7 @@ public class CommandBigGamble
                     chance,
                     co.usedPrefix));
             }
-            else
+            else if (chance > LOW_CHANCE_PROTECTION)
             {
                 co.respond(String.format("You **won** **%s** %s. " +
                                          "*Your chance to lose everything increased to **%.3f%%***.",

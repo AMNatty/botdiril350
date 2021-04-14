@@ -27,6 +27,8 @@ import cz.tefek.botdiril.util.BotdirilRnd;
         "gift" }, category = CommandCategory.ITEMS, description = "Give someone an item or a card.", levelLock = 5)
 public class CommandGiveItem
 {
+    private static final int MAX_LEVEL_DIFF = 100;
+
     @CmdInvoke
     public static void give(CallObj co, @CmdPar("user") User recipient, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
@@ -43,6 +45,10 @@ public class CommandGiveItem
             return;
         }
 
+        var recipientUI = new UserInventory(co.db, recipient.getIdLong());
+
+        CommandAssert.numberNotAboveL(Math.abs(recipientUI.getLevel() - co.ui.getLevel()), MAX_LEVEL_DIFF, "*Sorry the level difference between you and the recipient is way too high! You can be **at most %d levels** apart.*".formatted(MAX_LEVEL_DIFF));
+
         co.po.incrementStat(EnumStat.GIFTS_SENT);
 
         var eb = new EmbedBuilder();
@@ -54,8 +60,6 @@ public class CommandGiveItem
             eb.setTitle("Yoink!");
             recipient = co.bot;
         }
-
-        var recipientUI = new UserInventory(co.db, recipient.getIdLong());
 
         if (item instanceof Item)
         {
