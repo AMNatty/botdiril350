@@ -114,13 +114,13 @@ public class EventBus extends ListenerAdapter
                 }
                 catch (Exception e)
                 {
-                    co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
+                    // co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
                     BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e);
                 }
             }
             catch (Exception e)
             {
-                co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
+                // co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
                 BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e);
             }
         }

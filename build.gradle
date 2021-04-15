@@ -9,7 +9,7 @@ wrapper {
 }
 
 group 'cz.tefek'
-version '350.0'
+version '350.4'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_15
