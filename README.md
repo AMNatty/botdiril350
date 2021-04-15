@@ -29,5 +29,5 @@ docker secret create botdiril350.config.json <pathToSettings>.json
 ```
 
 ```shell
-docker service create --secret src=botdiril350.config.json,target='/app/botdiril350-350.0/settings.json' botdiril350
+docker service create --secret src=botdiril350.config.json,target='/app/botdiril350/settings.json' botdiril350
 ```
