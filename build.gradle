@@ -64,6 +64,16 @@ applicationDistribution.from("assets") {
     into "assets"
 }
 
+distTar {
+    archiveFileName = "${archivesBaseName}.tar"
+}
+
+distZip {
+    // Feel free to uncomment
+    // In Docker, we only care about the .tar file
+    enabled = false
+}
+
 dependencies {
     implementation group: 'org.jetbrains', name: 'annotations', version: '20.1.0'
 

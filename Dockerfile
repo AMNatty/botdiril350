@@ -5,9 +5,9 @@ ARG githubPackagesKey
 ENV GITHUB_PACKAGES_KEY $githubPackagesKey
 RUN gradle --stacktrace build
 WORKDIR /home/gradle/src/build/distributions/
-RUN tar -xvf botdiril350-350.4.tar
+RUN tar -xvf botdiril350.tar
 
 FROM openjdk:15-alpine
-COPY --from=builder /home/gradle/src/build/distributions/botdiril350-350.4 /app/botdiril350-350.4
-WORKDIR /app/botdiril350-350.4/
+COPY --from=builder /home/gradle/src/build/distributions/botdiril350 /app/botdiril350
+WORKDIR /app/botdiril350/
 CMD bin/botdiril350
