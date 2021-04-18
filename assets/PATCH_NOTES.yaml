@@ -1,0 +1,112 @@
+latest: "350.5"
+patchList:
+  "350.5": |-
+    * Added the `$patchnotes` command
+
+  "350.2": |-
+    * Buffed low end crates
+
+  "350.1": |-
+    * Fixed a bug in $daily
+    * Added some data metrics
+
+  "350.0": |-
+    * Lots of bugfixes
+    * Switched back to the old versioning system
+
+  "2020-12-25": |-
+    * Steal XP no longer uses the gamble XP cooldown and is visible
+    * Daily now grants reasonable coin and kek rewards
+    * Lowered the amount of rare resources from level-up rewards
+    * Completely rewrote gambling
+      * Jackpots are now individual (per-user)
+    * Nerfed XP income in some places
+    * Fixed a bunch of bugs, for example daily silently granting rewards despite being cursed
+    * Reverted the MegaKek change where you were left with one MegaKek
+      * Reduced the MegaKek payout warning from 40% to 30% to reflect this change
+      * Increased the Megakek to Coin conversion ratio to 80m + 4m^2, where m is the amount of MegaKeks
+    * Toolbox now crafts from green gems
+    * Skeleton key blessing chance reduced 50% -> 25%
+    * Nuke now scales with your level instead of your keks similar to $farm and $daily
+    * Reduced nuke miss chance from 60% to 50%
+    * Updated nuke costs
+    * Crates no longer contain golden oil, oil or keys
+    * Nerfed resources gained from Pickaxe XV+
+    * Decreased the break chance of Pickaxe XV to 7.5%
+
+  "2020-12-07": |-
+    * Added `$oilmine`
+    * Scroll of refreshing now requires one extra :timewarpCrystal: instead of **1000 **:gold:
+    * $farm now scales much better
+    * You can now disable :suspiciousmetalbox: stealing in preferences
+
+  "2020-12-06": |-
+    * Made several tweaks to the mining system
+    * Glitchy crates no longer drop pickaxes
+
+  "2020-12-05": |-
+    * **Much lower chance** to lose all :megakek: when using `$biggamble`
+    * *All users prior to this change have been granted **10 :megakek:***
+    * New experimental `$payoutmega`, until a proper implementation is added
+    * Slightly adjusted pickaxe break chances
+    * New fancy icons
+
+  "350": |-
+    * A complete overhaul of the engine
+
+  "300.24b_2020-03-08": |-
+    Adding onto Murray's previous change and also reflecting Stronge's feedback, I wanna expand upon the idea of giving oil as a reward.
+
+    * New oil rewards:
+    * Level 50 - 1x :oil~1:
+    * Level 100 - 2x :oil~1:
+    * Level 150 - 3x :oil~1:
+    * Level 200 - 4x :oil~1:
+    * Levels 250 to 10000 - 5x :oil~1: every 50 levels
+
+  "300.24b_2020-03-07": |-
+    Now, each time a user levels up 50 levels, they will receive a guaranteed oil as reward.
+
+    LV 50/100/150... >> Oil as reward, including the usual gold and chests
+
+  "300.24b_2020-03-05": |-
+    Pickaxes V,X and XV are be considered to be milestones, so they will become unbreakable for the sake of player progression.
+
+    Break Chance:
+    Pickaxe V --> 5% >> 0%
+    Pickaxe X --> 7,5% >> 0%
+    Pickaxe XV --> 10% >> 0%
+
+  "2020-01-01": |-
+    * Curse/blessing timers
+    * Complete pickaxe overhaul
+    * Quality of life improvements (gambling XP is now visible, ...)
+    * New icons
+    * Removed pickaxe-less mining
+    * Pickaxes now show their stats in item info
+    * Added a new `$preferences` menu
+
+    Known issues:
+    * Gambling still buggy
+    * Selling cards with `$sd` does not get amplified by golden oil
+
+  "2019-12-27c": |-
+    * Added oil
+
+  "2019-12-27b": |-
+    * Repair kit recipe now only yields one kit
+    * Pickaxe break chances decreased to 10%/20%/17.5%/15%/12% from 15%/20%/25%/33%/45%
+
+  "2019-12-27a": |-
+    * The repair kit recipe now yields 2 kits instead of 3
+    * Crates now are less likely to drop keys
+    * :key~1:  Key drop rate from mining changed from 7.84%/11.5%/15.1%/18.4%/21.7% to 5.9%/7.8%/9.7%/11.5%/13.3%
+    * :scroll~1: Scroll of swapping now crafts from one :timewarpCrystal:  Timewarp Crystal
+
+  "2019-12-26": |-
+    * Fixed $stats
+    * Increased pickaxe break rates to 15%/20%/25%/33%/45%
+    * Added the :timewarpCrystal: timewarp crystal
+    * Modified the scroll of refreshing recipe to include a :timewarpCrystal: timewarp crystal
+    * Added commands to disenchant or sell duplicate cards
+    * Reduced the drop chance of oil and keys from pickaxe-less mines to 6.9% and 26.4% respectively
