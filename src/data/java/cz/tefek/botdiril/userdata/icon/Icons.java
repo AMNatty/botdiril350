@@ -19,6 +19,7 @@ public class Icons
     public static final String DUST = "$!currency.dust$";
     public static final String KEY = "$!currency.key$";
 
+
     public static final String CARDS = "$!card.cards$";
 
     public static final String CARD_BASIC = "$!card.rarity.basic$";
@@ -53,18 +54,18 @@ public class Icons
     public static final String CARDPACK_GOOD = "$!item.cardPack.good$";
     public static final String CARDPACK_VOID = "$!item.cardPack.void$";
 
-    public static final String PICKAXE_I = "$!item.cardPack.I$";
-    public static final String PICKAXE_II = "$!item.cardPack.II$";
-    public static final String PICKAXE_III = "$!item.cardPack.III$";
-    public static final String PICKAXE_IV = "$!item.cardPack.IV$";
-    public static final String PICKAXE_V = "$!item.cardPack.V$";
+    public static final String PICKAXE_I = "$!item.pickaxe.I$";
+    public static final String PICKAXE_II = "$!item.pickaxe.II$";
+    public static final String PICKAXE_III = "$!item.pickaxe.III$";
+    public static final String PICKAXE_IV = "$!item.pickaxe.IV$";
+    public static final String PICKAXE_V = "$!item.pickaxe.V$";
 
-    public static final String GEM_GREEN = "$!item.cardPack.green$";
-    public static final String GEM_RED = "$!item.cardPack.red$";
-    public static final String GEM_PURPLE = "$!item.cardPack.purple$";
-    public static final String GEM_BLUE = "$!item.cardPack.blue$";
-    public static final String GEM_BLACK = "$!item.cardPack.black$";
-    public static final String GEM_RAINBOW = "$!item.cardPack.rainbow$";
+    public static final String GEM_GREEN = "$!item.gem.green$";
+    public static final String GEM_RED = "$!item.gem.red$";
+    public static final String GEM_PURPLE = "$!item.gem.purple$";
+    public static final String GEM_BLUE = "$!item.gem.blue$";
+    public static final String GEM_BLACK = "$!item.gem.black$";
+    public static final String GEM_RAINBOW = "$!item.gem.rainbow$";
 
     public static final String MINE_COAL = "$!item.mineral.coal$";
     public static final String MINE_COPPER = "$!item.mineral.copper$";
@@ -82,9 +83,9 @@ public class Icons
     public static final String RARE_GOLDENOIL = "$!item.rareResource.goldenOil$";
     public static final String RARE_STRANGE_METAL = "$!item.rareResource.strangeMetal$";
 
-    public static final String SCROLL = "$!item.rareResource.scroll$";
-    public static final String SCROLL_RARE = "$!item.rareResource.rare$";
-    public static final String SCROLL_UNIQUE = "$!item.rareResource.unique$";
+    public static final String SCROLL = "$!item.scroll.scroll$";
+    public static final String SCROLL_RARE = "$!item.scroll.rare$";
+    public static final String SCROLL_UNIQUE = "$!item.scroll.unique$";
 
     public static final String ITEM_MISC_TOOLBOX = "$!item.misc.toolBox$";
     public static final String ITEM_MISC_REPAIR_KIT = "$!item.misc.repairKit$";

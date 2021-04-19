@@ -1,5 +1,8 @@
 latest: "350.6"
 patchList:
+  "350.6.1": |-
+    * Fixed several broken icons
+
   "350.6": |-
     * Added over 60 unique kek variations to `$kek`
     * New item icon code, let me know if you find a missing icon
