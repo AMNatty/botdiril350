@@ -1,7 +1,21 @@
-latest: "350.5"
+latest: "350.6"
 patchList:
+  "350.6": |-
+    * Added over 60 unique kek variations to `$kek`
+    * New item icon code, let me know if you find a missing icon
+
   "350.5": |-
     * Added the `$patchnotes` command
+
+  "350.4": |-
+    * More aliases for common commands
+    * Reduced price of Pickaxe I
+    * Improved golden crate yields
+    * More oil from XP rewards
+
+  "350.3": |-
+    * Added card training
+    * Several bugfixes
 
   "350.2": |-
     * Buffed low end crates
