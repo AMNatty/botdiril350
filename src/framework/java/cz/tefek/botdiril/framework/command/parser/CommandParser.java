@@ -16,7 +16,7 @@ import cz.tefek.botdiril.util.BotdirilLog;
 
 public class CommandParser
 {
-    public static boolean parse(CallObj co)
+    public static boolean parse(CommandContext co)
     {
         var cmdParts =  co.contents.split("\\s+", 2);
         var cmdStr = cmdParts[0];

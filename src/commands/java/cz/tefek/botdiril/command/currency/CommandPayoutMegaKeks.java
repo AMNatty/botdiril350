@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.currency;
 
 import java.util.function.Function;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -14,14 +14,14 @@ import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.util.BotdirilFmt;
 
 @Command(value = "payoutmegakeks", aliases = { "payoutmega",
-        "bigpayout" }, category = CommandCategory.CURRENCY, description = "Pay out your " + Icons.MEGAKEK + " for some " + Icons.COIN, levelLock = 1)
+        "bigpayout" }, category = CommandCategory.CURRENCY, description = "Pay out your megakeks for some coins.", levelLock = 1)
 public class CommandPayoutMegaKeks
 {
     private static final Function<Long, Long> conversion = megaKeks -> megaKeks * 80 + megaKeks * megaKeks * 4;
     private static final Function<Long, Long> xpConversion = megaKeks -> megaKeks * 5;
 
     @CmdInvoke
-    public static void payout(CallObj co)
+    public static void payout(CommandContext co)
     {
         var has = co.ui.getMegaKeks();
         CommandAssert.numberMoreThanZeroL(has, String.format("You can't pay out zero %s.", Icons.MEGAKEK));
@@ -36,7 +36,7 @@ public class CommandPayoutMegaKeks
     }
 
     @CmdInvoke
-    public static void payout(CallObj co, @CmdPar("confirm") String confirmation)
+    public static void payout(CommandContext co, @CmdPar("confirm") String confirmation)
     {
         var has = co.ui.getMegaKeks();
         CommandAssert.numberMoreThanZeroL(has, String.format("You can't pay out zero %s.", Icons.MEGAKEK));

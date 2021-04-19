@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.interactive;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -21,13 +21,13 @@ import cz.tefek.botdiril.util.BotdirilRnd;
 public class CommandOpen
 {
     @CmdInvoke
-    public static void open(CallObj co, @CmdPar("what to open") Item item)
+    public static void open(CommandContext co, @CmdPar("what to open") Item item)
     {
         open(co, item, 1);
     }
 
     @CmdInvoke
-    public static void open(CallObj co, @CmdPar("what to open") Item item, @CmdPar(value = "how many to open", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
+    public static void open(CommandContext co, @CmdPar("what to open") Item item, @CmdPar(value = "how many to open", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
         CommandAssert.assertTrue(item instanceof IOpenable, "*This item cannot be opened.*");
 

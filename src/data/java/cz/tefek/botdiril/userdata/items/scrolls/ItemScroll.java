@@ -2,15 +2,15 @@ package cz.tefek.botdiril.userdata.items.scrolls;
 
 import java.util.function.ObjLongConsumer;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.userdata.item.IOpenable;
 import cz.tefek.botdiril.userdata.item.Item;
 
 public class ItemScroll extends Item implements IOpenable
 {
-    private final ObjLongConsumer<CallObj> openHandler;
+    private final ObjLongConsumer<CommandContext> openHandler;
 
-    public ItemScroll(String name, String icon, String localizedName, ObjLongConsumer<CallObj> openHandler, String description)
+    public ItemScroll(String name, String icon, String localizedName, ObjLongConsumer<CommandContext> openHandler, String description)
     {
         super(name, icon, localizedName, description);
 
@@ -18,7 +18,7 @@ public class ItemScroll extends Item implements IOpenable
     }
 
     @Override
-    public void open(CallObj co, long amount)
+    public void open(CommandContext co, long amount)
     {
         openHandler.accept(co, amount);
     }

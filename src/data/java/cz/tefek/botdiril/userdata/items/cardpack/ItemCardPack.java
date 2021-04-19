@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.userdata.items.cardpack;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.userdata.card.Card;
 import cz.tefek.botdiril.userdata.card.CardDrops;
 import cz.tefek.botdiril.userdata.item.IOpenable;
@@ -22,17 +22,17 @@ public abstract class ItemCardPack extends Item implements IOpenable
         super(name, icon, localizedName, description);
     }
 
-    public abstract PoolDrawer<Card> getPool(CallObj co);
+    public abstract PoolDrawer<Card> getPool(CommandContext co);
 
-    public abstract int getNumberOfCards(CallObj co);
+    public abstract int getNumberOfCards(CommandContext co);
 
-    protected void onOpen(CallObj co, long amount)
+    protected void onOpen(CommandContext co, long amount)
     {
 
     }
 
     @Override
-    public void open(CallObj co, long amount)
+    public void open(CommandContext co, long amount)
     {
         var fm = String.format("You open **%d %s** and get the following cards:", amount, this.inlineDescription());
         var sb = new StringBuilder();
@@ -89,7 +89,7 @@ public abstract class ItemCardPack extends Item implements IOpenable
     }
 
     @Override
-    public String getFootnote(CallObj co)
+    public String getFootnote(CommandContext co)
     {
         return "Open using `%sopen %s`. Is guaranteed to contain at least %d cards.".formatted(co.usedPrefix, this.getName(), this.getNumberOfCards(co));
     }

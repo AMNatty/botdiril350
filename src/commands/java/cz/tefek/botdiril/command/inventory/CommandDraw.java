@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.inventory;
 
 import java.util.stream.Collectors;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -19,7 +19,7 @@ import cz.tefek.botdiril.userdata.xp.XPRewards;
 public class CommandDraw
 {
     @CmdInvoke
-    public static void draw(CallObj co)
+    public static void draw(CommandContext co)
     {
         TimerUtil.require(co.ui, EnumTimer.DRAW, "You need to wait $ before drawing cards again.");
 

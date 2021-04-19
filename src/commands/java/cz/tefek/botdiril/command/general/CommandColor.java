@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.general;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -12,7 +12,7 @@ import cz.tefek.botdiril.util.BotdirilRnd;
 public class CommandColor
 {
     @CmdInvoke
-    public static void choose(CallObj co)
+    public static void choose(CommandContext co)
     {
         var col = BotdirilRnd.RDG.nextInt(0x000000, 0xffffff);
 
@@ -22,6 +22,6 @@ public class CommandColor
         var hexInt = Integer.toHexString(col);
         var hex = "000000".substring(hexInt.length()) + hexInt;
         eb.setDescription("#" + hex);
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

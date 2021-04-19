@@ -3,7 +3,7 @@ package cz.tefek.botdiril.command.inventory;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -30,7 +30,7 @@ public class CommandGiveItem
     private static final int MAX_LEVEL_DIFF = 100;
 
     @CmdInvoke
-    public static void give(CallObj co, @CmdPar("user") User recipient, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
+    public static void give(CommandContext co, @CmdPar("user") User recipient, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't give zero items.");
 
@@ -76,11 +76,11 @@ public class CommandGiveItem
         eb.setThumbnail(recipient.getEffectiveAvatarUrl());
         eb.setColor(0x008080);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 
     @CmdInvoke
-    public static void giveOne(CallObj co, @CmdPar("user") User recipient, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
+    public static void giveOne(CommandContext co, @CmdPar("user") User recipient, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
     {
         if (item instanceof Item)
         {

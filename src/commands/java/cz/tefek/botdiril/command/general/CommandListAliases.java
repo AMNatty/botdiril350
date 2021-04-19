@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.general;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -12,7 +12,7 @@ import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 public class CommandListAliases
 {
     @CmdInvoke
-    public static void list(CallObj co)
+    public static void list(CommandContext co)
     {
         var bound = co.po.getUsedAliases();
 
@@ -42,6 +42,6 @@ public class CommandListAliases
             eb.setFooter(String.format("Tip: Type `%sremovealias <alias number>` to delete an alias.", co.usedPrefix));
         }
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.currency;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -14,11 +14,11 @@ import cz.tefek.botdiril.userdata.item.ShopEntries;
 import cz.tefek.botdiril.util.BotdirilFmt;
 
 @Command(value = "exchange", aliases = {
-        "buyfortokens" }, category = CommandCategory.CURRENCY, description = "Exchange " + Icons.TOKEN + " for items or cards.", levelLock = 8)
+        "buyfortokens" }, category = CommandCategory.CURRENCY, description = "Exchange tokens for items or cards.", levelLock = 8)
 public class CommandExchange
 {
     @CmdInvoke
-    public static void buy(CallObj co, @CmdPar(value = "item", type = ParType.ITEM_OR_CARD) Item item)
+    public static void buy(CommandContext co, @CmdPar(value = "item", type = ParType.ITEM_OR_CARD) Item item)
     {
         if (!ShopEntries.canBeBoughtForTokens(item))
         {
@@ -34,7 +34,7 @@ public class CommandExchange
     }
 
     @CmdInvoke
-    public static void buy(CallObj co, @CmdPar(value = "item") Item item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_BUY_TOKENS) long amount)
+    public static void buy(CommandContext co, @CmdPar(value = "item") Item item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_BUY_TOKENS) long amount)
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't buy zero items.");
 

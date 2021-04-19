@@ -1,11 +1,11 @@
 package cz.tefek.botdiril.framework.command.invoke;
 
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 public class CommandException extends RuntimeException
 {
     private final boolean isEmbedded;
-    private final MessageEmbed embed;
+    private final EmbedBuilder embed;
 
     public CommandException(String reason)
     {
@@ -14,7 +14,7 @@ public class CommandException extends RuntimeException
         this.embed = null;
     }
 
-    public CommandException(MessageEmbed reason)
+    public CommandException(EmbedBuilder reason)
     {
         this.isEmbedded = true;
         this.embed = reason;
@@ -32,7 +32,7 @@ public class CommandException extends RuntimeException
         return this.isEmbedded;
     }
 
-    public MessageEmbed getEmbed()
+    public EmbedBuilder getEmbed()
     {
         return this.embed;
     }

@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.inventory;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -16,7 +16,7 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 public class CommandHowManyOf
 {
     @CmdInvoke
-    public static void count(CallObj co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable thing)
+    public static void count(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable thing)
     {
         long count;
 

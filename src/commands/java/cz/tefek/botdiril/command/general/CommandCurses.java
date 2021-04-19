@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.util.Arrays;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -21,7 +21,7 @@ import cz.tefek.pluto.chrono.MiniTime;
 public class CommandCurses
 {
     @CmdInvoke
-    public static void check(CallObj co, @CmdPar("user") User user)
+    public static void check(CommandContext co, @CmdPar("user") User user)
     {
         var eb = new EmbedBuilder();
         eb.setAuthor(user.getAsTag(), null, user.getEffectiveAvatarUrl());
@@ -59,11 +59,11 @@ public class CommandCurses
         eb.setColor(0x008080);
         eb.setThumbnail(user.getEffectiveAvatarUrl());
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 
     @CmdInvoke
-    public static void checkSelf(CallObj co)
+    public static void checkSelf(CommandContext co)
     {
         check(co, co.caller);
     }

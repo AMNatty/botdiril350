@@ -3,12 +3,12 @@ package cz.tefek.botdiril.framework.util;
 import net.dv8tion.jda.api.entities.Guild;
 import org.apache.commons.lang3.StringUtils;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.internal.BotdirilConfig;
 
 public class PrefixUtil
 {
-    public static boolean findPrefix(Guild g, CallObj obj)
+    public static boolean findPrefix(Guild g, CommandContext obj)
     {
         var prefix = obj.sc.getPrefix();
 

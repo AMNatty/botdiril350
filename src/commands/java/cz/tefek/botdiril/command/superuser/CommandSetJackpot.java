@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.superuser;
 
 import net.dv8tion.jda.api.entities.User;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 import cz.tefek.botdiril.framework.command.invoke.CmdPar;
@@ -16,7 +16,7 @@ import cz.tefek.botdiril.userdata.properties.PropertyObject;
 public class CommandSetJackpot
 {
     @CmdInvoke
-    public static void setJackpot(CallObj co, @CmdPar("targer") User user, @CmdPar("jackpot pool") long pool, @CmdPar("jackpot stored") long stored)
+    public static void setJackpot(CommandContext co, @CmdPar("targer") User user, @CmdPar("jackpot pool") long pool, @CmdPar("jackpot stored") long stored)
     {
         var ui = new UserInventory(co.db, user.getIdLong());
         var po = new PropertyObject(co.db, ui.getFID());

@@ -75,19 +75,19 @@ public class Items
         rainbowGem = new Item("ordergem", Icons.GEM_RAINBOW, "Order Gem", "Natural enemy of chaos.");
         blackGem = new Item("chaosgem", Icons.GEM_BLACK, "Chaos Gem", "The source of all chaos.");
 
-        timewarpCrystal = new Item("timewarpcrystal", Icons.GEM_TIMEWARP, "Timewarp Crystal", "Manipulate the spacetime!");
+        timewarpCrystal = new Item("timewarpcrystal", Icons.RARE_TIMEWARP, "Timewarp Crystal", "Manipulate the spacetime!");
 
-        strangeMetal = new Item("strangemetal", Icons.MINE_STRANGE_METAL, "Strange Metal", "A shard of some unexplored rare metal, possibly from space.");
+        strangeMetal = new Item("strangemetal", Icons.RARE_STRANGE_METAL, "Strange Metal", "A shard of some unexplored rare metal, possibly from space.");
 
-        trash = new Item("trash", Icons.ITEM_TRASH, "Trash", "It's just trash, or is it?");
+        trash = new Item("trash", Icons.ITEM_MISC_TRASH, "Trash", "It's just trash, or is it?");
         ShopEntries.addDisenchant(trash, 1000);
 
-        oil = new Item("oil", Icons.OTHER_OIL, "Oil", "This better not start a nuclear war...");
+        oil = new Item("oil", Icons.RARE_OIL, "Oil", "This better not start a nuclear war...");
         ShopEntries.addCoinSell(oil, 800);
 
-        goldenOil = new Item("goldenoil", Icons.OTHER_GOLDENOIL, "Golden Oil", "Passively grants +1% bonus sell value, but also grants 0.5% chance for all golden oil barrels to explode, leaving you with no barrels and making you lose 15% from that trade.");
+        goldenOil = new Item("goldenoil", Icons.RARE_GOLDENOIL, "Golden Oil", "Passively grants +1% bonus sell value, but also grants 0.5% chance for all golden oil barrels to explode, leaving you with no barrels and making you lose 15% from that trade.");
 
-        toolBox = new Item("toolbox", Icons.ITEM_SUSPICIOUS_METAL_BOX, "Tool Box", "I wonder what it's for.");
+        toolBox = new Item("toolbox", Icons.ITEM_MISC_TOOLBOX, "Tool Box", "I wonder what it's for.");
         ShopEntries.addCoinSell(toolBox, 4_000);
         CraftingEntries.add(new Recipe(List.of(ItemPair.of(trash, 10), ItemPair.of(greenGem, 12), ItemPair.of(strangeMetal, 3)), 1, toolBox));
 
@@ -119,7 +119,7 @@ public class Items
         diamond = new Item("diamond", Icons.MINE_DIAMOND, "Diamond", "A crystallic form of carbon, diamonds are the hardest known mineral known to humans.");
         ShopEntries.addCoinSell(diamond, 10_000_000);
 
-        gemdiril = new Item("gemdiril", Icons.GEM_GEMDIRIL, "Gemdiril", "A very rare gem of an unknown value.");
+        gemdiril = new Item("gemdiril", Icons.RARE_GEMDIRIL, "Gemdiril", "A very rare gem of an unknown value.");
         CraftingEntries.add(new Recipe(List.of(
             ItemPair.of(redGem, 256),
             ItemPair.of(greenGem, 256),
@@ -130,7 +130,7 @@ public class Items
             ItemPair.of(kekium, 1_234_567)),
             1, gemdiril));
 
-        repairKit = new Item("repairkit", Icons.ITEM_REPAIR_KIT, "Repair Kit", "It's handy to have one of these at your disposal when handling fragile tools. Will be **automatically** used and consumed to avoid breaking a tool.");
+        repairKit = new Item("repairkit", Icons.ITEM_MISC_REPAIR_KIT, "Repair Kit", "It's handy to have one of these at your disposal when handling fragile tools. Will be **automatically** used and consumed to avoid breaking a tool.");
         CraftingEntries.add(new Recipe(List.of(ItemPair.of(toolBox, 1), ItemPair.of(oil, 1)), 1, repairKit));
 
         Scrolls.load();

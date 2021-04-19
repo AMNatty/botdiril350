@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.inventory;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -19,13 +19,13 @@ import cz.tefek.botdiril.userdata.item.ShopEntries;
 public class CommandDisenchant
 {
     @CmdInvoke
-    public static void dust(CallObj co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
+    public static void dust(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
     {
         dust(co, item, 1);
     }
 
     @CmdInvoke
-    public static void dust(CallObj co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
+    public static void dust(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't disenchant zero items / cards.");
 

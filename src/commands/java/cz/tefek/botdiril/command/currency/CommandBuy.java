@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.currency;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -17,7 +17,7 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 public class CommandBuy
 {
     @CmdInvoke
-    public static void buy(CallObj co, @CmdPar(value = "item") Item item)
+    public static void buy(CommandContext co, @CmdPar(value = "item") Item item)
     {
         if (!ShopEntries.canBeBought(item))
         {
@@ -33,7 +33,7 @@ public class CommandBuy
     }
 
     @CmdInvoke
-    public static void buy(CallObj co, @CmdPar(value = "item") Item item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_BUY_COINS) long amount)
+    public static void buy(CommandContext co, @CmdPar(value = "item") Item item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_BUY_COINS) long amount)
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't buy zero items / cards.");
 

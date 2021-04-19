@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.time.Instant;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -20,13 +20,13 @@ import cz.tefek.botdiril.userdata.xp.XPRewards;
 public class CommandSetLevel
 {
     @CmdInvoke
-    public static void setLevel(CallObj co, @CmdPar("level") int level)
+    public static void setLevel(CommandContext co, @CmdPar("level") int level)
     {
         setLevel(co, co.caller, level);
     }
 
     @CmdInvoke
-    public static void setLevel(CallObj co, @CmdPar("user") User user, @CmdPar("level") int level)
+    public static void setLevel(CommandContext co, @CmdPar("user") User user, @CmdPar("level") int level)
     {
         CommandAssert.numberInBoundsInclusiveL(level, 0, XPRewards.getMaxLevel(), String.format("Level must be between 0 and %d.", XPRewards.getMaxLevel()));
 
@@ -46,6 +46,6 @@ public class CommandSetLevel
         eb.setFooter("Message ID: " + co.message.getIdLong(), null);
         eb.setTimestamp(Instant.now());
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.stream.Collectors;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -15,7 +15,7 @@ import cz.tefek.botdiril.util.BotdirilRnd;
 public class CommandSomeone
 {
     @CmdInvoke
-    public static void choose(CallObj co)
+    public static void choose(CommandContext co)
     {
         var memberList = co.textChannel.getMembers().stream().filter(m -> !m.getUser().isBot()).collect(Collectors.toList());
         var member = BotdirilRnd.choose(memberList);
@@ -26,6 +26,6 @@ public class CommandSomeone
         eb.setColor(0x008080);
         eb.setThumbnail(member.getUser().getEffectiveAvatarUrl());
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

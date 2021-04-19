@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.gambling;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -18,13 +18,13 @@ import cz.tefek.botdiril.util.BotdirilRnd;
 public class CommandCoinFlip
 {
     @CmdInvoke
-    public static void roll(CallObj co)
+    public static void roll(CommandContext co)
     {
         co.respond(BotdirilRnd.RANDOM.nextBoolean() ? "**Heads.**" : "**Tails.**");
     }
 
     @CmdInvoke
-    public static void roll(CallObj co, @CmdPar(value = "keks", type = ParType.AMOUNT_CLASSIC_KEKS) long keks, @CmdPar("bet on side") EnumCoinSides side)
+    public static void roll(CommandContext co, @CmdPar(value = "keks", type = ParType.AMOUNT_CLASSIC_KEKS) long keks, @CmdPar("bet on side") EnumCoinSides side)
     {
         CommandAssert.numberMoreThanZeroL(keks, "You can't gamble zero keks...");
 

@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.currency;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -22,7 +22,7 @@ import cz.tefek.botdiril.userdata.tempstat.EnumCurse;
 import cz.tefek.botdiril.util.BotdirilFmt;
 import cz.tefek.botdiril.util.BotdirilRnd;
 
-@Command(value = "sell", aliases = { "s", "si" }, category = CommandCategory.CURRENCY, description = "Sell items for " + Icons.COIN + ".", levelLock = 2)
+@Command(value = "sell", aliases = { "s", "si" }, category = CommandCategory.CURRENCY, description = "Sell items for coins.", levelLock = 2)
 public class CommandSell
 {
     public static final double CHANCE_TO_EXPLODE = 0.005;
@@ -30,7 +30,7 @@ public class CommandSell
     public static final long GOLDEDOIL_SELL_BOOST = 10;
     public static final long EXPLOSION_MODIFIER = 850;
 
-    public static void sellRoutine(CallObj co, String articleName, long amountOfArticle, long totalMoney)
+    public static void sellRoutine(CommandContext co, String articleName, long amountOfArticle, long totalMoney)
     {
         long resellModifier = 1000;
 
@@ -87,13 +87,13 @@ public class CommandSell
     }
 
     @CmdInvoke
-    public static void sell(CallObj co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
+    public static void sell(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
     {
         sell(co, item, 1);
     }
 
     @CmdInvoke
-    public static void sell(CallObj co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
+    public static void sell(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't sell zero items / cards.");
 

@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import java.util.Arrays;
 import java.util.Locale;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -17,7 +17,7 @@ import cz.tefek.botdiril.userdata.preferences.UserPreferences;
 public class CommandPreferences
 {
     @CmdInvoke
-    public static void list(CallObj co)
+    public static void list(CommandContext co)
     {
         var eb = new EmbedBuilder();
         eb.setColor(0x008080);
@@ -32,6 +32,6 @@ public class CommandPreferences
             eb.addField(pref.getLocalizedName(), String.format("**ID:**`%s`\n**Status:** *%s*", pref.toString().toLowerCase(Locale.ROOT), indicator), true);
         });
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

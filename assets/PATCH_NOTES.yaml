@@ -24,9 +24,9 @@ patchList:
     * Fixed a bunch of bugs, for example daily silently granting rewards despite being cursed
     * Reverted the MegaKek change where you were left with one MegaKek
       * Reduced the MegaKek payout warning from 40% to 30% to reflect this change
-      * Increased the Megakek to Coin conversion ratio to 80m + 4m^2, where m is the amount of MegaKeks
+      * Increased the Megakek to Coin conversion ratio to `80m + 4m^2`, where `m` is the amount of MegaKeks
     * Toolbox now crafts from green gems
-    * Skeleton key blessing chance reduced 50% -> 25%
+    * Skeleton key blessing activation chance reduced 50% -> 25%
     * Nuke now scales with your level instead of your keks similar to $farm and $daily
     * Reduced nuke miss chance from 60% to 50%
     * Updated nuke costs
@@ -70,7 +70,7 @@ patchList:
     LV 50/100/150... >> Oil as reward, including the usual gold and chests
 
   "300.24b_2020-03-05": |-
-    Pickaxes V,X and XV are be considered to be milestones, so they will become unbreakable for the sake of player progression.
+    Pickaxes V,X and XV are considered to be milestones, so they will become unbreakable for the sake of player progression.
 
     Break Chance:
     Pickaxe V --> 5% >> 0%

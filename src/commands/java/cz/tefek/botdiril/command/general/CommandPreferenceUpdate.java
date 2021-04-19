@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.general;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -17,7 +17,7 @@ import cz.tefek.botdiril.userdata.preferences.UserPreferences;
 public class CommandPreferenceUpdate
 {
     @CmdInvoke
-    public static void update(CallObj co, @CmdPar("option ID") EnumUserPreference option, @CmdPar("on/off") boolean enable)
+    public static void update(CommandContext co, @CmdPar("option ID") EnumUserPreference option, @CmdPar("on/off") boolean enable)
     {
         var eb = new EmbedBuilder();
         eb.setColor(0x008080);
@@ -38,6 +38,6 @@ public class CommandPreferenceUpdate
 
         eb.setDescription(String.format("Succesfully set `%s` to `%s`.", option.getLocalizedName(), indicator));
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

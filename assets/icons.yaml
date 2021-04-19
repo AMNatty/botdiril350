@@ -1,0 +1,96 @@
+# Default configuration, feel free to change
+
+"currency":
+  "coin": "<a:coindiril:760154321328930816>"
+  "kek": "<:kek:659060470740680737>"
+  "token": "<:kektoken:787361212877897809>"
+  "megakek": "<a:megakek:659060770910502956>"
+  "dust": "<:dust:659060768343326751>"
+  "key": "<:key:659057189432066058>"
+
+"card":
+  "cards": "<:cards:659059381891104768>"
+  "rarity":
+    "basic": "<:basic:659059381387788319>"
+    "common": "<:common:659059381417017344>"
+    "rare": "<:rare:659059381794635786>"
+    "legendary": "<:legendary:659059381698297856>"
+    "ultimate": "<:ultimate:659059381706555394>"
+    "mythic": "<a:mythic:659059381933047808>"
+    "legacy": "<:legacy:659059381295382539>"
+    "legacyLegendary": "<:legacylegendary:659059381454897182>"
+    "limited": "<a:limited:659059381727395840>"
+    "unique": "<a:unique:659059384046977034>"
+
+"item":
+  "crate":
+    "basic": "<:basiccrate:659057189100453920>"
+    "iron": "<:ironcrate:517166675527991337>"
+    "uncommon": "<:uncommoncrate:659057189679398952>"
+    "epic": "<:epiccrate:659057189150916688>"
+    "golden": "<:goldencrate:659057189356568577>"
+    "legendary": "<:legendarycrate:659059083692867614>"
+    "ultimate": "<:ultimatecrate:659057189398249484>"
+    "hyper": "<:hypercrate:659057189356306432>"
+    "glitchy": "<a:glitchyCrate:760147568754819122>"
+    "infernal": "<a:infernalCrate:760139172156538881>"
+    "void": "<a:voidCrate:760128716873007164>"
+    "league": "<:leagueCrate:659581295801794590>"
+
+  "cardPack":
+    "basic": "<:cardpack:659062977961394177>"
+    "good": "<:goodcardpack:659062977923645442>"
+    "void": "<:voidcardpack:659062978448195594>"
+    "normal": "<:normalcardpack:659062978473361408>"
+
+  "pickaxe":
+    "I": "<:pickaxe_i:659056642414870550>"
+    "II": "<:pickaxe_ii:659056642511601679>"
+    "III": "<:pickaxe_iii:659056642729574410>"
+    "IV": "<:pickaxe_iv:659056643014656040>"
+    "V": "<a:pickaxe_v:659056645183242250>"
+
+  "gem":
+    "green": "<a:greenGem:661932656170369063>"
+    "red": "<a:redGem:661932658967838720>"
+    "purple": "<a:purpleGem:661932659550846977>"
+    "blue": "<a:blueGem:661932658812518423>"
+    "black": "<a:blackGem:661937471269109780>"
+    "rainbow": "<a:rainbowGem:688493780826849342>"
+
+  "mineral":
+    "coal": "<:coal:516740098289565696>"
+    "copper": "<:copper:516727755761516584>"
+    "iron": "<:iron:516727755476303884>"
+    "gold": "<:gold:516727755174313999>"
+    "platinum": "<:platinum:516727755207868438>"
+    "uranium": "<:uranium:516727755702796338>"
+    "kekium": "<:kekium:516727755623366656>"
+    "emerald": "<a:emerald:786958181912805427>"
+    "diamond": "<:diamond:762045174649192448>"
+
+  "rareResource":
+    "gemdiril": "<a:gemdiril:789575465266184233>"
+    "timewarp": "<a:timewarpCrystal:659840906421207081>"
+    "oil": "<:oil:660136196390912017>"
+    "goldenOil": "<:goldenOil:660171462229098507>"
+    "strangeMetal": "<a:strangeMetal:785934659958734940>"
+
+  "scroll":
+    "basic": "<:scroll:659057189389860865>"
+    "rare": "<:scrollrare:659057189314363417>"
+    "unique": "<:scrollunique:659057189477941279>"
+
+  "misc":
+    "toolBox": "<:suspiciousmetalbox:659064782959280147>"
+    "repairKit": "<:repairKit:659587163834286103>"
+    "trash": "<:trash:663733041495015444>"
+
+"achievement":
+  "bot": "<:bot:659064057428574208>"
+  "beta": "<:beta:659064057139298312>"
+
+"other":
+  "kekOverdrive": "<a:skin_kekoverdrive:480439539597443112>"
+  "theFast": "<:thefast:506032106154098698>"
+  "max": "<:max:659071845592727552>"

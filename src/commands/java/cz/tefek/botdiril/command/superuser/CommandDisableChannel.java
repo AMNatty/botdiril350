@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.time.Instant;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -18,13 +18,13 @@ import cz.tefek.botdiril.serverdata.ChannelPreferences;
 public class CommandDisableChannel
 {
     @CmdInvoke
-    public static void toggleDisable(CallObj co)
+    public static void toggleDisable(CommandContext co)
     {
         toggleDisable(co, co.textChannel);
     }
 
     @CmdInvoke
-    public static void toggleDisable(CallObj co, @CmdPar("channel") TextChannel channel)
+    public static void toggleDisable(CommandContext co, @CmdPar("channel") TextChannel channel)
     {
         var channelId = co.textChannel.getIdLong();
         var on = !ChannelPreferences.checkBit(co.db, channelId, ChannelPreferences.BIT_DISABLED);
@@ -61,7 +61,7 @@ public class CommandDisableChannel
             eb.setFooter("Message ID: " + co.message.getIdLong(), null);
             eb.setTimestamp(Instant.now());
 
-            co.send(lc, eb.build());
+            co.send(lc, eb);
         }
     }
 }

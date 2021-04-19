@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.userdata.items.crate;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.userdata.item.*;
 import cz.tefek.botdiril.userdata.stat.EnumStat;
 import cz.tefek.botdiril.util.BotdirilFmt;
@@ -15,7 +15,7 @@ public abstract class ItemCrate extends Item implements IOpenable
     }
 
     @Override
-    public String getFootnote(CallObj co)
+    public String getFootnote(CommandContext co)
     {
         return "Open using `" + co.usedPrefix + "open " + this.getName() + "`. Keep in mind you need a key to do so.";
     }
@@ -26,7 +26,7 @@ public abstract class ItemCrate extends Item implements IOpenable
         return true;
     }
 
-    protected abstract void addDrops(CallObj co, ItemDrops id);
+    protected abstract void addDrops(CommandContext co, ItemDrops id);
 
     public int getDisplayLimit()
     {
@@ -34,7 +34,7 @@ public abstract class ItemCrate extends Item implements IOpenable
     }
 
     @Override
-    public void open(CallObj co, long amount)
+    public void open(CommandContext co, long amount)
     {
         var fm = String.format("**You open %d %s and get the following items:**", amount, this.getIcon());
         var sb = new StringBuilder(fm);

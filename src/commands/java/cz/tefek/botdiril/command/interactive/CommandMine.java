@@ -3,7 +3,7 @@ package cz.tefek.botdiril.command.interactive;
 
 import java.util.stream.Collectors;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -29,7 +29,7 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 public class CommandMine
 {
     @CmdInvoke
-    public static void mine(CallObj co, @CmdPar("pickaxe") Item item)
+    public static void mine(CommandContext co, @CmdPar("pickaxe") Item item)
     {
         TimerUtil.require(co.ui, EnumTimer.MINE, "You still need to wait **$** to **mine**.");
 

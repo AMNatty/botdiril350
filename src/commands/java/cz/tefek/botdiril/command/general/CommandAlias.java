@@ -3,7 +3,7 @@ package cz.tefek.botdiril.command.general;
 import java.util.HashMap;
 import java.util.Map;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -44,7 +44,7 @@ public class CommandAlias
     }
 
     @CmdInvoke
-    public static void bind(CallObj co, @CmdPar("alias name") String source, @CmdPar("alias replacement") String replacement)
+    public static void bind(CommandContext co, @CmdPar("alias name") String source, @CmdPar("alias replacement") String replacement)
     {
         source = source.trim();
 
@@ -75,7 +75,7 @@ public class CommandAlias
         }
     }
 
-    static int findEmptySlot(CallObj co)
+    static int findEmptySlot(CommandContext co)
     {
         var bound = co.po.getUsedAliases();
 

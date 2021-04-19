@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.gambling;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -17,13 +17,13 @@ import cz.tefek.botdiril.util.BotdirilRnd;
 public class CommandDiceRoll
 {
     @CmdInvoke
-    public static void roll(CallObj co)
+    public static void roll(CommandContext co)
     {
         co.respond(String.format(":game_die: You rolled a **%d**!", BotdirilRnd.RDG.nextInt(1, 6)));
     }
 
     @CmdInvoke
-    public static void roll(CallObj co, @CmdPar(value = "keks", type = ParType.AMOUNT_CLASSIC_KEKS) long keks, @CmdPar("bet on side") int number)
+    public static void roll(CommandContext co, @CmdPar(value = "keks", type = ParType.AMOUNT_CLASSIC_KEKS) long keks, @CmdPar("bet on side") int number)
     {
         CommandAssert.numberMoreThanZeroL(keks, "You can't gamble zero keks...");
         CommandAssert.numberInBoundsInclusiveL(number, 1, 6, "You can't bet on a side that does not exit... Use a number in the range 1..6");

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -47,7 +47,7 @@ public class CommandInventory
         return Long.compare(ShopEntries.getCoinPrice(i2.getItem()), ShopEntries.getCoinPrice(i1.getItem()));
     };
 
-    private static List<ItemPair> getInventory(CallObj co, User user)
+    private static List<ItemPair> getInventory(CommandContext co, User user)
     {
         var ui = new UserInventory(co.db, user.getIdLong());
 
@@ -80,13 +80,13 @@ public class CommandInventory
     }
 
     @CmdInvoke
-    public static void show(CallObj co)
+    public static void show(CommandContext co)
     {
         show(co, co.caller);
     }
 
     @CmdInvoke
-    public static void show(CallObj co, @CmdPar("user") User user)
+    public static void show(CommandContext co, @CmdPar("user") User user)
     {
         var ips = getInventory(co, user);
 
@@ -114,11 +114,11 @@ public class CommandInventory
 
         eb.setFooter("Use `" + co.usedPrefix + co.usedAlias + " " + user.getIdLong() + " <page>` to go to another page.", null);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 
     @CmdInvoke
-    public static void show(CallObj co, @CmdPar("user") User user, @CmdPar("page") long page)
+    public static void show(CommandContext co, @CmdPar("user") User user, @CmdPar("page") long page)
     {
         CommandAssert.numberNotBelowL(page, 1, "Invalid page.");
 
@@ -154,6 +154,6 @@ public class CommandInventory
 
         eb.setFooter("Use `" + co.usedPrefix + co.usedAlias + " " + user.getIdLong() + " <page>` to go to another page.", null);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

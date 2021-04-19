@@ -3,7 +3,7 @@ package cz.tefek.botdiril.command.superuser;
 import java.util.EnumMap;
 import java.util.stream.Collectors;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -30,7 +30,7 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 public class CommandEmulateMine
 {
     @CmdInvoke
-    public static void mine(CallObj co, @CmdPar("pickaxe") Item item, @CmdPar("iterations") int iterationCount)
+    public static void mine(CommandContext co, @CmdPar("pickaxe") Item item, @CmdPar("iterations") int iterationCount)
     {
         CommandAssert.numberMoreThanZeroL(iterationCount, "Iteration count must be greater than 0!");
 

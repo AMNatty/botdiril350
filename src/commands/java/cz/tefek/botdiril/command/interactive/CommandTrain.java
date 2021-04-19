@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.interactive;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -28,7 +28,7 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 public class CommandTrain
 {
     @CmdInvoke
-    public static void train(CallObj co)
+    public static void train(CommandContext co)
     {
         var eb = new EmbedBuilder();
         eb.setTitle("Train a card");
@@ -49,11 +49,11 @@ public class CommandTrain
         eb.addField("Estimate XP gain", sbRight.toString(), true);
         eb.setFooter("Please view this table on a desktop computer for optimal view.");
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 
     @CmdInvoke
-    public static void train(CallObj co, @CmdPar("card to train") Card card, @CmdPar("training item") Item item, @CmdPar(value = "amount of training item", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
+    public static void train(CommandContext co, @CmdPar("card to train") Card card, @CmdPar("training item") Item item, @CmdPar(value = "amount of training item", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
         CommandAssert.numberMoreThanZeroL(co.ui.howManyOf(card), "*You need to have at least one card of this kind to train it.*");
 
@@ -93,13 +93,13 @@ public class CommandTrain
         eb.addField("XP received", BotdirilFmt.format(xp), true);
         eb.addField("Multiplier", BotdirilFmt.format(Math.round(outcome.getMultiplier() * 100)) + " %", true);
 
-        co.respond(eb.build());
+        co.respond(eb);
 
         co.ui.addCardXP(co, card, xp);
     }
 
     @CmdInvoke
-    public static void train(CallObj co, @CmdPar("card to train") Card card, @CmdPar("training item") Item item)
+    public static void train(CommandContext co, @CmdPar("card to train") Card card, @CmdPar("training item") Item item)
     {
         if (co.ui.howManyOf(item) < 1)
             throw new CommandException("*You don't have any **%s***".formatted(item.inlineDescription()));

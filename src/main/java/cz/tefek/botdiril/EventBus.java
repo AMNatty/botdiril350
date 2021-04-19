@@ -10,7 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import cz.tefek.botdiril.command.general.CommandAlias;
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.parser.CommandParser;
 import cz.tefek.botdiril.framework.sql.DBConnection;
 import cz.tefek.botdiril.framework.util.PrefixUtil;
@@ -65,7 +65,7 @@ public class EventBus extends ListenerAdapter
 
         if (!user.isBot())
         {
-            var co = new CallObj();
+            var co = new CommandContext();
             co.caller = user;
             co.callerMember = event.getMember();
             co.guild = guild;

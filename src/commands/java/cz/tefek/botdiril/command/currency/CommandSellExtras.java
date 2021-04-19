@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.currency;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -16,7 +16,7 @@ import cz.tefek.botdiril.util.BotdirilLog;
 public class CommandSellExtras
 {
     @CmdInvoke
-    public static void dust(CallObj co)
+    public static void dust(CommandContext co)
     {
         var cards = new AtomicLong();
         var coins = new AtomicLong();

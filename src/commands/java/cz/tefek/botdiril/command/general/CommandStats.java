@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.util.Arrays;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -19,13 +19,13 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 public class CommandStats
 {
     @CmdInvoke
-    public static void show(CallObj co)
+    public static void show(CommandContext co)
     {
         showStats(co, co.po, co.caller);
     }
 
     @CmdInvoke
-    public static void show(CallObj co, @CmdPar("user") User user)
+    public static void show(CommandContext co, @CmdPar("user") User user)
     {
         var ui = new UserInventory(co.db, user.getIdLong());
 
@@ -33,7 +33,7 @@ public class CommandStats
         showStats(co, po, user);
     }
 
-    private static void showStats(CallObj co, PropertyObject po, User user)
+    private static void showStats(CommandContext co, PropertyObject po, User user)
     {
         var eb = new EmbedBuilder();
 
@@ -43,6 +43,6 @@ public class CommandStats
 
         Arrays.stream(EnumStat.values()).forEach(es -> eb.addField(es.getLocalizedName(), BotdirilFmt.format(po.getStat(es)), true));
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

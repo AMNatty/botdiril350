@@ -3,7 +3,7 @@ package cz.tefek.botdiril.userdata;
 import java.sql.Statement;
 import java.util.stream.Collectors;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.CommandStorage;
 import cz.tefek.botdiril.framework.sql.DBConnection;
 import cz.tefek.botdiril.framework.sql.SqlFoundation;
@@ -470,7 +470,7 @@ public class UserInventory
         this.db.simpleUpdate("UPDATE " + TABLE_USER + " SET us_xp=us_xp+? WHERE us_id=?", xp, this.fkid);
     }
 
-    public void addXP(CallObj co, long xp)
+    public void addXP(CommandContext co, long xp)
     {
         var preAddXP = this.getXP();
         var currentXP = preAddXP + xp;
@@ -547,7 +547,7 @@ public class UserInventory
         }, this.fkid, item.getID());
     }
 
-    public void addCardXP(CallObj co, Card card, long xp)
+    public void addCardXP(CommandContext co, Card card, long xp)
     {
         var preAddXP = this.getCardXP(card);
         var currentXP = preAddXP + xp;

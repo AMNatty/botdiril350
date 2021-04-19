@@ -2,14 +2,14 @@ package cz.tefek.botdiril.userdata.items.crate;
 
 import java.util.function.BiConsumer;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.userdata.item.ItemDrops;
 
 public class ItemCrateSimple extends ItemCrate
 {
-    private final BiConsumer<CallObj, ItemDrops> openHandler;
+    private final BiConsumer<CommandContext, ItemDrops> openHandler;
 
-    public ItemCrateSimple(String name, String icon, String localizedName, BiConsumer<CallObj, ItemDrops> addDropsHandler, String description)
+    public ItemCrateSimple(String name, String icon, String localizedName, BiConsumer<CommandContext, ItemDrops> addDropsHandler, String description)
     {
         super(name, icon, localizedName, description);
 
@@ -17,7 +17,7 @@ public class ItemCrateSimple extends ItemCrate
     }
 
     @Override
-    protected void addDrops(CallObj co, ItemDrops id)
+    protected void addDrops(CommandContext co, ItemDrops id)
     {
         this.openHandler.accept(co, id);
     }

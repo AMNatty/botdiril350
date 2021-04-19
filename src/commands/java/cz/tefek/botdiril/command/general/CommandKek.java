@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.general;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.EnumSpecialCommandProperty;
@@ -13,7 +13,7 @@ import cz.tefek.botdiril.util.BotdirilRnd;
 public class CommandKek
 {
     @CmdInvoke
-    public static void name(CallObj co)
+    public static void name(CommandContext co)
     {
         co.respond(BotdirilRnd.choose(Icons.SKINS));
     }

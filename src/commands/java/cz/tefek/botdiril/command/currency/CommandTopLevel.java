@@ -1,17 +1,18 @@
 package cz.tefek.botdiril.command.currency;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.text.MessageFormat;
+import java.util.Locale;
+
 import cz.tefek.botdiril.Botdiril;
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 import cz.tefek.botdiril.userdata.UserInventory;
 import cz.tefek.botdiril.userdata.xp.XPRewards;
 import cz.tefek.botdiril.util.BotdirilFmt;
-import net.dv8tion.jda.api.EmbedBuilder;
-
-import java.text.MessageFormat;
-import java.util.Locale;
 
 @Command(value = "xpleaderboards", aliases = { "toplevel", "toplevels",
         "xprankings" }, category = CommandCategory.CURRENCY, description = "Shows the top 10 highest level users.")
@@ -20,7 +21,7 @@ public class CommandTopLevel
     public static final int LIMIT = 10;
 
     @CmdInvoke
-    public static void show(CallObj co)
+    public static void show(CommandContext co)
     {
         var eb = new EmbedBuilder();
         eb.setAuthor("Global level leaderboards");
@@ -52,6 +53,6 @@ public class CommandTopLevel
         }, Botdiril.AUTHOR_ID);
         co.db.setAutocommit(false);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

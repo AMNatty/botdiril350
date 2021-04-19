@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.inventory;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -20,7 +20,7 @@ import cz.tefek.botdiril.userdata.item.ShopEntries;
 public class CommandDisenchantExtras
 {
     @CmdInvoke
-    public static void dust(CallObj co)
+    public static void dust(CommandContext co)
     {
         var cards = new AtomicLong();
         var dust = new AtomicLong();

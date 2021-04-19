@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.currency;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -14,13 +14,13 @@ import cz.tefek.botdiril.userdata.timers.TimerUtil;
 import cz.tefek.botdiril.util.BotdirilFmt;
 
 @Command(value = "payoutkeks", aliases = {
-        "payout", "kekspayout", "kekspayout", "payoutkek" }, category = CommandCategory.CURRENCY, description = "Pay out your " + Icons.KEK + " for some " + Icons.TOKEN, levelLock = 7)
+        "payout", "kekspayout", "kekspayout", "payoutkek" }, category = CommandCategory.CURRENCY, description = "Pay out your keks for some tokens.", levelLock = 7)
 public class CommandPayoutKeks
 {
     private static final long conversionRate = 125;
 
     @CmdInvoke
-    public static void payout(CallObj co, @CmdPar(value = "how many", type = ParType.AMOUNT_CLASSIC_KEKS) long keks)
+    public static void payout(CommandContext co, @CmdPar(value = "how many", type = ParType.AMOUNT_CLASSIC_KEKS) long keks)
     {
         CommandAssert.numberMoreThanZeroL(keks, "You can't pay out zero keks.");
 

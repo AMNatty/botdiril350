@@ -2,12 +2,12 @@ package cz.tefek.botdiril.userdata.achievement;
 
 import net.dv8tion.jda.api.entities.User;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.userdata.UserInventory;
 
 public class AchievementActivator
 {
-    public static boolean fire(CallObj co, UserInventory ui, User user, Achievement achievement)
+    public static boolean fire(CommandContext co, UserInventory ui, User user, Achievement achievement)
     {
         if (!ui.hasAchievement(achievement))
         {

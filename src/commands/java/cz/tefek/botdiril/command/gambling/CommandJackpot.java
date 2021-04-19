@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.gambling;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -12,7 +12,7 @@ import cz.tefek.botdiril.userdata.icon.Icons;
 public class CommandJackpot
 {
     @CmdInvoke
-    public static void tellJackpot(CallObj co)
+    public static void tellJackpot(CommandContext co)
     {
         var eb = new EmbedBuilder();
         eb.setTitle("Jackpot Stats");
@@ -25,6 +25,6 @@ public class CommandJackpot
             String.format("%d %s", co.po.getJackpotStored(), Icons.KEK),
             false);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

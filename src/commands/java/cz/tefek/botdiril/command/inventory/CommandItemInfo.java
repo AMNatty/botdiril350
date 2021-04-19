@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed.Field;
 
 import java.util.stream.Collectors;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -22,7 +22,7 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 public class CommandItemInfo
 {
     @CmdInvoke
-    public static void show(CallObj co, @CmdPar("item") Item item)
+    public static void show(CommandContext co, @CmdPar("item") Item item)
     {
         var eb = new EmbedBuilder();
         eb.setTitle(item.inlineDescription());
@@ -64,6 +64,6 @@ public class CommandItemInfo
 
         eb.setFooter(item.getFootnote(co), null);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

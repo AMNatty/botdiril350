@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.Member;
 
 import java.time.Instant;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -17,13 +17,13 @@ import cz.tefek.botdiril.framework.permission.PowerLevel;
 public class CommandMyPowers
 {
     @CmdInvoke
-    public static void print(CallObj co)
+    public static void print(CommandContext co)
     {
         print(co, co.callerMember);
     }
 
     @CmdInvoke
-    public static void print(CallObj co, @CmdPar("user") Member user)
+    public static void print(CommandContext co, @CmdPar("user") Member user)
     {
         if (user.getUser().isBot())
         {
@@ -41,6 +41,6 @@ public class CommandMyPowers
 
         PowerLevel.getCumulativePowers(co.db, user, co.textChannel).forEach(c -> eb.addField(c.toString(), c.getDescription(), false));
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.superuser;
 
 import java.util.stream.Collectors;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -35,13 +35,13 @@ public class CommandCraftingCost
     }
 
     @CmdInvoke
-    public static void craft(CallObj co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
+    public static void craft(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
     {
         craft(co, item, 1);
     }
 
     @CmdInvoke
-    public static void craft(CallObj co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar("count") long amount)
+    public static void craft(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar("count") long amount)
     {
         CommandAssert.numberInBoundsExclusiveL(amount, 0, Integer.MAX_VALUE, "Please select a number between 1 and Int32 max.");
 

@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.superuser;
 
 import net.dv8tion.jda.api.entities.User;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -18,7 +18,7 @@ import cz.tefek.botdiril.userdata.achievement.AchievementActivator;
 public class CommandTriggerAchievement
 {
     @CmdInvoke
-    public static void trigger(CallObj co, @CmdPar("achievement") Achievement achievement)
+    public static void trigger(CommandContext co, @CmdPar("achievement") Achievement achievement)
     {
         if (!AchievementActivator.fire(co, co.ui, co.caller, achievement))
         {
@@ -27,7 +27,7 @@ public class CommandTriggerAchievement
     }
 
     @CmdInvoke
-    public static void trigger(CallObj co, @CmdPar("user") User user, @CmdPar("achievement") Achievement achievement)
+    public static void trigger(CommandContext co, @CmdPar("user") User user, @CmdPar("achievement") Achievement achievement)
     {
         if (!AchievementActivator.fire(co, new UserInventory(co.db, user.getIdLong()), user, achievement))
         {

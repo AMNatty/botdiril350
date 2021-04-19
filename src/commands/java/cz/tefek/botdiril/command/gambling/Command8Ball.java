@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.gambling;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -20,7 +20,7 @@ public class Command8Ball
             "My sources say no.", "Outlook not so good.", "Very doubtful." };
 
     @CmdInvoke
-    public static void roll(CallObj co, @CmdPar("question") String question)
+    public static void roll(CommandContext co, @CmdPar("question") String question)
     {
         CommandAssert.stringNotTooLong(question, 300, "Your question is too long, please make it shorter.");
 
@@ -30,6 +30,6 @@ public class Command8Ball
         eb.setColor(0x008080);
         eb.addField("Answer:", ":8ball: | " + BotdirilRnd.choose(answers), false);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

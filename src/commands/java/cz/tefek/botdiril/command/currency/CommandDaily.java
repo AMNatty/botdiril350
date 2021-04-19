@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.currency;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -18,7 +18,7 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 public class CommandDaily
 {
     @CmdInvoke
-    public static void daily(CallObj co)
+    public static void daily(CommandContext co)
     {
         TimerUtil.require(co.ui, EnumTimer.DAILY, "You need to wait **$** to use **daily** again.");
 

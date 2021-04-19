@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -54,7 +54,7 @@ public class CommandRecipes
     };
 
     @CmdInvoke
-    public static void show(CallObj co)
+    public static void show(CommandContext co)
     {
         var recipes = CraftingEntries.getRecipes();
 
@@ -80,11 +80,11 @@ public class CommandRecipes
 
         eb.setFooter("Use `" + co.usedPrefix + "recipes <page>` to go to another page.", null);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 
     @CmdInvoke
-    public static void show(CallObj co, @CmdPar("page") int page)
+    public static void show(CommandContext co, @CmdPar("page") int page)
     {
         CommandAssert.numberNotBelowL(page, 1, "Invalid page.");
 
@@ -116,6 +116,6 @@ public class CommandRecipes
 
         eb.setFooter("Use `" + co.usedPrefix + "recipes <page>` to go to another page.", null);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

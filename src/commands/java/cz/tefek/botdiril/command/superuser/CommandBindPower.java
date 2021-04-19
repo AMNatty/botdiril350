@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.entities.Role;
 
 import java.text.MessageFormat;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -19,7 +19,7 @@ import cz.tefek.botdiril.serverdata.RolePreferences;
 public class CommandBindPower
 {
     @CmdInvoke
-    public static void bind(CallObj co, @CmdPar("role") Role role, @CmdPar("power") EnumPowerLevel powerLevel)
+    public static void bind(CommandContext co, @CmdPar("role") Role role, @CmdPar("power") EnumPowerLevel powerLevel)
     {
         var mp = PowerLevel.getManageablePowers(co.db, co.callerMember, co.textChannel);
 

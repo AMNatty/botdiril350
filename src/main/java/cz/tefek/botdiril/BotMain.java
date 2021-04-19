@@ -13,6 +13,7 @@ import cz.tefek.botdiril.userdata.ItemLookup;
 import cz.tefek.botdiril.userdata.UserInventory;
 import cz.tefek.botdiril.userdata.achievement.Achievements;
 import cz.tefek.botdiril.userdata.card.Cards;
+import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.userdata.items.Items;
 import cz.tefek.botdiril.userdata.metrics.UserMetrics;
 import cz.tefek.botdiril.userdata.properties.PropertyObject;
@@ -57,6 +58,8 @@ public class BotMain
                 RolePreferences.load(db);
 
                 PropertyObject.init(db);
+
+                Icons.load();
 
                 Items.load();
 

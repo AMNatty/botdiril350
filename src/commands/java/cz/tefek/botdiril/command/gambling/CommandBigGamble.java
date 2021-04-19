@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.gambling;
 
 import java.util.function.BiFunction;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -18,7 +18,7 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 import cz.tefek.botdiril.util.BotdirilRnd;
 
 @Command(value = "biggamble", aliases = { "gamblemega", "gamblemegakeks",
-    "mega", "megagamble" }, category = CommandCategory.GAMBLING, description = "Gamble in " + Icons.MEGAKEK + " style. There is a dark secret though.", levelLock = 12)
+    "mega", "megagamble" }, category = CommandCategory.GAMBLING, description = "Gamble in megakek style. There is a dark secret though.", levelLock = 12)
 public class CommandBigGamble
 {
     private static final BiFunction<Long, Integer, Double> getChanceToLoseEverything = (amount, level) -> Math.sqrt(Math.max(amount - 1, 0)) / (Math.pow(level, 0.75) + 25.0);
@@ -26,7 +26,7 @@ public class CommandBigGamble
     private static final double LOW_CHANCE_PROTECTION = 0.15;
 
     @CmdInvoke
-    public static void gamble(CallObj co, @CmdPar(value = "amount", type = ParType.AMOUNT_MEGA_KEKS) long amount)
+    public static void gamble(CommandContext co, @CmdPar(value = "amount", type = ParType.AMOUNT_MEGA_KEKS) long amount)
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't gamble negative or zero " + Icons.MEGAKEK + ".");
 

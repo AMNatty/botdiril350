@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.superuser;
 
 import net.dv8tion.jda.api.entities.Member;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -15,7 +15,7 @@ import cz.tefek.botdiril.userdata.item.Item;
 public class CommandResetAmount
 {
     @CmdInvoke
-    public static void resetItem(CallObj co, @CmdPar("item") Item item)
+    public static void resetItem(CommandContext co, @CmdPar("item") Item item)
     {
         co.ui.setItem(item, 0);
 
@@ -23,7 +23,7 @@ public class CommandResetAmount
     }
 
     @CmdInvoke
-    public static void resetItem(CallObj co, @CmdPar("user") Member user, @CmdPar("item") Item item)
+    public static void resetItem(CommandContext co, @CmdPar("user") Member user, @CmdPar("item") Item item)
     {
         new UserInventory(co.db, user.getUser().getIdLong()).setItem(item, 0);
 

@@ -35,7 +35,7 @@ public class CommandIntrospector
 
             var first = pars[0].getType();
 
-            if (first != CallObj.class)
+            if (first != CommandContext.class)
             {
                 return false;
             }

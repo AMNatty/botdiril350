@@ -6,7 +6,7 @@ import org.apache.commons.text.similarity.FuzzyScore;
 import java.util.Comparator;
 import java.util.Locale;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -18,13 +18,13 @@ import cz.tefek.botdiril.userdata.item.Item;
 public class CommandItemList
 {
     @CmdInvoke
-    public static void showFirstPage(CallObj co)
+    public static void showFirstPage(CommandContext co)
     {
         showPage(co, 1);
     }
 
     @CmdInvoke
-    public static void showPage(CallObj co, @CmdPar("page") int page)
+    public static void showPage(CommandContext co, @CmdPar("page") int page)
     {
         var items = Item.items();
 
@@ -45,11 +45,11 @@ public class CommandItemList
 
         eb.setFooter("Use `" + co.usedPrefix + "iteminfo <item id>` to show more information about an item.", null);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 
     @CmdInvoke
-    public static void showPage(CallObj co, @CmdPar("search query") String search, @CmdPar("page") int page)
+    public static void showPage(CommandContext co, @CmdPar("search query") String search, @CmdPar("page") int page)
     {
         CommandAssert.stringNotTooLong(search, 50, "The search string can't be this long.");
 
@@ -76,6 +76,6 @@ public class CommandItemList
 
         eb.setFooter("Use `" + co.usedPrefix + "iteminfo <item id>` to show more information about an item.", null);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

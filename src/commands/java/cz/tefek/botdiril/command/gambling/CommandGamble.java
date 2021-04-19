@@ -1,6 +1,6 @@
 package cz.tefek.botdiril.command.gambling;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -21,7 +21,7 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 public class CommandGamble
 {
     @CmdInvoke
-    public static void gamble(CallObj co, @CmdPar(value = "amount of keks", type = ParType.AMOUNT_CLASSIC_KEKS) long keks)
+    public static void gamble(CommandContext co, @CmdPar(value = "amount of keks", type = ParType.AMOUNT_CLASSIC_KEKS) long keks)
     {
         CommandAssert.numberMoreThanZeroL(keks, "You can't gamble zero keks...");
 

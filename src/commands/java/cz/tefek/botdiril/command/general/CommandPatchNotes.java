@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
 import cz.tefek.botdiril.Botdiril;
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -20,10 +20,12 @@ import cz.tefek.botdiril.framework.command.invoke.CmdPar;
     description = "Shows the latest changes of the bot.")
 public class CommandPatchNotes
 {
-    private static final Path PATCH_NOTES_FILE = Path.of("assets/PATCH_NOTES.yaml");
+    private static final String PATCH_NOTES_FILENAME = "assets/PATCH_NOTES.yaml";
+    private static final Path PATCH_NOTES_FILE = Path.of(PATCH_NOTES_FILENAME);
+    private static final String PATCH_NOTES_LINK = "%s/blob/master/%s".formatted(Botdiril.REPO_URL, PATCH_NOTES_FILENAME);
 
     @CmdInvoke
-    public static void choose(CallObj co)
+    public static void choose(CommandContext co)
     {
         var patchNotes = load(co);
 
@@ -36,14 +38,14 @@ public class CommandPatchNotes
         eb.setColor(0x0090FF);
         eb.setThumbnail(co.bot.getEffectiveAvatarUrl());
         eb.addField("",
-            "*For the full list of changes, please see the [source code](%s/blob/master/assets/PATCH_NOTES.yml).*".formatted(Botdiril.REPO_URL),
+            "*For the full list of changes, please see the [source code](%s).*".formatted(PATCH_NOTES_LINK),
             false);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 
     @CmdInvoke
-    public static void choose(CallObj co, @CmdPar("patch ID") String patch)
+    public static void choose(CommandContext co, @CmdPar("patch ID") String patch)
     {
         var patchNotes = load(co);
 
@@ -71,13 +73,13 @@ public class CommandPatchNotes
         eb.setColor(0x0090FF);
         eb.setThumbnail(co.bot.getEffectiveAvatarUrl());
         eb.addField("",
-            "*For the full list of changes, please see the [source code](%s/blob/master/assets/PATCH_NOTES.yml).*".formatted(Botdiril.REPO_URL),
+            "*For the full list of changes, please see the [source code](%s).*".formatted(PATCH_NOTES_LINK),
             false);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 
-    private static PatchNotes load(CallObj co)
+    private static PatchNotes load(CommandContext co)
     {
         try (var br = Files.newBufferedReader(PATCH_NOTES_FILE))
         {

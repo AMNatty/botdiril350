@@ -9,7 +9,7 @@ wrapper {
 }
 
 group 'cz.tefek'
-version '350.5'
+version '350.6'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_15
@@ -25,6 +25,7 @@ sourceSets {
             srcDir "src/data/java"
             srcDir "src/gamelogic/java"
             srcDir "src/commands/java"
+            srcDir "src/util/java"
         }
 
         resources {
@@ -34,6 +35,7 @@ sourceSets {
             srcDir "src/data/resources"
             srcDir "src/gamelogic/resources"
             srcDir "src/commands/resources"
+            srcDir "src/util/resources"
         }
     }
 }

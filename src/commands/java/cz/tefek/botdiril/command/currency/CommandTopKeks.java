@@ -1,17 +1,18 @@
 package cz.tefek.botdiril.command.currency;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.text.MessageFormat;
+import java.util.Locale;
+
 import cz.tefek.botdiril.Botdiril;
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 import cz.tefek.botdiril.userdata.UserInventory;
 import cz.tefek.botdiril.userdata.icon.Icons;
 import cz.tefek.botdiril.util.BotdirilFmt;
-import net.dv8tion.jda.api.EmbedBuilder;
-
-import java.text.MessageFormat;
-import java.util.Locale;
 
 @Command(value = "richkeks", aliases = { "topkeks",
         "topkek" }, category = CommandCategory.CURRENCY, description = "Shows the top 10 users with the most keks.")
@@ -20,7 +21,7 @@ public class CommandTopKeks
     public static final int LIMIT = 10;
 
     @CmdInvoke
-    public static void show(CallObj co)
+    public static void show(CommandContext co)
     {
         var eb = new EmbedBuilder();
         eb.setAuthor("Kekest users");
@@ -49,6 +50,6 @@ public class CommandTopKeks
         }, Botdiril.AUTHOR_ID);
         co.db.setAutocommit(false);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

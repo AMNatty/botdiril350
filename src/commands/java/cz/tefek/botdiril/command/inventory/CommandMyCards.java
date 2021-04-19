@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.entities.User;
 import java.util.Comparator;
 import java.util.Locale;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -26,19 +26,19 @@ public class CommandMyCards
     private static final Comparator<CardPair> cardComparator = (i1, i2) -> Long.compare(Card.getPrice(i2.getCard(), i2.getLevel()), Card.getPrice(i1.getCard(), i1.getLevel()));
 
     @CmdInvoke
-    public static void show(CallObj co)
+    public static void show(CommandContext co)
     {
         show(co, co.caller);
     }
 
     @CmdInvoke
-    public static void show(CallObj co, @CmdPar("user") User user)
+    public static void show(CommandContext co, @CmdPar("user") User user)
     {
         show(co, user, 1);
     }
 
     @CmdInvoke
-    public static void show(CallObj co, @CmdPar("user") User user, @CmdPar("page") long page)
+    public static void show(CommandContext co, @CmdPar("user") User user, @CmdPar("page") long page)
     {
         CommandAssert.numberNotBelowL(page, 1, "Invalid page.");
 
@@ -74,6 +74,6 @@ public class CommandMyCards
 
         eb.setFooter(String.format(Locale.ROOT, "Use `%s%s %d <page>` to go to another page.", co.usedPrefix, co.usedAlias, user.getIdLong()), null);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

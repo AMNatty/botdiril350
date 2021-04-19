@@ -18,7 +18,7 @@ import cz.tefek.botdiril.framework.util.CommandAssert;
 public class CommandHelp
 {
     @CmdInvoke
-    public static void show(CallObj co)
+    public static void show(CommandContext co)
     {
         var eb = new EmbedBuilder();
         eb.setColor(Color.CYAN.getRGB());
@@ -33,11 +33,11 @@ public class CommandHelp
 
         eb.setDescription("There are " + cmdCnt + " commands in " + catCnt + " categories total.");
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 
     @CmdInvoke
-    public static void show(CallObj co, @CmdPar("category or command") String tbp)
+    public static void show(CommandContext co, @CmdPar("category or command") String tbp)
     {
         try
         {
@@ -71,7 +71,7 @@ public class CommandHelp
 
             eb.setDescription("Type ``" + co.usedPrefix + co.usedAlias + " <command>`` to show more information for each command.");
 
-            co.respond(eb.build());
+            co.respond(eb);
         }
     }
 }

@@ -5,7 +5,7 @@ import org.apache.commons.lang3.EnumUtils;
 
 import java.util.stream.Collectors;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CommandException;
@@ -35,7 +35,7 @@ public class CommandParserTypeHandler
         };
     }
 
-    private static long parseAmount(CallObj co, Object[] argArr, int i, String arg)
+    private static long parseAmount(CommandContext co, Object[] argArr, int i, String arg)
     {
         if (i <= 1)
             throw new CommandException("Internal error. Please contact an administrator. Code: **NO_PREV_PARAM**");
@@ -54,7 +54,7 @@ public class CommandParserTypeHandler
         throw new CommandException("Internal error. Please contact an administrator. Code: **PREV_PARAM_NEITHER_CARD_OR_ITEM**");
     }
 
-    private static long parseAmountBuy(CallObj co, Object[] argArr, ParType type, int i, String arg)
+    private static long parseAmountBuy(CommandContext co, Object[] argArr, ParType type, int i, String arg)
     {
         if (i == 1)
             throw new CommandException("Internal error. Please contact an administrator. Code: **NO_PREV_PARAM**");
@@ -86,7 +86,7 @@ public class CommandParserTypeHandler
         };
     }
 
-    public static <T, E extends Enum<E>> Object handleType(CallObj co, Class<T> clazz, Object[] argArr, ParType type, int i, String arg)
+    public static <T, E extends Enum<E>> Object handleType(CommandContext co, Class<T> clazz, Object[] argArr, ParType type, int i, String arg)
     {
         if (clazz == int.class || clazz == Integer.class)
         {

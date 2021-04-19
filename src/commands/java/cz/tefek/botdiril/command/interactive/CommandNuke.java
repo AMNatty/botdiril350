@@ -3,7 +3,7 @@ package cz.tefek.botdiril.command.interactive;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -31,7 +31,7 @@ public class CommandNuke
     private static final long strangeMetalNeeded = 3;
 
     @CmdInvoke
-    public static void nuke(CallObj co, @CmdPar("user") Member member)
+    public static void nuke(CommandContext co, @CmdPar("user") Member member)
     {
         var userInv = new UserInventory(co.db, member.getUser().getIdLong());
 
@@ -53,7 +53,7 @@ public class CommandNuke
             eb.setColor(0x008080);
             eb.setDescription(Icons.SCROLL_RARE + " That person is immune for some reason.\nTry someone else or wait.");
 
-            throw new CommandException(eb.build());
+            throw new CommandException(eb);
         }
 
         if (BotdirilRnd.rollChance(0.5))
@@ -84,6 +84,6 @@ public class CommandNuke
         eb.addField("Destroyed", String.format("**%s** %s", BotdirilFmt.format(lost), Icons.KEK), false);
         eb.addField("Stolen", String.format("**%s** %s", BotdirilFmt.format(stolen), Icons.KEK), false);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import java.text.MessageFormat;
 
 import cz.tefek.botdiril.Botdiril;
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -20,7 +20,7 @@ public class CommandRich
     public static final int LIMIT = 10;
 
     @CmdInvoke
-    public static void show(CallObj co)
+    public static void show(CommandContext co)
     {
         var eb = new EmbedBuilder();
         eb.setAuthor("Richest users");
@@ -51,6 +51,6 @@ public class CommandRich
         }, Botdiril.AUTHOR_ID);
         co.db.setAutocommit(false);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

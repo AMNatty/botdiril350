@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.Comparator;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -36,7 +36,7 @@ public class CommandTokenShop
     }
 
     @CmdInvoke
-    public static void shop(CallObj co)
+    public static void shop(CommandContext co)
     {
         var eb = new EmbedBuilder();
         eb.setTitle("Black Market");
@@ -55,6 +55,6 @@ public class CommandTokenShop
 
         eb.setFooter("Tip: Use `%sexchange <item> [amount]` or `%siteminfo <item>`.".replace("%s", co.usedPrefix), null);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

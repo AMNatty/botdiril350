@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.text.MessageFormat;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -32,7 +32,7 @@ import cz.tefek.botdiril.util.BotdirilRnd;
 public class CommandSteal
 {
     @CmdInvoke
-    public static void steal(CallObj co, @CmdPar("who to rob") User user)
+    public static void steal(CommandContext co, @CmdPar("who to rob") User user)
     {
         TimerUtil.require(co.ui, EnumTimer.STEAL, "You need to wait **$** before trying to **steal** again.");
 
@@ -69,7 +69,7 @@ public class CommandSteal
             eb.setThumbnail(co.bot.getEffectiveAvatarUrl());
             eb.setColor(0x008080);
             eb.setDescription("That person is immune. For some reason.");
-            co.respond(eb.build());
+            co.respond(eb);
 
             return;
         }
@@ -116,6 +116,6 @@ public class CommandSteal
         eb.addField("Rewards", String.format("**%s XP**", BotdirilFmt.format(xp)), false);
         co.ui.addXP(co, xp);
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

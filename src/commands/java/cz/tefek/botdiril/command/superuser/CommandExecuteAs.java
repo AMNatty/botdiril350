@@ -2,7 +2,7 @@ package cz.tefek.botdiril.command.superuser;
 
 import net.dv8tion.jda.api.entities.Member;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -18,9 +18,9 @@ public class CommandExecuteAs
 {
 
     @CmdInvoke
-    public static void exec(CallObj co, @CmdPar("user") Member member, @CmdPar("command") String command)
+    public static void exec(CommandContext co, @CmdPar("user") Member member, @CmdPar("command") String command)
     {
-        var cobj = new CallObj();
+        var cobj = new CommandContext();
         cobj.caller = member.getUser();
         cobj.ui = new UserInventory(co.db, cobj.caller.getIdLong());
         cobj.db = co.db;

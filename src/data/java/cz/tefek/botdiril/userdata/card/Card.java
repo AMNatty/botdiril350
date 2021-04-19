@@ -2,7 +2,7 @@ package cz.tefek.botdiril.userdata.card;
 
 import java.util.*;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.userdata.IIdentifiable;
 import cz.tefek.botdiril.userdata.ItemLookup;
 import cz.tefek.botdiril.userdata.pools.CardPools;
@@ -121,7 +121,7 @@ public class Card implements IIdentifiable
         return this.description;
     }
 
-    public String getFootnote(CallObj co)
+    public String getFootnote(CommandContext co)
     {
         return "";
     }

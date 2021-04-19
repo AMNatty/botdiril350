@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed.Field;
 
 import java.util.stream.Collectors;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.Command;
 import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
@@ -23,7 +23,7 @@ import cz.tefek.botdiril.util.BotdirilFmt;
 public class CommandCardInfo
 {
     @CmdInvoke
-    public static void show(CallObj co, @CmdPar("card") Card card)
+    public static void show(CommandContext co, @CmdPar("card") Card card)
     {
         var eb = new EmbedBuilder();
         eb.setDescription(card.getDescription());
@@ -95,6 +95,6 @@ public class CommandCardInfo
             eb.setImage(card.getCustomImage());
         }
 
-        co.respond(eb.build());
+        co.respond(eb);
     }
 }

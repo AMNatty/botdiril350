@@ -1,13 +1,13 @@
 package cz.tefek.botdiril.userdata.tempstat;
 
-import cz.tefek.botdiril.framework.command.CallObj;
+import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.userdata.properties.PropertyObject;
 import cz.tefek.botdiril.util.BotdirilRnd;
 import cz.tefek.pluto.chrono.MiniTime;
 
 public class Curser
 {
-    public static void bless(CallObj co)
+    public static void bless(CommandContext co)
     {
         var blessings = EnumBlessing.values();
         var blessing = BotdirilRnd.choose(blessings);
@@ -27,7 +27,7 @@ public class Curser
         co.respond(String.format("You've been **blessed** with the **%s** for **%s**. **%s**", blessing.getLocalizedName(), strTime, blessing.getDescription()));
     }
 
-    public static void curse(CallObj co)
+    public static void curse(CommandContext co)
     {
         var curses = EnumCurse.values();
         var curse = BotdirilRnd.choose(curses);
@@ -53,7 +53,7 @@ public class Curser
         co.respond(String.format("You've been **cursed** with the **%s** for **%s**. **%s**", curse.getLocalizedName(), strTime, curse.getDescription()));
     }
 
-    public static boolean isBlessed(CallObj co, EnumBlessing blessing)
+    public static boolean isBlessed(CommandContext co, EnumBlessing blessing)
     {
         return isBlessed(co.po, blessing);
     }
@@ -63,7 +63,7 @@ public class Curser
         return po.getBlessing(blessing) > System.currentTimeMillis();
     }
 
-    public static boolean isCursed(CallObj co, EnumCurse curse)
+    public static boolean isCursed(CommandContext co, EnumCurse curse)
     {
         return isCursed(co.po, curse);
     }
