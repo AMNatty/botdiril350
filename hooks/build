@@ -1,2 +1,2 @@
 #!/bin/sh
-docker build --build-arg githubPackagesKey=$GPR -t $IMAGE_NAME .
+docker build --build-arg githubPackagesKey="$GPR" -t "$IMAGE_NAME" .
