@@ -6,19 +6,19 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import cz.tefek.botdiril.command.general.CommandAlias;
 import cz.tefek.botdiril.framework.command.CommandContext;
 import cz.tefek.botdiril.framework.command.parser.CommandParser;
 import cz.tefek.botdiril.framework.sql.DBConnection;
 import cz.tefek.botdiril.framework.util.PrefixUtil;
-import cz.tefek.botdiril.userdata.metrics.UserMetrics;
-import cz.tefek.botdiril.util.BotdirilLog;
 import cz.tefek.botdiril.serverdata.ServerPreferences;
 import cz.tefek.botdiril.userdata.UserInventory;
+import cz.tefek.botdiril.userdata.metrics.UserMetrics;
 import cz.tefek.botdiril.userdata.properties.PropertyObject;
+import cz.tefek.botdiril.util.BotdirilLog;
 
 public class EventBus extends ListenerAdapter
 {
@@ -32,24 +32,21 @@ public class EventBus extends ListenerAdapter
         var sc = ServerPreferences.getConfigByGuild(g.getIdLong());
         if (sc == null)
         {
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run()
+            var scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler.schedule(() -> {
+                DBConnection db = BotMain.SQL_MANAGER.getConnection();
+                try (db)
                 {
-                    DBConnection db = BotMain.SQL_MANAGER.getConnection();
-                    try (db)
-                    {
-                        ServerPreferences.addGuild(db, g);
+                    ServerPreferences.addGuild(db, g);
 
-                        db.commit();
-                    }
-                    catch (Exception e)
-                    {
-                        BotdirilLog.logger.fatal("An exception has occured while setting up server preferences.", e);
-                        db.rollback();
-                    }
+                    db.commit();
                 }
-            }, 5000);
+                catch (Exception e)
+                {
+                    BotdirilLog.logger.fatal("An exception has occured while setting up server preferences.", e);
+                    db.rollback();
+                }
+            }, 5, TimeUnit.SECONDS);
         }
     }
 

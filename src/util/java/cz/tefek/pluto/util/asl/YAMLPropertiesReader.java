@@ -23,9 +23,8 @@ public class YAMLPropertiesReader
             var yaml = new Yaml(new Constructor() {
                 private void recursivelyBuildTree(Map<String, String> map, String accessor, Node node)
                 {
-                    if (node instanceof MappingNode)
+                    if (node instanceof MappingNode mappingNode)
                     {
-                        var mappingNode = (MappingNode) node;
                         var kvps = mappingNode.getValue();
 
                         for (var kvp : kvps)

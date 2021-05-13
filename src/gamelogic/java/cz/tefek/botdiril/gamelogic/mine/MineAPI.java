@@ -146,12 +146,7 @@ public class MineAPI
             }
         }
 
-        boolean instantlyRefreshed = false;
-
-        if (inputData.isBlessedMiningSurge() && BotdirilRnd.rollChance(CHANCE_INSTAMINE))
-        {
-            instantlyRefreshed = true;
-        }
+        boolean instantlyRefreshed = inputData.isBlessedMiningSurge() && BotdirilRnd.rollChance(CHANCE_INSTAMINE);
 
         multiplierMap.put(EnumMineMultiplier.MLT_EXPERIENCE, levelModifier);
         multiplierMap.put(EnumMineMultiplier.MLT_RANDOM, randomModifier);

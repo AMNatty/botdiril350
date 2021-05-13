@@ -5,15 +5,15 @@ plugins {
 
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
-    gradleVersion = '6.6.1'
+    gradleVersion = '7.0'
 }
 
 group 'cz.tefek'
-version '350.6.1'
+version '350.7'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_15
-    targetCompatibility = JavaVersion.VERSION_15
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
 }
 
 sourceSets {
@@ -43,7 +43,12 @@ sourceSets {
 repositories {
     mavenLocal()
     mavenCentral()
-    jcenter()
+
+    maven {
+        name 'm2dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+
     maven {
         name 'GitHubPackages'
         url 'https://maven.pkg.github.com/493msi/plutoengine/'
@@ -102,7 +107,7 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
     implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
 
-    implementation group: 'net.dv8tion', name: 'JDA', version: '4.2.0_223'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '4.2.1_262'
 
     implementation group: 'cz.tefek', name: 'plutolib', version: '20.2.0.0-alpha.2'
 }

@@ -33,7 +33,7 @@ public class BotMain
         BotdirilLog.init();
 
         BotdirilLog.logger.info("=====================================");
-        BotdirilLog.logger.info("####       BOTDIRIL 350          ####");
+        BotdirilLog.logger.info("####     BOTDIRIL MESON 350      ####");
         BotdirilLog.logger.info("=====================================");
 
         Locale.setDefault(Locale.US);

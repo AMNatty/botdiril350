@@ -8,7 +8,7 @@ import cz.tefek.botdiril.framework.command.CommandCategory;
 import cz.tefek.botdiril.framework.command.invoke.CmdInvoke;
 
 @Command(aliases = {
-        "latency", "Heartbeat" }, category = CommandCategory.GENERAL, description = "Tells the Discord latency.", value = "ping")
+        "latency", "heartbeat" }, category = CommandCategory.GENERAL, description = "Tells the Discord latency.", value = "ping")
 public class CommandPing
 {
     @CmdInvoke

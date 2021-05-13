@@ -21,7 +21,7 @@ public class GambleAPI
         {
             var outcome = IWeightedRandom.choose(EnumGambleOutcome.class);
 
-            if (gambleInput.isJackpotCursed() && outcome == EnumGambleOutcome.JACKPOT)
+            if (gambleInput.jackpotCursed() && outcome == EnumGambleOutcome.JACKPOT)
             {
                 missedJackpot = true;
                 continue;
@@ -32,21 +32,21 @@ public class GambleAPI
 
             if (outcome == EnumGambleOutcome.JACKPOT)
             {
-                var stored = gambleInput.getJackpotStored();
+                var stored = gambleInput.jackpotStored();
                 gambleResult.setJackpot(stored, POOL_STORE_CONVERSION.applyAsLong(stored));
             }
             else if (gambleResult.hasLost())
             {
                 var lost = -gambleResult.getKekDifference();
-                var pool = gambleInput.getJackpotPool();
-                var stored = gambleInput.getJackpotStored();
+                var pool = gambleInput.jackpotPool();
+                var stored = gambleInput.jackpotStored();
                 gambleResult.setJackpot(pool + JACKPOT_POOL_CONVERSION.applyAsLong(lost),
                     stored + JACKPOT_STORE_CONVERSION.applyAsLong(lost));
             }
 
-            var gambledKeks = gambleInput.getGambledKeks();
+            var gambledKeks = gambleInput.gambledKeks();
 
-            var xpConverter = gambleInput.hasXPBoost() ? XP_CONVERSION_BOOSTED : XP_CONVERSION;
+            var xpConverter = gambleInput.xpBoost() ? XP_CONVERSION_BOOSTED : XP_CONVERSION;
             gambleResult.setXPGained(xpConverter.applyAsLong(gambledKeks));
 
             return gambleResult;

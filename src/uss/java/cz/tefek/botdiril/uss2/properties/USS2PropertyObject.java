@@ -33,29 +33,24 @@ public final class USS2PropertyObject
         var poNew = create(po.schema);
         var props = po.schema.getProperties();
         props.forEach(property -> {
-            if (property instanceof USS2PropertySchema.USS2Int)
+            if (property instanceof USS2PropertySchema.USS2Int ussInt)
             {
-                var ussInt = (USS2PropertySchema.USS2Int) property;
                 ussInt.write(poNew, ussInt.read(po));
             }
-            else if (property instanceof USS2PropertySchema.USS2Long)
+            else if (property instanceof USS2PropertySchema.USS2Long ussLong)
             {
-                var ussLong = (USS2PropertySchema.USS2Long) property;
                 ussLong.write(poNew, ussLong.read(po));
             }
-            else if (property instanceof USS2PropertySchema.USS2Double)
+            else if (property instanceof USS2PropertySchema.USS2Double ussDouble)
             {
-                var ussDouble = (USS2PropertySchema.USS2Double) property;
                 ussDouble.write(poNew, ussDouble.read(po));
             }
-            else if (property instanceof USS2PropertySchema.USS2Byte)
+            else if (property instanceof USS2PropertySchema.USS2Byte ussByte)
             {
-                var ussByte = (USS2PropertySchema.USS2Byte) property;
                 ussByte.write(poNew, ussByte.read(po));
             }
-            else if (property instanceof USS2PropertySchema.USS2String)
+            else if (property instanceof USS2PropertySchema.USS2String ussString)
             {
-                var ussString = (USS2PropertySchema.USS2String) property;
                 ussString.write(poNew, ussString.read(po));
             }
         });

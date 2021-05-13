@@ -1,5 +1,9 @@
-latest: "350.6"
+latest: "350.7"
 patchList:
+  "350.7": |-
+    * Switched to Java 16
+    * Upgraded to JDA 4.2.1
+
   "350.6.1": |-
     * Fixed several broken icons
 

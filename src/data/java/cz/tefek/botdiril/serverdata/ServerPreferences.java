@@ -5,7 +5,9 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import cz.tefek.botdiril.Botdiril;
 import cz.tefek.botdiril.MajorFailureException;
 import cz.tefek.botdiril.framework.sql.DBConnection;
 import cz.tefek.botdiril.framework.sql.SqlFoundation;
@@ -78,16 +80,14 @@ public class ServerPreferences
     {
         var prem = g.getTextChannelsByName("botdiril", true);
 
-        TextChannel pc;
+        Optional<TextChannel> suitableChannel = Optional.empty();
 
         if (!prem.isEmpty())
         {
-            pc = prem.get(0);
+            suitableChannel = prem.stream().filter(TextChannel::canTalk).findFirst();
         }
-        else
-        {
-            pc = g.createTextChannel("botdiril").complete();
-        }
+
+        var pc = suitableChannel.orElseGet(() -> g.createTextChannel("botdiril").complete());
 
         var sc = new ServerConfig(g.getIdLong());
         sc.setLoggingChannel(db, pc.getIdLong());
@@ -96,6 +96,9 @@ public class ServerPreferences
 
         db.simpleUpdate("INSERT INTO " + PREF_TABLE + "(sc_guild, sc_logchannel) VALUES (?, ?)", sc.getServerID(), sc.getLoggingChannel());
 
-        pc.sendMessage("Hello! This is Botdiril350! Please set a prefix via `" + BotdirilConfig.UNIVERSAL_PREFIX + "prefix <prefix>`. You can change it later. To set a logging channel please use `" + BotdirilConfig.UNIVERSAL_PREFIX + "channel <log channel>`.").submit();
+        pc.sendMessage(("Hello! This is %s! Please set a prefix via `%sprefix <prefix>`." +
+                        " You can change it later." +
+                        " To set a logging channel please use `%schannel <log channel>`.")
+            .formatted(Botdiril.BRANDING, BotdirilConfig.UNIVERSAL_PREFIX, BotdirilConfig.UNIVERSAL_PREFIX)).submit();
     }
 }
