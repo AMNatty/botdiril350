@@ -44,6 +44,7 @@ public class UserMetrics
             (fk_us_id, um_coins, um_keks, um_tokens, um_keys, um_mega, um_dust, um_level, um_xp)
             VALUES
             (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """.formatted(TABLE_USER_METRICS), ui.getFID(), uiObj.getCoins(), uiObj.getKeks(), uiObj.getTokens(), uiObj.getKeys(), uiObj.getMegaKeks(), uiObj.getDust(), uiObj.getLevel(), uiObj.getXP());
+        """.formatted(TABLE_USER_METRICS),
+            ui.getFID(), uiObj.coins(), uiObj.keks(), uiObj.tokens(), uiObj.keys(), uiObj.megakeks(), uiObj.dust(), uiObj.level(), uiObj.xp());
     }
 }

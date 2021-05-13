@@ -43,8 +43,8 @@ public class CommandBalance
         eb.setTitle(u.getName() + "'s balance");
         eb.setThumbnail(u.getEffectiveAvatarUrl());
 
-        var level = uo.getLevel();
-        var xp = uo.getXP();
+        var level = uo.level();
+        var xp = uo.xp();
 
         String desc = String.format("Level %d", level);
 
@@ -82,13 +82,13 @@ public class CommandBalance
 
         eb.setColor(0x008080);
 
-        eb.addField(new Field(EnumCurrency.COINS.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.getCoins()), EnumCurrency.COINS.getIcon()), true));
-        eb.addField(new Field(EnumCurrency.KEKS.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.getKeks()), EnumCurrency.KEKS.getIcon()), true));
-        eb.addField(new Field(EnumCurrency.MEGAKEKS.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.getMegaKeks()), EnumCurrency.MEGAKEKS.getIcon()), true));
-        eb.addField(new Field(EnumCurrency.TOKENS.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.getTokens()), EnumCurrency.TOKENS.getIcon()), true));
-        eb.addField(new Field(EnumCurrency.KEYS.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.getKeys()), EnumCurrency.KEYS.getIcon()), true));
-        eb.addField(new Field(EnumCurrency.DUST.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.getDust()), EnumCurrency.DUST.getIcon()), true));
-        eb.addField(new Field("Cards", String.format("%d %s\n", uo.getCards(), Icons.CARDS), true));
+        eb.addField(new Field(EnumCurrency.COINS.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.coins()), EnumCurrency.COINS.getIcon()), true));
+        eb.addField(new Field(EnumCurrency.KEKS.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.keks()), EnumCurrency.KEKS.getIcon()), true));
+        eb.addField(new Field(EnumCurrency.MEGAKEKS.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.megakeks()), EnumCurrency.MEGAKEKS.getIcon()), true));
+        eb.addField(new Field(EnumCurrency.TOKENS.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.tokens()), EnumCurrency.TOKENS.getIcon()), true));
+        eb.addField(new Field(EnumCurrency.KEYS.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.keys()), EnumCurrency.KEYS.getIcon()), true));
+        eb.addField(new Field(EnumCurrency.DUST.getLocalizedName(), String.format("%s %s\n", BotdirilFmt.format(uo.dust()), EnumCurrency.DUST.getIcon()), true));
+        eb.addField(new Field("Cards", String.format("%d %s\n", uo.cards(), Icons.CARDS), true));
 
         co.respond(eb);
     }
