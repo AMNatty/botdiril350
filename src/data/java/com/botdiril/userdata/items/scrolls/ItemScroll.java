@@ -1,10 +1,10 @@
 package com.botdiril.userdata.items.scrolls;
 
-import java.util.function.ObjLongConsumer;
-
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.userdata.item.IOpenable;
 import com.botdiril.userdata.item.Item;
+
+import java.util.function.ObjLongConsumer;
 
 public class ItemScroll extends Item implements IOpenable
 {

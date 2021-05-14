@@ -3,10 +3,11 @@ package com.botdiril.command.general;
 import com.botdiril.Botdiril;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
-import net.dv8tion.jda.api.EmbedBuilder;
+import com.botdiril.framework.command.invoke.CommandException;
+import com.botdiril.framework.response.ResponseEmbed;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -26,16 +27,18 @@ public class CommandPatchNotes
     @CmdInvoke
     public static void choose(CommandContext co)
     {
-        var patchNotes = load(co);
+        var patchNotes = load();
 
         if (patchNotes == null)
             return;
 
-        var eb = new EmbedBuilder();
+        var patchText = patchNotes.patchList.get(patchNotes.latest);
+
+        var eb = new ResponseEmbed();
         eb.setTitle("%s patch %s (latest patch)".formatted(Botdiril.BRANDING, patchNotes.latest));
-        eb.setDescription(patchNotes.patchList.get(patchNotes.latest));
+        eb.setDescription(patchText.replaceAll(" ", "\u00A0"));
         eb.setColor(0x0090FF);
-        eb.setThumbnail(co.bot.getEffectiveAvatarUrl());
+        eb.setThumbnail(co.botIconURL);
         eb.addField("",
             "*For the full list of changes, please see the [source code](%s).*".formatted(PATCH_NOTES_LINK),
             false);
@@ -46,7 +49,7 @@ public class CommandPatchNotes
     @CmdInvoke
     public static void choose(CommandContext co, @CmdPar("patch ID") String patch)
     {
-        var patchNotes = load(co);
+        var patchNotes = load();
 
         if (patchNotes == null)
             return;
@@ -65,12 +68,12 @@ public class CommandPatchNotes
             return;
         }
 
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
         var patchNameFmt = patch.equals(patchNotes.latest) ?  "%s patch %s (latest patch)" : "%s patch %s";
         eb.setTitle(patchNameFmt.formatted(Botdiril.BRANDING, patch));
-        eb.setDescription(patchText);
+        eb.setDescription(patchText.replaceAll(" ", "\u00A0"));
         eb.setColor(0x0090FF);
-        eb.setThumbnail(co.bot.getEffectiveAvatarUrl());
+        eb.setThumbnail(co.botIconURL);
         eb.addField("",
             "*For the full list of changes, please see the [source code](%s).*".formatted(PATCH_NOTES_LINK),
             false);
@@ -78,7 +81,7 @@ public class CommandPatchNotes
         co.respond(eb);
     }
 
-    private static PatchNotes load(CommandContext co)
+    private static PatchNotes load()
     {
         try (var br = Files.newBufferedReader(PATCH_NOTES_FILE))
         {
@@ -87,9 +90,7 @@ public class CommandPatchNotes
         }
         catch (Exception e)
         {
-            co.respond("*Error: Failed to retrieve the patch notes, sorry.*");
-            e.printStackTrace();
-            return null;
+            throw new CommandException("*Error: Failed to retrieve the patch notes, sorry.*", e);
         }
     }
 

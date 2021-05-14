@@ -1,11 +1,15 @@
 package com.botdiril.command.interactive;
 
+import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
+import com.botdiril.framework.command.invoke.ParType;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.util.CommandAssert;
+import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.items.Items;
 import com.botdiril.userdata.preferences.EnumUserPreference;
 import com.botdiril.userdata.preferences.UserPreferences;
@@ -19,31 +23,24 @@ import com.botdiril.userdata.timers.TimerUtil;
 import com.botdiril.userdata.xp.XPRewards;
 import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilRnd;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.User;
-
-import java.text.MessageFormat;
-
-import com.botdiril.userdata.UserInventory;
-import com.botdiril.userdata.icon.Icons;
 
 @Command(aliases = {
         "rob" }, category = CommandCategory.INTERACTIVE, description = "Hehe. Time to rob someone.", value = "steal", levelLock = 10)
 public class CommandSteal
 {
+    private static final long MIN_TO_STEAL = 1000;
+
     @CmdInvoke
-    public static void steal(CommandContext co, @CmdPar("who to rob") User user)
+    public static void steal(CommandContext co, @CmdPar(value = "player to rob", type = ParType.ENTITY_NOT_SELF) EntityPlayer player)
     {
-        TimerUtil.require(co.ui, EnumTimer.STEAL, "You need to wait **$** before trying to **steal** again.");
+        TimerUtil.require(co.inventory, EnumTimer.STEAL, "You need to wait **$** before trying to **steal** again.");
 
-        CommandAssert.assertNotEquals(co.caller.getIdLong(), user.getIdLong(), "You can't rob yourself. Or can you? :thinking:");
+        CommandAssert.numberNotBelowL(co.inventory.getCoins(), MIN_TO_STEAL, "You need at least %s to rob someone.".formatted(BotdirilFmt.amountOfMD(MIN_TO_STEAL, Icons.COIN)));
 
-        CommandAssert.numberNotBelowL(co.ui.getCoins(), 1000, "You need at least **1'000** " + Icons.COIN + " to rob someone.");
-
-        var userLevel = co.ui.getLevel();
+        var userLevel = co.inventory.getLevel();
         var lvlData = XPRewards.getLevel(userLevel);
 
-        var other = new UserInventory(co.db, user.getIdLong());
+        var other = player.inventory();
 
         var lvlOther = other.getLevel();
 
@@ -62,11 +59,11 @@ public class CommandSteal
 
         if (Curser.isBlessed(otherProps, EnumBlessing.STEAL_IMMUNE))
         {
-            co.ui.resetTimer(EnumTimer.STEAL);
+            co.inventory.resetTimer(EnumTimer.STEAL);
 
-            var eb = new EmbedBuilder();
+            var eb = new ResponseEmbed();
             eb.setTitle("Steal");
-            eb.setThumbnail(co.bot.getEffectiveAvatarUrl());
+            eb.setThumbnail(co.botIconURL);
             eb.setColor(0x008080);
             eb.setDescription("That person is immune. For some reason.");
             co.respond(eb);
@@ -74,15 +71,15 @@ public class CommandSteal
             return;
         }
 
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
         eb.setTitle("Steal");
-        eb.setThumbnail(co.bot.getEffectiveAvatarUrl());
+        eb.setThumbnail(co.botIconURL);
         eb.setColor(0x008080);
 
-        if (co.ui.howManyOf(Items.toolBox) > 0 && !UserPreferences.isBitEnabled(co.po, EnumUserPreference.TOOLBOX_STEALING_DISABLED))
+        if (co.inventory.howManyOf(Items.toolBox) > 0 && !UserPreferences.isBitEnabled(co.userProperties, EnumUserPreference.TOOLBOX_STEALING_DISABLED))
         {
-            eb.appendDescription(MessageFormat.format("You used a **{0}**...\n", Items.toolBox.inlineDescription()));
-            co.ui.addItem(Items.toolBox, -1);
+            eb.appendDescription("You used **%s**...\n".formatted(BotdirilFmt.amountOfMD("a", Icons.ITEM_MISC_TOOLBOX)));
+            co.inventory.addItem(Items.toolBox, -1);
             mod = Math.abs(mod);
         }
 
@@ -99,22 +96,22 @@ public class CommandSteal
         }
         else
         {
-            if (co.po.getStat(EnumStat.BIGGEST_STEAL) < stole)
+            if (co.userProperties.getStat(EnumStat.BIGGEST_STEAL) < stole)
             {
-                co.po.setStat(EnumStat.BIGGEST_STEAL, stole);
+                co.userProperties.setStat(EnumStat.BIGGEST_STEAL, stole);
             }
 
-            co.ui.addCoins(stole);
+            co.inventory.addCoins(stole);
             other.addCoins(-stole);
             eb.appendDescription("It worked out!");
-            eb.addField("Stolen coins", String.format("**%s %s**.", BotdirilFmt.format(stole), Icons.COIN), false);
+            eb.addField("Stolen coins", BotdirilFmt.amountOfMD(stole, Icons.COIN), false);
 
             otherProps.incrementStat(EnumStat.TIMES_ROBBED);
         }
 
         var xp = Math.round(BotdirilRnd.RANDOM.nextDouble() * (lvlData.getDailyMax() - lvlData.getDailyMin()) + lvlData.getDailyMin()) / 15;
-        eb.addField("Rewards", String.format("**%s XP**", BotdirilFmt.format(xp)), false);
-        co.ui.addXP(co, xp);
+        eb.addField("Rewards", BotdirilFmt.amountOfMD(xp, Icons.XP), false);
+        co.inventory.addXP(co, xp);
 
         co.respond(eb);
     }

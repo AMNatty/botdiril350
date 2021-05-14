@@ -1,14 +1,32 @@
 package com.botdiril.userdata.item;
 
+import com.botdiril.framework.command.invoke.CommandException;
+import com.botdiril.userdata.UserInventory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import com.botdiril.framework.command.invoke.CommandException;
-import com.botdiril.userdata.UserInventory;
-
 public class ItemAssert
 {
+    public static void requireItem(UserInventory ui, Item item)
+    {
+        var has = ui.howManyOf(item);
+
+        if (has < 1)
+            throw new CommandException("*You don't have any **%s**.*".formatted(item));
+    }
+
+    public static void consumeItem(UserInventory ui, Item item)
+    {
+        var has = ui.howManyOf(item);
+
+        if (has < 1)
+            throw new CommandException("*You don't have any **%s**.*".formatted(item));
+
+        ui.addItem(item, -1);
+    }
+
     public static void consumeItems(UserInventory ui, String actionName, ItemPair itemPair)
     {
         var item = itemPair.getItem();

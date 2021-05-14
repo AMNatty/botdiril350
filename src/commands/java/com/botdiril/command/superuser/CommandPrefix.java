@@ -4,7 +4,7 @@ package com.botdiril.command.superuser;
 import com.botdiril.Botdiril;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
@@ -15,7 +15,7 @@ import com.botdiril.framework.util.CommandAssert;
 public class CommandPrefix
 {
     @CmdInvoke
-    public static void setPrefix(CommandContext co, @CmdPar("prefix") String prefix)
+    public static void setPrefix(DiscordCommandContext co, @CmdPar("prefix") String prefix)
     {
         CommandAssert.stringNotTooLong(prefix, 8, "The prefix is too long.");
 

@@ -1,16 +1,18 @@
-package com.botdiril.framework.command;
+package com.botdiril.discord.framework.command.context;
 
-import com.botdiril.framework.sql.DBConnection;
+import com.botdiril.discord.framework.response.DiscordMessageResponse;
+import com.botdiril.framework.command.MessageOutputTransformer;
+import com.botdiril.framework.command.context.ChatCommandContext;
+import com.botdiril.framework.response.IResponse;
 import com.botdiril.serverdata.ServerConfig;
-import com.botdiril.userdata.properties.PropertyObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 
-import com.botdiril.userdata.UserInventory;
-
-public class CommandContext
+public class DiscordCommandContext extends ChatCommandContext
 {
+    public ServerConfig sc;
+
     public User caller;
     public Member callerMember;
     public TextChannel textChannel;
@@ -19,37 +21,33 @@ public class CommandContext
     public Message message;
     public SelfUser bot;
 
-    public ServerConfig sc;
-
-    public String contents;
-
-    public String usedPrefix;
-    public String usedAlias;
-
-    public DBConnection db;
-    public UserInventory ui;
-    public PropertyObject po;
-
-    public void respond(String msg)
+    public DiscordCommandContext(TextChannel textChannel)
     {
-        this.textChannel.sendMessage(MessageOutputTransformer.transformMessage(msg)).queue();
+        this.textChannel = textChannel;
+        this.response = new DiscordMessageResponse(this.textChannel);
+    }
+
+    @Override
+    public DiscordMessageResponse createResponse()
+    {
+        return new DiscordMessageResponse(this.textChannel);
+    }
+
+    public DiscordMessageResponse createResponse(MessageChannel channel)
+    {
+        return new DiscordMessageResponse(channel);
+    }
+
+    @Override
+    public IResponse getDefaultResponse()
+    {
+        return this.response;
     }
 
     public void respond(EmbedBuilder msg)
     {
         transformEmbed(msg);
         this.textChannel.sendMessage(msg.build()).queue();
-    }
-
-    public void send(TextChannel tc, String msg)
-    {
-        tc.sendMessage(MessageOutputTransformer.transformMessage(msg)).queue();
-    }
-
-    public void send(TextChannel tc, EmbedBuilder msg)
-    {
-        transformEmbed(msg);
-        tc.sendMessage(msg.build()).queue();
     }
 
     private void transformEmbed(EmbedBuilder msg)

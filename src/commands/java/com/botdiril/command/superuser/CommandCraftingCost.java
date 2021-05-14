@@ -2,7 +2,7 @@ package com.botdiril.command.superuser;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.ParType;
@@ -10,11 +10,10 @@ import com.botdiril.framework.util.CommandAssert;
 import com.botdiril.userdata.IIdentifiable;
 import com.botdiril.userdata.item.CraftingEntries;
 import com.botdiril.userdata.item.ItemDrops;
+import com.botdiril.userdata.item.ItemPair;
 import com.botdiril.userdata.item.Recipe;
 
 import java.util.stream.Collectors;
-
-import com.botdiril.util.BotdirilFmt;
 
 @Command(value = "craftingcost", aliases = {
     "craftcost", "craftingtotal", "crafttotal"
@@ -54,7 +53,7 @@ public class CommandCraftingCost
 
         addComponents(totalDrops, recipe, amount);
 
-        var needed = totalDrops.stream().map(ip -> String.format("**%s %s**", BotdirilFmt.format(ip.getAmount()), ip.getItem().inlineDescription())).collect(Collectors.joining(", "));
-        co.respond("It would cost %s to craft **%d %s**.".formatted(needed, amount, item.inlineDescription()));
+        var needed = totalDrops.stream().map(ItemPair::toString).collect(Collectors.joining(", "));
+        co.respondf("It would cost **%s** to craft **%d %s**.", needed, amount, item.inlineDescription());
     }
 }

@@ -16,6 +16,11 @@ public class BotdirilRnd
         return RDG.nextUniform(0, 1, true) < chance;
     }
 
+    public static int rollDie(int sides)
+    {
+        return RDG.nextInt(1, sides);
+    }
+
     public static <E, T extends List<E>> E choose(T collection)
     {
         return collection.get(RANDOM.nextInt(collection.size()));

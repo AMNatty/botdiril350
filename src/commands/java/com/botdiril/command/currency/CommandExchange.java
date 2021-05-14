@@ -2,33 +2,29 @@ package com.botdiril.command.currency;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
+import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.command.invoke.ParType;
 import com.botdiril.framework.util.CommandAssert;
-import com.botdiril.framework.command.CommandContext;
-import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ShopEntries;
 import com.botdiril.util.BotdirilFmt;
 
 @Command(value = "exchange", aliases = {
-        "buyfortokens" }, category = CommandCategory.CURRENCY, description = "Exchange tokens for items or cards.", levelLock = 8)
+        "buyfortokens" }, category = CommandCategory.CURRENCY, description = "Exchange tokens for items or cards.")
 public class CommandExchange
 {
     @CmdInvoke
     public static void buy(CommandContext co, @CmdPar(value = "item", type = ParType.ITEM_OR_CARD) Item item)
     {
         if (!ShopEntries.canBeBoughtForTokens(item))
-        {
             throw new CommandException("That item cannot be bought, sorry.");
-        }
 
-        if (ShopEntries.getTokenPrice(item) > co.ui.getKekTokens())
-        {
+        if (ShopEntries.getTokenPrice(item) > co.inventory.getKekTokens())
             throw new CommandException("You can't afford that item, sorry.");
-        }
 
         buy(co, item, 1);
     }
@@ -40,10 +36,14 @@ public class CommandExchange
 
         var price = amount * ShopEntries.getTokenPrice(item);
 
-        co.ui.addItem(item, amount);
+        co.inventory.addItem(item, amount);
 
-        co.ui.addKekTokens(-price);
+        co.inventory.addKekTokens(-price);
 
-        co.respond(String.format("You bought **%s** %s for **%s** %s.", BotdirilFmt.format(amount), item.getIcon(), BotdirilFmt.format(price), Icons.TOKEN));
+        co.respondf("""
+        You bought %s for %s.
+        """,
+            BotdirilFmt.amountOfMD(amount, item.getIcon()),
+            BotdirilFmt.amountOfMD(price, Icons.TOKEN));
     }
 }

@@ -1,12 +1,11 @@
 package com.botdiril.userdata.card;
 
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.ItemLookup;
 import com.botdiril.userdata.pools.CardPools;
 
 import java.util.*;
-
-import com.botdiril.userdata.ItemLookup;
 
 public class Card implements IIdentifiable
 {
@@ -81,10 +80,8 @@ public class Card implements IIdentifiable
     @Override
     public boolean equals(Object obj)
     {
-        if (obj instanceof Card)
+        if (obj instanceof Card it)
         {
-            Card it = (Card) obj;
-
             return it.getID() == this.getID();
         }
 
@@ -171,6 +168,12 @@ public class Card implements IIdentifiable
     public String inlineDescription()
     {
         return this.getIcon() + " " + this.getLocalizedName();
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.inlineDescription();
     }
 
     public Card setCollection(String collection)

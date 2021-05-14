@@ -2,21 +2,18 @@ package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.ChatCommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.util.CommandAssert;
-import com.botdiril.userdata.item.ShopEntries;
-import net.dv8tion.jda.api.EmbedBuilder;
+import com.botdiril.userdata.card.Card;
+import com.botdiril.userdata.item.*;
+import com.botdiril.util.BotdirilFmt;
 
 import java.util.Comparator;
 import java.util.stream.Collectors;
-
-import com.botdiril.userdata.card.Card;
-import com.botdiril.userdata.item.CraftingEntries;
-import com.botdiril.userdata.item.Item;
-import com.botdiril.userdata.item.Recipe;
-import com.botdiril.util.BotdirilFmt;
 
 @Command(value = "recipes", aliases = { "recipelist",
         "rl" }, category = CommandCategory.ITEMS, description = "Shows all craftable items including their recipes.")
@@ -56,31 +53,7 @@ public class CommandRecipes
     @CmdInvoke
     public static void show(CommandContext co)
     {
-        var recipes = CraftingEntries.getRecipes();
-
-        var eb = new EmbedBuilder();
-
-        eb.setTitle("Total " + BotdirilFmt.format(recipes.size()) + " recipes.");
-        eb.setDescription("Showing " + ITEMS_PER_PAGE + " recipes per page.");
-        eb.setColor(0x008080);
-
-        var isc = recipes.stream();
-
-        var pages = 1 + (recipes.size() - 1) / ITEMS_PER_PAGE;
-
-        eb.appendDescription("\nPage 1/" + pages);
-
-        // Sort by value
-        isc.sorted(recipeSorter).limit(ITEMS_PER_PAGE).forEach(recipe ->
-        {
-            var components = recipe.getComponents();
-            var recipeParts = components.stream().map(comp -> String.format("**%s %s**", BotdirilFmt.format(comp.getAmount()), comp.getItem().inlineDescription())).collect(Collectors.joining(" + "));
-            eb.addField(recipe.getResult().inlineDescription(), recipeParts, false);
-        });
-
-        eb.setFooter("Use `" + co.usedPrefix + "recipes <page>` to go to another page.", null);
-
-        co.respond(eb);
+        show(co, 1);
     }
 
     @CmdInvoke
@@ -90,7 +63,7 @@ public class CommandRecipes
 
         var recipes = CraftingEntries.getRecipes();
 
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
 
         eb.setTitle("Total " + BotdirilFmt.format(recipes.size()) + " recipes.");
         eb.setDescription("Showing " + ITEMS_PER_PAGE + " recipes per page.");
@@ -110,11 +83,12 @@ public class CommandRecipes
         isc.sorted(recipeSorter).skip((long) (page - 1) * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE).forEach(recipe ->
         {
             var components = recipe.getComponents();
-            var recipeParts = components.stream().map(comp -> String.format("**%s %s**", BotdirilFmt.format(comp.getAmount()), comp.getItem().inlineDescription())).collect(Collectors.joining(" + "));
-            eb.addField(recipe.getResult().inlineDescription(), recipeParts, false);
+            var recipeParts = components.stream().map(ItemPair::toString).collect(Collectors.joining(" + "));
+            eb.addField(recipe.getResult().inlineDescription(), "**%s**".formatted(recipeParts), false);
         });
 
-        eb.setFooter("Use `" + co.usedPrefix + "recipes <page>` to go to another page.", null);
+        if (co instanceof ChatCommandContext ccc)
+            eb.setFooter("Use `%s%s %s <page>` to go to another page.".formatted(ccc.usedPrefix, ccc.usedAlias, ccc.player.getMention()), null);
 
         co.respond(eb);
     }

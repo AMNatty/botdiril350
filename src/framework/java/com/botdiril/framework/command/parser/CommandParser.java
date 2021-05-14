@@ -1,6 +1,7 @@
 package com.botdiril.framework.command.parser;
 
 import com.botdiril.framework.command.*;
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.permission.EnumPowerLevel;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class CommandParser
 {
-    public static boolean parse(CommandContext co)
+    public static boolean parse(DiscordCommandContext co)
     {
         var cmdParts =  co.contents.split("\\s+", 2);
         var cmdStr = cmdParts[0];
@@ -43,12 +44,12 @@ public class CommandParser
 
         if (!command.powerLevel().check(co.db, co.callerMember, co.textChannel))
         {
-            co.respond(String.format("You need to have the **%s** power level to use this command!", command.powerLevel().toString()));
+            co.respond(String.format("You need to have the **%s** power level to use this command!", command.powerLevel()));
 
             return true;
         }
 
-        if (co.ui.getLevel() < command.levelLock() && !(EnumPowerLevel.SUPERUSER_OVERRIDE.check(co.db, co.callerMember, co.textChannel) || EnumPowerLevel.VIP.check(co.db, co.callerMember, co.textChannel)))
+        if (co.inventory.getLevel() < command.levelLock() && !(EnumPowerLevel.SUPERUSER_OVERRIDE.check(co.db, co.callerMember, co.textChannel) || EnumPowerLevel.VIP.check(co.db, co.callerMember, co.textChannel)))
         {
             co.respond(String.format("You need at least level **%d** to do this.", command.levelLock()));
 
@@ -86,7 +87,7 @@ public class CommandParser
 
                 try
                 {
-                    co.po.incrementStat(EnumStat.COMMANDS_USED);
+                    co.userProperties.incrementStat(EnumStat.COMMANDS_USED);
                     meth.invoke(null, argArr);
                     return true;
                 }
@@ -99,6 +100,7 @@ public class CommandParser
                     }
 
                     co.db.rollback();
+                    co.clearResponse();
                     co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
                     BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e);
                     return false;
@@ -108,12 +110,14 @@ public class CommandParser
                     if (e.getCause() instanceof CommandException)
                     {
                         co.db.rollback();
+                        co.clearResponse();
                         co.respond(e.getCause().getMessage());
                         return false;
                     }
                     else
                     {
                         co.db.rollback();
+                        co.clearResponse();
                         co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
                         BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e.getCause());
                         return false;
@@ -123,6 +127,7 @@ public class CommandParser
             catch (CommandException e)
             {
                 co.db.rollback();
+                co.clearResponse();
 
                 if (e.isEmbedded())
                     co.respond(e.getEmbed());
@@ -134,6 +139,7 @@ public class CommandParser
             catch (DBException e)
             {
                 co.db.rollback();
+                co.clearResponse();
                 co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
                 BotdirilLog.logger.fatal("A database error has occured while invoking a command.", e);
                 return false;
@@ -141,6 +147,7 @@ public class CommandParser
             catch (Exception e)
             {
                 co.db.rollback();
+                co.clearResponse();
                 co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
                 BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e);
                 return false;
@@ -148,6 +155,7 @@ public class CommandParser
         }
 
         String error = "Error! Wrong arguments.\n**Usage:**\n" + GenUsage.usage(co.usedPrefix, co.usedAlias, command);
+        co.clearResponse();
         co.respond(error);
         return true;
     }

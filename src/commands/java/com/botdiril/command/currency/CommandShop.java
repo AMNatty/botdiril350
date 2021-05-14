@@ -1,17 +1,19 @@
 package com.botdiril.command.currency;
 
-import net.dv8tion.jda.api.EmbedBuilder;
-
-import java.util.Comparator;
-
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.Botdiril;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
+import com.botdiril.framework.command.context.ChatCommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ShopEntries;
 import com.botdiril.util.BotdirilFmt;
+
+import java.text.MessageFormat;
+import java.util.Comparator;
 
 @Command(value = "shop", aliases = { "store",
         "market" }, category = CommandCategory.CURRENCY, description = "Opens the shops.")
@@ -20,9 +22,9 @@ public class CommandShop
     @CmdInvoke
     public static void shop(CommandContext co)
     {
-        var eb = new EmbedBuilder();
-        eb.setTitle("Botdiril's Shop");
-        eb.setDescription(String.format("You have **%s** %s.", BotdirilFmt.format(co.ui.getCoins()), Icons.COIN));
+        var eb = new ResponseEmbed();
+        eb.setTitle("%s's Shop".formatted(Botdiril.BRANDING));
+        eb.setDescription(String.format("You have **%s** %s.", BotdirilFmt.format(co.inventory.getCoins()), Icons.COIN));
         eb.setColor(0x008080);
 
         Item.items().stream()
@@ -30,26 +32,26 @@ public class CommandShop
             .sorted(Comparator.comparing(ShopEntries::getCoinPrice))
             .forEach(item -> addItems(eb, item));
 
-        eb.setFooter("Tip: Use `%sbuy <item> [amount]`, `%ssell <item> [amount]` or `%siteminfo <item>`.".replace("%s", co.usedPrefix), null);
+        if (co instanceof ChatCommandContext cch)
+            eb.setFooterText(MessageFormat.format("Tip: Use `{0}{1} <item> [amount]`, `{0}sell <item> [amount]` or `{0}iteminfo <item>`.", cch.usedPrefix, cch.usedAlias));
 
         co.respond(eb);
     }
 
-    private static void addItems(EmbedBuilder eb, Item item)
+    private static void addItems(ResponseEmbed eb, Item item)
     {
         StringBuilder sub = new StringBuilder();
 
-        sub.append("**ID:** ");
-        sub.append(item.getName());
-        sub.append("\n**Price:** ");
-        sub.append(BotdirilFmt.format(ShopEntries.getCoinPrice(item)));
-        sub.append(Icons.COIN);
-        sub.append("\n");
+        sub.append("""
+        **ID:** %s
+        **Price:** %s
+        
+        """.formatted(item.getName(), BotdirilFmt.amountOfMD(ShopEntries.getCoinPrice(item), Icons.COIN)));
+
         if (ShopEntries.canBeSold(item))
         {
             sub.append("**Sells back for:** ");
-            sub.append(BotdirilFmt.format(ShopEntries.getSellValue(item)));
-            sub.append(Icons.COIN);
+            sub.append(BotdirilFmt.amountOf(ShopEntries.getSellValue(item), Icons.COIN));
         }
         else
         {

@@ -1,16 +1,17 @@
 package com.botdiril.userdata.items.cardpack;
 
-import com.botdiril.userdata.pools.PoolDrawer;
-import com.botdiril.userdata.tempstat.Curser;
-import com.botdiril.userdata.tempstat.EnumCurse;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.ChatCommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.card.CardDrops;
-import com.botdiril.userdata.item.IOpenable;
 import com.botdiril.userdata.icon.Icons;
+import com.botdiril.userdata.item.IOpenable;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ShopEntries;
+import com.botdiril.userdata.pools.PoolDrawer;
 import com.botdiril.userdata.stat.EnumStat;
+import com.botdiril.userdata.tempstat.Curser;
+import com.botdiril.userdata.tempstat.EnumCurse;
 import com.botdiril.util.BotdirilFmt;
 
 public abstract class ItemCardPack extends Item implements IOpenable
@@ -62,7 +63,7 @@ public abstract class ItemCardPack extends Item implements IOpenable
             var card = cardPair.getCard();
             var amt = cardPair.getAmount();
 
-            co.ui.addCard(card, amt);
+            co.inventory.addCard(card, amt);
 
             if (i <= DISPLAY_LIMIT)
                 sb.append(String.format("\n%dx %s", amt, card.inlineDescription()));
@@ -83,7 +84,7 @@ public abstract class ItemCardPack extends Item implements IOpenable
 
         sb.append(String.format("\nTotal %s cards. Approximate value: %s%s", BotdirilFmt.format(cp.totalCount()), BotdirilFmt.format(dustVal), Icons.DUST));
 
-        co.po.addStat(EnumStat.CARD_PACKS_OPENED, amount);
+        co.userProperties.addStat(EnumStat.CARD_PACKS_OPENED, amount);
 
         co.respond(sb.toString());
     }
@@ -91,6 +92,9 @@ public abstract class ItemCardPack extends Item implements IOpenable
     @Override
     public String getFootnote(CommandContext co)
     {
-        return "Open using `%sopen %s`. Is guaranteed to contain at least %d cards.".formatted(co.usedPrefix, this.getName(), this.getNumberOfCards(co));
+        if (co instanceof ChatCommandContext ccc)
+            return "Open using `%sopen %s`. Guaranteed to contain at least %d cards.".formatted(ccc.usedPrefix, this.getName(), this.getNumberOfCards(co));
+        else
+            return "Guaranteed to contain at least %d cards.".formatted(this.getNumberOfCards(co));
     }
 }

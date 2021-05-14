@@ -1,21 +1,23 @@
 package com.botdiril.command.interactive;
 
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.ChatCommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.command.invoke.ParType;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.util.CommandAssert;
 import com.botdiril.gamelogic.card.TrainAPI;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.icon.IconUtil;
+import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.timers.EnumTimer;
 import com.botdiril.userdata.timers.TimerUtil;
-import net.dv8tion.jda.api.EmbedBuilder;
-
 import com.botdiril.util.BotdirilFmt;
 
 @Command(
@@ -30,19 +32,20 @@ public class CommandTrain
     @CmdInvoke
     public static void train(CommandContext co)
     {
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
         eb.setTitle("Train a card");
-        eb.setDescription("Spend a resource to train your card. This increases the value and power of all cards of that type.\n\n" +
-                          "**Usage:** `%s%s <card to train> <item> [amount]`".formatted(co.usedPrefix, co.usedAlias));
+        eb.setDescription("Spend a resource to train your card. This increases the value and power of all cards of that type.\n\n");
+        if (co instanceof ChatCommandContext ccc)
+            eb.appendDescription("**Usage:** `%s%s <card to train> <item> [amount]`".formatted(ccc.usedPrefix, ccc.usedAlias));
         eb.setColor(0x008080);
-        eb.setThumbnail(co.bot.getEffectiveAvatarUrl());
+        eb.setThumbnail(co.botIconURL);
 
         var sbLeft = new StringBuilder();
         var sbRight = new StringBuilder();
 
         TrainAPI.TRAINING_ITEMS.forEach((item, value) -> {
             sbLeft.append(String.format("\n%s", item.inlineDescription()));
-            sbRight.append(String.format("\n%s XP", BotdirilFmt.format(value)));
+            sbRight.append(String.format("\n%s", BotdirilFmt.amountOf(value, Icons.XP)));
         });
 
         eb.addField("Possible training items", sbLeft.toString(), true);
@@ -55,16 +58,19 @@ public class CommandTrain
     @CmdInvoke
     public static void train(CommandContext co, @CmdPar("card to train") Card card, @CmdPar("training item") Item item, @CmdPar(value = "amount of training item", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
-        CommandAssert.numberMoreThanZeroL(co.ui.howManyOf(card), "*You need to have at least one card of this kind to train it.*");
+        CommandAssert.numberMoreThanZeroL(co.inventory.howManyOf(card), "*You need to have at least one card of this kind to train it.*");
 
-        TimerUtil.require(co.ui, EnumTimer.TRAIN, "You need to wait **$** before attempting to **train a card** again.");
+        TimerUtil.require(co.inventory, EnumTimer.TRAIN, "You need to wait **$** before attempting to **train a card** again.");
 
         if (!TrainAPI.TRAINING_ITEMS.containsKey(item))
         {
-            throw new CommandException("**%s** is not a valid training item, please refer to `%s%s` for more information.".formatted(item.inlineDescription(), co.usedPrefix, co.usedAlias));
+            if (co instanceof ChatCommandContext ccc)
+                throw new CommandException("**%s** is not a valid training item, please refer to `%s%s` for more information.".formatted(item.inlineDescription(), ccc.usedPrefix, ccc.usedAlias));
+
+            throw new CommandException("**%s** is not a valid training item.".formatted(item.inlineDescription()));
         }
 
-        co.ui.addItem(item, -amount);
+        co.inventory.addItem(item, -amount);
 
         var result = TrainAPI.roll(item, amount);
         var outcome = result.getOutcome();
@@ -85,23 +91,24 @@ public class CommandTrain
             case VERY_GOOD -> "Your card has surpassed all your expectations. You feel really good about this.";
         };
 
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
         eb.setTitle(title);
         eb.setDescription(description);
         eb.setColor(0x008080);
-        eb.setThumbnail(IconUtil.urlFromIcon(co.jda, card));
+        if (co instanceof DiscordCommandContext dcc)
+            eb.setThumbnail(IconUtil.urlFromIcon(dcc.jda, card));
         eb.addField("XP received", BotdirilFmt.format(xp), true);
         eb.addField("Multiplier", BotdirilFmt.format(Math.round(outcome.getMultiplier() * 100)) + " %", true);
 
         co.respond(eb);
 
-        co.ui.addCardXP(co, card, xp);
+        co.inventory.addCardXP(co, card, xp);
     }
 
     @CmdInvoke
     public static void train(CommandContext co, @CmdPar("card to train") Card card, @CmdPar("training item") Item item)
     {
-        if (co.ui.howManyOf(item) < 1)
+        if (co.inventory.howManyOf(item) < 1)
             throw new CommandException("*You don't have any **%s***".formatted(item.inlineDescription()));
 
         train(co, card, item, 1);

@@ -2,7 +2,7 @@ package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.card.CardDrops;
@@ -12,20 +12,21 @@ import com.botdiril.userdata.tempstat.EnumCurse;
 import com.botdiril.userdata.timers.EnumTimer;
 import com.botdiril.userdata.timers.TimerUtil;
 import com.botdiril.userdata.xp.XPRewards;
+import com.botdiril.util.BotdirilFmt;
 
 import java.util.stream.Collectors;
 
-@Command(value = "draw", category = CommandCategory.ITEMS, levelLock = 5, description = "Draws some cards.")
+@Command(value = "draw", category = CommandCategory.ITEMS, description = "Draws some cards.")
 public class CommandDraw
 {
     @CmdInvoke
     public static void draw(CommandContext co)
     {
-        TimerUtil.require(co.ui, EnumTimer.DRAW, "You need to wait $ before drawing cards again.");
+        TimerUtil.require(co.inventory, EnumTimer.DRAW, "You need to wait $ before drawing cards again.");
 
         var lc = new CardDrops();
 
-        var xpRewards = XPRewards.getLevel(co.ui.getLevel());
+        var xpRewards = XPRewards.getLevel(co.inventory.getLevel());
         var drawPotency = xpRewards.getDrawPotency();
 
         if (Curser.isCursed(co, EnumCurse.CURSE_OF_YASUO))
@@ -50,7 +51,7 @@ public class CommandDraw
 
             if (amount > 1)
             {
-                return String.format("**%d %s**", amount, card.inlineDescription());
+                return BotdirilFmt.amountOfMD(amount, card);
             }
             else
             {
@@ -58,7 +59,7 @@ public class CommandDraw
             }
         }).collect(Collectors.joining(", ")));
 
-        lc.each(co.ui::addCard);
+        lc.each(co.inventory::addCard);
 
         co.respond(msg);
     }

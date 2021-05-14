@@ -2,7 +2,8 @@ package com.botdiril.command.gambling;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.ChatCommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.ParType;
@@ -18,7 +19,7 @@ import com.botdiril.util.BotdirilRnd;
 import java.util.function.BiFunction;
 
 @Command(value = "biggamble", aliases = { "gamblemega", "gamblemegakeks",
-    "mega", "megagamble" }, category = CommandCategory.GAMBLING, description = "Gamble in megakek style. There is a dark secret though.", levelLock = 12)
+    "mega", "megagamble" }, category = CommandCategory.GAMBLING, description = "Gamble in megakek style. There is a dark secret though.", levelLock = 3)
 public class CommandBigGamble
 {
     private static final BiFunction<Long, Integer, Double> getChanceToLoseEverything = (amount, level) -> Math.sqrt(Math.max(amount - 1, 0)) / (Math.pow(level, 0.75) + 25.0);
@@ -30,7 +31,7 @@ public class CommandBigGamble
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't gamble negative or zero " + Icons.MEGAKEK + ".");
 
-        var chanceToLoseEverything = getChanceToLoseEverything.apply(amount, co.ui.getLevel());
+        var chanceToLoseEverything = getChanceToLoseEverything.apply(amount, co.inventory.getLevel());
 
         if (Curser.isBlessed(co, EnumBlessing.MEGAKEK_LOSS_IMMUNITY))
         {
@@ -44,47 +45,50 @@ public class CommandBigGamble
 
         if (BotdirilRnd.rollChance(chanceToLoseEverything) && chanceToLoseEverything > LOW_CHANCE_PROTECTION)
         {
-            co.respond(String.format("**You lost every single %s.**", Icons.MEGAKEK));
-            co.po.incrementStat(EnumStat.TIMES_LOST_ALL_MEGAKEKS);
-            co.ui.setMegaKeks(0);
+            co.respondf("**You lost every single %s.**", Icons.MEGAKEK);
+            co.userProperties.incrementStat(EnumStat.TIMES_LOST_ALL_MEGAKEKS);
+            co.inventory.setMegaKeks(0);
             return;
         }
 
         var mul = BotdirilRnd.RDG.nextGaussian(1.35, 0.5);
 
-        var has = co.ui.getMegaKeks();
+        var has = co.inventory.getMegaKeks();
         var gets = Math.max(Math.round(mul * amount), -has);
 
-        co.ui.setMegaKeks(has + gets);
+        co.inventory.setMegaKeks(has + gets);
 
         has = has + gets;
 
         if (gets < 0)
         {
-            co.respond(String.format("You **lost** **%s** %s. " +
-                                     "*Your chance to lose everything decreased to **%.3f%%***.",
-                BotdirilFmt.format(-gets), Icons.MEGAKEK,
-                getChanceToLoseEverything.apply(has, co.ui.getLevel()) * 100));
+            co.respondf("""
+            You **lost** %s.
+            *Your chance to lose everything decreased to **%.3f%%***.
+            """, BotdirilFmt.amountOfMD(-gets, Icons.MEGAKEK), getChanceToLoseEverything.apply(has, co.inventory.getLevel()) * 100);
         }
         else if (gets > 0)
         {
-            var chance = getChanceToLoseEverything.apply(has, co.ui.getLevel()) * 100;
+            var chance = getChanceToLoseEverything.apply(has, co.inventory.getLevel()) * 100;
 
             if (chance > 30)
             {
-                co.respond(String.format("You **won** **%s** %s.\n" +
-                                         "*Your chance to lose everything increased to **%.3f%%***. " +
-                                         "Consider paying out with `%spayoutmegakeks`.",
-                    BotdirilFmt.format(gets), Icons.MEGAKEK,
-                    chance,
-                    co.usedPrefix));
+                co.respondf("""
+                 You **won** %s.
+                 *Your chance to lose everything increased to **%.3f%%***.
+                 """, BotdirilFmt.amountOfMD(gets, Icons.MEGAKEK), chance);
+
+                if (co instanceof ChatCommandContext cch)
+                    co.respondf("Consider paying out with `%spayoutmegakeks`.", cch.usedPrefix);
+                else
+                    co.respond("Consider paying out.");
             }
             else if (chance > LOW_CHANCE_PROTECTION)
             {
-                co.respond(String.format("You **won** **%s** %s. " +
-                                         "*Your chance to lose everything increased to **%.3f%%***.",
-                    BotdirilFmt.format(gets), Icons.MEGAKEK,
-                    chance));
+                co.respondf("""
+                You **won** %s.
+                *Your chance to lose everything increased to **%.3f%%***.
+                """, BotdirilFmt.amountOfMD(gets, Icons.MEGAKEK), chance);
             }
         }
         else

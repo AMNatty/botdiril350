@@ -1,12 +1,11 @@
 package com.botdiril.command.gambling;
 
-import net.dv8tion.jda.api.EmbedBuilder;
-
-import com.botdiril.framework.command.CommandContext;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.util.CommandAssert;
 import com.botdiril.util.BotdirilRnd;
 
@@ -24,8 +23,8 @@ public class Command8Ball
     {
         CommandAssert.stringNotTooLong(question, 300, "Your question is too long, please make it shorter.");
 
-        var eb = new EmbedBuilder();
-        eb.setAuthor(co.callerMember.getEffectiveName() + "'s question");
+        var eb = new ResponseEmbed();
+        eb.setAuthor(co.player.getName() + "'s question");
         eb.setDescription(question);
         eb.setColor(0x008080);
         eb.addField("Answer:", ":8ball: | " + BotdirilRnd.choose(answers), false);

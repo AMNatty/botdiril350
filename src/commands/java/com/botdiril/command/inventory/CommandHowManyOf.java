@@ -2,7 +2,7 @@ package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.ParType;
@@ -20,13 +20,13 @@ public class CommandHowManyOf
     {
         long count;
 
-        if (thing instanceof Card)
+        if (thing instanceof Card card)
         {
-            count = co.ui.howManyOf((Card) thing);
+            count = co.inventory.howManyOf(card);
         }
-        else if (thing instanceof Item)
+        else if (thing instanceof Item iitem)
         {
-            count = co.ui.howManyOf((Item) thing);
+            count = co.inventory.howManyOf(iitem);
         }
         else
         {
@@ -34,13 +34,7 @@ public class CommandHowManyOf
             return;
         }
 
-        if (count <= 0)
-        {
-            co.respond(String.format("You have **no %s**.", thing.inlineDescription()));
-        }
-        else
-        {
-            co.respond(String.format("You have **%s %s**.", BotdirilFmt.format(count), thing.inlineDescription()));
-        }
+        var countStr = count <= 0 ? "no" : BotdirilFmt.format(count);
+        co.respondf("You have %s.", BotdirilFmt.amountOfMD(countStr, thing.inlineDescription()));
     }
 }

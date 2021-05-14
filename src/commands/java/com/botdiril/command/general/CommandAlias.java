@@ -2,7 +2,8 @@ package com.botdiril.command.general;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.ChatCommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
@@ -44,7 +45,7 @@ public class CommandAlias
     }
 
     @CmdInvoke
-    public static void bind(CommandContext co, @CmdPar("alias name") String source, @CmdPar("alias replacement") String replacement)
+    public static void bind(ChatCommandContext co, @CmdPar("alias name") String source, @CmdPar("alias replacement") String replacement)
     {
         source = source.trim();
 
@@ -70,14 +71,14 @@ public class CommandAlias
         }
         else
         {
-            setSlot(co.po, slot, source, replacement);
-            co.respond("Alias bound to slot " + slot + ".");
+            setSlot(co.userProperties, slot, source, replacement);
+            co.respondf("Alias bound to slot %d.", slot);
         }
     }
 
     static int findEmptySlot(CommandContext co)
     {
-        var bound = co.po.getUsedAliases();
+        var bound = co.userProperties.getUsedAliases();
 
         for (int i = 0; i < Byte.SIZE; i++)
         {

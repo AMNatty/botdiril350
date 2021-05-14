@@ -1,11 +1,10 @@
 package com.botdiril.userdata.items.cardpack;
 
+import com.botdiril.framework.command.context.CommandContext;
+import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.pools.PoolDrawer;
 
 import java.util.function.ObjLongConsumer;
-
-import com.botdiril.framework.command.CommandContext;
-import com.botdiril.userdata.card.Card;
 
 public class ItemCardPackSimple extends ItemCardPack
 {
@@ -37,11 +36,13 @@ public class ItemCardPackSimple extends ItemCardPack
         this.openHandler.accept(co, amount);
     }
 
+    @Override
     public PoolDrawer<Card> getPool(CommandContext co)
     {
         return this.pool;
     }
 
+    @Override
     public int getNumberOfCards(CommandContext co)
     {
         return this.contents;

@@ -1,6 +1,6 @@
 package com.botdiril.userdata.item;
 
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 
 public interface IOpenable
 {

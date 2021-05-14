@@ -2,8 +2,9 @@ package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
+import com.botdiril.userdata.InventoryTables;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.item.ShopEntries;
@@ -12,8 +13,6 @@ import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilLog;
 
 import java.util.concurrent.atomic.AtomicLong;
-
-import com.botdiril.userdata.UserInventory;
 
 @Command(value = "disenchantextras", aliases = { "disenchantduplicates", "disenchantdupes", "dustextras",
         "dustduplicates", "dustdupes",
@@ -26,7 +25,7 @@ public class CommandDisenchantExtras
         var cards = new AtomicLong();
         var dust = new AtomicLong();
 
-        co.db.exec("SELECT * FROM " + UserInventory.TABLE_CARDS + " WHERE fk_us_id=? AND cr_amount > 1", stat ->
+        co.db.exec("SELECT * FROM " + InventoryTables.TABLE_CARDS + " WHERE fk_us_id=? AND cr_amount > 1", stat ->
         {
             var eq = stat.executeQuery();
 
@@ -37,7 +36,7 @@ public class CommandDisenchantExtras
 
                 if (item == null)
                 {
-                    BotdirilLog.logger.warn(String.format("User %d has a null item in their cz.tefek.botdiril.command.inventory! ID: %d", co.caller.getIdLong(), ilID));
+                    BotdirilLog.logger.warn(String.format("User FID %d has a null item in their inventory! ID: %d", co.inventory.getFID(), ilID));
                     continue;
                 }
 
@@ -47,11 +46,11 @@ public class CommandDisenchantExtras
             }
 
             return true;
-        }, co.ui.getFID());
+        }, co.inventory.getFID());
 
-        co.db.simpleUpdate("UPDATE " + UserInventory.TABLE_CARDS + " SET cr_amount = 1 WHERE fk_us_id=? AND cr_amount > 1", co.ui.getFID());
+        co.db.simpleUpdate("UPDATE " + InventoryTables.TABLE_CARDS + " SET cr_amount = 1 WHERE fk_us_id=? AND cr_amount > 1", co.inventory.getFID());
 
-        co.ui.addDust(dust.get());
+        co.inventory.addDust(dust.get());
 
         co.respond(String.format("*Disenchanted **%s %s cards** for **%s %s**.*",
             BotdirilFmt.format(cards.get()), Icons.CARDS,

@@ -1,7 +1,5 @@
 package com.botdiril.gamelogic.mine;
 
-import java.util.EnumMap;
-
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ItemDrops;
 import com.botdiril.userdata.item.ShopEntries;
@@ -9,11 +7,22 @@ import com.botdiril.userdata.items.Items;
 import com.botdiril.userdata.items.scrolls.Scrolls;
 import com.botdiril.util.BotdirilRnd;
 
+import java.util.*;
+
 public class MineAPI
 {
     public static final double KITLESS_BONUS_THRESHOLD = 2;
     public static final double CHANCE_INSTAMINE = 0.4;
     public static final double KITLESS_MULTIPLIER = 1.5;
+
+    private static final Map<Item, Double> boosters = new HashMap<>();
+
+    static
+    {
+        boosters.put(Items.toolBox, 4.0);
+        boosters.put(Items.oil, 8.0);
+        boosters.put(Items.goldenOil, 20.0);
+    }
 
     private static final Item[] minerals = { Items.coal, Items.iron, Items.copper, Items.gold, Items.platinum,
             Items.uranium, Items.kekium, Items.emerald, Items.diamond };
@@ -21,6 +30,21 @@ public class MineAPI
     private static final Item[] evilGems = { Items.redGem, Items.purpleGem, Items.blackGem };
 
     private static final Item[] goodGems = { Items.greenGem, Items.blueGem, Items.rainbowGem };
+
+    public static Map<Item, Double> getBoosters()
+    {
+        return Collections.unmodifiableMap(boosters);
+    }
+
+    public static boolean canBoost(Item item)
+    {
+        return boosters.containsKey(item);
+    }
+
+    public static Double getBoostValue(Item item)
+    {
+         return boosters.get(item);
+    }
 
     private static void generateMinerals(ItemDrops drops, double pickaxeBudget)
     {
@@ -107,6 +131,20 @@ public class MineAPI
             rareDropMultiplier += 1;
             multiplier *= KITLESS_MULTIPLIER;
             multiplierMap.put(EnumMineMultiplier.MLT_KITLESS, KITLESS_MULTIPLIER);
+        }
+
+        var boosterItem = inputData.getBoosterItem();
+        if (boosterItem != null)
+        {
+            var boostMultiplier = getBoostValue(boosterItem);
+
+            var rareDropBoostRatio = 0.025;
+            rareDropMultiplier *= boostMultiplier * rareDropBoostRatio;
+
+            multiplier *= boostMultiplier;
+            multiplierMap.put(EnumMineMultiplier.MLT_ITEM_BOOST, boostMultiplier);
+
+            chanceToBreak /= boostMultiplier;
         }
 
         var randomModifier = BotdirilRnd.RDG.nextGaussian(1, 0.1);

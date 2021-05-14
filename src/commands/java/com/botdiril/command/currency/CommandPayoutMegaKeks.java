@@ -2,7 +2,8 @@ package com.botdiril.command.currency;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.ChatCommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.util.CommandAssert;
@@ -14,7 +15,7 @@ import com.botdiril.util.BotdirilFmt;
 import java.util.function.Function;
 
 @Command(value = "payoutmegakeks", aliases = { "payoutmega",
-        "bigpayout" }, category = CommandCategory.CURRENCY, description = "Pay out your megakeks for some coins.", levelLock = 1)
+        "bigpayout" }, category = CommandCategory.CURRENCY, description = "Pay out your megakeks for some coins.")
 public class CommandPayoutMegaKeks
 {
     private static final Function<Long, Long> conversion = megaKeks -> megaKeks * 80 + megaKeks * megaKeks * 4;
@@ -23,37 +24,58 @@ public class CommandPayoutMegaKeks
     @CmdInvoke
     public static void payout(CommandContext co)
     {
-        var has = co.ui.getMegaKeks();
+        var has = co.inventory.getMegaKeks();
         CommandAssert.numberMoreThanZeroL(has, String.format("You can't pay out zero %s.", Icons.MEGAKEK));
 
-        var gets = conversion.apply(has);
-        var xp = xpConversion.apply(has);
+        if (co instanceof ChatCommandContext cch)
+        {
+            var gets = conversion.apply(has);
+            var xp = xpConversion.apply(has);
 
-        co.respond(String.format("You would receive **%s** %s and **[+%s XP]** for your **%s** %s.\n" +
-                                 "Type `%s%s confirm` to confirm this transaction.",
-             BotdirilFmt.format(gets), Icons.COIN, BotdirilFmt.format(xp), BotdirilFmt.format(has), Icons.MEGAKEK,
-            co.usedPrefix, co.usedAlias));
+            co.respondf("""
+            You would receive %s and **[+%s]** for your %s.
+            Type `%s%s confirm` to confirm this transaction.
+            """,
+                BotdirilFmt.amountOfMD(gets, Icons.COIN),
+                BotdirilFmt.amountOf(xp, Icons.XP),
+                BotdirilFmt.amountOf(has, Icons.MEGAKEK),
+                cch.usedPrefix, cch.usedAlias
+            );
+
+            return;
+        }
+
+        payoutConfirmed(co);
     }
 
     @CmdInvoke
-    public static void payout(CommandContext co, @CmdPar("confirm") String confirmation)
+    public static void payout(ChatCommandContext co, @CmdPar("confirm") String confirmation)
     {
-        var has = co.ui.getMegaKeks();
+        var has = co.inventory.getMegaKeks();
         CommandAssert.numberMoreThanZeroL(has, String.format("You can't pay out zero %s.", Icons.MEGAKEK));
 
         CommandAssert.assertEquals("confirm", confirmation, "Type `%s%s confirm` to confirm this transaction.".formatted(co.usedPrefix, co.usedAlias));
 
-        TimerUtil.require(co.ui, EnumTimer.PAYOUT, "You need to wait **$** before paying out again.");
+        payoutConfirmed(co);
+    }
+
+    private static void payoutConfirmed(CommandContext co)
+    {
+        var has = co.inventory.getMegaKeks();
+
+        TimerUtil.require(co.inventory, EnumTimer.PAYOUT, "You need to wait **$** before paying out again.");
 
         var gets = conversion.apply(has);
 
-        co.ui.setMegaKeks(0);
-        co.ui.addCoins(gets);
+        co.inventory.setMegaKeks(0);
+        co.inventory.addCoins(gets);
 
         var xp = xpConversion.apply(has);
-        co.ui.addXP(co, xp);
+        co.inventory.addXP(co, xp);
 
-        co.respond(String.format("Paid out **%s** %s for **%s** %s. **[+%s XP]**",
-            BotdirilFmt.format(has), Icons.MEGAKEK, BotdirilFmt.format(gets), Icons.COIN, BotdirilFmt.format(xp)));
+        co.respondf("Paid out %s for %s. **[+%s]**",
+            BotdirilFmt.amountOfMD(has, Icons.MEGAKEK),
+            BotdirilFmt.amountOfMD(gets, Icons.COIN),
+            BotdirilFmt.amountOf(xp, Icons.XP));
     }
 }

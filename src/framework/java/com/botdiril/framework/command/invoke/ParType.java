@@ -1,27 +1,32 @@
 package com.botdiril.framework.command.invoke;
 
+import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.framework.EntityPlayer;
+
 public enum ParType
 {
     /** Any parameter class type */
     BASIC,
-    /** IIdentifiable only */
+    /** {@link IIdentifiable} only */
     ITEM_OR_CARD,
-    /** Long.class/long.class only */
+    /** {@link Long}/<code>long</code> only */
     AMOUNT_COINS,
-    /** Long.class/long.class only */
+    /** {@link Long}/<code>long</code> only */
     AMOUNT_CLASSIC_KEKS,
-    /** Long.class/long.class only */
+    /** {@link Long}/<code>long</code> only */
     AMOUNT_MEGA_KEKS,
-    /** Long.class/long.class only */
+    /** {@link Long}/<code>long</code> only */
     AMOUNT_KEK_TOKENS,
-    /** Long.class/long.class only */
+    /** {@link Long}/<code>long</code> only */
     AMOUNT_DUST,
-    /** Long.class/long.class only */
+    /** {@link Long}/<code>long</code> only */
     AMOUNT_KEYS,
-    /** Long.class/long.class only, the previous parameter must be ITEM or CARD */
+    /** {@link Long}/<code>long</code> only, the previous parameter must be ITEM or CARD */
     AMOUNT_ITEM_OR_CARD,
-    /** Long.class/long.class only, the previous parameter must be ITEM */
+    /** {@link Long}/<code>long</code> only, the previous parameter must be ITEM */
     AMOUNT_ITEM_BUY_COINS,
-    /** Long.class/long.class only, the previous parameter must be ITEM */
-    AMOUNT_ITEM_BUY_TOKENS
+    /** {@link Long}/<code>long</code> only, the previous parameter must be ITEM */
+    AMOUNT_ITEM_BUY_TOKENS,
+    /** {@link EntityPlayer} only, The parameter must not be the same entity as the command's caller*/
+    ENTITY_NOT_SELF
 }

@@ -2,7 +2,7 @@ package com.botdiril.command.superuser;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
@@ -18,7 +18,7 @@ import java.text.MessageFormat;
 public class CommandUnbindPower
 {
     @CmdInvoke
-    public static void bind(CommandContext co, @CmdPar("role") Role role, @CmdPar("power") EnumPowerLevel powerLevel)
+    public static void bind(DiscordCommandContext co, @CmdPar("role") Role role, @CmdPar("power") EnumPowerLevel powerLevel)
     {
         var mp = PowerLevel.getManageablePowers(co.db, co.callerMember, co.textChannel);
 

@@ -2,7 +2,7 @@ package com.botdiril.command.interactive;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.ParType;
@@ -14,6 +14,7 @@ import com.botdiril.userdata.item.ItemPair;
 import com.botdiril.userdata.items.Items;
 import com.botdiril.userdata.tempstat.Curser;
 import com.botdiril.userdata.tempstat.EnumBlessing;
+import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilRnd;
 
 @Command(value = "open", aliases = {
@@ -36,11 +37,11 @@ public class CommandOpen
         final long limit = 64;
         CommandAssert.numberInBoundsInclusiveL(amount, 1, limit, "*You can open **%d %s** at most at once and one at least (obviously).*".formatted(limit, item.inlineDescription()));
 
-        CommandAssert.numberNotBelowL(co.ui.howManyOf(item), amount, "You don't have " + amount + " " + item.inlineDescription() + "s...");
+        CommandAssert.numberNotBelowL(co.inventory.howManyOf(item), amount, "You don't have %ss...".formatted(BotdirilFmt.amountOfMD(amount, item.inlineDescription())));
 
         if (openable.requiresKey())
         {
-            ItemAssert.consumeItems(co.ui, "open **%d %s**".formatted(amount, item.inlineDescription()), ItemPair.of(Items.keys, amount));
+            ItemAssert.consumeItems(co.inventory, "open %s".formatted(BotdirilFmt.amountOfMD(amount, item.inlineDescription())), ItemPair.of(Items.keys, amount));
 
             if (Curser.isBlessed(co, EnumBlessing.CHANCE_NOT_TO_CONSUME_KEY))
             {
@@ -50,11 +51,11 @@ public class CommandOpen
                     if (BotdirilRnd.rollChance(0.25))
                         keysBack++;
 
-                co.ui.addKeys(keysBack);
+                co.inventory.addKeys(keysBack);
             }
         }
 
         openable.open(co, amount);
-        co.ui.addItem(item, -amount);
+        co.inventory.addItem(item, -amount);
     }
 }

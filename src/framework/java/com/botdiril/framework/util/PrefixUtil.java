@@ -3,12 +3,12 @@ package com.botdiril.framework.util;
 import net.dv8tion.jda.api.entities.Guild;
 import org.apache.commons.lang3.StringUtils;
 
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.internal.BotdirilConfig;
 
 public class PrefixUtil
 {
-    public static boolean findPrefix(Guild g, CommandContext obj)
+    public static boolean findPrefix(Guild g, DiscordCommandContext obj)
     {
         var prefix = obj.sc.getPrefix();
 

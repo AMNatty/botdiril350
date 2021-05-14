@@ -1,19 +1,18 @@
 package com.botdiril.userdata.properties;
 
 import com.botdiril.MajorFailureException;
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.nio.ByteBuffer;
-
 import com.botdiril.command.general.CommandAlias;
 import com.botdiril.framework.sql.DBConnection;
 import com.botdiril.framework.sql.SqlFoundation;
-import com.botdiril.userdata.UserInventory;
+import com.botdiril.userdata.InventoryTables;
 import com.botdiril.userdata.stat.EnumStat;
 import com.botdiril.userdata.tempstat.EnumBlessing;
 import com.botdiril.userdata.tempstat.EnumCurse;
 import com.botdiril.uss2.properties.USS2PropertyObject;
 import com.botdiril.uss2.properties.USS2PropertySchema;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.nio.ByteBuffer;
 
 public final class PropertyObject
 {
@@ -78,7 +77,7 @@ public final class PropertyObject
                 db.simpleExecute("CREATE TABLE " + TABLE_USS2 + " (" +
                                  "uss_us_id INT NOT NULL PRIMARY KEY, " +
                                  "uss_data BLOB(" + USS_SIZE + "), " +
-                                 "FOREIGN KEY (uss_us_id) REFERENCES " + UserInventory.TABLE_USER + "(us_id)" +
+                                 "FOREIGN KEY (uss_us_id) REFERENCES " + InventoryTables.TABLE_USER + "(us_id)" +
                                  ")");
             }
         }

@@ -2,7 +2,7 @@ package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
@@ -13,9 +13,10 @@ import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ShopEntries;
+import com.botdiril.util.BotdirilFmt;
 
 @Command(value = "disenchant", aliases = {
-        "dust" }, category = CommandCategory.ITEMS, description = "Disenchant items or cards into " + Icons.DUST + ".", levelLock = 6)
+        "dust" }, category = CommandCategory.ITEMS, description = "Disenchant items or cards into " + Icons.DUST + ".")
 public class CommandDisenchant
 {
     @CmdInvoke
@@ -32,21 +33,20 @@ public class CommandDisenchant
         if (!ShopEntries.canBeDisenchanted(item))
             throw new CommandException("That item cannot be sold.");
 
-        if (item instanceof Item)
+        if (item instanceof Item iitem)
         {
-            CommandAssert.numberNotAboveL(amount, co.ui.howManyOf((Item) item), "You don't have that many items of that type.");
-            co.ui.addItem((Item) item, -amount);
+            CommandAssert.numberNotAboveL(amount, co.inventory.howManyOf(iitem), "You don't have that many items of that type.");
+            co.inventory.addItem(iitem, -amount);
         }
-        else if (item instanceof Card)
+        else if (item instanceof Card card)
         {
-            var card = (Card) item;
-            CommandAssert.numberNotAboveL(amount, co.ui.howManyOf(card) - 1, "You don't have that many cards of that type. Keep in mind you need to keep at least one card of each type once you receive it.");
-            co.ui.addCard(card, -amount);
+            CommandAssert.numberNotAboveL(amount, co.inventory.howManyOf(card) - 1, "You don't have that many cards of that type. Keep in mind you need to keep at least one card of each type once you receive it.");
+            co.inventory.addCard(card, -amount);
         }
 
         var value = amount * ShopEntries.getDustForDisenchanting(item);
-        co.ui.addDust(value);
+        co.inventory.addDust(value);
 
-        co.respond(String.format("You disenchanted **%d** %s for **%d** %s.", amount, item.inlineDescription(), value, Icons.DUST));
+        co.respondf("You disenchanted %s for %s.", BotdirilFmt.amountOfMD(amount, item), BotdirilFmt.amountOfMD(value, Icons.DUST));
     }
 }

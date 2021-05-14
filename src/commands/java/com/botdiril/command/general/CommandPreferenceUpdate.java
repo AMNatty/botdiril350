@@ -2,12 +2,13 @@ package com.botdiril.command.general;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.userdata.preferences.EnumUserPreference;
 import com.botdiril.userdata.preferences.UserPreferences;
-import net.dv8tion.jda.api.EmbedBuilder;
 
 @Command(value = "preferenceupdate", aliases = { "optionupdate", "optupdate", "prefupdate", "prefsupdate",
         "preferenceset", "optset", "prefset", "setpreference", "setopt", "setoption", "setpref", "updatepreference",
@@ -18,19 +19,19 @@ public class CommandPreferenceUpdate
     @CmdInvoke
     public static void update(CommandContext co, @CmdPar("option ID") EnumUserPreference option, @CmdPar("on/off") boolean enable)
     {
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
         eb.setColor(0x008080);
-        eb.setThumbnail(co.caller.getEffectiveAvatarUrl());
-        eb.setAuthor(co.caller.getAsTag(), null, co.caller.getEffectiveAvatarUrl());
+
+        if (co instanceof DiscordCommandContext dcc)
+        {
+            eb.setThumbnail(dcc.caller.getEffectiveAvatarUrl());
+            eb.setAuthor(dcc.caller.getAsTag(), null, dcc.caller.getEffectiveAvatarUrl());
+        }
 
         if (enable)
-        {
-            UserPreferences.setBit(co.po, option);
-        }
+            UserPreferences.setBit(co.userProperties, option);
         else
-        {
-            UserPreferences.clearBit(co.po, option);
-        }
+            UserPreferences.clearBit(co.userProperties, option);
 
         eb.setTitle("Preference updated");
         var indicator = enable ? "on" : "off";

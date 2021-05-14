@@ -1,19 +1,18 @@
 package com.botdiril.command.superuser;
 
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
+import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.permission.EnumPowerLevel;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.util.CommandAssert;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.User;
-
-import java.time.Instant;
-
-import com.botdiril.userdata.UserInventory;
 import com.botdiril.userdata.xp.XPRewards;
+
+import java.time.ZonedDateTime;
 
 @Command(value = "setlevel", category = CommandCategory.SUPERUSER, aliases = {
         "setlvl" }, description = "Force sets the user's level.", powerLevel = EnumPowerLevel.SUPERUSER_OVERRIDE)
@@ -22,29 +21,34 @@ public class CommandSetLevel
     @CmdInvoke
     public static void setLevel(CommandContext co, @CmdPar("level") int level)
     {
-        setLevel(co, co.caller, level);
+        setLevel(co, co.player, level);
     }
 
     @CmdInvoke
-    public static void setLevel(CommandContext co, @CmdPar("user") User user, @CmdPar("level") int level)
+    public static void setLevel(CommandContext co, @CmdPar("player") EntityPlayer player, @CmdPar("level") int level)
     {
         CommandAssert.numberInBoundsInclusiveL(level, 0, XPRewards.getMaxLevel(), String.format("Level must be between 0 and %d.", XPRewards.getMaxLevel()));
 
-        var ui = new UserInventory(co.db, user.getIdLong());
+        var ui = player.inventory();
 
         ui.setXP(0);
         ui.setLevel(level);
 
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
         eb.setTitle("Botdiril SuperUser");
         eb.setColor(0x008080);
-        eb.setAuthor(co.caller.getAsTag(), null, co.caller.getEffectiveAvatarUrl());
-        eb.setThumbnail(user.getEffectiveAvatarUrl());
-        eb.setDescription(String.format("Updated %s's level to **%d**!", user.getAsMention(), level));
-        eb.addField("Channel", co.textChannel.getAsMention(), false);
-        eb.addField("SuperUser", co.caller.getAsMention(), false);
-        eb.setFooter("Message ID: " + co.message.getIdLong(), null);
-        eb.setTimestamp(Instant.now());
+        eb.setAuthor(co.player.getTag(), null, co.player.getAvatarURL());
+        eb.setThumbnail(co.player.getAvatarURL());
+        eb.setDescription(String.format("Updated %s's level to **%d**!", player.getMention(), level));
+        eb.addField("SuperUser", co.player.getMention(), false);
+        eb.setFooterTimestamp(ZonedDateTime.now());
+
+        if (co instanceof DiscordCommandContext dcc)
+        {
+            eb.addField("Channel", dcc.textChannel.getAsMention(), false);
+            eb.setFooter("Message ID: " + dcc.message.getIdLong());
+        }
+
 
         co.respond(eb);
     }

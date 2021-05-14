@@ -1,6 +1,7 @@
 package com.botdiril.userdata.items.crate;
 
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.ChatCommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.userdata.item.*;
 import com.botdiril.userdata.stat.EnumStat;
 import com.botdiril.util.BotdirilFmt;
@@ -17,7 +18,11 @@ public abstract class ItemCrate extends Item implements IOpenable
     @Override
     public String getFootnote(CommandContext co)
     {
-        return "Open using `" + co.usedPrefix + "open " + this.getName() + "`. Keep in mind you need a key to do so.";
+        if (co instanceof ChatCommandContext ccc)
+            return "Open using `" + ccc.usedPrefix + "open " + this.getName() + "`. Keep in mind you need a key to do so.";
+
+
+        return "Open using a key.";
     }
 
     @Override
@@ -55,7 +60,7 @@ public abstract class ItemCrate extends Item implements IOpenable
             var item = itemPair.getItem();
             var amt = itemPair.getAmount();
 
-            co.ui.addItem(item, amt);
+            co.inventory.addItem(item, amt);
 
             if (i <= displayLimit)
             {
@@ -78,7 +83,7 @@ public abstract class ItemCrate extends Item implements IOpenable
             .sum();
         sb.append(String.format("\n**Total %s items.**", BotdirilFmt.format(itemCount)));
 
-        co.po.addStat(EnumStat.CRATES_OPENED, amount);
+        co.userProperties.addStat(EnumStat.CRATES_OPENED, amount);
 
         co.respond(sb.toString());
     }

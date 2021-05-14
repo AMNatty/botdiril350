@@ -1,6 +1,7 @@
 package com.botdiril.userdata.icon;
 
 import com.botdiril.MajorFailureException;
+import org.intellij.lang.annotations.MagicConstant;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -12,6 +13,8 @@ import cz.tefek.pluto.util.asl.YAMLPropertiesReader;
 
 public class Icons
 {
+    public static final String XP = "XP";
+
     public static final String COIN = "$!currency.coin$";
     public static final String KEK = "$!currency.kek$";
     public static final String TOKEN = "$!currency.token$";
@@ -83,7 +86,7 @@ public class Icons
     public static final String RARE_GOLDENOIL = "$!item.rareResource.goldenOil$";
     public static final String RARE_STRANGE_METAL = "$!item.rareResource.strangeMetal$";
 
-    public static final String SCROLL = "$!item.scroll.scroll$";
+    public static final String SCROLL = "$!item.scroll.basic";
     public static final String SCROLL_RARE = "$!item.scroll.rare$";
     public static final String SCROLL_UNIQUE = "$!item.scroll.unique$";
 
@@ -125,12 +128,12 @@ public class Icons
         }
     }
 
-    public static String get(String tag)
+    public static String get(@MagicConstant(flagsFromClass = Icons.class) String tag)
     {
         return ICON_MAPPINGS.get(tag);
     }
 
-    public static String getOrDefault(String tag, String defaultValue)
+    public static String getOrDefault(@MagicConstant(flagsFromClass = Icons.class) String tag, String defaultValue)
     {
         return ICON_MAPPINGS.getOrDefault(tag, defaultValue);
     }

@@ -2,6 +2,7 @@ package com.botdiril.userdata.metrics;
 
 import com.botdiril.framework.sql.DBConnection;
 import com.botdiril.framework.sql.SqlFoundation;
+import com.botdiril.userdata.InventoryTables;
 import com.botdiril.userdata.UserInventory;
 
 public class UserMetrics
@@ -31,7 +32,7 @@ public class UserMetrics
                  PRIMARY KEY (fk_us_id, um_commandid),
                  FOREIGN KEY (fk_us_id) REFERENCES %s(us_id)
              ) ENGINE = MyISAM;
-             """.formatted(TABLE_USER_METRICS, UserInventory.TABLE_USER));
+             """.formatted(TABLE_USER_METRICS, InventoryTables.TABLE_USER));
         }
     }
 

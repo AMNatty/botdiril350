@@ -1,23 +1,25 @@
 package com.botdiril.framework.command.parser;
 
-import com.botdiril.userdata.IIdentifiable;
-import com.botdiril.userdata.achievement.Achievement;
-import net.dv8tion.jda.api.entities.*;
-import org.apache.commons.lang3.EnumUtils;
-
-import java.util.stream.Collectors;
-
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.discord.framework.DiscordEntityPlayer;
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
+import com.botdiril.discord.framework.util.DiscordAssert;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.command.invoke.ParType;
 import com.botdiril.framework.util.CommandAssert;
+import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.achievement.Achievement;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ItemCurrency;
 import com.botdiril.userdata.item.ShopEntries;
 import com.botdiril.userdata.items.Items;
+import net.dv8tion.jda.api.entities.*;
+import org.apache.commons.lang3.EnumUtils;
+
+import java.util.stream.Collectors;
 
 public class CommandParserTypeHandler
 {
@@ -44,11 +46,11 @@ public class CommandParserTypeHandler
 
         if (prevArg instanceof Card)
         {
-            return CommandAssert.parseAmount(arg, co.ui.howManyOf((Card) prevArg), "Amount could not be parsed, you can either use absolute numbers (0, 1, 2, 3, ...), percent (65%) or everything/half.");
+            return CommandAssert.parseAmount(arg, co.inventory.howManyOf((Card) prevArg), "Amount could not be parsed, you can either use absolute numbers (0, 1, 2, 3, ...), percent (65%) or everything/half.");
         }
         else if (prevArg instanceof Item)
         {
-            return CommandAssert.parseAmount(arg, co.ui.howManyOf((Item) prevArg), "Amount could not be parsed, you can either use absolute numbers (0, 1, 2, 3, ...), percent (65%) or everything/half.");
+            return CommandAssert.parseAmount(arg, co.inventory.howManyOf((Item) prevArg), "Amount could not be parsed, you can either use absolute numbers (0, 1, 2, 3, ...), percent (65%) or everything/half.");
         }
 
         throw new CommandException("Internal error. Please contact an administrator. Code: **PREV_PARAM_NEITHER_CARD_OR_ITEM**");
@@ -72,14 +74,14 @@ public class CommandParserTypeHandler
                 if (!ShopEntries.canBeBought(item))
                     throw new CommandException("That item cannot be bought.");
 
-                yield CommandAssert.parseBuy(arg, ShopEntries.getCoinPrice(item), co.ui.getCoins(), "Could not parse the amount you are trying to buy.");
+                yield CommandAssert.parseBuy(arg, ShopEntries.getCoinPrice(item), co.inventory.getCoins(), "Could not parse the amount you are trying to buy.");
             }
 
             case AMOUNT_ITEM_BUY_TOKENS -> {
                 if (!ShopEntries.canBeBoughtForTokens(item))
                     throw new CommandException("That item cannot be bought.");
 
-                yield CommandAssert.parseBuy(arg, ShopEntries.getTokenPrice(item), co.ui.getKekTokens(), "Could not parse the amount you are trying to buy.");
+                yield CommandAssert.parseBuy(arg, ShopEntries.getTokenPrice(item), co.inventory.getKekTokens(), "Could not parse the amount you are trying to buy.");
             }
 
             default -> throw new CommandException("Internal error. Please contact an administrator. Code: **BUY_UNKNOWN_CURRENCY**");
@@ -104,7 +106,7 @@ public class CommandParserTypeHandler
                     CommandAssert.parseLong(arg, String.format("Error: '%s' is not a valid number.", arg));
 
                 case AMOUNT_COINS, AMOUNT_CLASSIC_KEKS, AMOUNT_MEGA_KEKS, AMOUNT_KEK_TOKENS, AMOUNT_DUST, AMOUNT_KEYS ->
-                    CommandAssert.parseAmount(arg, co.ui.howManyOf(mapCurrency(type)), "Amount could not be parsed, you can either use absolute numbers (0, 1, 2, 3, ...), percent (65%) or everything/half");
+                    CommandAssert.parseAmount(arg, co.inventory.howManyOf(mapCurrency(type)), "Amount could not be parsed, you can either use absolute numbers (0, 1, 2, 3, ...), percent (65%) or everything/half.");
 
                 case AMOUNT_ITEM_OR_CARD ->
                     parseAmount(co, argArr, i, arg);
@@ -139,26 +141,6 @@ public class CommandParserTypeHandler
         {
             return CommandAssert.parseCommandGroup(arg);
         }
-        else if (clazz == User.class)
-        {
-            return CommandAssert.parseUser(co.jda, arg);
-        }
-        else if (clazz == Role.class)
-        {
-            return CommandAssert.parseRole(co.guild, arg);
-        }
-        else if (clazz == Member.class)
-        {
-            return CommandAssert.parseMember(co.guild, arg);
-        }
-        else if (clazz == Emote.class)
-        {
-            return CommandAssert.parseEmote(co.jda, arg);
-        }
-        else if (clazz == TextChannel.class)
-        {
-            return CommandAssert.parseTextChannel(co.guild, arg);
-        }
         else if (clazz == String.class)
         {
             return arg;
@@ -171,14 +153,45 @@ public class CommandParserTypeHandler
 
             if (val == null)
             {
-                throw new CommandException(arg + " is not valid here. Try one of these: `" + EnumUtils.getEnumList(enumClass).stream().map(Object::toString).map(String::toLowerCase).collect(Collectors.joining(", ")) + "`");
+                throw new CommandException(arg + " is not valid here. Try one of these: `" + EnumUtils.getEnumList(enumClass).stream().map(Enum::toString).map(String::toLowerCase).collect(Collectors.joining(", ")) + "`");
             }
 
             return val;
         }
-        else
+
+        if (co instanceof DiscordCommandContext dcc)
         {
-            throw new CommandException("Internal error. Please contact an administrator. Code: **UNEXPECTED_PAR_CLASS**");
+            if (clazz.isAssignableFrom(DiscordEntityPlayer.class) && (type == ParType.ENTITY_NOT_SELF || type == ParType.BASIC))
+            {
+                var player = DiscordAssert.parsePlayer(dcc.db, dcc.jda, dcc.guild, arg);
+
+                if (type == ParType.ENTITY_NOT_SELF && dcc.player.equals(player))
+                    throw new CommandException("You cannot use this command on yourself.");
+
+                return player;
+            }
+            else if (clazz == User.class)
+            {
+                return DiscordAssert.parseUser(dcc.jda, arg);
+            }
+            else if (clazz == Role.class)
+            {
+                return DiscordAssert.parseRole(dcc.guild, arg);
+            }
+            else if (clazz == Member.class)
+            {
+                return DiscordAssert.parseMember(dcc.guild, arg);
+            }
+            else if (clazz == Emote.class)
+            {
+                return DiscordAssert.parseEmote(dcc.jda, arg);
+            }
+            else if (clazz == TextChannel.class)
+            {
+                return DiscordAssert.parseTextChannel(dcc.guild, arg);
+            }
         }
+
+        throw new CommandException("Internal error. Please contact an administrator. Code: **UNEXPECTED_PAR_CLASS**");
     }
 }

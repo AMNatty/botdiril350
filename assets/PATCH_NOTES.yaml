@@ -1,8 +1,34 @@
 latest: "350.7"
 patchList:
   "350.7": |-
-    * Switched to Java 16
-    * Upgraded to JDA 4.2.1
+    * Renamed the bot to Meson, the framework is still going to be called Botdiril
+    * New bot icon
+    * Completely rewrote a large part of the bot
+      * Switched to Java 16
+      * Upgraded to JDA 4.2.1
+    * Messages now combine into one message before sending to save bandwidth.
+    * Removed `$someone`
+    * Added `$credits`
+    * Modernized `$coinflip` and `$diceroll` to use the new Gamble API
+      * These commands now also add to your jackpot pool
+    * Replaced `$oilmine <pickaxe>` with `$mine <pickaxe> <booster>`
+      * Currently, there are three valid booster items:
+        * Toolbox (4x)
+        * Oil (8x)
+        * Golden oil (20x)
+      * Boosting no longer makes your pickaxe unbreakable
+        * Instead, the break chance is divided by the multiplier
+        * This also means pickaxes now can benefit from both boosted mining and mining without a repair kit
+      * Boosting now also multiplicatively increases the rare drop multiplier at 2.5% multiplier rate
+        Quick reminder: Keys and oil do not benefit from rare drop multipliers
+        * Toolbox (1.1x)
+        * Oil (1.2x)
+        * Golden oil (1.5x)
+    * Buffed `$nuke` to make it worthwhile using
+      * Increased the amount of keks stolen/destroyed
+      * Nuke now also curses the player
+    * Removed `$emulatemine`
+    * Brought down or straight up removed level lockouts on most commands
 
   "350.6.1": |-
     * Fixed several broken icons

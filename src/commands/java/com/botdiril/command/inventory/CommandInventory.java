@@ -1,25 +1,25 @@
 package com.botdiril.command.inventory;
 
+import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.ChatCommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.util.CommandAssert;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.User;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import com.botdiril.userdata.UserInventory;
+import com.botdiril.userdata.InventoryTables;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ItemCurrency;
 import com.botdiril.userdata.item.ItemPair;
 import com.botdiril.userdata.item.ShopEntries;
 import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilLog;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 @Command(value = "inventory", aliases = { "inv",
         "i" }, category = CommandCategory.ITEMS, description = "Shows your/someone's inventory.")
@@ -47,11 +47,11 @@ public class CommandInventory
         return Long.compare(ShopEntries.getCoinPrice(i2.getItem()), ShopEntries.getCoinPrice(i1.getItem()));
     };
 
-    private static List<ItemPair> getInventory(CommandContext co, User user)
+    private static List<ItemPair> getInventory(CommandContext co, EntityPlayer player)
     {
-        var ui = new UserInventory(co.db, user.getIdLong());
+        var ui = player.inventory();
 
-        return co.db.exec("SELECT * FROM " + UserInventory.TABLE_INVENTORY + " WHERE fk_us_id=? AND it_amount>0", stat ->
+        return co.db.exec("SELECT * FROM " + InventoryTables.TABLE_INVENTORY + " WHERE fk_us_id=? AND it_amount>0", stat ->
         {
             var ips = new ArrayList<ItemPair>();
             var eq = stat.executeQuery();
@@ -63,7 +63,7 @@ public class CommandInventory
 
                 if (item == null)
                 {
-                    BotdirilLog.logger.warn(String.format("User %d has a null item in their inventory! ID: %d", co.caller.getIdLong(), ilID));
+                    BotdirilLog.logger.warn(String.format("User FID %d has a null item in their inventory! ID: %d", ui.getFID(), ilID));
                     continue;
                 }
 
@@ -82,13 +82,19 @@ public class CommandInventory
     @CmdInvoke
     public static void show(CommandContext co)
     {
-        show(co, co.caller);
+        show(co, co.player);
     }
 
     @CmdInvoke
-    public static void show(CommandContext co, @CmdPar("user") User user)
+    public static void show(CommandContext co, @CmdPar("player") EntityPlayer player)
     {
-        var ips = getInventory(co, user);
+        show(co, player, 1);
+    }
+
+    @CmdInvoke
+    public static void show(CommandContext co, @CmdPar("player") EntityPlayer player, @CmdPar("page") long page)
+    {
+        var ips = getInventory(co, player);
 
         if (ips.isEmpty())
         {
@@ -96,47 +102,15 @@ public class CommandInventory
             return;
         }
 
-        var eb = new EmbedBuilder();
-
-        eb.setAuthor(user.getAsTag(), null, user.getEffectiveAvatarUrl());
-        eb.setTitle("This user has " + BotdirilFmt.format(ips.size()) + " different types of items.");
-        eb.setDescription(user.getAsMention() + "'s inventory.");
-        eb.setColor(0x008080);
-        eb.setThumbnail(user.getEffectiveAvatarUrl());
-        var isc = ips.stream();
-
-        var pages = 1 + (ips.size() - 1) / ITEMS_PER_PAGE;
-
-        eb.appendDescription("\nPage 1/" + pages);
-
-        isc.sorted(valueComparator).limit(ITEMS_PER_PAGE).forEach(ip ->
-            eb.addField(ip.getItem().inlineDescription(), String.format("Amount: **%s**\nID: **%s**", BotdirilFmt.format(ip.getAmount()), ip.getItem().getName()), true));
-
-        eb.setFooter("Use `" + co.usedPrefix + co.usedAlias + " " + user.getIdLong() + " <page>` to go to another page.", null);
-
-        co.respond(eb);
-    }
-
-    @CmdInvoke
-    public static void show(CommandContext co, @CmdPar("user") User user, @CmdPar("page") long page)
-    {
         CommandAssert.numberNotBelowL(page, 1, "Invalid page.");
 
-        var ips = getInventory(co, user);
+        var eb = new ResponseEmbed();
 
-        if (ips.isEmpty())
-        {
-            co.respond("The inventory is empty.");
-            return;
-        }
-
-        var eb = new EmbedBuilder();
-
-        eb.setAuthor(user.getAsTag(), null, user.getEffectiveAvatarUrl());
+        eb.setAuthor(player.getTag(), null, player.getAvatarURL());
         eb.setTitle("This user has " + BotdirilFmt.format(ips.size()) + " different types of items.");
-        eb.setDescription(user.getAsMention() + "'s inventory.");
+        eb.setDescription(player.getMention() + "'s inventory.");
         eb.setColor(0x008080);
-        eb.setThumbnail(user.getEffectiveAvatarUrl());
+        eb.setThumbnail(player.getAvatarURL());
 
         var isc = ips.stream();
 
@@ -152,7 +126,8 @@ public class CommandInventory
         isc.sorted(valueComparator).skip((page - 1) * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE).forEach(ip ->
             eb.addField(ip.getItem().inlineDescription(), String.format("Amount: **%s**\nID: **%s**", BotdirilFmt.format(ip.getAmount()), ip.getItem().getName()), true));
 
-        eb.setFooter("Use `" + co.usedPrefix + co.usedAlias + " " + user.getIdLong() + " <page>` to go to another page.", null);
+        if (co instanceof ChatCommandContext ccc)
+            eb.setFooter("Use `%s%s %s <page>` to go to another page.".formatted(ccc.usedPrefix, ccc.usedAlias, ccc.player.getMention()), null);
 
         co.respond(eb);
     }

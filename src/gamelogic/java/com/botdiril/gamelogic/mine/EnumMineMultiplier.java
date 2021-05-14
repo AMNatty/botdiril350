@@ -4,6 +4,7 @@ public enum EnumMineMultiplier
 {
     MLT_RANDOM("random"),
     MLT_EXPERIENCE("level"),
+    MLT_ITEM_BOOST("item boost"),
     MLT_KITLESS("no repair kit");
 
     private final String localizedName;

@@ -2,7 +2,7 @@ package com.botdiril.command.gambling;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.ParType;
@@ -26,10 +26,10 @@ public class CommandGamble
         CommandAssert.numberMoreThanZeroL(keks, "You can't gamble zero keks...");
 
         var gambleInput = new GambleInput(keks,
-            TimerUtil.tryConsume(co.ui, EnumTimer.GAMBLE_XP),
+            TimerUtil.tryConsume(co.inventory, EnumTimer.GAMBLE_XP),
             Curser.isCursed(co, EnumCurse.CANT_WIN_JACKPOT),
-            co.po.getJackpot(),
-            co.po.getJackpotStored());
+            co.userProperties.getJackpot(),
+            co.userProperties.getJackpotStored());
 
         var result = GambleAPI.roll(gambleInput);
 
@@ -38,28 +38,22 @@ public class CommandGamble
 
         var resultText = String.format(outcome.getText(), BotdirilFmt.format(Math.abs(kekDifference)));
 
-        co.ui.addKeks(kekDifference);
+        co.inventory.addKeks(kekDifference);
 
         if (result.shouldUpdateJackpotPool())
-            co.po.setJackpot(result.getNewJackpotPool(), result.getNewJackpotStored());
+            co.userProperties.setJackpot(result.getNewJackpotPool(), result.getNewJackpotStored());
 
         var xp = result.getXPGained();
-        var gambleXP = Math.round(xp * XPRewards.getLevel(co.ui.getLevel()).getGambleFalloff());
-        co.ui.addXP(co, gambleXP);
+        var gambleXP = Math.round(xp * XPRewards.getLevel(co.inventory.getLevel()).getGambleFalloff());
+        co.inventory.addXP(co, gambleXP);
+
+        co.respondf("%s **[+%s]**", resultText, BotdirilFmt.amountOf(gambleXP, Icons.XP));
 
         if (result.hasMissedJackpot())
         {
-            var resultStr = """
-            %s **[+ %sXP]**
+            co.respondf("""
             %s *It would be a real shame if you missed the jackpot because of your curse.* <a:pepeLaughing:791861756800270346>
-            """.formatted(resultText, BotdirilFmt.format(gambleXP),
-                Icons.SCROLL_RARE);
-
-            co.respond(resultStr);
-
-            return;
+            """, Icons.SCROLL_RARE);
         }
-
-        co.respond(String.format("%s **[+ %sXP]**", resultText,  BotdirilFmt.format(gambleXP)));
     }
 }

@@ -14,7 +14,7 @@ public class Botdiril
 {
     public static final long AUTHOR_ID = 263648016982867969L;
     public static final String AUTHOR = "<@" + AUTHOR_ID + ">";
-    public static final String BRANDING = "Botdiril Meson";
+    public static final String BRANDING = "Meson";
     public static final String REPO_URL = "https://github.com/493msi/botdiril400";
     private static final String PLAYING = "www.tefek.cz";
 

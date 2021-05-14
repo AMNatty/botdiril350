@@ -1,22 +1,22 @@
 package com.botdiril.userdata.achievement;
 
-import net.dv8tion.jda.api.entities.User;
-
-import com.botdiril.framework.command.CommandContext;
-import com.botdiril.userdata.UserInventory;
+import com.botdiril.framework.EntityPlayer;
+import com.botdiril.framework.command.context.CommandContext;
 
 public class AchievementActivator
 {
-    public static boolean fire(CommandContext co, UserInventory ui, User user, Achievement achievement)
+    public static boolean fire(CommandContext co, EntityPlayer player, Achievement achievement)
     {
+        var ui = player.inventory();
+
         if (!ui.hasAchievement(achievement))
         {
             ui.fireAchievement(achievement);
 
-            if (co.ui.getFID() == ui.getFID())
-                co.respond("You've obtained the **" + achievement.inlineDescription() + "** achievement - " + achievement.getDescription());
+            if (co.player.equals(player))
+                co.respondf("You've obtained the **%s** achievement - %s.", achievement, achievement.getDescription());
             else
-                co.respond(user.getAsMention() + " has obtained the **" + achievement.inlineDescription() + "** achievement - " + achievement.getDescription());
+                co.respondf("%s has obtained the **%s** achievement - %s.", player.getMention(), achievement, achievement.getDescription());
 
             return true;
         }

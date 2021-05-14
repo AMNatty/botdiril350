@@ -2,7 +2,7 @@ package com.botdiril.command.debug;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -12,7 +12,7 @@ import com.botdiril.framework.command.invoke.CmdInvoke;
 public class CommandPing
 {
     @CmdInvoke
-    public static void ping(CommandContext co)
+    public static void ping(DiscordCommandContext co)
     {
         var eb = new EmbedBuilder();
         eb.setAuthor("Botdiril Debug Commands", null, co.bot.getEffectiveAvatarUrl());

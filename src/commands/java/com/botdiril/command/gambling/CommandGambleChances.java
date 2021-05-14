@@ -1,26 +1,35 @@
 package com.botdiril.command.gambling;
 
+import com.botdiril.framework.command.Command;
+import com.botdiril.framework.command.CommandCategory;
+import com.botdiril.framework.command.context.CommandContext;
+import com.botdiril.framework.command.invoke.CmdInvoke;
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.gamelogic.gamble.EnumGambleOutcome;
-import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.text.DecimalFormat;
 
-import com.botdiril.framework.command.CommandContext;
-import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.invoke.CmdInvoke;
-
-@Command(value = "odds", category = CommandCategory.GAMBLING, description = "Your gambling odds.", levelLock = 5)
+@Command(value = "odds", category = CommandCategory.GAMBLING, description = "Your gambling odds.")
 public class CommandGambleChances
 {
     @CmdInvoke
     public static void print(CommandContext co)
     {
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
         eb.setTitle("Gambling odds");
         eb.setDescription("These odds are the same for every user and do not change.");
-        eb.setThumbnail(co.caller.getEffectiveAvatarUrl());
         eb.setColor(0x008080);
+
+        if (co instanceof DiscordCommandContext dcc)
+        {
+            eb.setAuthor("%s#%s".formatted(dcc.caller.getName(), dcc.caller.getDiscriminator()));
+            eb.setThumbnail(dcc.caller.getEffectiveAvatarUrl());
+        }
+        else
+        {
+            eb.setThumbnail(co.botIconURL);
+        }
 
         DecimalFormat numberFormat = new DecimalFormat("0.###");
         for (EnumGambleOutcome go : EnumGambleOutcome.values())

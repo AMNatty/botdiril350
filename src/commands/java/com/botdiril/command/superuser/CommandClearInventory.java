@@ -1,14 +1,13 @@
 package com.botdiril.command.superuser;
 
+import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.permission.EnumPowerLevel;
-import net.dv8tion.jda.api.entities.Member;
-
-import com.botdiril.userdata.UserInventory;
+import com.botdiril.userdata.InventoryTables;
 
 @Command(value = "clearinventory", aliases = {
         "clearinv" }, category = CommandCategory.SUPERUSER, description = "Wipe someone's inventory.", powerLevel = EnumPowerLevel.SUPERUSER_OVERRIDE)
@@ -17,13 +16,13 @@ public class CommandClearInventory
     @CmdInvoke
     public static void wipeSelf(CommandContext co)
     {
-        wipe(co, co.callerMember);
+        wipe(co, co.player);
     }
 
     @CmdInvoke
-    public static void wipe(CommandContext co, @CmdPar("user") Member user)
+    public static void wipe(CommandContext co, @CmdPar("player") EntityPlayer player)
     {
-        co.db.exec("DELETE FROM " + UserInventory.TABLE_INVENTORY + " WHERE fk_us_id=?", stat ->
+        co.db.exec("DELETE FROM " + InventoryTables.TABLE_INVENTORY + " WHERE fk_us_id=?", stat ->
         {
             var res = stat.executeUpdate();
 
@@ -36,6 +35,6 @@ public class CommandClearInventory
             co.respond(String.format("Deleted **%d** type(s) of items.", res));
             return res;
 
-        }, new UserInventory(co.db, user.getUser().getIdLong()).getFID());
+        }, player.inventory().getFID());
     }
 }

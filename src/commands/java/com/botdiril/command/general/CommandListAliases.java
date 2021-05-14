@@ -2,23 +2,23 @@ package com.botdiril.command.general;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
-import net.dv8tion.jda.api.EmbedBuilder;
+import com.botdiril.framework.response.ResponseEmbed;
 
 @Command(value = "aliases", aliases = {
         "listaliases" }, category = CommandCategory.GENERAL, description = "List your aliases.")
 public class CommandListAliases
 {
     @CmdInvoke
-    public static void list(CommandContext co)
+    public static void list(ChatCommandContext co)
     {
-        var bound = co.po.getUsedAliases();
+        var bound = co.userProperties.getUsedAliases();
 
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
         eb.setColor(0x008080);
-        eb.setThumbnail(co.caller.getEffectiveAvatarUrl());
-        eb.setAuthor(co.caller.getAsTag(), null, co.caller.getEffectiveAvatarUrl());
+        eb.setThumbnail(co.player.getAvatarURL());
+        eb.setAuthor(co.player.getTag(), null, co.player.getAvatarURL());
 
         if (bound == 0)
         {
@@ -33,7 +33,7 @@ public class CommandListAliases
             {
                 if ((1 << i & bound) > 0)
                 {
-                    var alias = co.po.getAlias(i);
+                    var alias = co.userProperties.getAlias(i);
                     eb.addField(String.format("Alias %d", i), String.format("`%s` → `%s`", alias.getKey(), alias.getValue()), false);
                 }
             }

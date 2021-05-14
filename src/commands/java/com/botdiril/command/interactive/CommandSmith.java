@@ -2,7 +2,7 @@ package com.botdiril.command.interactive;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.util.CommandAssert;
@@ -11,6 +11,7 @@ import com.botdiril.userdata.item.ItemAssert;
 import com.botdiril.userdata.item.ItemPair;
 import com.botdiril.userdata.items.Items;
 import com.botdiril.userdata.items.pickaxe.ItemPickaxe;
+import com.botdiril.util.BotdirilFmt;
 
 import static com.botdiril.command.interactive.CommandSmith.SMITH_CONVERSION;
 
@@ -31,13 +32,13 @@ public class CommandSmith
 
         CommandAssert.assertNotNull(prevPick, "That pickaxe cannot be smithed.");
 
-        ItemAssert.consumeItems(co.ui, "smith this pickaxe", ItemPair.of(Items.strangeMetal), ItemPair.of(prevPick, SMITH_CONVERSION));
+        ItemAssert.consumeItems(co.inventory, "smith this pickaxe", ItemPair.of(Items.strangeMetal), ItemPair.of(prevPick, SMITH_CONVERSION));
 
-        co.ui.addItem(pick, 1);
+        co.inventory.addItem(pick, 1);
 
-        co.respond(String.format("You crafted **a %s** from **%d %s** and **one %s**",
-            pick.inlineDescription(),
-            SMITH_CONVERSION, prevPick.inlineDescription(),
-            Items.strangeMetal.inlineDescription()));
+        co.respondf("You crafted %s from %s and %s.",
+            BotdirilFmt.amountOfMD("a", pick.inlineDescription()),
+            BotdirilFmt.amountOfMD(SMITH_CONVERSION, prevPick.inlineDescription()),
+            BotdirilFmt.amountOfMD("one", Items.strangeMetal.inlineDescription()));
     }
 }

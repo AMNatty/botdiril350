@@ -1,9 +1,9 @@
 package com.botdiril.userdata.items.crate;
 
-import java.util.function.BiConsumer;
-
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.userdata.item.ItemDrops;
+
+import java.util.function.BiConsumer;
 
 public class ItemCrateSimple extends ItemCrate
 {

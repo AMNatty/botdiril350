@@ -1,13 +1,12 @@
 package com.botdiril.userdata.items.crate;
 
+import com.botdiril.framework.command.context.CommandContext;
+import com.botdiril.userdata.item.Item;
+import com.botdiril.userdata.item.ItemDrops;
 import com.botdiril.userdata.pools.PoolDrawer;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
-import com.botdiril.framework.command.CommandContext;
-import com.botdiril.userdata.item.Item;
-import com.botdiril.userdata.item.ItemDrops;
 
 public class ItemCrateGeneric extends ItemCrateSimple
 {

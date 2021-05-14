@@ -2,7 +2,7 @@ package com.botdiril.command.currency;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
@@ -22,7 +22,7 @@ import com.botdiril.userdata.tempstat.EnumCurse;
 import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilRnd;
 
-@Command(value = "sell", aliases = { "s", "si" }, category = CommandCategory.CURRENCY, description = "Sell items for coins.", levelLock = 2)
+@Command(value = "sell", aliases = { "s", "si" }, category = CommandCategory.CURRENCY, description = "Sell items for coins.")
 public class CommandSell
 {
     public static final double CHANCE_TO_EXPLODE = 0.005;
@@ -34,8 +34,8 @@ public class CommandSell
     {
         long resellModifier = 1000;
 
-        long goldenOils = UserPreferences.isBitEnabled(co.po, EnumUserPreference.GOLDEN_OIL_DISABLED) ? 0
-                : co.ui.howManyOf(Items.goldenOil);
+        long goldenOils = UserPreferences.isBitEnabled(co.userProperties, EnumUserPreference.GOLDEN_OIL_DISABLED) ? 0
+                : co.inventory.howManyOf(Items.goldenOil);
 
         boolean exploded = false;
 
@@ -43,7 +43,7 @@ public class CommandSell
         {
             exploded = true;
             resellModifier = EXPLOSION_MODIFIER;
-            co.ui.setItem(Items.goldenOil, 0);
+            co.inventory.setItem(Items.goldenOil, 0);
         }
         else
         {
@@ -64,24 +64,32 @@ public class CommandSell
 
         long actualValue = value * resellModifier / 1000;
 
-        co.ui.addCoins(actualValue);
+        co.inventory.addCoins(actualValue);
 
         if (exploded)
         {
-            String sb = "*:boom: Your **%d %s** barrels exploded, making you lose **%s** %s from this trade.*\n" +
-                        "You sold **%s %s** for **%s** %s.";
-
-            co.respond(String.format(sb, goldenOils, Items.goldenOil.inlineDescription(), BotdirilFmt.format(value - actualValue), Icons.COIN, BotdirilFmt.format(amountOfArticle), articleName, BotdirilFmt.format(actualValue), Icons.COIN));
+            co.respondf("""
+            *:boom: Your %s barrels exploded, making you lose **%s** %s from this trade.*
+            You sold %s for %s.
+            """,
+                BotdirilFmt.amountOfMD(goldenOils, Items.goldenOil),
+                BotdirilFmt.amountOfMD(value - actualValue, Icons.COIN),
+                BotdirilFmt.amountOfMD(amountOfArticle, articleName),
+                BotdirilFmt.amountOfMD(actualValue, Icons.COIN));
         }
         else
         {
             if (actualValue != value)
             {
-                co.respond(String.format("You sold **%s %s** for **%s** %s plus extra **%s** %s from your **%d %s** barrels.", BotdirilFmt.format(amountOfArticle), articleName, BotdirilFmt.format(value), Icons.COIN, BotdirilFmt.format(actualValue - value), Icons.COIN, goldenOils, Items.goldenOil.inlineDescription()));
+                co.respondf("You sold %s for %s plus extra %s from your %s barrels.",
+                    BotdirilFmt.amountOfMD(amountOfArticle, articleName),
+                    BotdirilFmt.amountOfMD(value, Icons.COIN),
+                    BotdirilFmt.amountOfMD(actualValue - value, Icons.COIN),
+                    BotdirilFmt.amountOfMD(goldenOils, Items.goldenOil));
             }
             else
             {
-                co.respond(String.format("You sold **%s %s** for **%s** %s.", BotdirilFmt.format(amountOfArticle), articleName, BotdirilFmt.format(value), Icons.COIN));
+                co.respondf("You sold %s for %s.", BotdirilFmt.amountOfMD(amountOfArticle, articleName), BotdirilFmt.amountOfMD(value, Icons.COIN));
             }
         }
     }
@@ -97,26 +105,23 @@ public class CommandSell
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't sell zero items / cards.");
 
-        if (item instanceof Item)
+        if (item instanceof Item iitem)
         {
-            var iitem = (Item) item;
-
             if (!ShopEntries.canBeSold(iitem))
             {
                 throw new CommandException("That item / card cannot be sold.");
             }
 
-            CommandAssert.numberNotAboveL(amount, co.ui.howManyOf(iitem), "You don't have that many items of that type.");
-            co.ui.addItem(iitem, -amount);
+            CommandAssert.numberNotAboveL(amount, co.inventory.howManyOf(iitem), "You don't have that many items of that type.");
+            co.inventory.addItem(iitem, -amount);
 
             sellRoutine(co, item.inlineDescription(), amount, amount * ShopEntries.getSellValue(item));
         }
-        else if (item instanceof Card)
+        else if (item instanceof Card card)
         {
-            var card = (Card) item;
-            CommandAssert.numberNotAboveL(amount, co.ui.howManyOf(card) - 1, "You don't have that many cards of that type. Keep in mind you need to keep at least one card of each type once you receive it.");
-            co.ui.addCard(card, -amount);
-            var cardLevel = co.ui.getCardLevel(card);
+            CommandAssert.numberNotAboveL(amount, co.inventory.howManyOf(card) - 1, "You don't have that many cards of that type. Keep in mind you need to keep at least one card of each type once you receive it.");
+            co.inventory.addCard(card, -amount);
+            var cardLevel = co.inventory.getCardLevel(card);
 
             sellRoutine(co, item.inlineDescription(), amount, amount * Card.getPrice(card, cardLevel));
         }

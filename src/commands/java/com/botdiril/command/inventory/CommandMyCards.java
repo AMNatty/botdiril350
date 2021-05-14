@@ -1,21 +1,19 @@
 package com.botdiril.command.inventory;
 
+import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.ChatCommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.util.CommandAssert;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.User;
-
-import java.util.Comparator;
-import java.util.Locale;
-
-import com.botdiril.userdata.UserInventory;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.card.CardPair;
 import com.botdiril.userdata.card.UserCards;
+
+import java.util.Comparator;
 
 @Command(value = "collection", aliases = { "mycards",
         "cardcollection", "cards" }, category = CommandCategory.ITEMS, description = "Displays your card collection.")
@@ -28,22 +26,21 @@ public class CommandMyCards
     @CmdInvoke
     public static void show(CommandContext co)
     {
-        show(co, co.caller);
+        show(co, co.player);
     }
 
     @CmdInvoke
-    public static void show(CommandContext co, @CmdPar("user") User user)
+    public static void show(CommandContext co, @CmdPar("player") EntityPlayer player)
     {
-        show(co, user, 1);
+        show(co, player, 1);
     }
 
     @CmdInvoke
-    public static void show(CommandContext co, @CmdPar("user") User user, @CmdPar("page") long page)
+    public static void show(CommandContext co, @CmdPar("player") EntityPlayer player, @CmdPar("page") long page)
     {
         CommandAssert.numberNotBelowL(page, 1, "Invalid page.");
 
-        var ui = new UserInventory(co.db, user.getIdLong());
-        var cps = UserCards.getCards(co.db, ui.getFID());
+        var cps = UserCards.getCards(co.db, player);
 
         if (cps.isEmpty())
         {
@@ -51,12 +48,12 @@ public class CommandMyCards
             return;
         }
 
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
 
-        eb.setTitle("This user has " + cps.size() + " different cards.");
-        eb.setDescription(user.getAsMention() + "'s card collection.");
+        eb.setTitle("This player has %d different cards.".formatted(cps.size()));
+        eb.setDescription(player.getMention() + "'s card collection.");
         eb.setColor(0x008080);
-        eb.setThumbnail(user.getEffectiveAvatarUrl());
+        eb.setThumbnail(player.getAvatarURL());
         var isc = cps.stream();
 
         var pageCount = 1 + (cps.size() - 1) / CARDS_PER_PAGE;
@@ -72,7 +69,8 @@ public class CommandMyCards
             .skip((page - 1) * CARDS_PER_PAGE).limit(CARDS_PER_PAGE)
             .forEach(ip ->  eb.addField(ip.getCard().inlineDescription(), String.format("Count: **%d**\nID: **%s**", ip.getAmount(), ip.getCard().getName()), true));
 
-        eb.setFooter(String.format(Locale.ROOT, "Use `%s%s %d <page>` to go to another page.", co.usedPrefix, co.usedAlias, user.getIdLong()), null);
+        if (co instanceof ChatCommandContext ccc)
+            eb.setFooter("Use `%s%s %s <page>` to go to another page.".formatted(ccc.usedPrefix, ccc.usedAlias, ccc.player.getMention()), null);
 
         co.respond(eb);
     }

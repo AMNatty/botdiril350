@@ -1,12 +1,15 @@
 package com.botdiril.command.general;
 
-import com.botdiril.framework.command.*;
+import com.botdiril.framework.command.Command;
+import com.botdiril.framework.command.CommandCategory;
+import com.botdiril.framework.command.CommandStorage;
+import com.botdiril.framework.command.GenUsage;
+import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.util.CommandAssert;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageEmbed.Field;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -17,9 +20,9 @@ import java.util.stream.Collectors;
 public class CommandHelp
 {
     @CmdInvoke
-    public static void show(CommandContext co)
+    public static void show(ChatCommandContext co)
     {
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
         eb.setColor(Color.CYAN.getRGB());
         eb.setTitle("Stuck? Here is your help:");
 
@@ -36,7 +39,7 @@ public class CommandHelp
     }
 
     @CmdInvoke
-    public static void show(CommandContext co, @CmdPar("category or command") String tbp)
+    public static void show(ChatCommandContext co, @CmdPar("category or command") String tbp)
     {
         try
         {
@@ -62,11 +65,11 @@ public class CommandHelp
         {
             var found = CommandAssert.parseCommandGroup(tbp);
 
-            var eb = new EmbedBuilder();
+            var eb = new ResponseEmbed();
             eb.setColor(Color.CYAN.getRGB());
             eb.setTitle("Help for the " + found.getName());
 
-            CommandStorage.getCommandsByCategory(found).forEach(comm -> eb.addField(new Field(comm.value(), comm.description(), false)));
+            CommandStorage.getCommandsByCategory(found).forEach(comm -> eb.addField(comm.value(), comm.description(), false));
 
             eb.setDescription("Type ``" + co.usedPrefix + co.usedAlias + " <command>`` to show more information for each command.");
 

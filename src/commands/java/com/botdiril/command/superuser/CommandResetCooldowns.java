@@ -1,14 +1,13 @@
 package com.botdiril.command.superuser;
 
+import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.permission.EnumPowerLevel;
-import net.dv8tion.jda.api.entities.Member;
-
-import com.botdiril.userdata.UserInventory;
+import com.botdiril.userdata.InventoryTables;
 
 @Command(value = "resetcooldowns", aliases = {
         "resetcds" }, category = CommandCategory.SUPERUSER, description = "Reset timers on everything for a user.", powerLevel = EnumPowerLevel.SUPERUSER_OVERRIDE)
@@ -17,13 +16,13 @@ public class CommandResetCooldowns
     @CmdInvoke
     public static void resetCooldowns(CommandContext co)
     {
-        resetCooldowns(co, co.callerMember);
+        resetCooldowns(co, co.player);
     }
 
     @CmdInvoke
-    public static void resetCooldowns(CommandContext co, @CmdPar("user") Member user)
+    public static void resetCooldowns(CommandContext co, @CmdPar("player") EntityPlayer player)
     {
-        co.db.exec("DELETE FROM " + UserInventory.TABLE_TIMERS + " WHERE fk_us_id=?", stat ->
+        co.db.exec("DELETE FROM " + InventoryTables.TABLE_TIMERS + " WHERE fk_us_id=?", stat ->
         {
             var res = stat.executeUpdate();
 
@@ -33,9 +32,9 @@ public class CommandResetCooldowns
                 return 0;
             }
 
-            co.respond(String.format("Reset **%d** timer(s) of **%s**.", res, user.getEffectiveName()));
+            co.respondf("Reset **%d** timer(s) of **%s**.", res, player.getMention());
             return res;
 
-        }, new UserInventory(co.db, user.getUser().getIdLong()).getFID());
+        }, player.inventory().getFID());
     }
 }

@@ -1,11 +1,10 @@
 package com.botdiril.command.debug;
 
-import net.dv8tion.jda.api.EmbedBuilder;
-
-import com.botdiril.framework.command.CommandContext;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
+import com.botdiril.framework.response.ResponseEmbed;
 
 @Command(value = "memory",
     aliases = { "heap", "ram" },
@@ -16,8 +15,8 @@ public class CommandRAM
     @CmdInvoke
     public static void print(CommandContext co)
     {
-        var eb = new EmbedBuilder();
-        eb.setAuthor("Botdiril Debug Commands", null, co.bot.getEffectiveAvatarUrl());
+        var eb = new ResponseEmbed();
+        eb.setAuthor("Botdiril Debug Commands", null, co.botIconURL);
         eb.setTitle("Memory information.");
         eb.setColor(0x008080);
 

@@ -1,5 +1,6 @@
 package com.botdiril.framework.command;
 
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 
@@ -35,7 +36,7 @@ public class CommandIntrospector
 
             var first = pars[0].getType();
 
-            if (first != CommandContext.class)
+            if (!CommandContext.class.isAssignableFrom(first))
             {
                 return false;
             }

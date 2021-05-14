@@ -3,14 +3,18 @@ package com.botdiril.command.interactive;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
+import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.util.CommandAssert;
 import com.botdiril.gamelogic.mine.MineAPI;
 import com.botdiril.gamelogic.mine.MineInput;
+import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.item.Item;
+import com.botdiril.userdata.item.ItemAssert;
 import com.botdiril.userdata.item.ItemDrops;
+import com.botdiril.userdata.item.ItemPair;
 import com.botdiril.userdata.items.Items;
 import com.botdiril.userdata.items.pickaxe.ItemPickaxe;
 import com.botdiril.userdata.preferences.EnumUserPreference;
@@ -21,38 +25,48 @@ import com.botdiril.userdata.tempstat.EnumBlessing;
 import com.botdiril.userdata.tempstat.EnumCurse;
 import com.botdiril.userdata.timers.EnumTimer;
 import com.botdiril.userdata.timers.TimerUtil;
+import com.botdiril.util.BotdirilFmt;
 
 import java.util.stream.Collectors;
 
-import com.botdiril.util.BotdirilFmt;
-
-@Command(value = "mine", category = CommandCategory.INTERACTIVE, description = "Mine to get some sweet stuff.")
+@Command(value = "mine", category = CommandCategory.INTERACTIVE, description = "Mine to get some sweet stuff. You can use some items to boost your mines.")
 public class CommandMine
 {
     @CmdInvoke
     public static void mine(CommandContext co, @CmdPar("pickaxe") Item item)
     {
-        TimerUtil.require(co.ui, EnumTimer.MINE, "You still need to wait **$** to **mine**.");
+        mine(co, item, null);
+    }
 
-        CommandAssert.assertTrue(item instanceof ItemPickaxe, "That's not a valid pickaxe.");
+    @CmdInvoke
+    public static void mine(CommandContext co, @CmdPar("pickaxe") Item item, @CmdPar("booster item") Item booster)
+    {
+        TimerUtil.require(co.inventory, EnumTimer.MINE, "You still need to wait **$** to **mine**.");
 
-        CommandAssert.numberMoreThanZeroL(co.ui.howManyOf(item), "You don't have that pickaxe.");
+        if (!(item instanceof ItemPickaxe pick))
+            throw new CommandException("That's not a valid pickaxe.");
 
-        var pick = (ItemPickaxe) item;
+        ItemAssert.requireItem(co.inventory, pick);
+
+        if (booster != null)
+        {
+            CommandAssert.assertTrue(MineAPI.canBoost(booster), "*You **cannot** use **%s** to boost mining.*".formatted(booster));
+            ItemAssert.consumeItem(co.inventory, booster);
+        }
 
         var resultStr = new StringBuilder();
 
-        var repairKitCount = co.ui.howManyOf(Items.repairKit);
+        var repairKitCount = co.inventory.howManyOf(Items.repairKit);
 
-        var userLevel = co.ui.getLevel();
+        var userLevel = co.inventory.getLevel();
 
         var loot = new ItemDrops();
 
-        var mineInput = new MineInput(pick, repairKitCount, userLevel);
+        var mineInput = new MineInput(pick, booster, repairKitCount, userLevel);
         mineInput.setBlessedMiningSurge(Curser.isBlessed(co, EnumBlessing.MINE_SURGE));
         mineInput.setBlessedUnbreakablePickaxe(Curser.isBlessed(co, EnumBlessing.UNBREAKABLE_PICKAXE));
         mineInput.setCursedDoubleBreak(Curser.isCursed(co, EnumCurse.DOUBLE_PICKAXE_BREAK_CHANCE));
-        mineInput.setPreferenceRepairKitEnabled(!UserPreferences.isBitEnabled(co.po, EnumUserPreference.REPAIR_KIT_DISABLED));
+        mineInput.setPreferenceRepairKitEnabled(!UserPreferences.isBitEnabled(co.userProperties, EnumUserPreference.REPAIR_KIT_DISABLED));
 
         var mineResult = MineAPI.mine(loot, mineInput);
 
@@ -62,7 +76,7 @@ public class CommandMine
         if (mineResult.isInstantlyRefreshed())
         {
             resultStr.append("*You mine with such precision that you feel like mining again instantly.*\n");
-            co.ui.resetTimer(EnumTimer.MINE);
+            co.inventory.resetTimer(EnumTimer.MINE);
         }
 
         resultStr.append(String.format("You are mining with a **%s**", pick.inlineDescription()));
@@ -76,7 +90,7 @@ public class CommandMine
 
         if (lostItems.hasItemDropped(Items.repairKit))
         {
-            co.po.incrementStat(EnumStat.REPAIR_KITS_USED);
+            co.userProperties.incrementStat(EnumStat.REPAIR_KITS_USED);
             resultStr.append("**Your ");
             resultStr.append(pick.inlineDescription());
             resultStr.append(" broke while mining, but you managed to fix it using a ");
@@ -85,19 +99,19 @@ public class CommandMine
         }
         else if (lostItems.hasItemDropped(pick))
         {
-            co.po.incrementStat(EnumStat.PICKAXES_BROKEN);
+            co.userProperties.incrementStat(EnumStat.PICKAXES_BROKEN);
             resultStr.append("**You broke the ");
             resultStr.append(pick.inlineDescription());
 
             var trash = (long) Math.ceil(Math.log10(pick.getPickaxeValue()));
-            co.ui.addItem(Items.trash, trash);
-            resultStr.append(String.format(" while mining, but you managed to salvage the resources for %d %s", trash, Items.trash.getIcon()));
+            co.inventory.addItem(Items.trash, trash);
+            resultStr.append(String.format(" while mining, but you managed to salvage the resources for %s", BotdirilFmt.amountOf(trash, Items.trash.getIcon())));
 
             var prevPick = pick.getPreviousPickaxe();
 
             if (prevPick != null)
             {
-                co.ui.addItem(prevPick);
+                co.inventory.addItem(prevPick);
                 resultStr.append(String.format("and a %s", prevPick.inlineDescription()));
             }
 
@@ -105,9 +119,9 @@ public class CommandMine
         }
 
         var xp = mineResult.getXP();
-        co.ui.addXP(co, xp);
+        co.inventory.addXP(co, xp);
 
-        var lootStr = loot.stream().map(ip -> "**" + BotdirilFmt.format(ip.getAmount()) + "** **" + ip.getItem().inlineDescription() + "**").collect(Collectors.joining(", "));
+        var lootStr = loot.stream().map(ItemPair::toString).collect(Collectors.joining(", "));
 
         resultStr.append("You found ");
 
@@ -117,17 +131,19 @@ public class CommandMine
         }
         else
         {
+            resultStr.append("**");
             resultStr.append(lootStr);
+            resultStr.append("**");
         }
 
-        resultStr.append(" and **");
-        resultStr.append(BotdirilFmt.format(xp));
-        resultStr.append(" XP**.\n");
+        resultStr.append(" and ");
+        resultStr.append(BotdirilFmt.amountOfMD(xp, Icons.XP));
+        resultStr.append(".\n");
 
-        loot.stream().forEach(ip -> co.ui.addItem(ip.getItem(), ip.getAmount()));
-        lostItems.stream().forEach(ip -> co.ui.addItem(ip.getItem(), -ip.getAmount()));
+        loot.stream().forEach(ip -> co.inventory.addItem(ip.getItem(), ip.getAmount()));
+        lostItems.stream().forEach(ip -> co.inventory.addItem(ip.getItem(), -ip.getAmount()));
 
-        co.po.incrementStat(EnumStat.TIMES_MINED);
+        co.userProperties.incrementStat(EnumStat.TIMES_MINED);
 
         resultStr.append("[Modifiers: ");
 

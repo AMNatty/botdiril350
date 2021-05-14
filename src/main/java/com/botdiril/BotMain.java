@@ -10,8 +10,8 @@ import com.botdiril.framework.command.CommandIntitializer;
 import com.botdiril.framework.sql.SqlConnectionManager;
 import com.botdiril.framework.sql.SqlFoundation;
 import com.botdiril.internal.BotdirilConfig;
+import com.botdiril.userdata.InventoryTables;
 import com.botdiril.userdata.ItemLookup;
-import com.botdiril.userdata.UserInventory;
 import com.botdiril.userdata.achievement.Achievements;
 import com.botdiril.userdata.card.Cards;
 import com.botdiril.userdata.icon.Icons;
@@ -50,7 +50,7 @@ public class BotMain
             {
                 ItemLookup.prepare(db);
 
-                UserInventory.initTables(db);
+                InventoryTables.initTables(db);
 
                 UserMetrics.initTable(db);
 

@@ -1,12 +1,11 @@
 package com.botdiril.userdata.item;
 
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.userdata.IIdentifiable;
-
-import java.util.*;
-
 import com.botdiril.userdata.ItemLookup;
 import com.botdiril.util.BotdirilLog;
+
+import java.util.*;
 
 public class Item implements IIdentifiable
 {
@@ -54,19 +53,6 @@ public class Item implements IIdentifiable
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj instanceof Item)
-        {
-            Item it = (Item) obj;
-
-            return it.getID() == this.getID();
-        }
-
-        return false;
-    }
-
-    @Override
     public String getDescription()
     {
         return this.description;
@@ -107,6 +93,15 @@ public class Item implements IIdentifiable
     }
 
     @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Item it)
+            return it.getID() == this.getID();
+
+        return false;
+    }
+
+    @Override
     public int hashCode()
     {
         return this.getID();
@@ -116,5 +111,11 @@ public class Item implements IIdentifiable
     public String inlineDescription()
     {
         return this.getIcon() + " " + this.getLocalizedName();
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.inlineDescription();
     }
 }

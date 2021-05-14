@@ -1,5 +1,6 @@
 package com.botdiril.framework.sql;
 
+import com.botdiril.util.BotdirilLog;
 import com.mchange.v2.c3p0.impl.NewProxyPreparedStatement;
 import com.mysql.cj.jdbc.ClientPreparedStatement;
 import org.intellij.lang.annotations.Language;
@@ -11,18 +12,9 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Optional;
 
-import com.botdiril.util.BotdirilLog;
-
-public final class DBConnection implements AutoCloseable
+public record DBConnection(Connection connection) implements AutoCloseable
 {
-    private final Connection connection;
-
-    DBConnection(Connection connection)
-    {
-        this.connection = connection;
-    }
-
-    public void setAutocommit(boolean autocommit)
+    public void setAutoCommit(boolean autocommit)
     {
         try
         {

@@ -2,8 +2,8 @@ package com.botdiril.command.general;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
 import com.botdiril.framework.command.EnumSpecialCommandProperty;
+import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.util.BotdirilRnd;
@@ -13,7 +13,7 @@ import com.botdiril.util.BotdirilRnd;
 public class CommandKek
 {
     @CmdInvoke
-    public static void name(CommandContext co)
+    public static void name(ChatCommandContext co)
     {
         co.respond(BotdirilRnd.choose(Icons.SKINS));
     }

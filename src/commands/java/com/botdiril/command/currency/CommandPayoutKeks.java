@@ -2,7 +2,7 @@ package com.botdiril.command.currency;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.ParType;
@@ -14,7 +14,7 @@ import com.botdiril.userdata.timers.TimerUtil;
 import com.botdiril.util.BotdirilFmt;
 
 @Command(value = "payoutkeks", aliases = {
-        "payout", "kekspayout", "kekspayout", "payoutkek" }, category = CommandCategory.CURRENCY, description = "Pay out your keks for some tokens.", levelLock = 7)
+        "payout", "kekspayout", "kekspayout", "payoutkek" }, category = CommandCategory.CURRENCY, description = "Pay out your keks for some tokens.")
 public class CommandPayoutKeks
 {
     private static final long conversionRate = 125;
@@ -24,20 +24,21 @@ public class CommandPayoutKeks
     {
         CommandAssert.numberMoreThanZeroL(keks, "You can't pay out zero keks.");
 
-        TimerUtil.require(co.ui, EnumTimer.PAYOUT, "You need to wait **$** before paying out again.");
+        TimerUtil.require(co.inventory, EnumTimer.PAYOUT, "You need to wait **$** before paying out again.");
 
         var tokens = keks / conversionRate;
-        co.ui.addKeks(-keks);
-        co.ui.addKekTokens(tokens);
+        co.inventory.addKeks(-keks);
+        co.inventory.addKekTokens(tokens);
         var xp = Math.round(Math.pow(keks / 5.0 + 1.0, 0.55));
-        co.ui.addXP(co, xp);
+        co.inventory.addXP(co, xp);
 
-        if (co.po.getStat(EnumStat.BIGGEST_PAYOUT) < keks)
-        {
-            co.po.setStat(EnumStat.BIGGEST_PAYOUT, keks);
-        }
+        if (co.userProperties.getStat(EnumStat.BIGGEST_PAYOUT) < keks)
+            co.userProperties.setStat(EnumStat.BIGGEST_PAYOUT, keks);
 
-        co.respond(String.format("Paid out **%s** %s for **%s** %s at a conversion rate of **%d:1**. **[+%s XP]**",
-            BotdirilFmt.format(keks), Icons.KEK, BotdirilFmt.format(tokens), Icons.TOKEN, conversionRate, BotdirilFmt.format(xp)));
+        co.respondf("Paid out %s for %s at a conversion rate of **%d:1**. **[+%s]**",
+            BotdirilFmt.amountOfMD(keks, Icons.KEK),
+            BotdirilFmt.amountOf(tokens, Icons.TOKEN),
+            conversionRate,
+            BotdirilFmt.amountOf(xp, Icons.XP));
     }
 }

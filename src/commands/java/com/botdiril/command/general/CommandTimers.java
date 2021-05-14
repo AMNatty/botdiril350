@@ -1,17 +1,16 @@
 package com.botdiril.command.general;
 
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
+import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandContext;
+import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
+import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.userdata.timers.EnumTimer;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.User;
 
 import java.util.Arrays;
-
-import com.botdiril.userdata.UserInventory;
 
 import cz.tefek.pluto.chrono.MiniTime;
 
@@ -20,35 +19,32 @@ import cz.tefek.pluto.chrono.MiniTime;
 public class CommandTimers
 {
     @CmdInvoke
-    public static void check(CommandContext co, @CmdPar("user") User user)
+    public static void check(CommandContext co, @CmdPar("player") EntityPlayer player)
     {
-        var eb = new EmbedBuilder();
+        var eb = new ResponseEmbed();
         eb.setTitle("Timers");
-        eb.setDescription(user.getAsMention() + "'s active timers / cooldowns.");
+        eb.setDescription(player.getMention() + "'s active timers / cooldowns.");
+        eb.setColor(0x008080);
+        eb.setThumbnail(player.getAvatarURL());
 
-        final var ui = new UserInventory(co.db, user.getIdLong());
+        var ui = player.inventory();
 
         Arrays.stream(EnumTimer.values()).forEach(t ->
         {
             var remaining = ui.checkTimer(t);
 
             if (remaining < 0)
-            {
                 return;
-            }
 
             eb.addField(t.getLocalizedName(), MiniTime.formatDiff(remaining), false);
         });
-
-        eb.setColor(0x008080);
-        eb.setThumbnail(user.getEffectiveAvatarUrl());
 
         co.respond(eb);
     }
 
     @CmdInvoke
-    public static void checkSelf(CommandContext co)
+    public static void checkSelf(DiscordCommandContext co)
     {
-        check(co, co.caller);
+        check(co, co.player);
     }
 }

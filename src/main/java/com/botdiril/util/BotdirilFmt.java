@@ -33,4 +33,34 @@ public class BotdirilFmt
     {
         return longFormat.format(number);
     }
+
+    public static String amountOf(double number, Object item)
+    {
+        return "%s\u00A0%s".formatted(doubleFormat.format(number), item);
+    }
+
+    public static String amountOf(long number, Object item)
+    {
+        return "%s\u00A0%s".formatted(longFormat.format(number), item);
+    }
+
+    public static String amountOf(String number, Object item)
+    {
+        return "%s\u00A0%s".formatted(number, item);
+    }
+
+    public static String amountOfMD(double number, Object item)
+    {
+        return "**%s\u00A0%s**".formatted(doubleFormat.format(number), item);
+    }
+
+    public static String amountOfMD(long number, Object item)
+    {
+        return "**%s\u00A0%s**".formatted(longFormat.format(number), item);
+    }
+
+    public static String amountOfMD(String number, Object item)
+    {
+        return "**%s\u00A0%s**".formatted(number, item);
+    }
 }

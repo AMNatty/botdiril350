@@ -1,6 +1,15 @@
 package com.botdiril;
 
+import com.botdiril.command.general.CommandAlias;
+import com.botdiril.discord.framework.DiscordEntityPlayer;
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
+import com.botdiril.framework.command.parser.CommandParser;
+import com.botdiril.framework.sql.DBConnection;
+import com.botdiril.framework.util.PrefixUtil;
 import com.botdiril.serverdata.ServerPreferences;
+import com.botdiril.userdata.metrics.UserMetrics;
+import com.botdiril.userdata.properties.PropertyObject;
+import com.botdiril.util.BotdirilLog;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -9,16 +18,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-import com.botdiril.command.general.CommandAlias;
-import com.botdiril.framework.command.CommandContext;
-import com.botdiril.framework.command.parser.CommandParser;
-import com.botdiril.framework.sql.DBConnection;
-import com.botdiril.framework.util.PrefixUtil;
-import com.botdiril.userdata.UserInventory;
-import com.botdiril.userdata.metrics.UserMetrics;
-import com.botdiril.userdata.properties.PropertyObject;
-import com.botdiril.util.BotdirilLog;
 
 public class EventBus extends ListenerAdapter
 {
@@ -62,14 +61,15 @@ public class EventBus extends ListenerAdapter
 
         if (!user.isBot())
         {
-            var co = new CommandContext();
+            var co = new DiscordCommandContext(textChannel);
+            co.bot = botUser;
+            co.botIconURL = botUser.getEffectiveAvatarUrl();
             co.caller = user;
             co.callerMember = event.getMember();
             co.guild = guild;
             co.message = message;
             co.sc = ServerPreferences.getConfigByGuild(co.guild.getIdLong());
             co.contents = message.getContentRaw();
-            co.textChannel = textChannel;
             co.jda = jda;
 
             try
@@ -78,6 +78,8 @@ public class EventBus extends ListenerAdapter
                 try (db)
                 {
                     co.db = db;
+                    co.botPlayer = new DiscordEntityPlayer(co.db, co.bot);
+                    co.player = new DiscordEntityPlayer(co.db, co.callerMember);
 
                     if (co.sc == null)
                     {
@@ -85,13 +87,11 @@ public class EventBus extends ListenerAdapter
                         co.sc = ServerPreferences.getConfigByGuild(co.guild.getIdLong());
                     }
 
-                    co.bot = botUser;
+                    co.inventory = co.player.inventory();
 
-                    co.ui = new UserInventory(co.db, co.caller.getIdLong());
+                    co.userProperties = new PropertyObject(co.db, co.inventory.getFID());
 
-                    co.po = new PropertyObject(co.db, co.ui.getFID());
-
-                    CommandAlias.allAliases(co.po).forEach((src, repl) -> co.contents = co.contents.replace(src, repl));
+                    CommandAlias.allAliases(co.userProperties).forEach((src, repl) -> co.contents = co.contents.replace(src, repl));
 
                     if (!PrefixUtil.findPrefix(guild, co))
                     {
@@ -101,23 +101,29 @@ public class EventBus extends ListenerAdapter
 
                     if (CommandParser.parse(co))
                     {
-                        UserMetrics.updateMetrics(co.db, co.ui);
+                        UserMetrics.updateMetrics(co.db, co.inventory);
                         co.db.commit();
                     }
                     else
                     {
                         co.db.rollback();
                     }
+
+                    co.send();
                 }
                 catch (Exception e)
                 {
+                    // co.clearResponse();
                     // co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
+                    // co.send();
                     BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e);
                 }
             }
             catch (Exception e)
             {
+                // co.clearResponse();
                 // co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
+                // co.send();
                 BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e);
             }
         }

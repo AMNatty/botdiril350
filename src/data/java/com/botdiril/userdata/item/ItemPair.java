@@ -1,5 +1,7 @@
 package com.botdiril.userdata.item;
 
+import com.botdiril.util.BotdirilFmt;
+
 public class ItemPair
 {
     private final Item item;
@@ -45,5 +47,11 @@ public class ItemPair
     public void increment()
     {
         this.amount++;
+    }
+
+    @Override
+    public String toString()
+    {
+        return BotdirilFmt.amountOf(this.getAmount(), this.getItem());
     }
 }
