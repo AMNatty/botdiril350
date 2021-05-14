@@ -1,9 +1,9 @@
 package com.botdiril.userdata.pools;
 
+import com.botdiril.util.BotdirilRnd;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.botdiril.util.BotdirilRnd;
 
 public class PoolDrawer<T>
 {
@@ -25,11 +25,11 @@ public class PoolDrawer<T>
 
         for (var pool : this.pools)
         {
-            ptr += pool.getWeight();
+            ptr += pool.weight();
 
             if (ptr >= rd)
             {
-                var internalPool = pool.getPool();
+                var internalPool = pool.pool();
                 return internalPool.draw();
             }
         }

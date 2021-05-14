@@ -6,7 +6,8 @@ import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.sql.DBConnection;
 import com.botdiril.userdata.UserInventory;
 import com.botdiril.userdata.properties.PropertyObject;
-import org.intellij.lang.annotations.PrintFormat;
+import com.google.errorprone.annotations.FormatMethod;
+import com.google.errorprone.annotations.FormatString;
 
 public abstract class CommandContext
 {
@@ -27,7 +28,8 @@ public abstract class CommandContext
         this.response = this.createResponse();
     }
 
-    public void respondf(@PrintFormat String msg, Object... objects)
+    @FormatMethod
+    public void respondf(@FormatString String msg, Object... objects)
     {
         this.response.addText(msg.formatted(objects));
         this.shouldSend = true;

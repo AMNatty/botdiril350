@@ -29,11 +29,11 @@ public class CommandDaily
 
         var result = DailyRewards.generateRewards(co.inventory.getLevel());
 
-        var xp = result.getXP();
-        var coins = result.getCoins();
-        var keks = result.getKeks();
-        var megaKeks = result.getMegaKeks();
-        var keys = result.getKeys();
+        var xp = result.xp();
+        var coins = result.coins();
+        var keks = result.keks();
+        var megaKeks = result.megaKeks();
+        var keys = result.keys();
 
         co.inventory.addXP(co, xp);
         co.inventory.addCoins(coins);

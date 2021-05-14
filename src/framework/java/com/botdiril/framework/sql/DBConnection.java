@@ -37,28 +37,28 @@ public record DBConnection(Connection connection) implements AutoCloseable
                 throw new IllegalStateException("Parameter can't be raw null!");
             }
 
-            var clazz = param.getClass();
+            int paramIdx = i + 1;
 
-            if (clazz == ParamNull.class)
+            if (param instanceof ParamNull paramNull)
             {
-                statement.setNull(i + 1, ((ParamNull) param).getType().getJdbcType());
+                statement.setNull(paramIdx, paramNull.type().getJdbcType());
             }
-            else if (clazz == Integer.class)
+            else if (param instanceof Integer intVal)
             {
-                statement.setInt(i + 1, (Integer) param);
+                statement.setInt(paramIdx, intVal);
             }
-            else if (clazz == Long.class)
+            else if (param instanceof Long longVal)
             {
-                statement.setLong(i + 1, (Long) param);
+                statement.setLong(paramIdx, longVal);
             }
-            else if (clazz == String.class)
+            else if (param instanceof String str)
             {
-                statement.setString(i + 1, (String) param);
+                statement.setString(paramIdx, str);
             }
-            else if (clazz == byte[].class)
+            else if (param instanceof byte[] bytes)
             {
-                ByteArrayInputStream stream = new ByteArrayInputStream((byte[]) param);
-                statement.setBinaryStream(i + 1, stream);
+                ByteArrayInputStream stream = new ByteArrayInputStream(bytes);
+                statement.setBinaryStream(paramIdx, stream);
             }
             else
             {

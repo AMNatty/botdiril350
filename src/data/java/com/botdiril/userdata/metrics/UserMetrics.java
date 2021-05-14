@@ -2,7 +2,6 @@ package com.botdiril.userdata.metrics;
 
 import com.botdiril.framework.sql.DBConnection;
 import com.botdiril.framework.sql.SqlFoundation;
-import com.botdiril.userdata.InventoryTables;
 import com.botdiril.userdata.UserInventory;
 
 public class UserMetrics
@@ -16,7 +15,7 @@ public class UserMetrics
         if (!tabExists)
         {
             db.simpleExecute("""
-             CREATE TABLE %s
+             CREATE TABLE metrics
              (
                  fk_us_id INT NOT NULL,
                  um_commandid INT NOT NULL AUTO_INCREMENT,
@@ -30,9 +29,9 @@ public class UserMetrics
                  um_xp BIGINT NOT NULL,
                  
                  PRIMARY KEY (fk_us_id, um_commandid),
-                 FOREIGN KEY (fk_us_id) REFERENCES %s(us_id)
+                 FOREIGN KEY (fk_us_id) REFERENCES users(us_id)
              ) ENGINE = MyISAM;
-             """.formatted(TABLE_USER_METRICS, InventoryTables.TABLE_USER));
+             """);
         }
     }
 
@@ -41,11 +40,10 @@ public class UserMetrics
         var uiObj = ui.getUserDataObj();
 
         db.simpleUpdate("""
-            INSERT INTO %s
+            INSERT INTO metrics
             (fk_us_id, um_coins, um_keks, um_tokens, um_keys, um_mega, um_dust, um_level, um_xp)
             VALUES
             (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """.formatted(TABLE_USER_METRICS),
-            ui.getFID(), uiObj.coins(), uiObj.keks(), uiObj.tokens(), uiObj.keys(), uiObj.megakeks(), uiObj.dust(), uiObj.level(), uiObj.xp());
+        """, ui.getFID(), uiObj.coins(), uiObj.keks(), uiObj.tokens(), uiObj.keys(), uiObj.megakeks(), uiObj.dust(), uiObj.level(), uiObj.xp());
     }
 }

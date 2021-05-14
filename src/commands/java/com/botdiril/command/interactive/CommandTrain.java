@@ -73,9 +73,9 @@ public class CommandTrain
         co.inventory.addItem(item, -amount);
 
         var result = TrainAPI.roll(item, amount);
-        var outcome = result.getOutcome();
+        var outcome = result.outcome();
 
-        var xp = result.getXPLearnt();
+        var xp = result.xpLearnt();
 
         var title = switch (outcome) {
             case BAD -> "Minor failure";

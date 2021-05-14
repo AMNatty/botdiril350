@@ -1,4 +1,4 @@
-package com.botdiril.command.superuser;
+package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandCategory;

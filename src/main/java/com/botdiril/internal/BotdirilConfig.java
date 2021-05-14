@@ -2,6 +2,7 @@ package com.botdiril.internal;
 
 import com.botdiril.Botdiril;
 import com.botdiril.MajorFailureException;
+import com.botdiril.util.BotdirilLog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
@@ -12,9 +13,6 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-
-import com.botdiril.util.BotdirilLog;
 
 public class BotdirilConfig
 {
@@ -71,9 +69,7 @@ public class BotdirilConfig
         {
             var gson = new Gson();
             var cfg = gson.fromJson(reader, BotdirilConfig.class);
-            cfg.superuserList = Arrays.stream(Objects.requireNonNullElseGet(cfg.superusers, BotdirilConfig::getDefaultSuperusers))
-                .boxed()
-                .collect(Collectors.toUnmodifiableList());
+            cfg.superuserList = Arrays.stream(Objects.requireNonNullElseGet(cfg.superusers, BotdirilConfig::getDefaultSuperusers)).boxed().toList();
 
             return cfg;
         }

@@ -21,7 +21,7 @@ public abstract class UserInventory
 {
     protected transient final DBConnection db;
 
-    protected int fkid;
+    protected final int fkid;
 
     protected UserInventory(DBConnection connection, int fkID)
     {

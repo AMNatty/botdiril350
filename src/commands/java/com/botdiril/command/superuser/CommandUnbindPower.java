@@ -30,7 +30,7 @@ public class CommandUnbindPower
         var response = switch (res) {
             case RolePreferences.REMOVED -> MessageFormat.format("Removed **{0}** from **{1}**.", powerLevel.toString(), role.getName());
             case RolePreferences.NOT_PRESENT -> MessageFormat.format("**{0}** is not bound to **{1}**...", powerLevel.toString(), role.getName());
-            default -> throw new CommandException(MessageFormat.format("Unexpected behaviour detected in the cz.tefek.botdiril.command.command, please report this to a developer.. Response code: {0}", res));
+            default -> throw new CommandException(MessageFormat.format("Unexpected behaviour detected in the command, please report this to a developer.. Response code: {0}", res));
         };
 
         co.respond(response);
