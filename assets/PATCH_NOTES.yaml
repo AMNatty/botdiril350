@@ -1,5 +1,8 @@
-latest: "350.7"
+latest: "350.7.1"
 patchList:
+  "350.7.1": |-
+    * Fixed a broken icon
+
   "350.7": |-
     * Renamed the bot to Meson, the framework is still going to be called Botdiril
     * New bot icon

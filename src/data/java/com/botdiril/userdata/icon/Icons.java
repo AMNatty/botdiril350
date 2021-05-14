@@ -86,7 +86,7 @@ public class Icons
     public static final String RARE_GOLDENOIL = "$!item.rareResource.goldenOil$";
     public static final String RARE_STRANGE_METAL = "$!item.rareResource.strangeMetal$";
 
-    public static final String SCROLL = "$!item.scroll.basic";
+    public static final String SCROLL = "$!item.scroll.basic$";
     public static final String SCROLL_RARE = "$!item.scroll.rare$";
     public static final String SCROLL_UNIQUE = "$!item.scroll.unique$";
 
