@@ -36,7 +36,7 @@ public class CommandPatchNotes
 
         var eb = new ResponseEmbed();
         eb.setTitle("%s patch %s (latest patch)".formatted(Botdiril.BRANDING, patchNotes.latest));
-        eb.setDescription(patchText.replaceAll(" ", "\u00A0"));
+        eb.setDescription(patchText.replaceAll(" {2}", "\u00A0\u00A0"));
         eb.setColor(0x0090FF);
         eb.setThumbnail(co.botIconURL);
         eb.addField("",
@@ -71,7 +71,7 @@ public class CommandPatchNotes
         var eb = new ResponseEmbed();
         var patchNameFmt = patch.equals(patchNotes.latest) ?  "%s patch %s (latest patch)" : "%s patch %s";
         eb.setTitle(patchNameFmt.formatted(Botdiril.BRANDING, patch));
-        eb.setDescription(patchText.replaceAll(" ", "\u00A0"));
+        eb.setDescription(patchText.replaceAll(" {2}", "\u00A0\u00A0"));
         eb.setColor(0x0090FF);
         eb.setThumbnail(co.botIconURL);
         eb.addField("",

@@ -41,28 +41,28 @@ public class CommandBalance
         var level = uo.level();
         var xp = uo.xp();
 
-        String desc = String.format("Level %d", level);
+        eb.setDescription("Level %d".formatted(level));
 
         if (level != XPRewards.getMaxLevel())
         {
-            desc += String.format("\n%s/%s XP (%.2f%%)",
+            eb.appendDescription("\n%s/%s XP (%.2f%%)".formatted(
                 BotdirilFmt.format(xp),
                 BotdirilFmt.amountOf(XPRewards.getXPAtLevel(level), Icons.XP),
-                (double) xp / XPRewards.getXPAtLevel(level) * 100);
+                (double) xp / XPRewards.getXPAtLevel(level) * 100));
         }
 
-        desc += "\n\n";
+        eb.appendDescription("\n\n");
 
         if (player instanceof DiscordEntityPlayer dep && co instanceof DiscordCommandContext dcc)
         {
             if (dep.getUserID() == Botdiril.AUTHOR_ID)
             {
-                desc += Icons.CARD_MYTHIC + " **Lead Developer**\n";
+                eb.appendDescription(Icons.CARD_MYTHIC).appendDescription(" **Lead Developer**\n");
             }
 
             if (ui.hasAchievement(Achievements.beta))
             {
-                desc += Icons.ACHIEVEMENT_BETA + " **Beta Tester**\n";
+                eb.appendDescription(Icons.ACHIEVEMENT_BETA).appendDescription(" **Beta Tester**\n");
             }
 
             var member = dep.getMember();
@@ -71,17 +71,15 @@ public class CommandBalance
             {
                 if (EnumPowerLevel.VIP_PLUS.check(co.db, member, dcc.textChannel))
                 {
-                    desc += Icons.CARD_UNIQUE + " **VIP+**\n";
+                    eb.appendDescription(Icons.CARD_UNIQUE).appendDescription(" **VIP+**\n");
                 }
 
                 if (EnumPowerLevel.VIP.check(co.db, member, dcc.textChannel))
                 {
-                    desc += Icons.CARD_LEGENDARY + " **VIP**\n";
+                    eb.appendDescription(Icons.CARD_LEGENDARY).appendDescription(" **VIP**\n");
                 }
             }
         }
-
-        eb.setDescription(desc);
 
         eb.setColor(0x008080);
 
