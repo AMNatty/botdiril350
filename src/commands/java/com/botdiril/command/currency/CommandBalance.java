@@ -83,12 +83,12 @@ public class CommandBalance
 
         eb.setColor(0x008080);
 
-        eb.addField(EnumCurrency.COINS.getLocalizedName(), BotdirilFmt.amountOf(uo.coins(), EnumCurrency.COINS.getIcon()), true);
-        eb.addField(EnumCurrency.KEKS.getLocalizedName(), BotdirilFmt.amountOf(uo.keks(), EnumCurrency.KEKS.getIcon()), true);
-        eb.addField(EnumCurrency.MEGAKEKS.getLocalizedName(), BotdirilFmt.amountOf(uo.megakeks(), EnumCurrency.MEGAKEKS.getIcon()), true);
-        eb.addField(EnumCurrency.TOKENS.getLocalizedName(), BotdirilFmt.amountOf(uo.tokens(), EnumCurrency.TOKENS.getIcon()), true);
-        eb.addField(EnumCurrency.KEYS.getLocalizedName(), BotdirilFmt.amountOf(uo.keys(), EnumCurrency.KEYS.getIcon()), true);
-        eb.addField(EnumCurrency.DUST.getLocalizedName(), BotdirilFmt.amountOf(uo.dust(), EnumCurrency.DUST.getIcon()), true);
+        eb.addField("%ss".formatted(EnumCurrency.COINS.getLocalizedName()), BotdirilFmt.amountOf(uo.coins(), EnumCurrency.COINS.getIcon()), true);
+        eb.addField("%ss".formatted(EnumCurrency.KEKS.getLocalizedName()), BotdirilFmt.amountOf(uo.keks(), EnumCurrency.KEKS.getIcon()), true);
+        eb.addField("%ss".formatted(EnumCurrency.MEGAKEKS.getLocalizedName()), BotdirilFmt.amountOf(uo.megakeks(), EnumCurrency.MEGAKEKS.getIcon()), true);
+        eb.addField("%ss".formatted(EnumCurrency.TOKENS.getLocalizedName()), BotdirilFmt.amountOf(uo.tokens(), EnumCurrency.TOKENS.getIcon()), true);
+        eb.addField("%ss".formatted(EnumCurrency.KEYS.getLocalizedName()), BotdirilFmt.amountOf(uo.keys(), EnumCurrency.KEYS.getIcon()), true);
+        eb.addField("%ss".formatted(EnumCurrency.DUST.getLocalizedName()), BotdirilFmt.amountOf(uo.dust(), EnumCurrency.DUST.getIcon()), true);
         eb.addField("Cards", BotdirilFmt.amountOf(uo.cards(), Icons.CARDS), true);
 
         co.respond(eb);

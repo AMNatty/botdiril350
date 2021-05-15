@@ -37,7 +37,7 @@ public class CommandPayoutKeks
 
         co.respondf("Paid out %s for %s at a conversion rate of **%d:1**. **[+%s]**",
             BotdirilFmt.amountOfMD(keks, Icons.KEK),
-            BotdirilFmt.amountOf(tokens, Icons.TOKEN),
+            BotdirilFmt.amountOfMD(tokens, Icons.TOKEN),
             conversionRate,
             BotdirilFmt.amountOf(xp, Icons.XP));
     }
