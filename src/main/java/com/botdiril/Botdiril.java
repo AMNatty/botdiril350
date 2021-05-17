@@ -16,7 +16,7 @@ public class Botdiril
     public static final String AUTHOR = "<@" + AUTHOR_ID + ">";
     public static final String BRANDING = "Meson";
     public static final String REPO_URL = "https://github.com/493msi/botdiril400";
-    private static final String PLAYING = "www.tefek.cz";
+    private static final String PLAYING = "botdiril.com";
 
     private final EventBus eventBus;
     private final ShardManager shardManager;

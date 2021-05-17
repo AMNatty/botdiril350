@@ -2,7 +2,6 @@ package com.botdiril.command.interactive;
 
 import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -24,8 +23,7 @@ import com.botdiril.userdata.xp.XPRewards;
 import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilRnd;
 
-@Command(aliases = {
-        "rob" }, category = CommandCategory.INTERACTIVE, description = "Hehe. Time to rob someone.", value = "steal", levelLock = 10)
+@Command("steal")
 public class CommandSteal
 {
     private static final long MIN_TO_STEAL = 1000;

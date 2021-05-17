@@ -4,7 +4,7 @@ import com.botdiril.discord.framework.DiscordEntityPlayer;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.discord.framework.util.DiscordAssert;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
+import com.botdiril.framework.command.EnumCommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.command.invoke.ParType;
@@ -137,7 +137,7 @@ public class CommandParserTypeHandler
         {
             return CommandAssert.parseCommand(arg);
         }
-        else if (clazz == CommandCategory.class)
+        else if (clazz == EnumCommandCategory.class)
         {
             return CommandAssert.parseCommandGroup(arg);
         }

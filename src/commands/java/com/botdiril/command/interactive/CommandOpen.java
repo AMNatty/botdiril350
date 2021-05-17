@@ -1,7 +1,6 @@
 package com.botdiril.command.interactive;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -17,8 +16,7 @@ import com.botdiril.userdata.tempstat.EnumBlessing;
 import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilRnd;
 
-@Command(value = "open", aliases = {
-        "use" }, category = CommandCategory.INTERACTIVE, description = "Open a card pack/crate/something else.")
+@Command("open")
 public class CommandOpen
 {
     @CmdInvoke

@@ -1,13 +1,11 @@
 package com.botdiril.command.general;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.response.ResponseEmbed;
 
-@Command(value = "aliases", aliases = {
-        "listaliases" }, category = CommandCategory.GENERAL, description = "List your aliases.")
+@Command("aliases")
 public class CommandListAliases
 {
     @CmdInvoke

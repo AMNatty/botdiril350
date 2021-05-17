@@ -1,7 +1,6 @@
 package com.botdiril.command.general;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -10,10 +9,7 @@ import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.userdata.preferences.EnumUserPreference;
 import com.botdiril.userdata.preferences.UserPreferences;
 
-@Command(value = "preferenceupdate", aliases = { "optionupdate", "optupdate", "prefupdate", "prefsupdate",
-        "preferenceset", "optset", "prefset", "setpreference", "setopt", "setoption", "setpref", "updatepreference",
-        "updateopt", "updatepref",
-        "updateoption" }, category = CommandCategory.GENERAL, description = "Update your user preferences.")
+@Command("preferenceupdate")
 public class CommandPreferenceUpdate
 {
     @CmdInvoke

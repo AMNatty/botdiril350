@@ -2,7 +2,6 @@ package com.botdiril.command.currency;
 
 import com.botdiril.Botdiril;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -15,8 +14,7 @@ import com.botdiril.util.BotdirilFmt;
 import java.text.MessageFormat;
 import java.util.Comparator;
 
-@Command(value = "shop", aliases = { "store",
-        "market" }, category = CommandCategory.CURRENCY, description = "Opens the shops.")
+@Command("shop")
 public class CommandShop
 {
     @CmdInvoke

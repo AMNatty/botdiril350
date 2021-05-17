@@ -1,15 +1,12 @@
 package com.botdiril.command.general;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.util.CommandAssert;
 
-@Command(value = "removealias", aliases = {
-    "aliasdelete", "aliasremove", "deletealias"
-}, category = CommandCategory.GENERAL, description = "Remove an alias you previously set.")
+@Command("removealias")
 public class CommandRemoveAlias
 {
     @CmdInvoke

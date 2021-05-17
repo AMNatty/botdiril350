@@ -1,19 +1,16 @@
 package com.botdiril.command.superuser;
 
+import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
-import com.botdiril.discord.framework.command.context.DiscordCommandContext;
-import com.botdiril.framework.permission.EnumPowerLevel;
 import com.botdiril.serverdata.ChannelPreferences;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.time.Instant;
 
-@Command(value = "toggledisable", aliases = {
-        "disablechannel" }, category = CommandCategory.SUPERUSER, powerLevel = EnumPowerLevel.SUPERUSER, description = "Disable commands for non-elevated users in a text channel.")
+@Command("toggledisable")
 public class CommandDisableChannel
 {
     @CmdInvoke

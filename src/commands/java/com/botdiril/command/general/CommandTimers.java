@@ -3,7 +3,6 @@ package com.botdiril.command.general;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -14,8 +13,7 @@ import java.util.Arrays;
 
 import cz.tefek.pluto.chrono.MiniTime;
 
-@Command(value = "timers", aliases = {
-        "cooldowns", "cooldown", "timer" }, category = CommandCategory.GENERAL, description = "Check user's timers.")
+@Command("timers")
 public class CommandTimers
 {
     @CmdInvoke

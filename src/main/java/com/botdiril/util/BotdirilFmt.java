@@ -13,7 +13,7 @@ public class BotdirilFmt
     {
         var formatSymbols = new DecimalFormatSymbols(Locale.getDefault());
         formatSymbols.setDecimalSeparator('.');
-        formatSymbols.setGroupingSeparator('\'');
+        formatSymbols.setGroupingSeparator('\u2007');
 
         var doubleFormatStr = "#,##0.##";
         doubleFormat = new DecimalFormat(doubleFormatStr, formatSymbols);
@@ -36,31 +36,31 @@ public class BotdirilFmt
 
     public static String amountOf(double number, Object item)
     {
-        return "%s\u00A0%s".formatted(doubleFormat.format(number), item);
+        return "%s\u2007%s".formatted(doubleFormat.format(number), item);
     }
 
     public static String amountOf(long number, Object item)
     {
-        return "%s\u00A0%s".formatted(longFormat.format(number), item);
+        return "%s\u2007%s".formatted(longFormat.format(number), item);
     }
 
     public static String amountOf(String number, Object item)
     {
-        return "%s\u00A0%s".formatted(number, item);
+        return "%s\u2007%s".formatted(number, item);
     }
 
     public static String amountOfMD(double number, Object item)
     {
-        return "**%s\u00A0%s**".formatted(doubleFormat.format(number), item);
+        return "**%s\u2007%s**".formatted(doubleFormat.format(number), item);
     }
 
     public static String amountOfMD(long number, Object item)
     {
-        return "**%s\u00A0%s**".formatted(longFormat.format(number), item);
+        return "**%s\u2007%s**".formatted(longFormat.format(number), item);
     }
 
     public static String amountOfMD(String number, Object item)
     {
-        return "**%s\u00A0%s**".formatted(number, item);
+        return "**%s\u2007%s**".formatted(number, item);
     }
 }

@@ -1,7 +1,6 @@
 package com.botdiril.command.gambling;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -15,7 +14,7 @@ import com.botdiril.userdata.timers.TimerUtil;
 import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilRnd;
 
-@Command(value = "coinflip", aliases = { "cf" }, category = CommandCategory.GAMBLING, description = "Coin flip. You can specify a number to gamble keks.")
+@Command("coinflip")
 public class CommandCoinFlip
 {
     @CmdInvoke

@@ -2,7 +2,6 @@ package com.botdiril.command.inventory;
 
 import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -23,8 +22,7 @@ import com.botdiril.userdata.tempstat.EnumCurse;
 import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilRnd;
 
-@Command(value = "give", aliases = { "giveitem", "givecard",
-        "gift" }, category = CommandCategory.ITEMS, description = "Give someone an item or a card.", levelLock = 5)
+@Command("give")
 public class CommandGiveItem
 {
     private static final int MAX_LEVEL_DIFF = 100;

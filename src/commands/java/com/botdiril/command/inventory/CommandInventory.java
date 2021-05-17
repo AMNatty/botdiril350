@@ -2,7 +2,6 @@ package com.botdiril.command.inventory;
 
 import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -21,8 +20,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-@Command(value = "inventory", aliases = { "inv",
-        "i" }, category = CommandCategory.ITEMS, description = "Shows your/someone's inventory.")
+@Command("inventory")
 public class CommandInventory
 {
     private static final long ITEMS_PER_PAGE = 21L;

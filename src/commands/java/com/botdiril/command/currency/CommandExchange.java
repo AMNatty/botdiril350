@@ -1,7 +1,6 @@
 package com.botdiril.command.currency;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -13,8 +12,7 @@ import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ShopEntries;
 import com.botdiril.util.BotdirilFmt;
 
-@Command(value = "exchange", aliases = {
-        "buyfortokens" }, category = CommandCategory.CURRENCY, description = "Exchange tokens for items or cards.")
+@Command("exchange")
 public class CommandExchange
 {
     @CmdInvoke

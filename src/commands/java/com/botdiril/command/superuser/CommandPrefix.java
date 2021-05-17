@@ -2,16 +2,14 @@ package com.botdiril.command.superuser;
 
 
 import com.botdiril.Botdiril;
-import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
+import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
-import com.botdiril.framework.permission.EnumPowerLevel;
 import com.botdiril.framework.util.CommandAssert;
 
-@Command(value = "prefix", category = CommandCategory.SUPERUSER, description = "Sets the prefix for this server.", powerLevel = EnumPowerLevel.SUPERUSER)
+@Command("prefix")
 public class CommandPrefix
 {
     @CmdInvoke

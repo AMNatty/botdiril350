@@ -1,0 +1,23 @@
+name: Competitive commands
+commands:
+  rich:
+    aliases: [topcoins]
+    description: Shows the top 10 richest users.
+
+  richkeks:
+    aliases: [topkeks, topkek]
+    description: Shows the top 10 users with the most keks.
+
+  xpleaderboards:
+    aliases: [toplevel, toplevels, xprankings]
+    description: Shows the top 10 highest level users.
+
+  nuke:
+    aliases: []
+    levelLock: 30
+    description: Literally nuke someone's keks.
+
+  steal:
+    aliases: [rob]
+    levelLock: 10
+    description: Hehe. Time to rob someone.

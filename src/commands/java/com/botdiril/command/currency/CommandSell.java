@@ -1,7 +1,6 @@
 package com.botdiril.command.currency;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -22,7 +21,7 @@ import com.botdiril.userdata.tempstat.EnumCurse;
 import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilRnd;
 
-@Command(value = "sell", aliases = { "s", "si" }, category = CommandCategory.CURRENCY, description = "Sell items for coins.")
+@Command("sell")
 public class CommandSell
 {
     public static final double CHANCE_TO_EXPLODE = 0.005;

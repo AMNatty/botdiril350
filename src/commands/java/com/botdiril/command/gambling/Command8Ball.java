@@ -1,7 +1,6 @@
 package com.botdiril.command.gambling;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -9,7 +8,7 @@ import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.util.CommandAssert;
 import com.botdiril.util.BotdirilRnd;
 
-@Command(value = "8ball", category = CommandCategory.GAMBLING, description = "Ask the 8ball.")
+@Command("8ball")
 public class Command8Ball
 {
     private static final String[] answers = { "It is certain.", "It is decidedly so.", "Without a doubt.",

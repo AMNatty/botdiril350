@@ -2,15 +2,12 @@ package com.botdiril.command.superuser;
 
 import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
-import com.botdiril.framework.permission.EnumPowerLevel;
 import com.botdiril.userdata.InventoryTables;
 
-@Command(value = "clearinventory", aliases = {
-        "clearinv" }, category = CommandCategory.SUPERUSER, description = "Wipe someone's inventory.", powerLevel = EnumPowerLevel.SUPERUSER_OVERRIDE)
+@Command("clearinventory")
 public class CommandClearInventory
 {
     @CmdInvoke

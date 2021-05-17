@@ -4,11 +4,9 @@ import net.dv8tion.jda.api.EmbedBuilder;
 
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 
-@Command(aliases = {
-        "latency", "heartbeat" }, category = CommandCategory.GENERAL, description = "Tells the Discord latency.", value = "ping")
+@Command("ping")
 public class CommandPing
 {
     @CmdInvoke

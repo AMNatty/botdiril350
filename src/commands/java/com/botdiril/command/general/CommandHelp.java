@@ -1,8 +1,8 @@
 package com.botdiril.command.general;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandStorage;
+import com.botdiril.framework.command.CommandManager;
+import com.botdiril.framework.command.EnumCommandCategory;
 import com.botdiril.framework.command.GenUsage;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -15,8 +15,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-@Command(value = "help", aliases = {
-        "usage", "commands", "command" }, category = CommandCategory.GENERAL, description = "General help command.")
+@Command("help")
 public class CommandHelp
 {
     @CmdInvoke
@@ -26,14 +25,18 @@ public class CommandHelp
         eb.setColor(Color.CYAN.getRGB());
         eb.setTitle("Stuck? Here is your help:");
 
-        Arrays.stream(CommandCategory.values())
-            .forEach(cat -> eb.addField(cat.getName() + " [" + CommandStorage.commandCountInCategory(cat) + "]",
-                "Type ``" + co.usedPrefix + co.usedAlias + " " + cat.toString().toLowerCase() + "``", false));
+        Arrays.stream(EnumCommandCategory.values()).forEach(cat -> {
+            var info = cat.getInfo();
+            eb.addField(
+                "%s [%d]".formatted(info.name(), CommandManager.commandCountInCategory(cat)),
+                "Type `%s%s %s`".formatted( co.usedPrefix, co.usedAlias, cat.toString().toLowerCase()),
+                false);
+        });
 
-        long cmdCnt = CommandStorage.commandCount();
-        int catCnt = CommandCategory.values().length;
+        long cmdCnt = CommandManager.commandCount();
+        int catCnt = EnumCommandCategory.values().length;
 
-        eb.setDescription("There are " + cmdCnt + " commands in " + catCnt + " categories total.");
+        eb.setDescription("There are %d commands in %d categories total.".formatted(cmdCnt, catCnt));
 
         co.respond(eb);
     }
@@ -44,18 +47,22 @@ public class CommandHelp
         try
         {
             var command = CommandAssert.parseCommand(tbp);
-            var sb = new StringBuilder("**Command `" + command.value() + "`**:");
-            if (command.aliases().length != 0)
+            var sb = new StringBuilder("**Command `%s`**:".formatted(command.value()));
+            var info = CommandManager.getCommandInfo(command);
+            var aliases = info.aliases();
+
+            if (!aliases.isEmpty())
             {
                 sb.append("\n**Aliases:** ");
-                sb.append(Arrays.stream(command.aliases()).map(a -> "`" + a + "`").collect(Collectors.joining(", ")));
+                sb.append(aliases.stream().map("`%s`"::formatted).collect(Collectors.joining(", ")));
             }
+
             sb.append("\n**Description:** ");
-            sb.append(command.description());
+            sb.append(info.description());
             sb.append("\n**Power level required:** ");
-            sb.append(command.powerLevel());
+            sb.append(info.powerLevel());
             sb.append("\n**Available from level:** ");
-            sb.append(command.levelLock() == 0 ? "Always available" : command.levelLock());
+            sb.append(info.levelLock() == 0 ? "Always available" : info.levelLock());
             sb.append("\n**Usage:**\n");
             sb.append(GenUsage.usage(co.usedPrefix, tbp, command));
 
@@ -67,11 +74,11 @@ public class CommandHelp
 
             var eb = new ResponseEmbed();
             eb.setColor(Color.CYAN.getRGB());
-            eb.setTitle("Help for the " + found.getName());
+            eb.setTitle("Help for the %s category".formatted(found.getInfo().name()));
 
-            CommandStorage.getCommandsByCategory(found).forEach(comm -> eb.addField(comm.value(), comm.description(), false));
+            CommandManager.getCommandsByCategory(found).forEach(comm -> eb.addField(comm.value(), CommandManager.getCommandInfo(comm).description(), false));
 
-            eb.setDescription("Type ``" + co.usedPrefix + co.usedAlias + " <command>`` to show more information for each command.");
+            eb.setDescription("Type `%s%s <command>` to show more information for each command.".formatted(co.usedPrefix, co.usedAlias));
 
             co.respond(eb);
         }

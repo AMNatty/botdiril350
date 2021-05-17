@@ -2,7 +2,6 @@ package com.botdiril.command.currency;
 
 import com.botdiril.Botdiril;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.response.ResponseEmbed;
@@ -14,8 +13,7 @@ import com.botdiril.util.BotdirilFmt;
 import java.text.MessageFormat;
 import java.util.Locale;
 
-@Command(value = "xpleaderboards", aliases = { "toplevel", "toplevels",
-        "xprankings" }, category = CommandCategory.CURRENCY, description = "Shows the top 10 highest level users.")
+@Command("xpleaderboards")
 public class CommandTopLevel
 {
     public static final int LIMIT = 10;

@@ -1,7 +1,6 @@
 package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -11,8 +10,7 @@ import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.util.BotdirilFmt;
 
-@Command(value = "howmanyof", aliases = { "countcards", "countitems", "cardcount", "itemcount", "cc", "ic",
-        "amount" }, category = CommandCategory.ITEMS, description = "Tells the count of an item or card.")
+@Command("howmanyof")
 public class CommandHowManyOf
 {
     @CmdInvoke

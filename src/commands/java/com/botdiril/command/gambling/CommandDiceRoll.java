@@ -1,7 +1,6 @@
 package com.botdiril.command.gambling;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -14,7 +13,7 @@ import com.botdiril.userdata.timers.TimerUtil;
 import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilRnd;
 
-@Command(value = "diceroll", category = CommandCategory.GAMBLING, description = "Rolls a six-sided die. You can specify a number to gamble keks.")
+@Command("diceroll")
 public class CommandDiceRoll
 {
     private static final int SIDES = 6;

@@ -8,19 +8,23 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.jar.JarFile;
 
 public class CommandIntitializer
 {
     private static final Logger logger = LogManager.getLogger(CommandIntitializer.class);
 
-    public static void load()
+    static Map<Command, Class<?>> load()
     {
         logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         logger.info("Classloading begin: ");
 
         String classpath = System.getProperty("java.class.path");
         String[] classpathEntries = classpath.split(File.pathSeparator);
+
+        var foundCommands = new HashMap<Command, Class<?>>();
 
         for (var cp : classpathEntries)
         {
@@ -47,7 +51,7 @@ public class CommandIntitializer
 
                         if (annotation != null)
                         {
-                            CommandStorage.register(annotation, modClass);
+                            foundCommands.put(annotation, modClass);
                         }
                     }
                 }
@@ -82,7 +86,7 @@ public class CommandIntitializer
 
                         if (annotation != null)
                         {
-                            CommandStorage.register(annotation, modClass);
+                            foundCommands.put(annotation, modClass);
                         }
                     }
 
@@ -96,5 +100,7 @@ public class CommandIntitializer
         }
 
         logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+        return foundCommands;
     }
 }

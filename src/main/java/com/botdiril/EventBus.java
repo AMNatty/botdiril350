@@ -5,7 +5,7 @@ import com.botdiril.discord.framework.DiscordEntityPlayer;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.parser.CommandParser;
 import com.botdiril.framework.sql.DBConnection;
-import com.botdiril.framework.util.PrefixUtil;
+import com.botdiril.discord.framework.util.DiscordPrefixUtil;
 import com.botdiril.serverdata.ServerPreferences;
 import com.botdiril.userdata.metrics.UserMetrics;
 import com.botdiril.userdata.properties.PropertyObject;
@@ -93,7 +93,7 @@ public class EventBus extends ListenerAdapter
 
                     CommandAlias.allAliases(co.userProperties).forEach((src, repl) -> co.contents = co.contents.replace(src, repl));
 
-                    if (!PrefixUtil.findPrefix(guild, co))
+                    if (!DiscordPrefixUtil.findPrefix(guild, co))
                     {
                         co.db.commit();
                         return;

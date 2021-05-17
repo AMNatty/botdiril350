@@ -1,7 +1,6 @@
 package com.botdiril.command.gambling;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
@@ -9,7 +8,7 @@ import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.util.BotdirilFmt;
 
-@Command(value = "jackpot", category = CommandCategory.GAMBLING, description = "Shows the jackpot.")
+@Command("jackpot")
 public class CommandJackpot
 {
     @CmdInvoke

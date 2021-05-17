@@ -1,0 +1,12 @@
+commands:
+  daily:
+    aliases: []
+    description: Get yourself some free daily stuff.
+
+  mine:
+    aliases: []
+    description: Mine to get some sweet stuff. You can use some items to boost your mines.
+
+  draw:
+    aliases: [drawcards]
+    description: Draws some cards.

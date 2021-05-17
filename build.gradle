@@ -92,7 +92,9 @@ dependencies {
 
     implementation group: 'com.mchange', name: 'c3p0', version: '0.9.5.5'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.2'
+
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.3'
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.12.3'
 
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.8.0-beta4'
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.8.0-beta4'

@@ -1,7 +1,6 @@
 package com.botdiril.command.general;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -13,8 +12,7 @@ import com.botdiril.userdata.preferences.UserPreferences;
 import java.util.Arrays;
 import java.util.Locale;
 
-@Command(value = "preferences", aliases = { "options",
-        "prefs" }, category = CommandCategory.GENERAL, description = "Show your user preferences.")
+@Command("preferences")
 public class CommandPreferences
 {
     @CmdInvoke

@@ -13,6 +13,8 @@ import com.botdiril.util.BotdirilLog;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CommandParser
@@ -23,16 +25,31 @@ public class CommandParser
         var cmdStr = cmdParts[0];
         var cmdParams =  cmdParts.length == 2 ? cmdParts[1] : "";
 
-        var command = CommandStorage.search(cmdStr);
+        var command = CommandManager.findCommand(cmdStr);
 
         if (command == null)
         {
             return true;
         }
 
+        var info = CommandManager.getCommandInfo(command);
+
+        if (info == null)
+        {
+            // Default config
+            // Power level is set to executive superuser just in case; to avoid deadly mistakes
+            info = new CommandInfo(
+                Set.of(),
+                EnumPowerLevel.SUPERUSER_OVERRIDE,
+                0,
+                "<description missing>",
+                EnumSet.noneOf(EnumSpecialCommandProperty.class)
+            );
+        }
+
         co.usedAlias = cmdStr;
 
-        var special = Arrays.asList(command.special());
+        var special = info.special();
 
         if (!special.contains(EnumSpecialCommandProperty.ALLOW_LOCK_BYPASS))
         {
@@ -42,16 +59,18 @@ public class CommandParser
             }
         }
 
-        if (!command.powerLevel().check(co.db, co.callerMember, co.textChannel))
+        var powerLevel = info.powerLevel();
+
+        if (!powerLevel.check(co.db, co.callerMember, co.textChannel))
         {
-            co.respond(String.format("You need to have the **%s** power level to use this command!", command.powerLevel()));
+            co.respond(String.format("You need to have the **%s** power level to use this command!", powerLevel));
 
             return true;
         }
 
-        if (co.inventory.getLevel() < command.levelLock() && !(EnumPowerLevel.SUPERUSER_OVERRIDE.check(co.db, co.callerMember, co.textChannel) || EnumPowerLevel.VIP.check(co.db, co.callerMember, co.textChannel)))
+        if (co.inventory.getLevel() < info.levelLock() && !(EnumPowerLevel.SUPERUSER_OVERRIDE.check(co.db, co.callerMember, co.textChannel) || EnumPowerLevel.VIP.check(co.db, co.callerMember, co.textChannel)))
         {
-            co.respond(String.format("You need at least level **%d** to do this.", command.levelLock()));
+            co.respond(String.format("You need at least level **%d** to do this.", info.levelLock()));
 
             return true;
         }

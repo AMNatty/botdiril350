@@ -1,0 +1,53 @@
+
+commands:
+  help:
+    aliases: [usage, commands, command]
+    description: General help command.
+
+  preferenceupdate:
+    aliases: [optionupdate, optupdate, prefupdate, prefsupdate, preferenceset, optset, prefset, setpreference, setopt, setoption, setpref, updatepreference, updateopt, updatepref, updateoption]
+    description: Update your user preferences.
+
+  curses:
+    aliases: [blessings, buffs, debuffs]
+    description: Check user's timers on buffs and debuffs.
+
+  react:
+    aliases: []
+    description: Makes the bot react with an emote.
+
+  stats:
+    aliases: []
+    description: Show your stats.
+
+  preferences:
+    aliases: [options, prefs]
+    description: Show your user preferences.
+
+  alias:
+    aliases: []
+    description: Set an alias for some text.
+
+  aliases:
+    aliases: [listaliases]
+    description: List your aliases.
+
+  removealias:
+    aliases: [aliasdelete, aliasremove, deletealias]
+    description: Remove an alias you previously set.
+
+  ping:
+    aliases: [latency, heartbeat]
+    description: Tells the Discord latency.
+
+  patchnotes:
+    aliases: [patch, patchlist, changelog, changes]
+    description: Shows the latest changes of the bot.
+
+  timers:
+    aliases: [cooldowns, cooldown, timer]
+    description: Check user's timers.
+
+  credits:
+    aliases: [acknowledgements]
+    description: Shows the credits for this bot.

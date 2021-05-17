@@ -2,7 +2,6 @@ package com.botdiril.command.interactive;
 
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -20,13 +19,7 @@ import com.botdiril.userdata.timers.EnumTimer;
 import com.botdiril.userdata.timers.TimerUtil;
 import com.botdiril.util.BotdirilFmt;
 
-@Command(
-    value = "train",
-    category = CommandCategory.INTERACTIVE,
-    levelLock = 10,
-    aliases = { "traincard", "cardtrain" },
-    description = "Spend some resources to train your card."
-)
+@Command("train")
 public class CommandTrain
 {
     @CmdInvoke

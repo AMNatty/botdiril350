@@ -1,15 +1,13 @@
 package com.botdiril;
 
-import com.botdiril.serverdata.ChannelPreferences;
-import com.botdiril.serverdata.RolePreferences;
-import com.botdiril.serverdata.ServerPreferences;
-
-import java.util.Locale;
-
-import com.botdiril.framework.command.CommandIntitializer;
+import com.botdiril.framework.command.CommandManager;
+import com.botdiril.framework.command.EnumCommandCategory;
 import com.botdiril.framework.sql.SqlConnectionManager;
 import com.botdiril.framework.sql.SqlFoundation;
 import com.botdiril.internal.BotdirilConfig;
+import com.botdiril.serverdata.ChannelPreferences;
+import com.botdiril.serverdata.RolePreferences;
+import com.botdiril.serverdata.ServerPreferences;
 import com.botdiril.userdata.InventoryTables;
 import com.botdiril.userdata.ItemLookup;
 import com.botdiril.userdata.achievement.Achievements;
@@ -21,6 +19,8 @@ import com.botdiril.userdata.properties.PropertyObject;
 import com.botdiril.userdata.timers.EnumTimer;
 import com.botdiril.userdata.xp.XPRewards;
 import com.botdiril.util.BotdirilLog;
+
+import java.util.Locale;
 
 public class BotMain
 {
@@ -72,7 +72,9 @@ public class BotMain
 
                 XPRewards.populate();
 
-                CommandIntitializer.load();
+                Class.forName(EnumCommandCategory.class.getName());
+
+                CommandManager.load();
 
                 ItemLookup.save(db);
 

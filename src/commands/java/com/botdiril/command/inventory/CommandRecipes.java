@@ -1,7 +1,6 @@
 package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -15,8 +14,7 @@ import com.botdiril.util.BotdirilFmt;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-@Command(value = "recipes", aliases = { "recipelist",
-        "rl" }, category = CommandCategory.ITEMS, description = "Shows all craftable items including their recipes.")
+@Command("recipes")
 public class CommandRecipes
 {
     private static final int ITEMS_PER_PAGE = 12;

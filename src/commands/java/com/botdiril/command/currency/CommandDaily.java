@@ -1,7 +1,6 @@
 package com.botdiril.command.currency;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CommandException;
@@ -14,7 +13,7 @@ import com.botdiril.userdata.timers.EnumTimer;
 import com.botdiril.userdata.timers.TimerUtil;
 import com.botdiril.util.BotdirilFmt;
 
-@Command(value = "daily", category = CommandCategory.CURRENCY, description = "Get yourself some free daily stuff.")
+@Command("daily")
 public class CommandDaily
 {
     @CmdInvoke

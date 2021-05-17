@@ -1,0 +1,20 @@
+name: Administrative commands
+commands:
+  powers:
+    aliases: [permissions]
+    description: Displays the powers a user wields.
+
+  bind:
+    aliases: [bindpower]
+    powerLevel: SUPERUSER
+    description: Bind a power to a role.
+
+  unbind:
+    aliases: [unbindpower]
+    powerLevel: SUPERUSER
+    description: Unbind a power from a role.
+
+  toggledisable:
+    aliases: [disablechannel]
+    powerLevel: SUPERUSER
+    description: Disable commands for non-elevated users in a text channel.

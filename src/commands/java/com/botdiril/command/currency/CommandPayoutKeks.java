@@ -1,7 +1,6 @@
 package com.botdiril.command.currency;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -13,8 +12,7 @@ import com.botdiril.userdata.timers.EnumTimer;
 import com.botdiril.userdata.timers.TimerUtil;
 import com.botdiril.util.BotdirilFmt;
 
-@Command(value = "payoutkeks", aliases = {
-        "payout", "kekspayout", "kekspayout", "payoutkek" }, category = CommandCategory.CURRENCY, description = "Pay out your keks for some tokens.")
+@Command("payoutkeks")
 public class CommandPayoutKeks
 {
     private static final long conversionRate = 125;

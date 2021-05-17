@@ -1,7 +1,6 @@
 package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -24,7 +23,7 @@ import com.botdiril.util.BotdirilRnd;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-@Command(value = "craft", category = CommandCategory.ITEMS, description = "Craft stuff.")
+@Command("craft")
 public class CommandCraft
 {
     @CmdInvoke

@@ -1,7 +1,6 @@
 package com.botdiril.command.superuser;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -14,7 +13,7 @@ import net.dv8tion.jda.api.entities.Role;
 
 import java.text.MessageFormat;
 
-@Command(value = "unbind", aliases = "unbindpower", category = CommandCategory.ADMINISTRATIVE, description = "Unbind a power from a role.", powerLevel = EnumPowerLevel.SUPERUSER)
+@Command("unbind")
 public class CommandUnbindPower
 {
     @CmdInvoke

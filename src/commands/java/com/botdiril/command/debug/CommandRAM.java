@@ -1,15 +1,11 @@
 package com.botdiril.command.debug;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.response.ResponseEmbed;
 
-@Command(value = "memory",
-    aliases = { "heap", "ram" },
-    category = CommandCategory.SUPERUSER,
-    description = "Shows some memory information.")
+@Command("memory")
 public class CommandRAM
 {
     @CmdInvoke

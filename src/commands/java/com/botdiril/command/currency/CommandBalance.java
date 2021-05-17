@@ -5,7 +5,6 @@ import com.botdiril.discord.framework.DiscordEntityPlayer;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -17,8 +16,7 @@ import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.xp.XPRewards;
 import com.botdiril.util.BotdirilFmt;
 
-@Command(value = "balance", aliases = { "money", "coins",
-        "bal" }, category = CommandCategory.CURRENCY, description = "Shows your/someone's balance.")
+@Command("balance")
 public class CommandBalance
 {
     @CmdInvoke

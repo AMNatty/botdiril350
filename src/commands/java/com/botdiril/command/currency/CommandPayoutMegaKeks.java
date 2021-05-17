@@ -1,7 +1,6 @@
 package com.botdiril.command.currency;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -14,8 +13,7 @@ import com.botdiril.util.BotdirilFmt;
 
 import java.util.function.Function;
 
-@Command(value = "payoutmegakeks", aliases = { "payoutmega",
-        "bigpayout" }, category = CommandCategory.CURRENCY, description = "Pay out your megakeks for some coins.")
+@Command("payoutmegakeks")
 public class CommandPayoutMegaKeks
 {
     private static final Function<Long, Long> conversion = megaKeks -> megaKeks * 80 + megaKeks * megaKeks * 4;

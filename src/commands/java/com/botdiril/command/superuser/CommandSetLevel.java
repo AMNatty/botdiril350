@@ -3,19 +3,16 @@ package com.botdiril.command.superuser;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
-import com.botdiril.framework.permission.EnumPowerLevel;
 import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.util.CommandAssert;
 import com.botdiril.userdata.xp.XPRewards;
 
 import java.time.ZonedDateTime;
 
-@Command(value = "setlevel", category = CommandCategory.SUPERUSER, aliases = {
-        "setlvl" }, description = "Force sets the user's level.", powerLevel = EnumPowerLevel.SUPERUSER_OVERRIDE)
+@Command("setlevel")
 public class CommandSetLevel
 {
     @CmdInvoke

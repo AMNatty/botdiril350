@@ -1,7 +1,6 @@
 package com.botdiril.command.interactive;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -13,11 +12,7 @@ import com.botdiril.userdata.items.Items;
 import com.botdiril.userdata.items.pickaxe.ItemPickaxe;
 import com.botdiril.util.BotdirilFmt;
 
-import static com.botdiril.command.interactive.CommandSmith.SMITH_CONVERSION;
-
-@Command(value = "smith", category = CommandCategory.INTERACTIVE,
-    description = "Smith " + SMITH_CONVERSION + " pickaxes of a lower tier to a single pickaxe of a higher tier. Consumes one strange metal.",
-    levelLock = 15)
+@Command("smith")
 public class CommandSmith
 {
     public static final int SMITH_CONVERSION = 10;

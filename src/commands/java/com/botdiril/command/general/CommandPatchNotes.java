@@ -2,7 +2,6 @@ package com.botdiril.command.general;
 
 import com.botdiril.Botdiril;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -16,8 +15,7 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
-@Command(value = "patchnotes", category = CommandCategory.GENERAL, aliases = { "patch", "patchlist", "changelog", "changes" },
-    description = "Shows the latest changes of the bot.")
+@Command("patchnotes")
 public class CommandPatchNotes
 {
     private static final String PATCH_NOTES_FILENAME = "assets/PATCH_NOTES.yaml";

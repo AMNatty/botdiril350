@@ -1,7 +1,6 @@
 package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -15,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Comparator;
 import java.util.Locale;
 
-@Command(value = "itemlist", aliases = { "il" }, category = CommandCategory.ITEMS, description = "Shows a browsable list of items")
+@Command("itemlist")
 public class CommandItemList
 {
 

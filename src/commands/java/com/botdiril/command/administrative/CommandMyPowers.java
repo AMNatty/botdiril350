@@ -1,8 +1,7 @@
 package com.botdiril.command.administrative;
 
-import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
+import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.permission.PowerLevel;
@@ -11,8 +10,7 @@ import net.dv8tion.jda.api.entities.Member;
 
 import java.time.Instant;
 
-@Command(value = "powers", aliases = {
-        "permissions" }, category = CommandCategory.ADMINISTRATIVE, description = "Displays the powers a user wields.")
+@Command("powers")
 public class CommandMyPowers
 {
     @CmdInvoke

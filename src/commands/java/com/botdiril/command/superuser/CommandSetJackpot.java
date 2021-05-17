@@ -5,11 +5,8 @@ import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
-import com.botdiril.framework.permission.EnumPowerLevel;
 
-@Command(value = "setjackpot",
-    description = "Sets a user's jackpot.",
-    powerLevel = EnumPowerLevel.SUPERUSER_OVERRIDE)
+@Command("setjackpot")
 public class CommandSetJackpot
 {
     @CmdInvoke

@@ -3,19 +3,15 @@ package com.botdiril.command.superuser;
 import com.botdiril.discord.framework.DiscordEntityPlayer;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.parser.CommandParser;
-import com.botdiril.framework.permission.EnumPowerLevel;
 import com.botdiril.userdata.properties.PropertyObject;
 import net.dv8tion.jda.api.entities.Member;
 
-@Command(value = "exe", aliases = { "exec", "execute",
-        "executeas" }, category = CommandCategory.SUPERUSER, powerLevel = EnumPowerLevel.SUPERUSER_OWNER, description = "Executes a command as someone else.")
+@Command("execute")
 public class CommandExecuteAs
 {
-
     @CmdInvoke
     public static void exec(DiscordCommandContext co, @CmdPar("user") Member member, @CmdPar("command") String command)
     {

@@ -2,7 +2,6 @@ package com.botdiril.command.interactive;
 
 import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -21,7 +20,7 @@ import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilRnd;
 import net.dv8tion.jda.api.EmbedBuilder;
 
-@Command(value = "nuke", category = CommandCategory.INTERACTIVE, description = "Literally nuke someone's keks.", levelLock = 30)
+@Command("nuke")
 public class CommandNuke
 {
     private static final long uraniumNeeded = 1000;

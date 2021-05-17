@@ -1,0 +1,66 @@
+commands:
+  inventory:
+    aliases: [inv, i]
+    description: Shows your/someone's inventory.
+
+  collection:
+    aliases: [mycards, cardcollection, cards]
+    description: Displays your card collection.
+
+  sellextras:
+    aliases: [sellduplicates, selldupes, sd]
+    description: Sells your duplicate cards.
+
+  disenchantextras:
+    aliases: [disenchantduplicates, disenchantdupes, dustextras, dustduplicates, dustdupes, dd]
+    description: Disenchants your duplicate cards.
+
+  craftingcost:
+    aliases: [craftcost, craftingtotal, crafttotal]
+    description: Shows total components needed to craft an item.
+
+  disenchant:
+    aliases: [dust]
+    description: Disenchant items or cards into $!currency.dust$.
+
+  cardlist:
+    aliases: [cl]
+    description: Shows a browsable list of cards
+
+  itemlist:
+    aliases: [il]
+    description: Shows a browsable list of items
+
+  howmanyof:
+    aliases: [countcards, countitems, cardcount, itemcount, cc, ic, amount]
+    description: Tells the count of an item or card.
+
+  cardinfo:
+    aliases: [ci, cardinformation]
+    description: Shows important information about a card
+
+  iteminfo:
+    aliases: [ii, iteminformation]
+    description: Shows important information about an item
+
+  recipes:
+    aliases: [recipelist, rl]
+    description: Shows all craftable items including their recipes.
+
+  craft:
+    aliases: []
+    description: Craft stuff.
+
+  open:
+    aliases: [use]
+    description: Open a card pack/crate/something else.
+
+  smith:
+    aliases: []
+    levelLock: 15
+    description: Smith 10 pickaxes of a lower tier to a single pickaxe of a higher tier. Consumes one strange metal.
+
+  train:
+    aliases: [traincard, cardtrain]
+    levelLock: 10
+    description: Spend some resources to train your card.

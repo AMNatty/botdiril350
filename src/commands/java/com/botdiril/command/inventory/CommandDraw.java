@@ -1,7 +1,6 @@
 package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.userdata.card.Card;
@@ -16,7 +15,7 @@ import com.botdiril.util.BotdirilFmt;
 
 import java.util.stream.Collectors;
 
-@Command(value = "draw", category = CommandCategory.ITEMS, description = "Draws some cards.")
+@Command("draw")
 public class CommandDraw
 {
     @CmdInvoke

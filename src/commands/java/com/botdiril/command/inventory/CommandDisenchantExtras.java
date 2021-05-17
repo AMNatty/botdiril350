@@ -1,7 +1,6 @@
 package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.userdata.InventoryTables;
@@ -14,9 +13,7 @@ import com.botdiril.util.BotdirilLog;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-@Command(value = "disenchantextras", aliases = { "disenchantduplicates", "disenchantdupes", "dustextras",
-        "dustduplicates", "dustdupes",
-        "dd" }, category = CommandCategory.ITEMS, description = "Disenchants your duplicate cards.")
+@Command("disenchantextras")
 public class CommandDisenchantExtras
 {
     @CmdInvoke

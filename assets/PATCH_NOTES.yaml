@@ -3,6 +3,8 @@ patchList:
   "350.7.1": |-
     * Fixed a broken icon
     * Fixed line wrapping in patch notes
+    * Updated formatting of numbers
+    * Slightly reorganized command groups
 
   "350.7": |-
     * Renamed the bot to Meson, the framework is still going to be called Botdiril

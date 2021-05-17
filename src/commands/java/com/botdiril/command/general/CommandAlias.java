@@ -1,7 +1,6 @@
 package com.botdiril.command.general;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -14,7 +13,7 @@ import com.botdiril.util.BotdirilLog;
 import java.util.HashMap;
 import java.util.Map;
 
-@Command(value = "alias", category = CommandCategory.GENERAL, description = "Set an alias for some text.")
+@Command("alias")
 public class CommandAlias
 {
     public static final int ALIAS_IN_MAX_LENGTH = 32;

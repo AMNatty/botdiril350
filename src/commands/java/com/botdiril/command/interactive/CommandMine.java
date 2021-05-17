@@ -2,7 +2,6 @@ package com.botdiril.command.interactive;
 
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -29,7 +28,7 @@ import com.botdiril.util.BotdirilFmt;
 
 import java.util.stream.Collectors;
 
-@Command(value = "mine", category = CommandCategory.INTERACTIVE, description = "Mine to get some sweet stuff. You can use some items to boost your mines.")
+@Command("mine")
 public class CommandMine
 {
     @CmdInvoke

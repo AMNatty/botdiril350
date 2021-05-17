@@ -1,0 +1,13 @@
+commands:
+  color:
+    aliases: [col]
+    description: Gets a random color.
+
+  8ball:
+    aliases: []
+    description: Ask the 8ball.
+
+  kek:
+    aliases: []
+    special: [ALLOW_LOCK_BYPASS]
+    description: $!currency.kek$

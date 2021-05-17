@@ -1,0 +1,54 @@
+commands:
+  clearinventory:
+    aliases: [clearinv]
+    powerLevel: SUPERUSER_OVERRIDE
+    description: Wipe someone's inventory.
+
+  execute:
+    aliases: [exe, exec, executeas]
+    powerLevel: SUPERUSER_OWNER
+    description: Executes a command as someone else.
+
+  setlevel:
+    aliases: [setlvl]
+    powerLevel: SUPERUSER_OVERRIDE
+    description: Force sets the user's level.
+
+  memory:
+    aliases: [heap, ram]
+    description: Shows some memory information.
+
+  resetitem:
+    aliases: []
+    powerLevel: SUPERUSER_OVERRIDE
+    description: Resets the amount of an item to 0.
+
+  resetcooldowns:
+    aliases: [resetcds]
+    powerLevel: SUPERUSER_OVERRIDE
+    description: Reset timers on everything for a user.
+
+  fid:
+    aliases: []
+    powerLevel: SUPERUSER_OVERRIDE
+    description: Shows your user ID.
+
+  additem:
+    aliases: []
+    powerLevel: SUPERUSER_OVERRIDE
+    description: Adds items to the target's inventory (for science of course).
+
+  setjackpot:
+    aliases: []
+    powerLevel: SUPERUSER_OVERRIDE
+    description: Sets a user's jackpot.
+
+  prefix:
+    aliases: []
+    powerLevel: SUPERUSER
+    description: Sets the prefix for this server.
+
+  triggerachievement:
+    aliases: [triggerac]
+    powerLevel: SUPERUSER_OVERRIDE
+    description: Triggers an achievement for a user.

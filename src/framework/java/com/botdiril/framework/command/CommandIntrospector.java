@@ -14,7 +14,7 @@ public class CommandIntrospector
 {
     public static List<Method> listMethods(Command command)
     {
-        var cmdClass = CommandStorage.getAccordingClass(command);
+        var cmdClass = CommandManager.getAccordingClass(command);
 
         var methods = cmdClass.getDeclaredMethods();
 

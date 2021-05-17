@@ -1,7 +1,6 @@
 package com.botdiril.command.gambling;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
@@ -10,7 +9,7 @@ import com.botdiril.gamelogic.gamble.EnumGambleOutcome;
 
 import java.text.DecimalFormat;
 
-@Command(value = "odds", category = CommandCategory.GAMBLING, description = "Your gambling odds.")
+@Command("odds")
 public class CommandGambleChances
 {
     @CmdInvoke

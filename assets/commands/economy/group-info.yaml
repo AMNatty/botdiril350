@@ -1,0 +1,38 @@
+name: Economy commands
+commands:
+  shop:
+    aliases: [store, market]
+    description: Opens the shops.
+
+  kekshop:
+    aliases: [kekmarket, blackmarket, illegalkekmarket, kekstore]
+    description: Visit the illegal kek market.
+
+  exchange:
+    aliases: [buyfortokens]
+    description: Exchange tokens for items or cards.
+
+  sell:
+    aliases: [s, si]
+    description: Sell items for coins.
+
+  buy:
+    aliases: [b, bi]
+    description: Buy items from the shop.
+
+  payoutkeks:
+    aliases: [payout, kekspayout, kekspayout, payoutkek]
+    description: Pay out your keks for some tokens.
+
+  payoutmegakeks:
+    aliases: [payoutmega, bigpayout]
+    description: Pay out your megakeks for some coins.
+
+  balance:
+    aliases: [money, coins, bal, profile]
+    description: Shows your/someone's balance.
+
+  give:
+    aliases: [giveitem, givecard, gift]
+    levelLock: 5
+    description: Give someone an item or a card.

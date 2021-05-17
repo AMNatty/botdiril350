@@ -1,7 +1,6 @@
 package com.botdiril.command.inventory;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -15,9 +14,7 @@ import com.botdiril.userdata.item.Recipe;
 
 import java.util.stream.Collectors;
 
-@Command(value = "craftingcost", aliases = {
-    "craftcost", "craftingtotal", "crafttotal"
-}, category = CommandCategory.ITEMS, description = "Shows total components needed to craft an item.")
+@Command("craftingcost")
 public class CommandCraftingCost
 {
     private static void addComponents(ItemDrops id, Recipe recipe, long count)

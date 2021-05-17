@@ -1,7 +1,6 @@
 package com.botdiril.command.currency;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.userdata.InventoryTables;
@@ -11,8 +10,7 @@ import com.botdiril.util.BotdirilLog;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-@Command(value = "sellextras", aliases = { "sellduplicates", "selldupes",
-        "sd" }, category = CommandCategory.ITEMS, description = "Sells your duplicate cards.")
+@Command("sellextras")
 public class CommandSellExtras
 {
     @CmdInvoke

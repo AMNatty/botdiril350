@@ -2,7 +2,6 @@ package com.botdiril.command.inventory;
 
 import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -15,8 +14,7 @@ import com.botdiril.userdata.card.UserCards;
 
 import java.util.Comparator;
 
-@Command(value = "collection", aliases = { "mycards",
-        "cardcollection", "cards" }, category = CommandCategory.ITEMS, description = "Displays your card collection.")
+@Command("collection")
 public class CommandMyCards
 {
     private static final long CARDS_PER_PAGE = 18;

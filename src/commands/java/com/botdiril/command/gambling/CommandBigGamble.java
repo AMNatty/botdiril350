@@ -1,7 +1,6 @@
 package com.botdiril.command.gambling;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
@@ -18,8 +17,7 @@ import com.botdiril.util.BotdirilRnd;
 
 import java.util.function.BiFunction;
 
-@Command(value = "biggamble", aliases = { "gamblemega", "gamblemegakeks",
-    "mega", "megagamble" }, category = CommandCategory.GAMBLING, description = "Gamble in megakek style. There is a dark secret though.", levelLock = 3)
+@Command("biggamble")
 public class CommandBigGamble
 {
     private static final BiFunction<Long, Integer, Double> getChanceToLoseEverything = (amount, level) -> Math.sqrt(Math.max(amount - 1, 0)) / (Math.pow(level, 0.75) + 25.0);

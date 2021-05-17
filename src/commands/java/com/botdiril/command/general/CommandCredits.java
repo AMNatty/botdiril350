@@ -2,12 +2,11 @@ package com.botdiril.command.general;
 
 import com.botdiril.Botdiril;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.response.ResponseEmbed;
 
-@Command(value = "credits", category = CommandCategory.GENERAL, description = "Shows the credits for this bot.")
+@Command("credits")
 public class CommandCredits
 {
     @CmdInvoke

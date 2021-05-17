@@ -1,6 +1,6 @@
 package com.botdiril.userdata;
 
-import com.botdiril.framework.command.CommandStorage;
+import com.botdiril.framework.command.CommandManager;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.sql.DBConnection;
 import com.botdiril.userdata.achievement.Achievement;
@@ -401,7 +401,7 @@ public abstract class UserInventory
 
             var rw = rewards.stream().map(ip -> ip.getAmount() + "x " + ip.getItem().inlineDescription()).collect(Collectors.joining("\n"));
 
-            var cmds = CommandStorage.commandsInLevelRange(lvl, newLevel);
+            var cmds = CommandManager.commandsInLevelRange(lvl, newLevel);
 
             if (cmds.size() > 0)
             {

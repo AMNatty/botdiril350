@@ -2,7 +2,6 @@ package com.botdiril.command.inventory;
 
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
@@ -17,8 +16,7 @@ import com.botdiril.util.BotdirilFmt;
 
 import java.util.stream.Collectors;
 
-@Command(value = "iteminfo", aliases = {
-        "ii" }, category = CommandCategory.ITEMS, description = "Shows important information about an item")
+@Command("iteminfo")
 public class CommandItemInfo
 {
     @CmdInvoke

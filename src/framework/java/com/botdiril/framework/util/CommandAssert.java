@@ -1,16 +1,15 @@
 package com.botdiril.framework.util;
 
 import com.botdiril.framework.command.Command;
-import com.botdiril.framework.command.CommandCategory;
-import com.botdiril.framework.command.CommandStorage;
+import com.botdiril.framework.command.EnumCommandCategory;
+import com.botdiril.framework.command.CommandManager;
 import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.userdata.IIdentifiable;
 import com.botdiril.userdata.achievement.Achievement;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.item.Item;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.Arrays;
 
 public class CommandAssert
 {
@@ -286,7 +285,7 @@ public class CommandAssert
 
     public static Command parseCommand(String arg)
     {
-        var cmd = CommandStorage.search(arg);
+        var cmd = CommandManager.findCommand(arg);
 
         if (cmd == null)
         {
@@ -298,16 +297,16 @@ public class CommandAssert
         }
     }
 
-    public static CommandCategory parseCommandGroup(String name)
+    public static EnumCommandCategory parseCommandGroup(String name)
     {
-        var cg = Arrays.stream(CommandCategory.values()).filter(cc -> cc.toString().equalsIgnoreCase(name.trim())).findFirst();
+        var cg = EnumUtils.getEnumIgnoreCase(EnumCommandCategory.class, name.trim());
 
-        if (cg.isEmpty())
+        if (cg == null)
         {
             throw new CommandException("No such command group.");
         }
 
-        return cg.get();
+        return cg;
     }
 
     /**
