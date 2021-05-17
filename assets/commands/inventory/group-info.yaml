@@ -1,3 +1,4 @@
+name: Inventory commands
 commands:
   inventory:
     aliases: [inv, i]

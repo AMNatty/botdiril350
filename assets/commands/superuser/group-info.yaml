@@ -1,3 +1,4 @@
+name: Superuser commands
 commands:
   clearinventory:
     aliases: [clearinv]

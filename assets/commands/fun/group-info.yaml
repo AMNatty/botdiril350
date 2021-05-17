@@ -1,3 +1,4 @@
+name: Fun commands
 commands:
   color:
     aliases: [col]

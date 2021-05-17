@@ -1,3 +1,4 @@
+name: Income commands
 commands:
   daily:
     aliases: []

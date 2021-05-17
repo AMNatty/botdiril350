@@ -1,3 +1,4 @@
+name: Gambling commands
 commands:
   diceroll:
     aliases: [dr]
