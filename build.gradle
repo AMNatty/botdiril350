@@ -9,7 +9,7 @@ wrapper {
 }
 
 group 'cz.tefek'
-version '350.7'
+version '350.7.2'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_16
@@ -89,6 +89,9 @@ distZip {
 
 dependencies {
     implementation group: 'org.jetbrains', name: 'annotations', version: '20.1.0'
+
+    implementation group: 'org.scala-lang', name: 'scala3-library_3', version: '3.0.0'
+    implementation group: 'org.scala-lang', name: 'scala3-compiler_3', version: '3.0.0'
 
     implementation group: 'com.mchange', name: 'c3p0', version: '0.9.5.5'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'

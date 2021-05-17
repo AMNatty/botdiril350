@@ -139,7 +139,7 @@ public class MineAPI
             var boostMultiplier = getBoostValue(boosterItem);
 
             var rareDropBoostRatio = 0.025;
-            rareDropMultiplier *= boostMultiplier * rareDropBoostRatio;
+            rareDropMultiplier *= 1.0 + boostMultiplier * rareDropBoostRatio;
 
             multiplier *= boostMultiplier;
             multiplierMap.put(EnumMineMultiplier.MLT_ITEM_BOOST, boostMultiplier);

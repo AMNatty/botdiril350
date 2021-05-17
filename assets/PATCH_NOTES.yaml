@@ -1,5 +1,9 @@
-latest: "350.7.1"
+latest: "350.7.2"
 patchList:
+  "350.7.2": |-
+    * Fixed a horrible bug in the mining API where boosters modified the drop bonus to 2.5% * X instead of 102.5% * X
+    * Fixed missing category names
+
   "350.7.1": |-
     * Fixed a broken icon
     * Fixed line wrapping in patch notes
