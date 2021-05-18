@@ -63,6 +63,8 @@ public class Icons
     public static final String PICKAXE_IV = "$!item.pickaxe.IV$";
     public static final String PICKAXE_V = "$!item.pickaxe.V$";
 
+    public static final String COMMON_WOOD = "$!item.mineral.common.wood$";
+
     public static final String GEM_GREEN = "$!item.gem.green$";
     public static final String GEM_RED = "$!item.gem.red$";
     public static final String GEM_PURPLE = "$!item.gem.purple$";
