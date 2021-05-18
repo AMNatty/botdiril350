@@ -17,10 +17,8 @@ public class DailyRewards
         var levelScalingKeks = Math.pow(level, 1.8);
         var keks = BotdirilRnd.RDG.nextLong(Math.round(2000 + levelScalingKeks * 1000), Math.round(10000 + levelScalingKeks * 3000));
 
-        var megakeks = 1;
-
         var keys = level > 100 ? 5 : 3;
 
-        return new DailyResult(xp, coins, keks, megakeks, keys);
+        return new DailyResult(xp, coins, keks, keys);
     }
 }

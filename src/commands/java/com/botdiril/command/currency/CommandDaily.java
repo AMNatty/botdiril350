@@ -31,13 +31,11 @@ public class CommandDaily
         var xp = result.xp();
         var coins = result.coins();
         var keks = result.keks();
-        var megaKeks = result.megaKeks();
         var keys = result.keys();
 
         co.inventory.addXP(co, xp);
         co.inventory.addCoins(coins);
         co.inventory.addKeks(keks);
-        co.inventory.addMegaKeks(megaKeks);
         co.inventory.addKeys(keys);
 
         var str = """
@@ -46,12 +44,10 @@ public class CommandDaily
           %s
           %s
           %s
-          %s
         """.formatted(
             BotdirilFmt.amountOfMD(xp, Icons.XP),
             BotdirilFmt.amountOfMD(coins, Icons.COIN),
             BotdirilFmt.amountOfMD(keks, Icons.KEK),
-            BotdirilFmt.amountOfMD(megaKeks, Icons.MEGAKEK),
             BotdirilFmt.amountOfMD(keys, Icons.KEY)
         );
 

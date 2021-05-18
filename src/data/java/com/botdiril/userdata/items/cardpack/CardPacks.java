@@ -26,13 +26,13 @@ public class CardPacks
             CardPools.rareOrBetter, 8, "For the true collectors, drops legacy/rare cards or better.");
 
         cardPackVoid = new ItemCardPackSimple("voidcardpack", Icons.CARDPACK_VOID, "Void Card Pack",
-            CardPools.rareOrBetterV, 12, (co, amount) -> {
+            CardPools.rareOrBetterV, 24, (co, amount) -> {
             final double CURSE_CHANCE = 0.2;
 
             for (int i = 0; i < amount; i++)
                 if (BotdirilRnd.RDG.nextUniform(0, 1) < CURSE_CHANCE)
                     Curser.curse(co);
 
-        }, "For a very dangerous place Void is, it contains some *awesome* loot. Open this pack at your own risk. It may turn into a Pandora's box.");
+        }, "For a very dangerous place the Void is, it contains some *awesome* loot. Open this pack at your own risk. It may turn into a Pandora's box.");
     }
 }

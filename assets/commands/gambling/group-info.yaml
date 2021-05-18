@@ -4,10 +4,6 @@ commands:
     aliases: [dr]
     description: Rolls a six-sided die. You can specify a number to gamble keks.
 
-  biggamble:
-    aliases: [gamblemega, gamblemegakeks, mega, megagamble]
-    description: Gamble in megakek style. There is a dark secret though.
-
   jackpot:
     aliases: []
     description: Shows the jackpot.

@@ -24,10 +24,6 @@ commands:
     aliases: [payout, kekspayout, kekspayout, payoutkek]
     description: Pay out your keks for some tokens.
 
-  payoutmegakeks:
-    aliases: [payoutmega, bigpayout]
-    description: Pay out your megakeks for some coins.
-
   balance:
     aliases: [money, coins, bal, profile]
     description: Shows your/someone's balance.

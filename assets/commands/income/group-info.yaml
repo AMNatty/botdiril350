@@ -8,6 +8,10 @@ commands:
     aliases: []
     description: Mine to get some sweet stuff. You can use some items to boost your mines.
 
+  woodcut:
+    aliases: [wc]
+    description: Collect wood, an important resource used in many recipes.
+
   draw:
     aliases: [drawcards]
     description: Draws some cards.
