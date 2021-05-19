@@ -1,25 +1,25 @@
 package com.botdiril.userdata.items.pickaxe;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PickaxeMetadata
 {
-    @SerializedName("roman_numeral")
+    @JsonProperty("roman_numeral")
     private String romanNumeral;
 
-    @SerializedName("tier")
+    @JsonProperty("tier")
     private int tier;
 
-    @SerializedName("mini_tier")
+    @JsonProperty("mini_tier")
     private int miniTier;
 
-    @SerializedName("budget")
+    @JsonProperty("budget")
     private long budget;
 
-    @SerializedName("break_chance")
+    @JsonProperty("break_chance")
     private double breakChance;
 
-    @SerializedName("multiplier")
+    @JsonProperty("multiplier")
     private double multiplier;
 
     public double getBreakChance()

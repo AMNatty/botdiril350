@@ -3,6 +3,7 @@
     "set": "league",
     "description": "League of Legends Skins Card Set",
     "idPrefix": "l-",
+    "drops": true,
     "items": [{
         "id": "Aatrox",
         "name": "Aatrox",

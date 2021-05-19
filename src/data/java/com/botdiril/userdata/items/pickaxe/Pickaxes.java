@@ -8,7 +8,7 @@ import com.botdiril.userdata.item.Recipe;
 import com.botdiril.userdata.item.ShopEntries;
 import com.botdiril.userdata.items.Items;
 import com.botdiril.util.BotdirilFmt;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.FileReader;
 import java.util.List;
@@ -45,11 +45,11 @@ public class Pickaxes
         final String[] minorNames = { "Clumsy", "Lesser", "", "Improved", "Master" };
         final String[] majorNames = { "Basic", "Good", "Epic", "Legendary", "Arcane" };
 
-        var gson = new Gson();
+        var mapper = new ObjectMapper();
 
         try (var fr = new FileReader("assets/miningData/pickaxes.json"))
         {
-            var pickaxeData = gson.fromJson(fr, PickaxeMetadata[].class);
+            var pickaxeData = mapper.readValue(fr, PickaxeMetadata[].class);
 
             ItemPickaxe prevPickaxe = null;
 
@@ -85,7 +85,7 @@ public class Pickaxes
                     **Break chance:**
                     %s%%
                     **Rare drop multiplier:**
-                    %s                    
+                    %s
                     """.formatted(minorNames[pickaxe.getMiniTier()], majorNames[pickaxe.getTier()],
                     BotdirilFmt.format(budget),
                     BotdirilFmt.format(breakChance * 100),

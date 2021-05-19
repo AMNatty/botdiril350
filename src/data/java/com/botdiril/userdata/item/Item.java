@@ -118,4 +118,9 @@ public class Item implements IIdentifiable
     {
         return this.inlineDescription();
     }
+
+    public ItemPair ofAmount(long amount)
+    {
+        return ItemPair.of(this, amount);
+    }
 }

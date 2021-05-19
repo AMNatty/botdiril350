@@ -3,9 +3,8 @@ package com.botdiril.internal;
 import com.botdiril.Botdiril;
 import com.botdiril.MajorFailureException;
 import com.botdiril.util.BotdirilLog;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,19 +15,19 @@ import java.util.Objects;
 
 public class BotdirilConfig
 {
-    @SerializedName("key")
+    @JsonProperty("key")
     private String apiKey;
 
-    @SerializedName("mysql_host")
+    @JsonProperty("mysql_host")
     private String sqlHost;
 
-    @SerializedName("mysql_user")
+    @JsonProperty("mysql_user")
     private String sqlUser;
 
-    @SerializedName("mysql_pass")
+    @JsonProperty("mysql_pass")
     private String sqlPass;
 
-    @SerializedName("superusers_override")
+    @JsonProperty("superusers_override")
     private long[] superusers;
 
     private transient List<Long> superuserList;
@@ -52,11 +51,9 @@ public class BotdirilConfig
             cfg.sqlPass = "<insert MySQL password here>";
             cfg.superusers = getDefaultSuperusers();
 
-            var gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .create();
+            var mapper = new ObjectMapper().writerWithDefaultPrettyPrinter();
 
-            Files.writeString(CONFIG_FILE, gson.toJson(cfg));
+            Files.writeString(CONFIG_FILE, mapper.writeValueAsString(cfg));
 
             BotdirilLog.logger.error("Could not find %s, aborting.".formatted(CONFIG_FILE.toAbsolutePath()));
             BotdirilLog.logger.error("You need to set up the settings.json file I've just created.");
@@ -67,8 +64,8 @@ public class BotdirilConfig
 
         try (var reader = Files.newBufferedReader(CONFIG_FILE))
         {
-            var gson = new Gson();
-            var cfg = gson.fromJson(reader, BotdirilConfig.class);
+            var mapper = new ObjectMapper();
+            var cfg = mapper.readValue(reader, BotdirilConfig.class);
             cfg.superuserList = Arrays.stream(Objects.requireNonNullElseGet(cfg.superusers, BotdirilConfig::getDefaultSuperusers)).boxed().toList();
 
             return cfg;

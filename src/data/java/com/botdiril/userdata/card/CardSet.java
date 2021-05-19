@@ -2,10 +2,6 @@ package com.botdiril.userdata.card;
 
 public class CardSet
 {
-    public static CardSet league;
-    public static CardSet terraria;
-    public static CardSet csgo;
-
     private final String setName;
     private final String setLocalizedName;
     private final String setPrefix;

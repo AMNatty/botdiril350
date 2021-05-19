@@ -11,7 +11,9 @@ public class IconUtil
 
     public static String urlFromIcon(JDA jda, IIdentifiable item)
     {
-        var emID = ID_PATTERN.matcher(item.getIcon());
+        var iconRaw = item.getIcon();
+        var icon = Icons.getOrDefault(iconRaw, iconRaw);
+        var emID = ID_PATTERN.matcher(icon);
 
         if (emID.find())
         {

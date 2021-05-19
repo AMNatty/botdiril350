@@ -51,12 +51,12 @@ public class CommandItemInfo
 
         if (recipe != null)
         {
-            var components = recipe.getComponents();
+            var components = recipe.components();
             var recipeParts = components.stream().map(ItemPair::toString).collect(Collectors.joining(" + "));
             eb.addField("Crafts from", """
             **%s**
             *Recipe yields %s item(s).*
-            """.formatted(recipeParts, BotdirilFmt.format(recipe.getAmount())), false);
+            """.formatted(recipeParts, BotdirilFmt.format(recipe.amount())), false);
         }
 
         if (ShopEntries.canBeDisenchanted(item))

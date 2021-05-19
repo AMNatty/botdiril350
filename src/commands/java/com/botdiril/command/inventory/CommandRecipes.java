@@ -20,32 +20,32 @@ public class CommandRecipes
     private static final int ITEMS_PER_PAGE = 12;
     private static final Comparator<Recipe> recipeSorter = (i1, i2) ->
     {
-        if (i1.getResult() instanceof Card)
+        if (i1.result() instanceof Card)
         {
             return Integer.MAX_VALUE;
         }
 
-        if (i2.getResult() instanceof Card)
+        if (i2.result() instanceof Card)
         {
             return Integer.MIN_VALUE;
         }
 
-        if (!ShopEntries.canBeBought((Item) i2.getResult()) && !ShopEntries.canBeBought((Item) i1.getResult()))
+        if (!ShopEntries.canBeBought((Item) i2.result()) && !ShopEntries.canBeBought((Item) i1.result()))
         {
             return Integer.MIN_VALUE + 1;
         }
 
-        if (!ShopEntries.canBeBought((Item) i2.getResult()))
+        if (!ShopEntries.canBeBought((Item) i2.result()))
         {
             return Integer.MIN_VALUE + 1;
         }
 
-        if (!ShopEntries.canBeBought((Item) i1.getResult()))
+        if (!ShopEntries.canBeBought((Item) i1.result()))
         {
             return Integer.MAX_VALUE - 1;
         }
 
-        return Long.compare(ShopEntries.getCoinPrice(i2.getResult()), ShopEntries.getCoinPrice(i1.getResult()));
+        return Long.compare(ShopEntries.getCoinPrice(i2.result()), ShopEntries.getCoinPrice(i1.result()));
     };
 
     @CmdInvoke
@@ -80,9 +80,9 @@ public class CommandRecipes
 
         isc.sorted(recipeSorter).skip((long) (page - 1) * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE).forEach(recipe ->
         {
-            var components = recipe.getComponents();
+            var components = recipe.components();
             var recipeParts = components.stream().map(ItemPair::toString).collect(Collectors.joining(" + "));
-            eb.addField(recipe.getResult().inlineDescription(), "**%s**".formatted(recipeParts), false);
+            eb.addField(recipe.result().inlineDescription(), "**%s**".formatted(recipeParts), false);
         });
 
         if (co instanceof ChatCommandContext ccc)

@@ -43,7 +43,7 @@ public class CommandCraft
 
         CommandAssert.assertTrue(recipe != null, "That item cannot be crafted.");
 
-        var components = recipe.getComponents();
+        var components = recipe.components();
 
         var missing = new ArrayList<ItemPair>();
 
@@ -92,7 +92,7 @@ public class CommandCraft
             return;
         }
 
-        var product = amount * recipe.getAmount();
+        var product = amount * recipe.amount();
 
         if (item instanceof Item iitem)
         {

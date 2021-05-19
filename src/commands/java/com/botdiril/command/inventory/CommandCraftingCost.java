@@ -19,7 +19,7 @@ public class CommandCraftingCost
 {
     private static void addComponents(ItemDrops id, Recipe recipe, long count)
     {
-        for (var itemPair : recipe.getComponents())
+        for (var itemPair : recipe.components())
         {
             var item = itemPair.getItem();
             var subRecipe = CraftingEntries.search(item);

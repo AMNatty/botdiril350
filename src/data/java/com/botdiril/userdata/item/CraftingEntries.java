@@ -12,7 +12,7 @@ public class CraftingEntries
     public static void add(Recipe recipe)
     {
         recipes.add(recipe);
-        recipeMap.put(recipe.getResult(), recipe);
+        recipeMap.put(recipe.result(), recipe);
     }
 
     public static List<Recipe> getRecipes()

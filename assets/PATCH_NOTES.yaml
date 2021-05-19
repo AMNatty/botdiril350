@@ -3,6 +3,7 @@ patchList:
   "350.8": |-
     * Removed `$payoutmega`, `$gamblemega` and all sources of MegaKeks
     * Increased the amount cards received from Void Card Packs: 12 => 24
+    * Fixed a bug where icons didn't show up in `$iteminfo` and `$cardinfo`
 
   "350.7.2": |-
     * Fixed a horrible bug in the mining API where boosters modified the drop bonus to 2.5% * X instead of 102.5% * X
