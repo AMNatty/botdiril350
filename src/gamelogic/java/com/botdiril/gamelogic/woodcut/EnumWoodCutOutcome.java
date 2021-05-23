@@ -7,15 +7,15 @@ import java.util.function.BooleanSupplier;
 public enum EnumWoodCutOutcome implements IWeightedRandom<EnumWoodCutOutcome>
 {
     // Nothing weird happened
-    OAK_FOREST(3.5),
+    OAK_FOREST(4.5),
     // Nothing weird happened
-    SPRUCE_FOREST(3.5),
+    SPRUCE_FOREST(4.5),
     // Nothing weird happened
-    BIRCH_FOREST(3.5),
+    BIRCH_FOREST(4.5),
     // Nothing weird happened
-    PINE_FOREST(3.5),
+    PINE_FOREST(4.5),
     // At this time of year? At this time of the day? In this part of the country?
-    AURORA_BOREALIS(0.5),
+    AURORA_BOREALIS(0.2),
     // Nothing weird happened
     ANGRY_LOOKING_TREES(0.9),
     // Teleported into a random direction, doubling cooldown BUT also getting Prismatic Dust

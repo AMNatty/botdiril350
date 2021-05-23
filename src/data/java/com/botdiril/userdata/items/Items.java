@@ -82,7 +82,7 @@ public class Items
 
         strangeMetal = new Item("strangemetal", Icons.RARE_STRANGE_METAL, "Strange Metal", "A shard of some unexplored rare metal, possibly from space.");
 
-        ash = new Item("trash", Icons.ITEM_MISC_ASH, "Ash", "Burnt organic material and chemical reaction leftovers.");
+        ash = new Item("ash", Icons.ITEM_MISC_ASH, "Ash", "Burnt organic material and chemical reaction leftovers.");
         ShopEntries.addDisenchant(ash, 1000);
 
         prismaticDust = new Item("prismaticdust", Icons.ITEM_MISC_PRISMATIC_DUST, "Prismatic Dust", "This rare powder sparkles with all colors of the rainbow.");

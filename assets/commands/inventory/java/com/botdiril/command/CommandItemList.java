@@ -68,7 +68,7 @@ public class CommandItemList
         {
             eb.appendDescription("Use `%s%s <search> <page>` to browse.".formatted(ccc.usedPrefix, ccc.usedAlias));
 
-            eb.setFooter("Use `%siteminfo <card id>` to show more information about a card.".formatted(ccc.usedPrefix), null);
+            eb.setFooter("Use `%siteminfo <card id>` to show more information about an item.".formatted(ccc.usedPrefix), null);
         }
 
         items.stream().sorted(itemSorting).skip(itemsPerPage * (page - 1)).limit(itemsPerPage).forEach(it ->
