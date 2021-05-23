@@ -7,8 +7,8 @@ import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.response.ResponseEmbed;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -83,11 +83,12 @@ public class CommandPatchNotes
     {
         try (var br = Files.newBufferedReader(PATCH_NOTES_FILE))
         {
-            var yaml = new Yaml(new Constructor(PatchNotes.class));
-            return yaml.load(br);
+            var mapper = new ObjectMapper(new YAMLFactory());
+            return mapper.readValue(br, PatchNotes.class);
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             throw new CommandException("*Error: Failed to retrieve the patch notes, sorry.*", e);
         }
     }
