@@ -31,7 +31,7 @@ public class WoodCutAPI
         var multiplier = IWeightedRandom.choose(EnumWoodCutOutcome.EnumWoodCutYield.class);
         var level = input.playerLevel();
         long earnedWood = getWood(multiplier, level);
-        long earnedXP = getXP(multiplier, level);
+        long earnedXP = getXP(level);
         var drops = new ItemDrops();
 
         switch (outcome)
@@ -99,10 +99,10 @@ public class WoodCutAPI
         return Math.round(BotdirilRnd.RDG.nextGamma(mean, 0.5));
     }
 
-    private static long getXP(EnumWoodCutOutcome.EnumWoodCutYield multiplier, int level)
+    private static long getXP(int level)
     {
         var base = 100 + XPRewards.getXPAtLevel(level) * Math.pow(10, -Math.log10(20 + level) * 1.05) * 4.0;
         var amt = BotdirilRnd.RDG.nextGaussian(base, base / 32.0);
-        return Math.round(amt * multiplier.getModifier());
+        return Math.round(amt);
     }
 }
