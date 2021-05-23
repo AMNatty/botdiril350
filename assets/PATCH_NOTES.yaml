@@ -2,7 +2,7 @@ latest: "350.8.1"
 patchList:
   "350.8.1": |-
     * Fixes of various missing icons
-    * Modified the Pickaxe I/V/X/XV recipes: Now requires 5/50/500/5000 => 50/500/5000/50000
+    * Modified the Pickaxe I/V/X/XV recipes: Now requires 5/50/500/5000 => 50/500/5000/50000 wood
     * Reduced the wood yield by 75%
 
   "350.8": |-
