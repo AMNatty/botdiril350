@@ -71,7 +71,7 @@ public class CratePools
 
     static
     {
-        terribleRewards.add(Items.trash);
+        terribleRewards.add(Items.ash);
 
         badRewards.add(Pickaxes.pickaxeII);
 

@@ -1,12 +1,14 @@
 package com.botdiril.userdata.item;
 
 import com.botdiril.userdata.pools.PoolDrawer;
+import com.botdiril.util.BotdirilFmt;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -75,5 +77,16 @@ public class ItemDrops implements Iterable<ItemPair>
     public void each(BiConsumer<Item, Long> consumer)
     {
         this.lootMap.forEach(consumer);
+    }
+
+    public String toStringJoined(String joiner)
+    {
+        return this.lootMap.entrySet().stream().map(e -> BotdirilFmt.amountOf(e.getValue(), e.getKey())).collect(Collectors.joining(joiner));
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.toStringJoined(", ");
     }
 }

@@ -13,7 +13,7 @@ import java.util.Map;
 public class XPRewards
 {
     private static final Map<Integer, LevelData> levels = new HashMap<>();
-    private static final int maxLevel = 10000;
+    public static final int MAX_LEVEL = 10000;
 
     public static void populate()
     {
@@ -21,7 +21,7 @@ public class XPRewards
 
         var cumulativeXP = 0L;
 
-        for (int level = 1; level <= maxLevel; level++)
+        for (int level = 1; level <= MAX_LEVEL; level++)
         {
             var xp = Math.round(1000 + Math.pow(level - 1, 1.3) * 100);
             var dailyMin = Math.round(500 + Math.pow(level, 1.275) * 15);
@@ -102,7 +102,7 @@ public class XPRewards
 
     public static int getMaxLevel()
     {
-        return maxLevel;
+        return MAX_LEVEL;
     }
 
     public static long getXPAtLevel(int level)

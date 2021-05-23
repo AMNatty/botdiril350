@@ -1,9 +1,12 @@
 package com.botdiril.framework.command;
 
+import com.botdiril.BotMain;
+import com.botdiril.util.BotdirilLog;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -79,7 +82,7 @@ public class CommandManager
         });
 
 
-        var commands = CommandIntitializer.load();
+        var commands = CommandCompiler.load();
 
         commands.forEach((command, clazz) -> {
             var commandName = command.value();
@@ -104,6 +107,37 @@ public class CommandManager
             for (var alias : info.aliases())
                 aliasMap.put(alias, command);
 
+        });
+    }
+
+    public static void unload()
+    {
+        unload(() -> BotdirilLog.logger.info("Unloading complete..."));
+    }
+
+    public static void unload(Runnable andThen)
+    {
+        var exec = Executors.newSingleThreadExecutor();
+        exec.submit(() -> {
+            var eventBus = BotMain.botdiril.getEventBus();
+            var writeLock = eventBus.ACCEPTING_COMMANDS.writeLock();
+
+            try
+            {
+                writeLock.lock();
+
+                categoryMap.clear();
+                commandInfoMap.clear();
+                aliasMap.clear();
+                classMap.clear();
+
+                CommandCompiler.unload();
+            }
+            finally
+            {
+                writeLock.unlock();
+                andThen.run();
+            }
         });
     }
 }

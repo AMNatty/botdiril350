@@ -44,12 +44,17 @@ commands:
     powerLevel: SUPERUSER_OVERRIDE
     description: Sets a user's jackpot.
 
-  prefix:
-    aliases: []
-    powerLevel: SUPERUSER
-    description: Sets the prefix for this server.
-
   triggerachievement:
     aliases: [triggerac]
     powerLevel: SUPERUSER_OVERRIDE
     description: Triggers an achievement for a user.
+
+  unload:
+    aliases: []
+    powerLevel: SUPERUSER_OWNER
+    description: Unloads all commands.
+
+  reload:
+    aliases: []
+    powerLevel: SUPERUSER_OWNER
+    description: Reloads all commands.

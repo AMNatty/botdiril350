@@ -34,7 +34,10 @@ public class Items
     public static Item gemdiril;
 
     public static Item toolBox;
-    public static Item trash;
+    public static Item ash;
+    public static Item prismaticDust;
+
+    public static Item wood;
 
     public static Item coal;
     public static Item iron;
@@ -79,17 +82,18 @@ public class Items
 
         strangeMetal = new Item("strangemetal", Icons.RARE_STRANGE_METAL, "Strange Metal", "A shard of some unexplored rare metal, possibly from space.");
 
-        trash = new Item("trash", Icons.ITEM_MISC_TRASH, "Trash", "It's just trash, or is it?");
-        ShopEntries.addDisenchant(trash, 1000);
+        ash = new Item("trash", Icons.ITEM_MISC_ASH, "Ash", "Burnt organic material and chemical reaction leftovers.");
+        ShopEntries.addDisenchant(ash, 1000);
+
+        prismaticDust = new Item("prismaticdust", Icons.ITEM_MISC_PRISMATIC_DUST, "Prismatic Dust", "This rare powder sparkles with all colors of the rainbow.");
 
         oil = new Item("oil", Icons.RARE_OIL, "Oil", "This better not start a nuclear war...");
         ShopEntries.addCoinSell(oil, 800);
 
         goldenOil = new Item("goldenoil", Icons.RARE_GOLDENOIL, "Golden Oil", "Passively grants +1% bonus sell value, but also grants 0.5% chance for all golden oil barrels to explode, leaving you with no barrels and making you lose 15% from that trade.");
 
-        toolBox = new Item("toolbox", Icons.ITEM_MISC_TOOLBOX, "Tool Box", "I wonder what it's for.");
-        ShopEntries.addCoinSell(toolBox, 4_000);
-        CraftingEntries.add(new Recipe(List.of(ItemPair.of(trash, 10), ItemPair.of(greenGem, 12), ItemPair.of(strangeMetal, 3)), 1, toolBox));
+        wood = new Item("wood", Icons.COMMON_WOOD, "Wood", "Orgnatic material used in many fields, including construction.");
+        ShopEntries.addCoinSell(wood, 20);
 
         coal = new Item("coal", Icons.MINE_COAL, "Coal", "A very common resource, used as a fuel.");
         ShopEntries.addCoinSell(coal, 3);
@@ -127,8 +131,13 @@ public class Items
             ItemPair.of(purpleGem, 192),
             ItemPair.of(rainbowGem, 128),
             ItemPair.of(blackGem, 128),
-            ItemPair.of(kekium, 1_234_567)),
+            ItemPair.of(kekium, 1_234_567),
+            ItemPair.of(prismaticDust, 1)),
             1, gemdiril));
+
+        toolBox = new Item("toolbox", Icons.ITEM_MISC_TOOLBOX, "Tool Box", "I wonder what it's for.");
+        ShopEntries.addCoinSell(toolBox, 4_000);
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(wood, 500), ItemPair.of(ash, 10), ItemPair.of(greenGem, 12), ItemPair.of(strangeMetal, 2)), 1, toolBox));
 
         repairKit = new Item("repairkit", Icons.ITEM_MISC_REPAIR_KIT, "Repair Kit", "It's handy to have one of these at your disposal when handling fragile tools. Will be **automatically** used and consumed to avoid breaking a tool.");
         CraftingEntries.add(new Recipe(List.of(ItemPair.of(toolBox, 1), ItemPair.of(oil, 1)), 1, repairKit));

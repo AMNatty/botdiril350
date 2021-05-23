@@ -1,11 +1,11 @@
 package com.botdiril;
 
-import com.botdiril.command.general.CommandAlias;
 import com.botdiril.discord.framework.DiscordEntityPlayer;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
+import com.botdiril.discord.framework.util.DiscordPrefixUtil;
 import com.botdiril.framework.command.parser.CommandParser;
 import com.botdiril.framework.sql.DBConnection;
-import com.botdiril.discord.framework.util.DiscordPrefixUtil;
+import com.botdiril.framework.util.UserAlias;
 import com.botdiril.serverdata.ServerPreferences;
 import com.botdiril.userdata.metrics.UserMetrics;
 import com.botdiril.userdata.properties.PropertyObject;
@@ -18,9 +18,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class EventBus extends ListenerAdapter
 {
+    public final ReentrantReadWriteLock ACCEPTING_COMMANDS;
+
+    public EventBus()
+    {
+        this.ACCEPTING_COMMANDS = new ReentrantReadWriteLock();
+    }
+
     @Override
     public void onGuildJoin(GuildJoinEvent event)
     {
@@ -52,64 +60,76 @@ public class EventBus extends ListenerAdapter
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event)
     {
-        var user = event.getAuthor();
-        var message = event.getMessage();
-        var jda = event.getJDA();
-        var botUser = jda.getSelfUser();
-        var guild = event.getGuild();
-        var textChannel = event.getChannel();
+        var readLock = this.ACCEPTING_COMMANDS.readLock();
 
-        if (!user.isBot())
+        try
         {
-            var co = new DiscordCommandContext(textChannel);
-            co.bot = botUser;
-            co.botIconURL = botUser.getEffectiveAvatarUrl();
-            co.caller = user;
-            co.callerMember = event.getMember();
-            co.guild = guild;
-            co.message = message;
-            co.sc = ServerPreferences.getConfigByGuild(co.guild.getIdLong());
-            co.contents = message.getContentRaw();
-            co.jda = jda;
+            var user = event.getAuthor();
+            var message = event.getMessage();
+            var jda = event.getJDA();
+            var botUser = jda.getSelfUser();
+            var guild = event.getGuild();
+            var textChannel = event.getChannel();
 
-            try
+            if (!user.isBot())
             {
-                var db = BotMain.SQL_MANAGER.getConnection();
-                try (db)
+                var co = new DiscordCommandContext(textChannel);
+                co.bot = botUser;
+                co.botIconURL = botUser.getEffectiveAvatarUrl();
+                co.caller = user;
+                co.callerMember = event.getMember();
+                co.guild = guild;
+                co.message = message;
+                co.sc = ServerPreferences.getConfigByGuild(co.guild.getIdLong());
+                co.contents = message.getContentRaw();
+                co.jda = jda;
+
+                try
                 {
-                    co.db = db;
-                    co.botPlayer = new DiscordEntityPlayer(co.db, co.bot);
-                    co.player = new DiscordEntityPlayer(co.db, co.callerMember);
-
-                    if (co.sc == null)
+                    var db = BotMain.SQL_MANAGER.getConnection();
+                    try (db)
                     {
-                        ServerPreferences.addGuild(co.db, co.guild);
-                        co.sc = ServerPreferences.getConfigByGuild(co.guild.getIdLong());
+                        co.db = db;
+                        co.botPlayer = new DiscordEntityPlayer(co.db, co.bot);
+                        co.player = new DiscordEntityPlayer(co.db, co.callerMember);
+
+                        if (co.sc == null)
+                        {
+                            ServerPreferences.addGuild(co.db, co.guild);
+                            co.sc = ServerPreferences.getConfigByGuild(co.guild.getIdLong());
+                        }
+
+                        co.inventory = co.player.inventory();
+
+                        co.userProperties = new PropertyObject(co.db, co.inventory.getFID());
+
+                        UserAlias.allAliases(co.userProperties).forEach((src, repl) -> co.contents = co.contents.replace(src, repl));
+
+                        if (!DiscordPrefixUtil.findPrefix(guild, co))
+                        {
+                            co.db.commit();
+                            return;
+                        }
+
+                        if (CommandParser.parse(co))
+                        {
+                            UserMetrics.updateMetrics(co.db, co.inventory);
+                            co.db.commit();
+                        }
+                        else
+                        {
+                            co.db.rollback();
+                        }
+
+                        co.send();
                     }
-
-                    co.inventory = co.player.inventory();
-
-                    co.userProperties = new PropertyObject(co.db, co.inventory.getFID());
-
-                    CommandAlias.allAliases(co.userProperties).forEach((src, repl) -> co.contents = co.contents.replace(src, repl));
-
-                    if (!DiscordPrefixUtil.findPrefix(guild, co))
+                    catch (Exception e)
                     {
-                        co.db.commit();
-                        return;
+                        // co.clearResponse();
+                        // co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
+                        // co.send();
+                        BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e);
                     }
-
-                    if (CommandParser.parse(co))
-                    {
-                        UserMetrics.updateMetrics(co.db, co.inventory);
-                        co.db.commit();
-                    }
-                    else
-                    {
-                        co.db.rollback();
-                    }
-
-                    co.send();
                 }
                 catch (Exception e)
                 {
@@ -119,13 +139,12 @@ public class EventBus extends ListenerAdapter
                     BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e);
                 }
             }
-            catch (Exception e)
-            {
-                // co.clearResponse();
-                // co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
-                // co.send();
-                BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e);
-            }
+
+            readLock.lock();
+        }
+        finally
+        {
+            readLock.unlock();
         }
     }
 

@@ -2,10 +2,7 @@ package com.botdiril.userdata.items.pickaxe;
 
 import com.botdiril.MajorFailureException;
 import com.botdiril.userdata.icon.Icons;
-import com.botdiril.userdata.item.CraftingEntries;
-import com.botdiril.userdata.item.ItemPair;
-import com.botdiril.userdata.item.Recipe;
-import com.botdiril.userdata.item.ShopEntries;
+import com.botdiril.userdata.item.*;
 import com.botdiril.userdata.items.Items;
 import com.botdiril.util.BotdirilFmt;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -104,7 +101,7 @@ public class Pickaxes
         }
 
         ShopEntries.addCoinBuy(pickaxeI, 150);
-        CraftingEntries.add(new Recipe(List.of(ItemPair.of(Items.coal, 80)), 1, pickaxeI));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(Items.coal, 80), ItemPair.of(Items.wood, 5)), 1, pickaxeI));
 
         CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeI, 3), ItemPair.of(Items.iron, 40)), 1, pickaxeII));
 
@@ -113,6 +110,7 @@ public class Pickaxes
         CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeIII, 1), ItemPair.of(Items.uranium, 10)), 1, pickaxeIV));
 
         CraftingEntries.add(new Recipe(List.of(
+            ItemPair.of(Items.wood, 50),
             ItemPair.of(Items.coal, 6_000),
             ItemPair.of(Items.iron, 2_400),
             ItemPair.of(Items.copper, 150),
@@ -130,6 +128,7 @@ public class Pickaxes
         CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeVIII, 3), ItemPair.of(Items.platinum, 400)), 1, pickaxeIX));
 
         CraftingEntries.add(new Recipe(List.of(
+            ItemPair.of(Items.wood, 500),
             ItemPair.of(Items.coal, 512_000),
             ItemPair.of(Items.iron, 256_000),
             ItemPair.of(Items.copper, 32_768),
@@ -148,6 +147,7 @@ public class Pickaxes
         CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeXIII, 3), ItemPair.of(Items.emerald, 300)), 1, pickaxeXIV));
 
         CraftingEntries.add(new Recipe(List.of(
+            ItemPair.of(Items.wood, 5_000),
             ItemPair.of(Items.coal, 128_000_000),
             ItemPair.of(Items.iron, 48_912_000),
             ItemPair.of(Items.copper, 5_242_880),

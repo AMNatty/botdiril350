@@ -1,13 +1,14 @@
 package com.botdiril.userdata.timers;
 
-import java.util.concurrent.TimeUnit;
-
 import com.botdiril.userdata.ItemLookup;
+
+import java.util.concurrent.TimeUnit;
 
 public enum EnumTimer
 {
     DAILY("daily", "Daily", TimeUnit.HOURS.toMillis(22)),
     MINE("mine", "Mine", TimeUnit.MINUTES.toMillis(2)),
+    WOODCUT("woodcut", "Woodcut", TimeUnit.MINUTES.toMillis(5)),
     DRAW("draw", "Draw", TimeUnit.MINUTES.toMillis(6)),
     STEAL("steal", "Steal / Nuke", TimeUnit.HOURS.toMillis(1)),
     PAYOUT("payout", "Payout", TimeUnit.MINUTES.toMillis(1)),

@@ -1,9 +1,9 @@
 package com.botdiril.userdata.properties;
 
 import com.botdiril.MajorFailureException;
-import com.botdiril.command.general.CommandAlias;
 import com.botdiril.framework.sql.DBConnection;
 import com.botdiril.framework.sql.SqlFoundation;
+import com.botdiril.framework.util.UserAlias;
 import com.botdiril.userdata.InventoryTables;
 import com.botdiril.userdata.stat.EnumStat;
 import com.botdiril.userdata.tempstat.EnumBlessing;
@@ -44,11 +44,11 @@ public final class PropertyObject
 
             ALIAS_IN = new USS2String[Byte.SIZE];
             for (int i = 0; i < ALIAS_IN.length; i++)
-                ALIAS_IN[i] = this.declareString(PO_VERSION_0, (byte) (Character.BYTES * CommandAlias.ALIAS_IN_MAX_LENGTH));
+                ALIAS_IN[i] = this.declareString(PO_VERSION_0, (byte) (Character.BYTES * UserAlias.ALIAS_IN_MAX_LENGTH));
 
             ALIAS_OUT = new USS2String[Byte.SIZE];
             for (int i = 0; i < ALIAS_OUT.length; i++)
-                ALIAS_OUT[i] = this.declareString(PO_VERSION_0, (byte) (Character.BYTES * CommandAlias.ALIAS_OUT_MAX_LENGTH));
+                ALIAS_OUT[i] = this.declareString(PO_VERSION_0, (byte) (Character.BYTES * UserAlias.ALIAS_OUT_MAX_LENGTH));
 
             PREFERENCES_BITFIELD = this.declareLong(PO_VERSION_0);
 

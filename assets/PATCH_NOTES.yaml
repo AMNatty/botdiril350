@@ -1,9 +1,26 @@
 latest: "350.8"
 patchList:
   "350.8": |-
-    * Removed `$payoutmega`, `$gamblemega` and all sources of MegaKeks
+    * **Added some really cool new tech**
+      * Meson now compiles commands on startup from source files
+      * This allowes for easier debugging and small changes without turning off the bot
+      * This feature should also allow loading scripts in other JVM languages in the future
+    * Removed `$gamblemega` and all sources of MegaKeks, essentially making them finite
+      * Except Glitchy Crate, which will get reworked alongside other crates in the upcoming rework anyway
+      * Removed `$payoutmega`
     * Increased the amount cards received from Void Card Packs: 12 => 24
     * Fixed a bug where icons didn't show up in `$iteminfo` and `$cardinfo`
+    * Added **new resource**: Wood
+    * Added **new command**: `$woodcut`
+    * Fancy *new icons for resources*: Coal, Iron, Copper, Gold, Uranium, Platinum, Kekium
+    * Added 5/50/500/5000 wood to Pickaxe I/V/X/XV recipes
+    * Fixed the footer in `$recipes`
+    * Fixed several buggy tooltips
+    * New icon for Dust
+    * Added Prismatic Dust
+    * *Replaced Trash with Ash*, its usage is still the same
+    * New recipe for Toolbox: 10 Trash + 12 Green Gems + 3 Strange Metal => 500 Wood + 10 Ash + 12 Green Gems + 2 Strange Metal
+    * The recipe for Gemdiril now requires one Prismatic Dust
 
   "350.7.2": |-
     * Fixed a horrible bug in the mining API where boosters modified the drop bonus to 2.5% * X instead of 102.5% * X

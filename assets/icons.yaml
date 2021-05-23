@@ -5,7 +5,7 @@
   "kek": "<:kek:659060470740680737>"
   "token": "<:kektoken:787361212877897809>"
   "megakek": "<a:megakek:659060770910502956>"
-  "dust": "<:dust:659060768343326751>"
+  "dust": "<:dust:845763655957348352>"
   "key": "<:key:659057189432066058>"
 
 "card":
@@ -35,7 +35,6 @@
     "glitchy": "<a:glitchyCrate:760147568754819122>"
     "infernal": "<a:infernalCrate:760139172156538881>"
     "void": "<a:voidCrate:760128716873007164>"
-    "league": "<:leagueCrate:659581295801794590>"
 
   "cardPack":
     "basic": "<:cardpack:659062977961394177>"
@@ -62,13 +61,13 @@
     "rainbow": "<a:rainbowGem:688493780826849342>"
 
   "mineral":
-    "coal": "<:coal:516740098289565696>"
-    "copper": "<:copper:516727755761516584>"
-    "iron": "<:iron:516727755476303884>"
-    "gold": "<:gold:516727755174313999>"
-    "platinum": "<:platinum:516727755207868438>"
-    "uranium": "<:uranium:516727755702796338>"
-    "kekium": "<:kekium:516727755623366656>"
+    "coal": "<:coal:845394575165620225>"
+    "copper": "<:copper:845772064102285323>"
+    "iron": "<:iron:845772065101054032>"
+    "gold": "<:gold:845766805875195945>"
+    "platinum": "<:platinum:845772065814741052>"
+    "uranium": "<:uranium:845772065134608414>"
+    "kekium": "<:kekium:845479439327821836>"
     "emerald": "<a:emerald:786958181912805427>"
     "diamond": "<:diamond:762045174649192448>"
 
@@ -87,7 +86,8 @@
   "misc":
     "toolBox": "<:suspiciousmetalbox:659064782959280147>"
     "repairKit": "<:repairKit:659587163834286103>"
-    "trash": "<:trash:663733041495015444>"
+    "ash": "<:ash:845779599958605834>"
+    "prismaticDust": "<:prismaticDust:845763656057618495>"
 
 "achievement":
   "bot": "<:bot:659064057428574208>"

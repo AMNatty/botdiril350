@@ -1,13 +1,12 @@
 package com.botdiril.gamelogic.card;
 
 import com.botdiril.gamelogic.weighted.IWeightedRandom;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.items.Items;
 import com.botdiril.userdata.items.scrolls.Scrolls;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class TrainAPI
 {
@@ -19,6 +18,8 @@ public class TrainAPI
         TRAINING_ITEMS.put(Scrolls.scrollOfIntelligence, 40_000L);
         TRAINING_ITEMS.put(Scrolls.scrollOfIntelligenceMajor, 500_000L);
         TRAINING_ITEMS.put(Scrolls.scrollOfIntelligenceII, 100_000_000L);
+
+        TRAINING_ITEMS.put(Items.prismaticDust, 5_000_000L);
 
         TRAINING_ITEMS.put(Items.redGem, 200L);
         TRAINING_ITEMS.put(Items.greenGem, 200L);

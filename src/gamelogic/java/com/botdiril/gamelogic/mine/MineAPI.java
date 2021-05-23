@@ -165,7 +165,8 @@ public class MineAPI
         loot.addItem(Scrolls.scrollOfLesserIntelligence, BotdirilRnd.RDG.nextPoisson(0.05 * rareDropMultiplier));
         loot.addItem(Scrolls.scrollOfIntelligence, BotdirilRnd.RDG.nextPoisson(0.005 * rareDropMultiplier));
         loot.addItem(Scrolls.scrollOfIntelligenceII, BotdirilRnd.RDG.nextPoisson(0.00003));
-        loot.addItem(Items.trash, BotdirilRnd.RDG.nextPoisson(0.04 * rareDropMultiplier));
+        loot.addItem(Items.ash, BotdirilRnd.RDG.nextPoisson(0.04 * rareDropMultiplier));
+        loot.addItem(Items.prismaticDust, BotdirilRnd.RDG.nextPoisson(0.002));
         loot.addItem(Items.max, BotdirilRnd.RDG.nextPoisson(0.00001));
 
         var xp = Math.round(Math.pow(BotdirilRnd.RDG.nextGaussian(15, 2), 1.6 + rareDropMultiplier / 2.25));

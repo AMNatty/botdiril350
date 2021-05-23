@@ -48,7 +48,7 @@ public class Scrolls
             ItemPair.of(Scrolls.scrollOfLesserIntelligence, 5),
             ItemPair.of(Items.greenGem, 30),
             ItemPair.of(Scrolls.scrollOfCombining, 5),
-            ItemPair.of(Items.trash, 32)),
+            ItemPair.of(Items.ash, 32)),
             1, scrollOfIntelligence));
 
         scrollOfRefreshing = new ItemScroll("scrollofrefreshing", Icons.SCROLL, "Scroll of Refreshing", (co, amount) -> {
@@ -60,7 +60,7 @@ public class Scrolls
             ItemPair.of(Items.greenGem, 12),
             ItemPair.of(Items.blueGem, 3),
             ItemPair.of(scrollOfCombining, 5),
-            ItemPair.of(Items.trash, 24)),
+            ItemPair.of(Items.ash, 24)),
             1, scrollOfRefreshing));
 
         final long ABUNDANCE_LIMIT = 5_000_000;

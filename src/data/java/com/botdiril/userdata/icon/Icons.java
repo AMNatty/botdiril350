@@ -50,7 +50,6 @@ public class Icons
     public static final String CRATE_GLITCHY = "$!item.crate.glitchy$";
     public static final String CRATE_INFERNAL = "$!item.crate.infernal$";
     public static final String CRATE_VOID = "$!item.crate.void$";
-    public static final String CRATE_LEAGUE = "$!item.crate.league$";
 
     public static final String CARDPACK_BASIC = "$!item.cardPack.basic$";
     public static final String CARDPACK_NORMAL = "$!item.cardPack.normal$";
@@ -63,7 +62,7 @@ public class Icons
     public static final String PICKAXE_IV = "$!item.pickaxe.IV$";
     public static final String PICKAXE_V = "$!item.pickaxe.V$";
 
-    public static final String COMMON_WOOD = "$!item.mineral.common.wood$";
+    public static final String COMMON_WOOD = "$!item.common.wood$";
 
     public static final String GEM_GREEN = "$!item.gem.green$";
     public static final String GEM_RED = "$!item.gem.red$";
@@ -94,7 +93,8 @@ public class Icons
 
     public static final String ITEM_MISC_TOOLBOX = "$!item.misc.toolBox$";
     public static final String ITEM_MISC_REPAIR_KIT = "$!item.misc.repairKit$";
-    public static final String ITEM_MISC_TRASH = "$!item.misc.trash$";
+    public static final String ITEM_MISC_ASH = "$!item.misc.ash$";
+    public static final String ITEM_MISC_PRISMATIC_DUST = "$!item.misc.prismaticDust$";
 
     public static final String ACHIEVEMENT_BOT = "$!achievement.bot$";
     public static final String ACHIEVEMENT_BETA = "$!achievement.beta$";

@@ -13,7 +13,20 @@ public class TimerUtil
      */
     public static void require(UserInventory ui, EnumTimer timer, String errorMessage)
     {
-        var tm = ui.useTimer(timer);
+        require(ui, timer, errorMessage, true);
+    }
+
+    /**
+     * Put a $ somewhere in the message to print the time there
+     */
+    public static void require(UserInventory ui, EnumTimer timer, String errorMessage, boolean consume)
+    {
+        long tm;
+
+        if (consume)
+            tm = ui.useTimer(timer);
+        else
+            tm = ui.checkTimer(timer);
 
         if (tm != TIMER_OFF_COOLDOWN)
         {

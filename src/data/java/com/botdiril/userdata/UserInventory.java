@@ -141,6 +141,23 @@ public abstract class UserInventory
         return tt - currentTime;
     }
 
+    public long useTimerModified(EnumTimer timer, double multiplier)
+    {
+        var tt = this.getTimer(timer);
+        long currentTime = System.currentTimeMillis();
+
+        if (currentTime > tt)
+        {
+            var offset = timer.getTimeOffset();
+            offset *= multiplier;
+
+            this.setTimer(timer, currentTime + offset);
+            return TimerUtil.TIMER_OFF_COOLDOWN;
+        }
+
+        return tt - currentTime;
+    }
+
     // This differentiates in the fact that this overrides the time even when
     // waiting
     public long useTimerOverride(EnumTimer timer)

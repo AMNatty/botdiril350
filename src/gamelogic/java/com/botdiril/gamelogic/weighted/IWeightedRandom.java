@@ -1,11 +1,11 @@
 package com.botdiril.gamelogic.weighted;
 
+import com.botdiril.MajorFailureException;
+import com.botdiril.util.BotdirilRnd;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.botdiril.MajorFailureException;
-import com.botdiril.util.BotdirilRnd;
 
 public interface IWeightedRandom<E extends Enum<E> & IWeightedRandom<E>>
 {
@@ -29,22 +29,37 @@ public interface IWeightedRandom<E extends Enum<E> & IWeightedRandom<E>>
         if (!enumClass.isEnum())
             throw new MajorFailureException("Classes implementing IWeighted must be enum classes!");
 
-        var value = BotdirilRnd.RDG.nextUniform(0, getCumulativeWeight(enumClass));
         var ec = enumClass.getEnumConstants();
         var cumulative = 0.0;
 
-        for (var enumConstant : ec)
+        do
         {
-            cumulative += enumConstant.getWeight();
+            var rolledValue = BotdirilRnd.RDG.nextUniform(0, getCumulativeWeight(enumClass));
 
-            if (value <= cumulative)
-                return enumConstant;
+            for (var enumConstant : ec)
+            {
+                cumulative += enumConstant.getWeight();
+
+                if (cumulative >= rolledValue)
+                {
+                    if (!enumConstant.isApplicable())
+                        break;
+
+                    return enumConstant;
+                }
+            }
         }
+        while (Arrays.stream(ec).anyMatch(IWeightedRandom::isApplicable));
 
         return ec[ec.length - 1];
     }
 
     double getWeight();
+
+    default boolean isApplicable()
+    {
+        return true;
+    }
 
     @SuppressWarnings("unchecked")
     default double getActualWeight()

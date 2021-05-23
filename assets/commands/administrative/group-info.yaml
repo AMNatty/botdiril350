@@ -18,3 +18,8 @@ commands:
     aliases: [disablechannel]
     powerLevel: SUPERUSER
     description: Disable commands for non-elevated users in a text channel.
+
+  prefix:
+    aliases: []
+    powerLevel: SUPERUSER
+    description: Sets the prefix for this server.
