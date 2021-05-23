@@ -70,6 +70,7 @@ public class WoodCutAPI
                 break;
 
             case CAUSED_WILDFIRE:
+                multiplier = EnumWoodCutOutcome.EnumWoodCutYield.NOTHING;
                 earnedWood = 0;
                 drops.addItem(Items.ash, BotdirilRnd.RDG.nextLong(3, 8));
                 break;
@@ -93,7 +94,7 @@ public class WoodCutAPI
 
     private static long getWood(EnumWoodCutOutcome.EnumWoodCutYield multiplier, int level)
     {
-        var base = 20;
+        var base = 5;
         var levelMultiplier = Math.pow((5.0 + level) / 5.0, 2.0);
         var mean = base * multiplier.getModifier() * levelMultiplier;
         return Math.round(BotdirilRnd.RDG.nextGamma(mean, 0.5));

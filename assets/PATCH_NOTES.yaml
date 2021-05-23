@@ -1,5 +1,10 @@
-latest: "350.8"
+latest: "350.8.1"
 patchList:
+  "350.8.1": |-
+    * Fixes of various missing icons
+    * Modified the Pickaxe I/V/X/XV recipes: Now requires 5/50/500/5000 => 50/500/5000/50000
+    * Reduced the wood yield by 75%
+
   "350.8": |-
     * **Added some really cool new tech**
       * Meson now compiles commands on startup from source files
