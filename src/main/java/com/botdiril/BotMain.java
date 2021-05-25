@@ -43,6 +43,7 @@ public class BotMain
         try
         {
             config = BotdirilConfig.load();
+            botdiril = new Botdiril();
 
             SqlFoundation.build();
 
@@ -83,7 +84,7 @@ public class BotMain
                 db.commit();
             }
 
-            botdiril = new Botdiril();
+            botdiril.start();
         }
         catch (MajorFailureException e)
         {

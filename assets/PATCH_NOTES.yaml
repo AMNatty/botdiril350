@@ -1,5 +1,10 @@
-latest: "350.8.1"
+latest: "350.8.2"
 patchList:
+  "350.8.2": |-
+    * Added the $moonphase command
+    * Slightly less weird recipe sorting in $recipes
+    * Framework fixes
+
   "350.8.1": |-
     * Fixes of various missing icons
     * Modified the Pickaxe I/V/X/XV recipes: Now requires 5/50/500/5000 => 50/500/5000/50000 wood

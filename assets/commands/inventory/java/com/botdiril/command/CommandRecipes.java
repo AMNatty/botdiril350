@@ -20,32 +20,20 @@ public class CommandRecipes
     private static final int ITEMS_PER_PAGE = 12;
     private static final Comparator<Recipe> recipeSorter = (i1, i2) ->
     {
-        if (i1.result() instanceof Card)
+        var i1Result = i1.result();
+        var i2Result = i2.result();
+
+        if (i1Result instanceof Card)
         {
             return Integer.MAX_VALUE;
         }
 
-        if (i2.result() instanceof Card)
+        if (i2Result instanceof Card)
         {
             return Integer.MIN_VALUE;
         }
 
-        if (!ShopEntries.canBeBought((Item) i2.result()) && !ShopEntries.canBeBought((Item) i1.result()))
-        {
-            return Integer.MIN_VALUE + 1;
-        }
-
-        if (!ShopEntries.canBeBought((Item) i2.result()))
-        {
-            return Integer.MIN_VALUE + 1;
-        }
-
-        if (!ShopEntries.canBeBought((Item) i1.result()))
-        {
-            return Integer.MAX_VALUE - 1;
-        }
-
-        return Long.compare(ShopEntries.getCoinPrice(i2.result()), ShopEntries.getCoinPrice(i1.result()));
+        return i1Result.compareTo(i2Result);
     };
 
     @CmdInvoke

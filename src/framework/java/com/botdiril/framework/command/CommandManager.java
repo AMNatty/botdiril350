@@ -65,49 +65,61 @@ public class CommandManager
 
     public static void load()
     {
-        var categories = EnumCommandCategory.values();
-        var commandNameToCategoryMap = new HashMap<String, EnumCommandCategory>();
-        var commandNameToInfoMap = new HashMap<String, CommandInfo>();
+        var eventBus = BotMain.botdiril.getEventBus();
+        var writeLock = eventBus.ACCEPTING_COMMANDS.writeLock();
 
-        Arrays.stream(categories).forEach(category -> {
-            var info = category.getInfo();
-            var commands = info.commands();
+        try
+        {
+            writeLock.lock();
 
-            commands.forEach((command, commandInfo) -> {
-                commandNameToCategoryMap.put(command, category);
-                commandNameToInfoMap.put(command, commandInfo);
+            var categories = EnumCommandCategory.values();
+            var commandNameToCategoryMap = new HashMap<String, EnumCommandCategory>();
+            var commandNameToInfoMap = new HashMap<String, CommandInfo>();
+
+            Arrays.stream(categories).forEach(category -> {
+                var info = category.getInfo();
+                var commands = info.commands();
+
+                commands.forEach((command, commandInfo) -> {
+                    commandNameToCategoryMap.put(command, category);
+                    commandNameToInfoMap.put(command, commandInfo);
+                });
+
+                categoryMap.put(category, new HashSet<>());
             });
 
-            categoryMap.put(category, new HashSet<>());
-        });
 
+            var commands = CommandCompiler.load();
 
-        var commands = CommandCompiler.load();
+            commands.forEach((command, clazz) -> {
+                var commandName = command.value();
 
-        commands.forEach((command, clazz) -> {
-            var commandName = command.value();
+                logger.info("%s of '%s'".formatted(commandName, clazz));
 
-            logger.info("%s of '%s'".formatted(commandName, clazz));
+                var info = commandNameToInfoMap.get(commandName);
 
-            var info = commandNameToInfoMap.get(commandName);
+                if (info == null)
+                {
+                    logger.error("Command '%s' info not found!".formatted(commandName));
+                    return;
+                }
 
-            if (info == null)
-            {
-                logger.error("Command '%s' info not found!".formatted(commandName));
-                return;
-            }
+                var category = commandNameToCategoryMap.get(commandName);
 
-            var category = commandNameToCategoryMap.get(commandName);
+                commandInfoMap.put(command, info);
+                categoryMap.get(category).add(command);
+                classMap.put(command, clazz);
 
-            commandInfoMap.put(command, info);
-            categoryMap.get(category).add(command);
-            classMap.put(command, clazz);
+                aliasMap.put(command.value(), command);
+                for (var alias : info.aliases())
+                    aliasMap.put(alias, command);
 
-            aliasMap.put(command.value(), command);
-            for (var alias : info.aliases())
-                aliasMap.put(alias, command);
-
-        });
+            });
+        }
+        finally
+        {
+            writeLock.unlock();
+        }
     }
 
     public static void unload()

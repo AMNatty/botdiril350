@@ -64,6 +64,8 @@ public class EventBus extends ListenerAdapter
 
         try
         {
+            readLock.lock();
+
             var user = event.getAuthor();
             var message = event.getMessage();
             var jda = event.getJDA();
@@ -139,8 +141,6 @@ public class EventBus extends ListenerAdapter
                     BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e);
                 }
             }
-
-            readLock.lock();
         }
         finally
         {

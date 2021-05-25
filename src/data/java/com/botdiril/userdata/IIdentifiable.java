@@ -1,7 +1,13 @@
 package com.botdiril.userdata;
 
-public interface IIdentifiable
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Comparator;
+
+public interface IIdentifiable extends Comparable<IIdentifiable>
 {
+    Comparator<IIdentifiable> DEFAULT_COMPARATOR = Comparator.comparingInt(IIdentifiable::getID);
+
     String getDescription();
 
     String getIcon();
@@ -18,4 +24,10 @@ public interface IIdentifiable
     }
 
     String inlineDescription();
+
+    @Override
+    default int compareTo(@NotNull IIdentifiable o)
+    {
+        return DEFAULT_COMPARATOR.compare(this, o);
+    }
 }

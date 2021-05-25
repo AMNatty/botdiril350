@@ -19,9 +19,14 @@ public class Botdiril
     private static final String PLAYING = "botdiril.com";
 
     private final EventBus eventBus;
-    private final ShardManager shardManager;
+    private ShardManager shardManager;
 
     public Botdiril()
+    {
+        this.eventBus = new EventBus();
+    }
+
+    public void start()
     {
         try
         {
@@ -29,7 +34,7 @@ public class Botdiril
 
             var jdaBuilder = DefaultShardManagerBuilder.createDefault(BotMain.config.getApiKey(),
                 GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_EMOJIS);
-            jdaBuilder.addEventListeners(this.eventBus = new EventBus());
+            jdaBuilder.addEventListeners(eventBus);
             jdaBuilder.disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE);
             jdaBuilder.setActivity(Activity.listening(PLAYING));
             this.shardManager = jdaBuilder.build();

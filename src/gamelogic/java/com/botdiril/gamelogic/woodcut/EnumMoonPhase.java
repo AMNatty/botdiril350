@@ -6,14 +6,26 @@ import java.time.temporal.ChronoUnit;
 
 public enum EnumMoonPhase
 {
-    NEW_MOON,
-    WAXING_CRESCENT,
-    FIRST_QUARTER,
-    WAXING_GIBBOUS,
-    FULL_MOON,
-    WANING_GIBBOUS,
-    LAST_QUARTER,
-    WANING_CRESCENT;
+    NEW_MOON("\uD83C\uDF11 New Moon"),
+    WAXING_CRESCENT("\uD83C\uDF12 Waxing Crescent Moon"),
+    FIRST_QUARTER("\uD83C\uDF13 First Crescent Moon"),
+    WAXING_GIBBOUS("\uD83C\uDF14 Waxing Gibbous Moon"),
+    FULL_MOON("\uD83C\uDF15 Full Moon"),
+    WANING_GIBBOUS("\uD83C\uDF16 Waning Gibbous Moon"),
+    LAST_QUARTER("\uD83C\uDF17 Last Quarter Moon"),
+    WANING_CRESCENT("\uD83C\uDF18 Waning Crescent Moon");
+
+    private final String name;
+
+    EnumMoonPhase(String name)
+    {
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
 
     /**
      * Only a rough approximation!
