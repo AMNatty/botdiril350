@@ -53,5 +53,5 @@ commands:
     description: Shows the credits for this bot.
 
   moonphase:
-    aliases: []
+    aliases: [mooncycle, lunarphase, lunarcycle]
     description: Shows the current in-game Moon phase.
