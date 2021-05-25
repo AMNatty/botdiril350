@@ -111,7 +111,7 @@ public class CommandMine
             if (prevPick != null)
             {
                 co.inventory.addItem(prevPick);
-                resultStr.append(String.format("and a %s", prevPick.inlineDescription()));
+                resultStr.append(String.format(" and a %s", prevPick.inlineDescription()));
             }
 
             resultStr.append(".**\n");
