@@ -37,5 +37,6 @@ public class CommandExecuteAs
         co.send();
 
         CommandParser.parse(cobj);
+        cobj.send();
     }
 }
