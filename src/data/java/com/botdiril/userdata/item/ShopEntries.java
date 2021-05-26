@@ -57,7 +57,7 @@ public class ShopEntries
         return yieldsDust.containsKey(item.getID());
     }
 
-    // REMOVING
+    // RETRIEVING
 
     public static Long getCoinPrice(IIdentifiable item)
     {
