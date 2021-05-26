@@ -4,7 +4,6 @@ import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
-import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.userdata.preferences.EnumUserPreference;
 import com.botdiril.userdata.preferences.UserPreferences;
@@ -21,15 +20,11 @@ public class CommandPreferences
         var eb = new ResponseEmbed();
         eb.setColor(0x008080);
         eb.setTitle("Preferences");
+        eb.setThumbnail(co.player.getAvatarURL());
+        eb.setAuthor(co.player.getTag(), null, co.player.getAvatarURL());
 
         if (co instanceof ChatCommandContext ccc)
         {
-            if (ccc instanceof DiscordCommandContext dcc)
-            {
-                eb.setThumbnail(dcc.caller.getEffectiveAvatarUrl());
-                eb.setAuthor(dcc.caller.getAsTag(), null, dcc.caller.getEffectiveAvatarUrl());
-            }
-
             eb.setDescription(String.format("Your Botdiril preferences.\nYou can update an option with `%sprefupdate <option ID> on/off`.", ccc.usedPrefix));
         }
 
