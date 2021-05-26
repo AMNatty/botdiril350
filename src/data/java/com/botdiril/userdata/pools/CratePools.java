@@ -36,8 +36,8 @@ public class CratePools
 
     public static final PoolDrawer<Item> epicCrate = new PoolDrawer<Item>()
         .add(4, terribleRewards)
-        .add(12, normalRewards)
-        .add(1, goodRewards);
+        .add(12, goodRewards)
+        .add(1, greatRewards);
 
     public static final PoolDrawer<Item> legendaryCrate = new PoolDrawer<Item>()
         .add(100, goodRewards)

@@ -43,7 +43,7 @@ public class BotMain
         try
         {
             config = BotdirilConfig.load();
-            botdiril = new Botdiril();
+            botdiril = new Botdiril(config);
 
             SqlFoundation.build();
 

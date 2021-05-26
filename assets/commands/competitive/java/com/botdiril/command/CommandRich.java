@@ -36,7 +36,7 @@ public class CommandRich
             while (rs.next())
             {
                 var usn = String.format(Locale.ROOT, "**%d.** <@%d>", i, rs.getLong("us_userid"));
-                var row = String.format("%s with %s", usn, BotdirilFmt.amountOfMD(rs.getLong("us_coins"), Icons.KEK));
+                var row = String.format("%s with %s", usn, BotdirilFmt.amountOfMD(rs.getLong("us_coins"), Icons.COIN));
 
                 eb.addField("", row, false);
 

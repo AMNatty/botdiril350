@@ -1,5 +1,9 @@
-latest: "350.8.3"
+latest: "350.9"
 patchList:
+  "350.9": |-
+    * Fixed a visual mistake where `$rich` would show Kek icons instead of Coins
+    * Cleaned up level-up rewards formatting
+
   "350.8.3": |-
     * Added Prismatic Oil
     * More information when selling items

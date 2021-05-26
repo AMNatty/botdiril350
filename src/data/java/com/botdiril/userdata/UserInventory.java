@@ -9,6 +9,7 @@ import com.botdiril.userdata.card.EnumCardModifier;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ItemCurrency;
 import com.botdiril.userdata.item.ItemDrops;
+import com.botdiril.userdata.item.ItemPair;
 import com.botdiril.userdata.properties.PropertyObject;
 import com.botdiril.userdata.timers.EnumTimer;
 import com.botdiril.userdata.timers.TimerUtil;
@@ -416,7 +417,7 @@ public abstract class UserInventory
             rewards.each(this::addItem);
             this.setLevel(newLevel);
 
-            var rw = rewards.stream().map(ip -> ip.getAmount() + "x " + ip.getItem().inlineDescription()).collect(Collectors.joining("\n"));
+            var rw = rewards.stream().map(ItemPair::toString).map("  %s"::formatted).collect(Collectors.joining("\n"));
 
             var cmds = CommandManager.commandsInLevelRange(lvl, newLevel);
 
@@ -428,7 +429,7 @@ public abstract class UserInventory
                 %s
                 **You unlocked the following commands:**
                 %s
-                """, newLevel, rw, cmds.stream().map(cmd -> '`' + cmd.value() + '`').collect(Collectors.joining("\n")));
+                """, newLevel, rw, cmds.stream().map("  `%s`"::formatted).collect(Collectors.joining("\n")));
             }
             else
             {

@@ -1,5 +1,6 @@
 package com.botdiril;
 
+import com.botdiril.internal.BotdirilConfig;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.requests.restaction.MessageAction;
@@ -18,12 +19,14 @@ public class Botdiril
     public static final String REPO_URL = "https://github.com/493msi/botdiril400";
     private static final String PLAYING = "botdiril.com";
 
+    private final BotdirilConfig config;
     private final EventBus eventBus;
     private ShardManager shardManager;
 
-    public Botdiril()
+    public Botdiril(BotdirilConfig config)
     {
         this.eventBus = new EventBus();
+        this.config = config;
     }
 
     public void start()
@@ -32,8 +35,7 @@ public class Botdiril
         {
             MessageAction.setDefaultMentions(Set.of());
 
-            var jdaBuilder = DefaultShardManagerBuilder.createDefault(BotMain.config.getApiKey(),
-                GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_EMOJIS);
+            var jdaBuilder = DefaultShardManagerBuilder.createDefault(this.config.getApiKey(), GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_EMOJIS);
             jdaBuilder.addEventListeners(eventBus);
             jdaBuilder.disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE);
             jdaBuilder.setActivity(Activity.listening(PLAYING));

@@ -1,6 +1,5 @@
 package com.botdiril.command;
 
-import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.context.CommandContext;
@@ -53,7 +52,7 @@ public class CommandCurses
     }
 
     @CmdInvoke
-    public static void checkSelf(DiscordCommandContext co)
+    public static void checkSelf(CommandContext co)
     {
         check(co, co.player);
     }

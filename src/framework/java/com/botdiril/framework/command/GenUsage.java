@@ -19,7 +19,8 @@ public class GenUsage
             var parameters = Arrays.stream(meth.getParameters())
                 .map(param -> param.getDeclaredAnnotation(CmdPar.class))
                 .filter(Objects::nonNull)
-                .map(par -> "<" + par.value() + ">")
+                .map(CmdPar::value)
+                .map("<%s>"::formatted)
                 .collect(Collectors.joining(" "));
 
             sb.append('`');

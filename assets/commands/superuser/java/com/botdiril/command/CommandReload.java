@@ -9,7 +9,7 @@ import com.botdiril.framework.command.invoke.CmdInvoke;
 public class CommandReload
 {
     @CmdInvoke
-    public static void resetItem(DiscordCommandContext dcc)
+    public static void reload(DiscordCommandContext dcc)
     {
         var textChannel = dcc.textChannel;
         CommandManager.unload(() -> {

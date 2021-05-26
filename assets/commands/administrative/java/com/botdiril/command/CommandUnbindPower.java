@@ -17,7 +17,7 @@ import java.text.MessageFormat;
 public class CommandUnbindPower
 {
     @CmdInvoke
-    public static void bind(DiscordCommandContext co, @CmdPar("role") Role role, @CmdPar("power") EnumPowerLevel powerLevel)
+    public static void unbind(DiscordCommandContext co, @CmdPar("role") Role role, @CmdPar("power") EnumPowerLevel powerLevel)
     {
         var mp = PowerLevel.getManageablePowers(co.db, co.callerMember, co.textChannel);
 

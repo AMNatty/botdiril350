@@ -9,7 +9,7 @@ import com.botdiril.framework.command.invoke.CmdInvoke;
 public class CommandUnload
 {
     @CmdInvoke
-    public static void resetItem(DiscordCommandContext dcc)
+    public static void unload(DiscordCommandContext dcc)
     {
         var textChannel = dcc.textChannel;
         CommandManager.unload(() -> textChannel.sendMessage("**Unload complete.**").queue());
