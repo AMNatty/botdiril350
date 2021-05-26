@@ -2,10 +2,12 @@ latest: "350.8.3"
 patchList:
   "350.8.3": |-
     * Added Prismatic Oil
+    * More information when selling items
+    * All sell bonuses and debuffs are now additive and calculated from the base value
 
   "350.8.2": |-
-    * Added the $moonphase command
-    * Slightly less weird recipe sorting in $recipes
+    * Added the `$moonphase` command
+    * Slightly less weird recipe sorting in `$recipes`
     * Framework fixes
 
   "350.8.1": |-
