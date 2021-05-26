@@ -21,76 +21,107 @@ import com.botdiril.userdata.tempstat.EnumCurse;
 import com.botdiril.util.BotdirilFmt;
 import com.botdiril.util.BotdirilRnd;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 @Command("sell")
 public class CommandSell
 {
     public static final double CHANCE_TO_EXPLODE = 0.005;
 
-    public static final long GOLDEDOIL_SELL_BOOST = 10;
-    public static final long EXPLOSION_MODIFIER = 850;
+    public static final double CURSE_LOSS_MODIFIER = 0.5;
+    public static final double BLESS_BONUS_MODIFIER = 0.7;
+
+    public static final double GOLDEDOIL_SELL_BOOST = 0.01;
+    public static final double PRISMATICOIL_SELL_BOOST = 0.0075;
+    public static final double EXPLOSION_MODIFIER = 0.15;
 
     public static void sellRoutine(CommandContext co, String articleName, long amountOfArticle, long totalMoney)
     {
-        long resellModifier = 1000;
-
-        long goldenOils = UserPreferences.isBitEnabled(co.userProperties, EnumUserPreference.GOLDEN_OIL_DISABLED) ? 0
-                : co.inventory.howManyOf(Items.goldenOil);
-
-        boolean exploded = false;
-
-        if (BotdirilRnd.rollChance(goldenOils * CHANCE_TO_EXPLODE))
+        record SellBonus(long bonus, String description)
         {
-            exploded = true;
-            resellModifier = EXPLOSION_MODIFIER;
-            co.inventory.setItem(Items.goldenOil, 0);
-        }
-        else
-        {
-            resellModifier += GOLDEDOIL_SELL_BOOST * goldenOils;
+
         }
 
-        var value = totalMoney;
+        var bonuses = new ArrayList<SellBonus>();
+
+        long goldenOils = co.inventory.howManyOf(Items.goldenOil);
+        boolean goldenOilDisabled = UserPreferences.isBitEnabled(co.userProperties, EnumUserPreference.GOLDEN_OIL_DISABLED);
+
+        if (!goldenOilDisabled && goldenOils > 0)
+        {
+            if (BotdirilRnd.rollChance(goldenOils * CHANCE_TO_EXPLODE))
+            {
+                var lost = Math.round(totalMoney * EXPLOSION_MODIFIER);
+                co.respondf("""
+                *:boom: Your %s barrels exploded, making you lose **%s** from this trade.*
+                """, BotdirilFmt.amountOfMD(goldenOils, Items.goldenOil),
+                        BotdirilFmt.amountOfMD(lost, Icons.COIN));
+
+                bonuses.add(new SellBonus(-lost, ""));
+                co.inventory.setItem(Items.goldenOil, 0);
+            }
+            else
+            {
+                long bonus = Math.round(totalMoney * GOLDEDOIL_SELL_BOOST * goldenOils);
+                bonuses.add(new SellBonus(bonus, " plus %s from your %s barrels".formatted(
+                    BotdirilFmt.amountOfMD(bonus, Icons.COIN),
+                    BotdirilFmt.amountOfMD(goldenOils, Items.goldenOil)))
+                );
+            }
+        }
+
+        long prismaticOils = co.inventory.howManyOf(Items.prismaticOil);
+
+        if (prismaticOils > 0)
+        {
+            long bonus = Math.round(totalMoney * PRISMATICOIL_SELL_BOOST * prismaticOils);
+            bonuses.add(new SellBonus(bonus, " plus %s from your %s barrels".formatted(
+                BotdirilFmt.amountOfMD(bonus, Icons.COIN),
+                BotdirilFmt.amountOfMD(prismaticOils, Items.prismaticOil)))
+            );
+        }
 
         if (Curser.isCursed(co, EnumCurse.HALVED_SELL_VALUE))
         {
-            value /= 2;
+            long lost = Math.round(totalMoney * CURSE_LOSS_MODIFIER);
+
+            bonuses.add(new SellBonus(-lost, " minus %s due to %s".formatted(
+                BotdirilFmt.amountOfMD(lost, Icons.COIN),
+                BotdirilFmt.amountOfMD("the", EnumCurse.HALVED_SELL_VALUE)))
+            );
         }
 
         if (Curser.isBlessed(co, EnumBlessing.BETTER_SELL_PRICES))
         {
-            value = value * 17 / 10;
+            long bonus = Math.round(totalMoney * BLESS_BONUS_MODIFIER);
+
+            bonuses.add(new SellBonus(bonus, " plus %s due to %s".formatted(
+                BotdirilFmt.amountOfMD(bonus, Icons.COIN),
+                BotdirilFmt.amountOfMD("the", EnumBlessing.BETTER_SELL_PRICES)))
+            );
         }
 
-        long actualValue = value * resellModifier / 1000;
 
-        co.inventory.addCoins(actualValue);
 
-        if (exploded)
+        var bonusSum = bonuses.stream().mapToLong(SellBonus::bonus).sum();
+        var newTotal = totalMoney + bonusSum;
+        co.inventory.addCoins(newTotal);
+
+        var base = "You sold %s for %s".formatted(
+            BotdirilFmt.amountOfMD(amountOfArticle, articleName),
+            BotdirilFmt.amountOfMD(totalMoney, Icons.COIN)
+        );
+
+        if (bonuses.isEmpty())
         {
-            co.respondf("""
-            *:boom: Your %s barrels exploded, making you lose **%s** %s from this trade.*
-            You sold %s for %s.
-            """,
-                BotdirilFmt.amountOfMD(goldenOils, Items.goldenOil),
-                BotdirilFmt.amountOfMD(value - actualValue, Icons.COIN),
-                BotdirilFmt.amountOfMD(amountOfArticle, articleName),
-                BotdirilFmt.amountOfMD(actualValue, Icons.COIN));
+            co.respondf("%s.", base);
+            return;
         }
-        else
-        {
-            if (actualValue != value)
-            {
-                co.respondf("You sold %s for %s plus extra %s from your %s barrels.",
-                    BotdirilFmt.amountOfMD(amountOfArticle, articleName),
-                    BotdirilFmt.amountOfMD(value, Icons.COIN),
-                    BotdirilFmt.amountOfMD(actualValue - value, Icons.COIN),
-                    BotdirilFmt.amountOfMD(goldenOils, Items.goldenOil));
-            }
-            else
-            {
-                co.respondf("You sold %s for %s.", BotdirilFmt.amountOfMD(amountOfArticle, articleName), BotdirilFmt.amountOfMD(value, Icons.COIN));
-            }
-        }
+
+        var bonusesStr = bonuses.stream().map(SellBonus::description).collect(Collectors.joining());
+
+        co.respondf("%s%s for a grand total of %s.", base, bonusesStr, BotdirilFmt.amountOfMD(newTotal, Icons.COIN));
     }
 
     @CmdInvoke

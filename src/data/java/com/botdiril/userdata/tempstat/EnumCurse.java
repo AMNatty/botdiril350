@@ -1,5 +1,7 @@
 package com.botdiril.userdata.tempstat;
 
+import com.botdiril.userdata.icon.Icons;
+
 public enum EnumCurse
 {
     CURSE_OF_YASUO(0, "Curse of Yasuo", "All cards drawn are now Yasuo.", 60 * 30), //
@@ -46,5 +48,11 @@ public enum EnumCurse
     public int getID()
     {
         return this.id;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "%s %s".formatted(Icons.SCROLL_RARE, this.getLocalizedName());
     }
 }

@@ -56,6 +56,7 @@ public class Items
     public static Item max;
     public static Item oil;
     public static Item goldenOil;
+    public static Item prismaticOil;
 
     public static void load()
     {
@@ -91,6 +92,12 @@ public class Items
         ShopEntries.addCoinSell(oil, 800);
 
         goldenOil = new Item("goldenoil", Icons.RARE_GOLDENOIL, "Golden Oil", "Passively grants +1% bonus sell value, but also grants 0.5% chance for all golden oil barrels to explode, leaving you with no barrels and making you lose 15% from that trade.");
+
+        prismaticOil = new Item("prismaticoil", Icons.RARE_PRISMATICOIL, "Prismatic Oil", "Passively grants +0.75% bonus sell value. Forever.");
+        CraftingEntries.add(new Recipe(List.of(
+            goldenOil.ofAmount(1),
+            prismaticDust.ofAmount(1)
+        ), 1, prismaticOil));
 
         wood = new Item("wood", Icons.COMMON_WOOD, "Wood", "Orgnatic material used in many fields, including construction.");
         ShopEntries.addCoinSell(wood, 20);

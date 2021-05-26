@@ -1,5 +1,8 @@
-latest: "350.8.2"
+latest: "350.8.3"
 patchList:
+  "350.8.3": |-
+    * Added Prismatic Oil
+
   "350.8.2": |-
     * Added the $moonphase command
     * Slightly less weird recipe sorting in $recipes

@@ -85,6 +85,7 @@ public class Icons
     public static final String RARE_TIMEWARP = "$!item.rareResource.timewarp$";
     public static final String RARE_OIL = "$!item.rareResource.oil$";
     public static final String RARE_GOLDENOIL = "$!item.rareResource.goldenOil$";
+    public static final String RARE_PRISMATICOIL = "$!item.rareResource.prismaticOil$";
     public static final String RARE_STRANGE_METAL = "$!item.rareResource.strangeMetal$";
 
     public static final String SCROLL = "$!item.scroll.basic$";

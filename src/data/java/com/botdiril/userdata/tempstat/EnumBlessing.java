@@ -1,5 +1,7 @@
 package com.botdiril.userdata.tempstat;
 
+import com.botdiril.userdata.icon.Icons;
+
 public enum EnumBlessing
 {
     UNBREAKABLE_PICKAXE(0, "Unbreakable Pickaxe", "Your pickaxe cannot break.", 60 * 30), //
@@ -46,5 +48,11 @@ public enum EnumBlessing
     public int getID()
     {
         return this.id;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "%s %s".formatted(Icons.SCROLL_RARE, this.getLocalizedName());
     }
 }
