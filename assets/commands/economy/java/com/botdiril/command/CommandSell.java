@@ -54,11 +54,13 @@ public class CommandSell
             {
                 var lost = Math.round(totalMoney * EXPLOSION_MODIFIER);
                 co.respondf("""
-                *:boom: Your %s barrels exploded, making you lose **%s** from this trade.*
-                """, BotdirilFmt.amountOfMD(goldenOils, Items.goldenOil),
-                        BotdirilFmt.amountOfMD(lost, Icons.COIN));
+                *:boom: Your %s barrels exploded, making you lose money from this trade.*
+                """, BotdirilFmt.amountOfMD(goldenOils, Items.goldenOil));
 
-                bonuses.add(new SellBonus(-lost, ""));
+                bonuses.add(new SellBonus(-lost, " minus %s from the :boom: exploded %s barrels".formatted(
+                    BotdirilFmt.amountOfMD(lost, Icons.COIN),
+                    BotdirilFmt.amountOfMD(goldenOils, Items.goldenOil)
+                )));
                 co.inventory.setItem(Items.goldenOil, 0);
             }
             else
@@ -119,9 +121,13 @@ public class CommandSell
             return;
         }
 
-        var bonusesStr = bonuses.stream().map(SellBonus::description).collect(Collectors.joining());
+        var bonusesStr = bonuses.stream().map(SellBonus::description).collect(Collectors.joining("\n"));
 
-        co.respondf("%s%s for a grand total of %s.", base, bonusesStr, BotdirilFmt.amountOfMD(newTotal, Icons.COIN));
+        co.respondf("""
+        %s
+        %s
+        __for a grand total of %s.__
+        """, base, bonusesStr, BotdirilFmt.amountOfMD(newTotal, Icons.COIN));
     }
 
     @CmdInvoke
