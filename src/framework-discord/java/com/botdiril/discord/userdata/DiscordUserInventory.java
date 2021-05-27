@@ -28,7 +28,6 @@ public class DiscordUserInventory extends UserInventory
         {
             return user.get();
         }
-
     }
 
     public DiscordUserInventory(DBConnection connection, long userid)
@@ -36,7 +35,6 @@ public class DiscordUserInventory extends UserInventory
         super(connection, getOrCreateUser(connection, userid));
 
         this.userID = userid;
-
     }
 
     public long getUserID()

@@ -16,7 +16,7 @@ public class CommandExecuteAs
     public static void exec(DiscordCommandContext co, @CmdPar("user") Member member, @CmdPar("command") String command)
     {
         var cobj = new DiscordCommandContext(co.textChannel);
-        cobj.botPlayer = new DiscordEntityPlayer(co.db, co.bot);
+        cobj.botPlayer = co.botPlayer;
         cobj.botIconURL = co.botIconURL;
         cobj.caller = member.getUser();
         cobj.player = new DiscordEntityPlayer(co.db, member);
