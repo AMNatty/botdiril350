@@ -2,10 +2,10 @@ package com.botdiril.framework.sql;
 
 import com.botdiril.BotMain;
 import com.botdiril.MajorFailureException;
+import com.botdiril.util.BotdirilLog;
+import com.mysql.cj.jdbc.Driver;
 
 import java.sql.DriverManager;
-
-import com.botdiril.util.BotdirilLog;
 
 public class SqlFoundation
 {
@@ -15,7 +15,7 @@ public class SqlFoundation
     {
         try
         {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(Driver.class.getName());
 
             try (var c = DriverManager.getConnection("jdbc:mysql://" + BotMain.config.getSqlHost()
                                                      + "/?useUnicode=true"
