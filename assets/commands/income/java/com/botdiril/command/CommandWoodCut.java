@@ -7,6 +7,7 @@ import com.botdiril.gamelogic.woodcut.WoodCutAPI;
 import com.botdiril.gamelogic.woodcut.WoodCutInput;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.items.Items;
+import com.botdiril.userdata.stat.EnumStat;
 import com.botdiril.userdata.tempstat.Curser;
 import com.botdiril.userdata.timers.EnumTimer;
 import com.botdiril.userdata.timers.TimerUtil;
@@ -70,6 +71,7 @@ public class CommandWoodCut
         }
 
         co.inventory.useTimerModified(EnumTimer.WOODCUT, timerModifier);
+        co.userProperties.incrementStat(EnumStat.TIMES_WOODCUT);
 
         drops.stream().forEach(ip -> co.inventory.addItem(ip.getItem(), ip.getAmount()));
 

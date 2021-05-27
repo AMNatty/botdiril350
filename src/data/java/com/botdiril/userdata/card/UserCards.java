@@ -33,7 +33,7 @@ public class UserCards
 
                 var cp = CardPair.of(item, eq.getLong("cr_amount"));
                 cp.setLevel(eq.getInt("cr_level"));
-                cp.setLevel(eq.getInt("cr_xp"));
+                cp.setXP(eq.getInt("cr_xp"));
 
                 cps.add(cp);
             }

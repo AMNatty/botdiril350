@@ -51,7 +51,7 @@ public interface IWeightedRandom<E extends Enum<E> & IWeightedRandom<E>>
         }
         while (Arrays.stream(ec).anyMatch(IWeightedRandom::isApplicable));
 
-        return ec[ec.length - 1];
+        throw new RuntimeException("No choosable value.");
     }
 
     double getWeight();

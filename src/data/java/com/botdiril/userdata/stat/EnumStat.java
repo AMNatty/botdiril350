@@ -10,7 +10,7 @@ public enum EnumStat
     TIMES_MINED(5, "Times mined"),
     TIMES_FARMED(6, "Times farmed"),
     TIMES_DAILY(7, "Times daily used"),
-    TIMES_LOST_ALL_MEGAKEKS(8, "Times megakeks lost"),
+    TIMES_WOODCUT(8, "Times woodcut"),
     ITEMS_CRAFTED(9, "Items crafted"),
     GIFTS_SENT(10, "Gifts sent"),
     BIGGEST_PAYOUT(11, "Most keks paid out"),

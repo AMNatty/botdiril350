@@ -17,10 +17,7 @@ public class CommandAlias
     {
         source = source.trim();
 
-        if (source.isEmpty())
-        {
-            throw new CommandException("Alias cannot be empty!");
-        }
+        CommandAssert.stringNotEmptyOrNull(source, "Alias cannot be empty!");
 
         CommandAssert.stringNotTooLong(source, UserAlias.ALIAS_IN_MAX_LENGTH, String.format("Alias source shouldn't be longer than %d characters!", UserAlias.ALIAS_IN_MAX_LENGTH));
 
