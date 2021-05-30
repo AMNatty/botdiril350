@@ -3,7 +3,6 @@ package com.botdiril.discord.framework.command.context;
 import com.botdiril.discord.framework.response.DiscordMessageResponse;
 import com.botdiril.framework.command.MessageOutputTransformer;
 import com.botdiril.framework.command.context.ChatCommandContext;
-import com.botdiril.framework.response.IResponse;
 import com.botdiril.serverdata.ServerConfig;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
@@ -39,9 +38,9 @@ public class DiscordCommandContext extends ChatCommandContext
     }
 
     @Override
-    public IResponse getDefaultResponse()
+    public DiscordMessageResponse getDefaultResponse()
     {
-        return this.response;
+        return (DiscordMessageResponse) this.response;
     }
 
     public void respond(EmbedBuilder msg)

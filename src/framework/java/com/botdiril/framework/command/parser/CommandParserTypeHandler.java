@@ -9,7 +9,7 @@ import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.command.invoke.ParType;
 import com.botdiril.framework.util.CommandAssert;
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.userdata.achievement.Achievement;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.item.Item;
@@ -117,7 +117,7 @@ public class CommandParserTypeHandler
                 default -> throw new CommandException("Internal error. Please contact an administrator. Code: **UNEXPECTED_PAR_TYPE**");
             };
         }
-        else if (clazz == IIdentifiable.class && type == ParType.ITEM_OR_CARD)
+        else if (clazz == IGameObject.class && type == ParType.ITEM_OR_CARD)
         {
             return CommandAssert.parseItemOrCard(arg);
         }

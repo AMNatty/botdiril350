@@ -35,8 +35,8 @@ public class ItemAssert
 
         if (has < amount)
         {
-            throw new CommandException("*You need at least **%s %s** to %s.*\n".formatted(amount, item.inlineDescription(), actionName) +
-                                       "You are missing **%s %s**.".formatted(amount - has, item.inlineDescription()));
+            throw new CommandException("*You need at least **%s %s** to %s.*\n".formatted(amount, item.getInlineDescription(), actionName) +
+                                       "You are missing **%s %s**.".formatted(amount - has, item.getInlineDescription()));
         }
 
         ui.addItem(item, -amount);
@@ -65,11 +65,11 @@ public class ItemAssert
             return;
 
         var joinedRequired = Arrays.stream(itemPairs)
-            .map(itemPair -> "**%s %s**".formatted(itemPair.getAmount(), itemPair.getItem().inlineDescription()))
+            .map(itemPair -> "**%s %s**".formatted(itemPair.getAmount(), itemPair.getItem().getInlineDescription()))
             .collect(Collectors.joining(", "));
 
         var joinedMissing = missingResources.stream()
-            .map(itemPair -> "**%s %s**".formatted(itemPair.getAmount(), itemPair.getItem().inlineDescription()))
+            .map(itemPair -> "**%s %s**".formatted(itemPair.getAmount(), itemPair.getItem().getInlineDescription()))
             .collect(Collectors.joining(", "));
 
         throw new CommandException("*You need at least %s to %s.*\n".formatted(joinedRequired, actionName) +

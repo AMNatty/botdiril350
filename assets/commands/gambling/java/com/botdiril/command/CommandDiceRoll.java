@@ -21,7 +21,7 @@ public class CommandDiceRoll
     @CmdInvoke
     public static void roll(CommandContext co)
     {
-        co.respond(String.format(":game_die: You rolled a **%d**!", BotdirilRnd.RDG.nextInt(1, 6)));
+        co.respondf(":game_die: You rolled a **%d**!", BotdirilRnd.rollDie(6));
     }
 
     @CmdInvoke
@@ -43,7 +43,7 @@ public class CommandDiceRoll
 
         // Slightly offset the odds against the player to adjust for the jackpot
         var offsetChance = 0.95;
-        var offset = BotdirilRnd.rollChance(offsetChance);
+        var offset = BotdirilRnd.rollChance(co.rdg, offsetChance);
 
         if (!offset)
             while (rolled == number)

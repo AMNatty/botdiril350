@@ -37,7 +37,7 @@ public class CommandTrain
         var sbRight = new StringBuilder();
 
         TrainAPI.TRAINING_ITEMS.forEach((item, value) -> {
-            sbLeft.append(String.format("\n%s", item.inlineDescription()));
+            sbLeft.append(String.format("\n%s", item.getInlineDescription()));
             sbRight.append(String.format("\n%s", BotdirilFmt.amountOf(value, Icons.XP)));
         });
 
@@ -58,9 +58,9 @@ public class CommandTrain
         if (!TrainAPI.TRAINING_ITEMS.containsKey(item))
         {
             if (co instanceof ChatCommandContext ccc)
-                throw new CommandException("**%s** is not a valid training item, please refer to `%s%s` for more information.".formatted(item.inlineDescription(), ccc.usedPrefix, ccc.usedAlias));
+                throw new CommandException("**%s** is not a valid training item, please refer to `%s%s` for more information.".formatted(item.getInlineDescription(), ccc.usedPrefix, ccc.usedAlias));
 
-            throw new CommandException("**%s** is not a valid training item.".formatted(item.inlineDescription()));
+            throw new CommandException("**%s** is not a valid training item.".formatted(item.getInlineDescription()));
         }
 
         co.inventory.addItem(item, -amount);
@@ -102,7 +102,7 @@ public class CommandTrain
     public static void train(CommandContext co, @CmdPar("card to train") Card card, @CmdPar("training item") Item item)
     {
         if (co.inventory.howManyOf(item) < 1)
-            throw new CommandException("*You don't have any **%s***".formatted(item.inlineDescription()));
+            throw new CommandException("*You don't have any **%s***".formatted(item.getInlineDescription()));
 
         train(co, card, item, 1);
     }

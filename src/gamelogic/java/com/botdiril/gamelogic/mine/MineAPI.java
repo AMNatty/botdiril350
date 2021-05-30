@@ -1,5 +1,6 @@
 package com.botdiril.gamelogic.mine;
 
+import com.botdiril.gamelogic.GameAPI;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ItemDrops;
 import com.botdiril.userdata.item.ShopEntries;
@@ -7,9 +8,12 @@ import com.botdiril.userdata.items.Items;
 import com.botdiril.userdata.items.scrolls.Scrolls;
 import com.botdiril.util.BotdirilRnd;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MineAPI
+public class MineAPI extends GameAPI
 {
     public static final double KITLESS_BONUS_THRESHOLD = 2;
     public static final double CHANCE_INSTAMINE = 0.4;
@@ -48,6 +52,8 @@ public class MineAPI
 
     private static void generateMinerals(ItemDrops drops, double pickaxeBudget)
     {
+        var rdg = BotdirilRnd.rdg();
+
         for (var mineral : minerals)
         {
             double sellVal = ShopEntries.getSellValue(mineral);
@@ -55,7 +61,7 @@ public class MineAPI
 
             var scale = 0.5;
 
-            var roll = BotdirilRnd.RDG.nextGamma(budgetSellValRatio / scale, scale);
+            var roll = rdg.nextGamma(budgetSellValRatio / scale, scale);
 
             var count = (long) Math.floor(roll);
 
@@ -79,6 +85,8 @@ public class MineAPI
 
     private static void generateGems(ItemDrops drops, double pickaxeBudget)
     {
+        var rdg = BotdirilRnd.rdg();
+
         for (int gemTier = 0; gemTier < goodGems.length; gemTier++)
         {
             var mean = getMeanGemChance(pickaxeBudget, gemTier);
@@ -88,7 +96,7 @@ public class MineAPI
                 continue;
             }
 
-            drops.addItem(goodGems[gemTier], BotdirilRnd.RDG.nextPoisson(mean));
+            drops.addItem(goodGems[gemTier], rdg.nextPoisson(mean));
         }
 
         for (int gemTier = 0; gemTier < evilGems.length; gemTier++)
@@ -100,12 +108,13 @@ public class MineAPI
                 continue;
             }
 
-            drops.addItem(evilGems[gemTier], BotdirilRnd.RDG.nextPoisson(mean));
+            drops.addItem(evilGems[gemTier], rdg.nextPoisson(mean));
         }
     }
 
     public static MineResult mine(ItemDrops loot, MineInput inputData)
     {
+        var rdg = BotdirilRnd.rdg();
         var pickaxe = inputData.getPickaxe();
 
         var chanceToBreak = pickaxe.getChanceToBreak();
@@ -147,7 +156,7 @@ public class MineAPI
             chanceToBreak /= boostMultiplier;
         }
 
-        var randomModifier = BotdirilRnd.RDG.nextGaussian(1, 0.1);
+        var randomModifier = rdg.nextGaussian(1, 0.1);
         multiplier *= randomModifier;
 
         var level = inputData.getUserLevel();
@@ -157,19 +166,19 @@ public class MineAPI
         generateMinerals(loot, pickaxeBudget * multiplier);
         generateGems(loot, pickaxeBudget * randomModifier);
 
-        loot.addItem(Items.timewarpCrystal, BotdirilRnd.RDG.nextPoisson(0.02 + 0.01 * rareDropMultiplier));
-        loot.addItem(Items.keys, BotdirilRnd.RDG.nextPoisson(0.03));
-        loot.addItem(Items.strangeMetal, BotdirilRnd.RDG.nextPoisson(0.1 + 0.015 * rareDropMultiplier));
-        loot.addItem(Items.oil, BotdirilRnd.RDG.nextPoisson(0.027));
-        loot.addItem(Items.goldenOil, BotdirilRnd.RDG.nextPoisson(0.003));
-        loot.addItem(Scrolls.scrollOfLesserIntelligence, BotdirilRnd.RDG.nextPoisson(0.05 * rareDropMultiplier));
-        loot.addItem(Scrolls.scrollOfIntelligence, BotdirilRnd.RDG.nextPoisson(0.005 * rareDropMultiplier));
-        loot.addItem(Scrolls.scrollOfIntelligenceII, BotdirilRnd.RDG.nextPoisson(0.00003));
-        loot.addItem(Items.ash, BotdirilRnd.RDG.nextPoisson(0.04 * rareDropMultiplier));
-        loot.addItem(Items.prismaticDust, BotdirilRnd.RDG.nextPoisson(0.002));
-        loot.addItem(Items.max, BotdirilRnd.RDG.nextPoisson(0.00001));
+        loot.addItem(Items.timewarpCrystal, rdg.nextPoisson(0.02 + 0.01 * rareDropMultiplier));
+        loot.addItem(Items.keys, rdg.nextPoisson(0.03));
+        loot.addItem(Items.strangeMetal, rdg.nextPoisson(0.1 + 0.015 * rareDropMultiplier));
+        loot.addItem(Items.oil, rdg.nextPoisson(0.027));
+        loot.addItem(Items.goldenOil, rdg.nextPoisson(0.003));
+        loot.addItem(Scrolls.scrollOfLesserIntelligence, rdg.nextPoisson(0.05 * rareDropMultiplier));
+        loot.addItem(Scrolls.scrollOfIntelligence, rdg.nextPoisson(0.005 * rareDropMultiplier));
+        loot.addItem(Scrolls.scrollOfIntelligenceII, rdg.nextPoisson(0.00003));
+        loot.addItem(Items.ash, rdg.nextPoisson(0.04 * rareDropMultiplier));
+        loot.addItem(Items.prismaticDust, rdg.nextPoisson(0.002));
+        loot.addItem(Items.max, rdg.nextPoisson(0.00001));
 
-        var xp = Math.round(Math.pow(BotdirilRnd.RDG.nextGaussian(15, 2), 1.6 + rareDropMultiplier / 2.25));
+        var xp = Math.round(Math.pow(rdg.nextGaussian(15, 2), 1.6 + rareDropMultiplier / 2.25));
 
         var lostItems = new ItemDrops();
 

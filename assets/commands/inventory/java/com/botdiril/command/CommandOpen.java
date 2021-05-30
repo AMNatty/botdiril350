@@ -33,20 +33,20 @@ public class CommandOpen
         var openable = (IOpenable) item;
 
         final long limit = 64;
-        CommandAssert.numberInBoundsInclusiveL(amount, 1, limit, "*You can open **%d %s** at most at once and one at least (obviously).*".formatted(limit, item.inlineDescription()));
+        CommandAssert.numberInBoundsInclusiveL(amount, 1, limit, "*You can open **%d %s** at most at once and one at least (obviously).*".formatted(limit, item.getInlineDescription()));
 
-        CommandAssert.numberNotBelowL(co.inventory.howManyOf(item), amount, "You don't have %ss...".formatted(BotdirilFmt.amountOfMD(amount, item.inlineDescription())));
+        CommandAssert.numberNotBelowL(co.inventory.howManyOf(item), amount, "You don't have %ss...".formatted(BotdirilFmt.amountOfMD(amount, item.getInlineDescription())));
 
         if (openable.requiresKey())
         {
-            ItemAssert.consumeItems(co.inventory, "open %s".formatted(BotdirilFmt.amountOfMD(amount, item.inlineDescription())), ItemPair.of(Items.keys, amount));
+            ItemAssert.consumeItems(co.inventory, "open %s".formatted(BotdirilFmt.amountOfMD(amount, item.getInlineDescription())), ItemPair.of(Items.keys, amount));
 
             if (Curser.isBlessed(co, EnumBlessing.CHANCE_NOT_TO_CONSUME_KEY))
             {
                 long keysBack = 0;
 
                 for (int i = 0; i < amount; i++)
-                    if (BotdirilRnd.rollChance(0.25))
+                    if (BotdirilRnd.rollChance(co.rdg, 0.25))
                         keysBack++;
 
                 co.inventory.addKeys(keysBack);

@@ -62,7 +62,7 @@ public class CommandNuke
             for (int i = 0; i < 10; i++)
                 Curser.curse(co);
         }
-        else if (BotdirilRnd.rollChance(MISS_CHANCE))
+        else if (BotdirilRnd.rollChance(co.rdg, MISS_CHANCE))
         {
             co.respond("**You missed.** " + Icons.KEK);
             return;
@@ -73,8 +73,8 @@ public class CommandNuke
         }
 
         var keks = Math.min(userInv.getKeks(), Math.pow(co.inventory.getLevel() * 50.0, 1.8));
-        var lost = Math.round(BotdirilRnd.RDG.nextUniform(0.01, 0.15) * keks);
-        var stolen = Math.round(BotdirilRnd.RDG.nextUniform(0.05, 0.25) * keks);
+        var lost = Math.round(co.rdg.nextUniform(0.01, 0.15) * keks);
+        var stolen = Math.round(co.rdg.nextUniform(0.05, 0.25) * keks);
         var nukeTotal = lost + stolen;
 
         userInv.addKeks(-nukeTotal);

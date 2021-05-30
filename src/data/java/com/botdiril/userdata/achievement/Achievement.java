@@ -1,6 +1,6 @@
 package com.botdiril.userdata.achievement;
 
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.botdiril.userdata.ItemLookup;
 
-public class Achievement implements IIdentifiable
+public class Achievement implements IGameObject
 {
     private final int id;
     private final String name;
@@ -60,7 +60,7 @@ public class Achievement implements IIdentifiable
     }
 
     @Override
-    public String inlineDescription()
+    public String getInlineDescription()
     {
         return localizedName;
     }

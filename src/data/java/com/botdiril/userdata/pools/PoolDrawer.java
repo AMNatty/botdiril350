@@ -20,7 +20,7 @@ public class PoolDrawer<T>
 
     public T draw()
     {
-        var rd = BotdirilRnd.RDG.nextLong(0, this.weightSum);
+        var rd = BotdirilRnd.rdg().nextLong(0, this.weightSum);
         var ptr = 0;
 
         for (var pool : this.pools)

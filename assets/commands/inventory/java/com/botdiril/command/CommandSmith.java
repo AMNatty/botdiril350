@@ -32,8 +32,8 @@ public class CommandSmith
         co.inventory.addItem(pick, 1);
 
         co.respondf("You crafted %s from %s and %s.",
-            BotdirilFmt.amountOfMD("a", pick.inlineDescription()),
-            BotdirilFmt.amountOfMD(SMITH_CONVERSION, prevPick.inlineDescription()),
-            BotdirilFmt.amountOfMD("one", Items.strangeMetal.inlineDescription()));
+            BotdirilFmt.amountOfMD("a", pick.getInlineDescription()),
+            BotdirilFmt.amountOfMD(SMITH_CONVERSION, prevPick.getInlineDescription()),
+            BotdirilFmt.amountOfMD("one", Items.strangeMetal.getInlineDescription()));
     }
 }

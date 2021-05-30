@@ -7,7 +7,7 @@ import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.command.invoke.ParType;
 import com.botdiril.framework.util.CommandAssert;
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.item.Item;
@@ -50,7 +50,7 @@ public class CommandSell
 
         if (!goldenOilDisabled && goldenOils > 0)
         {
-            if (BotdirilRnd.rollChance(goldenOils * CHANCE_TO_EXPLODE))
+            if (BotdirilRnd.rollChance(co.rdg, goldenOils * CHANCE_TO_EXPLODE))
             {
                 var lost = Math.round(totalMoney * EXPLOSION_MODIFIER);
                 co.respondf("""
@@ -131,13 +131,13 @@ public class CommandSell
     }
 
     @CmdInvoke
-    public static void sell(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
+    public static void sell(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IGameObject item)
     {
         sell(co, item, 1);
     }
 
     @CmdInvoke
-    public static void sell(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
+    public static void sell(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IGameObject item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't sell zero items / cards.");
 
@@ -151,7 +151,7 @@ public class CommandSell
             CommandAssert.numberNotAboveL(amount, co.inventory.howManyOf(iitem), "You don't have that many items of that type.");
             co.inventory.addItem(iitem, -amount);
 
-            sellRoutine(co, item.inlineDescription(), amount, amount * ShopEntries.getSellValue(item));
+            sellRoutine(co, item.getInlineDescription(), amount, amount * ShopEntries.getSellValue(item));
         }
         else if (item instanceof Card card)
         {
@@ -159,7 +159,7 @@ public class CommandSell
             co.inventory.addCard(card, -amount);
             var cardLevel = co.inventory.getCardLevel(card);
 
-            sellRoutine(co, item.inlineDescription(), amount, amount * Card.getPrice(card, cardLevel));
+            sellRoutine(co, item.getInlineDescription(), amount, amount * Card.getPrice(card, cardLevel));
         }
     }
 }

@@ -10,6 +10,7 @@ import com.botdiril.serverdata.ServerPreferences;
 import com.botdiril.userdata.metrics.UserMetrics;
 import com.botdiril.userdata.properties.PropertyObject;
 import com.botdiril.util.BotdirilLog;
+import com.botdiril.util.BotdirilRnd;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -85,6 +86,8 @@ public class EventBus extends ListenerAdapter
                 co.sc = ServerPreferences.getConfigByGuild(co.guild.getIdLong());
                 co.contents = message.getContentRaw();
                 co.jda = jda;
+                co.random = BotdirilRnd.random();
+                co.rdg = BotdirilRnd.rdg();
 
                 try
                 {

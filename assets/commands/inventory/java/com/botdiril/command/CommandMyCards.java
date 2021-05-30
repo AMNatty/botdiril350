@@ -65,7 +65,7 @@ public class CommandMyCards
 
         isc.sorted(cardComparator)
             .skip((page - 1) * CARDS_PER_PAGE).limit(CARDS_PER_PAGE)
-            .forEach(ip ->  eb.addField(ip.getCard().inlineDescription(), String.format("Count: **%d**\nID: **%s**", ip.getAmount(), ip.getCard().getName()), true));
+            .forEach(ip ->  eb.addField(ip.getCard().getInlineDescription(), String.format("Count: **%d**\nID: **%s**", ip.getAmount(), ip.getCard().getName()), true));
 
         if (co instanceof ChatCommandContext ccc)
             eb.setFooter("Use `%s%s %s <page>` to go to another page.".formatted(ccc.usedPrefix, ccc.usedAlias, ccc.player.getMention()), null);

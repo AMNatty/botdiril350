@@ -56,6 +56,6 @@ public class CommandShop
             sub.append("*Cannot be sold.*");
         }
 
-        eb.addField(item.inlineDescription(), sub.toString(), true);
+        eb.addField(item.getInlineDescription(), sub.toString(), true);
     }
 }

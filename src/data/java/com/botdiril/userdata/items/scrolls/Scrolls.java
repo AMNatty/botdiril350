@@ -35,13 +35,13 @@ public class Scrolls
 
         final long LESSER_INTELLIGENCE_XP = 2_000;
         scrollOfLesserIntelligence = new ItemScroll("lesserscrollofintelligence", Icons.SCROLL, "Lesser Scroll of Intelligence", (co, amount) -> {
-            co.respond("You read the **%d %s**... **[+%s XP]**".formatted(amount, scrollOfLesserIntelligence.inlineDescription(), BotdirilFmt.format(amount * LESSER_INTELLIGENCE_XP)));
+            co.respond("You read the **%d %s**... **[+%s XP]**".formatted(amount, scrollOfLesserIntelligence.getInlineDescription(), BotdirilFmt.format(amount * LESSER_INTELLIGENCE_XP)));
             co.inventory.addXP(co, LESSER_INTELLIGENCE_XP * amount);
         }, "Use to instantly gain **%s XP**.".formatted(BotdirilFmt.format(LESSER_INTELLIGENCE_XP)));
 
         final long INTELLIGENCE_XP = 40_000;
         scrollOfIntelligence = new ItemScroll("scrollofintelligence", Icons.SCROLL_RARE, "Scroll of Intelligence", (co, amount) -> {
-            co.respond("You read the **%d %s**... **[+%s XP]**".formatted(amount, scrollOfIntelligence.inlineDescription(), BotdirilFmt.format(amount * INTELLIGENCE_XP)));
+            co.respond("You read the **%d %s**... **[+%s XP]**".formatted(amount, scrollOfIntelligence.getInlineDescription(), BotdirilFmt.format(amount * INTELLIGENCE_XP)));
             co.inventory.addXP(co, INTELLIGENCE_XP * amount);
         }, "Use to instantly gain **%s XP**.".formatted(BotdirilFmt.format(INTELLIGENCE_XP)));
         CraftingEntries.add(new Recipe(Arrays.asList(
@@ -72,7 +72,7 @@ public class Scrolls
 
         final long MAJOR_INTELLIGENCE_XP = 500_000;
         scrollOfIntelligenceMajor =  new ItemScroll("majorscrollofintelligence", Icons.SCROLL_RARE, "Major Scroll of Intelligence", (co, amount) -> {
-            co.respond("You read the **%d %s**... **[+%s XP]**".formatted(amount, scrollOfIntelligenceMajor.inlineDescription(), BotdirilFmt.format(amount * MAJOR_INTELLIGENCE_XP)));
+            co.respond("You read the **%d %s**... **[+%s XP]**".formatted(amount, scrollOfIntelligenceMajor.getInlineDescription(), BotdirilFmt.format(amount * MAJOR_INTELLIGENCE_XP)));
             co.inventory.addXP(co, MAJOR_INTELLIGENCE_XP * amount);
         }, "Use to instantly gain **%s XP**.".formatted(BotdirilFmt.format(MAJOR_INTELLIGENCE_XP)));
         CraftingEntries.add(new Recipe(Arrays.asList(

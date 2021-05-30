@@ -13,13 +13,13 @@ import java.util.Map;
 
 /**
  * Don't get confused by the name, it's for legacy reasons. This class can map
- * any {@link IIdentifiable}.
+ * any {@link IGameObject}.
  */
 public class ItemLookup
 {
     public static final String TABLE_ITEMLOOKUP = "itemlookup";
 
-    private static final int AVAILABLE_IDS = 2 << 16;
+    private static final int AVAILABLE_IDS = 1 << 17;
     private static final BiMap<String, Integer> mappings = HashBiMap.create();
     private static final String[] iarr = new String[AVAILABLE_IDS];
 
@@ -104,7 +104,7 @@ public class ItemLookup
         }
     }
 
-    public static int get(IIdentifiable thing)
+    public static int get(INamedObject thing)
     {
         return get(thing.getName());
     }

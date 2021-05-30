@@ -4,7 +4,7 @@ import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.EnumCommandCategory;
 import com.botdiril.framework.command.CommandManager;
 import com.botdiril.framework.command.invoke.CommandException;
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.userdata.achievement.Achievement;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.item.Item;
@@ -380,7 +380,7 @@ public class CommandAssert
         throw new CommandException("Item with that name was not found.");
     }
 
-    public static IIdentifiable parseItemOrCard(String name)
+    public static IGameObject parseItemOrCard(String name)
     {
         var it = Item.getItemByName(StringUtils.removeEnd(name, "s"));
 

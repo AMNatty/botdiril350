@@ -78,7 +78,7 @@ public class CommandMine
             co.inventory.resetTimer(EnumTimer.MINE);
         }
 
-        resultStr.append(String.format("You are mining with a **%s**", pick.inlineDescription()));
+        resultStr.append(String.format("You are mining with a **%s**", pick.getInlineDescription()));
 
         if (mineResult.isMiningWithoutRepairKit() && pick.getChanceToBreak() > 0)
         {
@@ -91,16 +91,16 @@ public class CommandMine
         {
             co.userProperties.incrementStat(EnumStat.REPAIR_KITS_USED);
             resultStr.append("**Your ");
-            resultStr.append(pick.inlineDescription());
+            resultStr.append(pick.getInlineDescription());
             resultStr.append(" broke while mining, but you managed to fix it using a ");
-            resultStr.append(Items.repairKit.inlineDescription());
+            resultStr.append(Items.repairKit.getInlineDescription());
             resultStr.append("**\n");
         }
         else if (lostItems.hasItemDropped(pick))
         {
             co.userProperties.incrementStat(EnumStat.PICKAXES_BROKEN);
             resultStr.append("**You broke the ");
-            resultStr.append(pick.inlineDescription());
+            resultStr.append(pick.getInlineDescription());
 
             var trash = (long) Math.ceil(Math.log10(pick.getPickaxeValue()));
             co.inventory.addItem(Items.ash, trash);
@@ -111,7 +111,7 @@ public class CommandMine
             if (prevPick != null)
             {
                 co.inventory.addItem(prevPick);
-                resultStr.append(String.format(" and a %s", prevPick.inlineDescription()));
+                resultStr.append(String.format(" and a %s", prevPick.getInlineDescription()));
             }
 
             resultStr.append(".**\n");

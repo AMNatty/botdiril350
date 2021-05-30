@@ -1,13 +1,13 @@
 package com.botdiril.userdata.card;
 
 import com.botdiril.framework.command.context.CommandContext;
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.userdata.ItemLookup;
 import com.botdiril.userdata.pools.CardPools;
 
 import java.util.*;
 
-public class Card implements IIdentifiable
+public class Card implements IGameObject
 {
     private static final Map<String, Card> cards = new HashMap<>();
 
@@ -165,7 +165,7 @@ public class Card implements IIdentifiable
     }
 
     @Override
-    public String inlineDescription()
+    public String getInlineDescription()
     {
         return this.getIcon() + " " + this.getLocalizedName();
     }
@@ -173,7 +173,7 @@ public class Card implements IIdentifiable
     @Override
     public String toString()
     {
-        return this.inlineDescription();
+        return this.getInlineDescription();
     }
 
     public Card setCollection(String collection)

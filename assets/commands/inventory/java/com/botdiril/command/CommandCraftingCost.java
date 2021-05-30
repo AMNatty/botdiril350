@@ -6,7 +6,7 @@ import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.ParType;
 import com.botdiril.framework.util.CommandAssert;
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.userdata.item.CraftingEntries;
 import com.botdiril.userdata.item.ItemDrops;
 import com.botdiril.userdata.item.ItemPair;
@@ -32,13 +32,13 @@ public class CommandCraftingCost
     }
 
     @CmdInvoke
-    public static void craft(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
+    public static void craft(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IGameObject item)
     {
         craft(co, item, 1);
     }
 
     @CmdInvoke
-    public static void craft(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar("count") long amount)
+    public static void craft(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IGameObject item, @CmdPar("count") long amount)
     {
         CommandAssert.numberInBoundsExclusiveL(amount, 0, Integer.MAX_VALUE, "Please select a number between 1 and Int32 max.");
 
@@ -51,6 +51,6 @@ public class CommandCraftingCost
         addComponents(totalDrops, recipe, amount);
 
         var needed = totalDrops.stream().map(ItemPair::toString).collect(Collectors.joining(", "));
-        co.respondf("It would cost **%s** to craft **%d %s**.", needed, amount, item.inlineDescription());
+        co.respondf("It would cost **%s** to craft **%d %s**.", needed, amount, item.getInlineDescription());
     }
 }

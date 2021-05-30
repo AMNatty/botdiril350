@@ -12,7 +12,6 @@ import com.botdiril.userdata.tempstat.Curser;
 import com.botdiril.userdata.timers.EnumTimer;
 import com.botdiril.userdata.timers.TimerUtil;
 import com.botdiril.util.BotdirilFmt;
-import com.botdiril.util.BotdirilRnd;
 
 @Command("woodcut")
 public class CommandWoodCut
@@ -45,13 +44,13 @@ public class CommandWoodCut
             case OLD_HOUSE -> co.respondf("You find a semi-demolished old house and after a short investigation you find **%s**.", drops.toStringJoined(", "));
             case NULL_USER -> {
                 co.respondf("You meet the legendary %s as he grants you **%s** and then teleports you to an unknown location.", NULL_USER, drops.toStringJoined(", "));
-                timerModifier = BotdirilRnd.RDG.nextUniform(2.0, 5.0);
+                timerModifier = co.rdg.nextUniform(2.0, 5.0);
             }
             case FOUND_MAX -> co.respondf("You notice an **%s unexpectly friedly dog** has been following you around. It doesn't have a name tag so you decide to take it with you for the time being.", Icons.OTHER_MAX);
             case CAUSED_WILDFIRE -> co.respondf("Due to recklessness, you cause half of the forest to burn down, leaving only **%s** behind.", drops.toStringJoined(", "));
             case FOUND_KEY -> co.respondf("While working, you notice an **%s old rusted key** laying around.", Icons.KEY);
             case ABANDONED_MINE -> co.respondf("You find an abandoned mine that has unfortunately collapsed. " +
-                                           "You grab some tools (**%s**) you find and leave wonderinng whether someone was trapped inside.",
+                                           "You grab some tools (**%s**) you find and leave wondering whether someone was trapped inside.",
                                                 drops.toStringJoined(", "));
             case NEARLY_KILLED_BY_WEREWOLF -> {
                 co.respond(":full_moon: You hear howling as you are approaching a small hill. " +

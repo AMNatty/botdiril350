@@ -20,7 +20,7 @@ public class CommandCoinFlip
     @CmdInvoke
     public static void roll(CommandContext co)
     {
-        co.respond(BotdirilRnd.RANDOM.nextBoolean() ? "**Heads.**" : "**Tails.**");
+        co.respond(co.random.nextBoolean() ? "**Heads.**" : "**Tails.**");
     }
 
     @CmdInvoke
@@ -37,11 +37,11 @@ public class CommandCoinFlip
 
         co.inventory.addXP(co, xp);
 
-        var rolled = BotdirilRnd.RANDOM.nextBoolean() ? EnumCoinSides.HEADS : EnumCoinSides.TAILS;
+        var rolled = co.random.nextBoolean() ? EnumCoinSides.HEADS : EnumCoinSides.TAILS;
 
         // Slightly offset the odds against the player to adjust for the jackpot
         var offsetChance = 0.95;
-        var offset = BotdirilRnd.rollChance(offsetChance);
+        var offset = BotdirilRnd.rollChance(co.rdg, offsetChance);
 
         if (rolled == EnumCoinSides.HEADS && offset)
         {

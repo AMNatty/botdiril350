@@ -35,7 +35,7 @@ public abstract class ItemCardPack extends Item implements IOpenable
     @Override
     public void open(CommandContext co, long amount)
     {
-        var fm = String.format("You open **%d %s** and get the following cards:", amount, this.inlineDescription());
+        var fm = String.format("You open **%d %s** and get the following cards:", amount, this.getInlineDescription());
         var sb = new StringBuilder();
 
         sb.append(fm);
@@ -66,7 +66,7 @@ public abstract class ItemCardPack extends Item implements IOpenable
             co.inventory.addCard(card, amt);
 
             if (i <= DISPLAY_LIMIT)
-                sb.append(String.format("\n%dx %s", amt, card.inlineDescription()));
+                sb.append(String.format("\n%dx %s", amt, card.getInlineDescription()));
 
             i++;
         }

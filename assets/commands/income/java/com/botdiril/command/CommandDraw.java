@@ -54,7 +54,7 @@ public class CommandDraw
             }
             else
             {
-                return String.format("**%s**", card.inlineDescription());
+                return String.format("**%s**", card.getInlineDescription());
             }
         }).collect(Collectors.joining(", ")));
 

@@ -72,7 +72,7 @@ public class CommandCardList
         }
 
         items.stream().sorted(cardSorting).skip(itemsPerPage * (page - 1)).limit(itemsPerPage).forEach(it ->
-            eb.addField(it.inlineDescription(), "**ID: **" + it.getName(), true));
+            eb.addField(it.getInlineDescription(), "**ID: **" + it.getName(), true));
 
 
         co.respond(eb);

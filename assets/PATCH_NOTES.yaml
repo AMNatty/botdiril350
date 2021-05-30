@@ -1,6 +1,6 @@
-latest: "350.9"
+latest: "350.8.4"
 patchList:
-  "350.9": |-
+  "350.8.4": |-
     * New: Added a new stat to track usages of `$woodcut`
     * Removed: Removed the "Times megakeks lost" stat as it no longer applies
     * Fix: Fixed a visual mistake where `$rich` would show Kek icons instead of Coins

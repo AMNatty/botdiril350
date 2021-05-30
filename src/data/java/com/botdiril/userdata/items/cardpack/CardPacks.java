@@ -1,10 +1,9 @@
 package com.botdiril.userdata.items.cardpack;
 
-import com.botdiril.userdata.pools.CardPools;
-import com.botdiril.userdata.tempstat.Curser;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.item.ShopEntries;
-import com.botdiril.util.BotdirilRnd;
+import com.botdiril.userdata.pools.CardPools;
+import com.botdiril.userdata.tempstat.Curser;
 
 public class CardPacks
 {
@@ -30,7 +29,7 @@ public class CardPacks
             final double CURSE_CHANCE = 0.2;
 
             for (int i = 0; i < amount; i++)
-                if (BotdirilRnd.RDG.nextUniform(0, 1) < CURSE_CHANCE)
+                if (co.rdg.nextUniform(0, 1) < CURSE_CHANCE)
                     Curser.curse(co);
 
         }, "For a very dangerous place the Void is, it contains some *awesome* loot. Open this pack at your own risk. It may turn into a Pandora's box.");

@@ -1,12 +1,12 @@
 package com.botdiril.userdata.item;
 
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 
 import java.util.*;
 
 public class CraftingEntries
 {
-    private static final Map<IIdentifiable, Recipe> recipeMap = new HashMap<>();
+    private static final Map<IGameObject, Recipe> recipeMap = new HashMap<>();
     private static final List<Recipe> recipes = new ArrayList<>();
 
     public static void add(Recipe recipe)
@@ -20,7 +20,7 @@ public class CraftingEntries
         return Collections.unmodifiableList(recipes);
     }
 
-    public static Recipe search(IIdentifiable result)
+    public static Recipe search(IGameObject result)
     {
         return recipeMap.get(result);
     }

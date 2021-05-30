@@ -1,13 +1,13 @@
 package com.botdiril.userdata.item;
 
 import com.botdiril.framework.command.context.CommandContext;
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.userdata.ItemLookup;
 import com.botdiril.util.BotdirilLog;
 
 import java.util.*;
 
-public class Item implements IIdentifiable
+public class Item implements IGameObject
 {
     private static final Map<String, Item> items = new HashMap<>();
 
@@ -108,7 +108,7 @@ public class Item implements IIdentifiable
     }
 
     @Override
-    public String inlineDescription()
+    public String getInlineDescription()
     {
         return this.getIcon() + " " + this.getLocalizedName();
     }
@@ -116,7 +116,7 @@ public class Item implements IIdentifiable
     @Override
     public String toString()
     {
-        return this.inlineDescription();
+        return this.getInlineDescription();
     }
 
     public ItemPair ofAmount(long amount)

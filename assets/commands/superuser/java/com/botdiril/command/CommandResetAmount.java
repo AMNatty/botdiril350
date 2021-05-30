@@ -15,7 +15,7 @@ public class CommandResetAmount
     {
         co.inventory.setItem(item, 0);
 
-        co.respondf("Reset **%s** to **0**!", item.inlineDescription());
+        co.respondf("Reset **%s** to **0**!", item.getInlineDescription());
     }
 
     @CmdInvoke
@@ -23,6 +23,6 @@ public class CommandResetAmount
     {
         player.inventory().setItem(item, 0);
 
-        co.respondf("Reset **%s's** **%s** to **0**!", player.getName(), item.inlineDescription());
+        co.respondf("Reset **%s's** **%s** to **0**!", player.getName(), item.getInlineDescription());
     }
 }

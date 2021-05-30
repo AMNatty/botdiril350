@@ -70,7 +70,7 @@ public class CommandRecipes
         {
             var components = recipe.components();
             var recipeParts = components.stream().map(ItemPair::toString).collect(Collectors.joining(" + "));
-            eb.addField(recipe.result().inlineDescription(), "**%s**".formatted(recipeParts), false);
+            eb.addField(recipe.result().getInlineDescription(), "**%s**".formatted(recipeParts), false);
         });
 
         if (co instanceof ChatCommandContext ccc)

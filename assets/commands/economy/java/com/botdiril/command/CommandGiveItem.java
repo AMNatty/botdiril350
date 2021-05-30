@@ -9,7 +9,7 @@ import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.command.invoke.ParType;
 import com.botdiril.framework.response.ResponseEmbed;
 import com.botdiril.framework.util.CommandAssert;
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.item.Item;
@@ -28,7 +28,7 @@ public class CommandGiveItem
     private static final int MAX_LEVEL_DIFF = 100;
 
     @CmdInvoke
-    public static void give(CommandContext co, @CmdPar(value = "player", type = ParType.ENTITY_NOT_SELF) EntityPlayer recipient, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
+    public static void give(CommandContext co, @CmdPar(value = "player", type = ParType.ENTITY_NOT_SELF) EntityPlayer recipient, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IGameObject item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't give zero items.");
 
@@ -47,7 +47,7 @@ public class CommandGiveItem
         eb.setAuthor(co.player.getTag(), null, co.player.getAvatarURL());
         eb.setTitle("Gift");
 
-        if (Curser.isCursed(co, EnumCurse.MAGNETIC) && BotdirilRnd.rollChance(0.5))
+        if (Curser.isCursed(co, EnumCurse.MAGNETIC) && BotdirilRnd.rollChance(co.rdg, 0.5))
         {
             eb.setTitle("*%s Yoink!*".formatted(Icons.SCROLL_UNIQUE));
             recipient = co.botPlayer;
@@ -64,7 +64,7 @@ public class CommandGiveItem
             recipientUI.addCard(card, amount);
         }
 
-        eb.setDescription(String.format("You gave **%s** %s.", recipient.getMention(), BotdirilFmt.amountOfMD(amount, item.inlineDescription())));
+        eb.setDescription(String.format("You gave **%s** %s.", recipient.getMention(), BotdirilFmt.amountOfMD(amount, item.getInlineDescription())));
         eb.setThumbnail(recipient.getAvatarURL());
         eb.setColor(0x008080);
 
@@ -72,7 +72,7 @@ public class CommandGiveItem
     }
 
     @CmdInvoke
-    public static void giveOne(CommandContext co, @CmdPar("player") EntityPlayer recipient, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
+    public static void giveOne(CommandContext co, @CmdPar("player") EntityPlayer recipient, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IGameObject item)
     {
         if (item instanceof Item iitem)
         {

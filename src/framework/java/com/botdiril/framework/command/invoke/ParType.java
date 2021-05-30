@@ -1,13 +1,13 @@
 package com.botdiril.framework.command.invoke;
 
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.framework.EntityPlayer;
 
 public enum ParType
 {
     /** Any parameter class type */
     BASIC,
-    /** {@link IIdentifiable} only */
+    /** {@link IGameObject} only */
     ITEM_OR_CARD,
     /** {@link Long}/<code>long</code> only */
     AMOUNT_COINS,

@@ -7,7 +7,7 @@ import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.command.invoke.ParType;
 import com.botdiril.framework.util.CommandAssert;
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.item.Item;
@@ -18,13 +18,13 @@ import com.botdiril.util.BotdirilFmt;
 public class CommandDisenchant
 {
     @CmdInvoke
-    public static void dust(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
+    public static void dust(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IGameObject item)
     {
         dust(co, item, 1);
     }
 
     @CmdInvoke
-    public static void dust(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
+    public static void dust(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IGameObject item, @CmdPar(value = "amount", type = ParType.AMOUNT_ITEM_OR_CARD) long amount)
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't disenchant zero items / cards.");
 

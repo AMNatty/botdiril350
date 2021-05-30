@@ -51,6 +51,6 @@ public class CommandDisenchantExtras
 
         co.respond(String.format("*Disenchanted **%s %s cards** for **%s %s**.*",
             BotdirilFmt.format(cards.get()), Icons.CARDS,
-            BotdirilFmt.format(dust.get()), Items.dust.inlineDescription()));
+            BotdirilFmt.format(dust.get()), Items.dust.getInlineDescription()));
     }
 }

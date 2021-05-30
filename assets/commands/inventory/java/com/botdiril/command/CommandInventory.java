@@ -122,7 +122,7 @@ public class CommandInventory
         eb.appendDescription(String.format("\nPage %d/%d", page, pageCount));
 
         isc.sorted(valueComparator).skip((page - 1) * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE).forEach(ip ->
-            eb.addField(ip.getItem().inlineDescription(), String.format("Amount: **%s**\nID: **%s**", BotdirilFmt.format(ip.getAmount()), ip.getItem().getName()), true));
+            eb.addField(ip.getItem().getInlineDescription(), String.format("Amount: **%s**\nID: **%s**", BotdirilFmt.format(ip.getAmount()), ip.getItem().getName()), true));
 
         if (co instanceof ChatCommandContext ccc)
             eb.setFooter("Use `%s%s %s <page>` to go to another page.".formatted(ccc.usedPrefix, ccc.usedAlias, ccc.player.getMention()), null);

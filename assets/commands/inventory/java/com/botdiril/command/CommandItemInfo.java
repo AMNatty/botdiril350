@@ -23,7 +23,7 @@ public class CommandItemInfo
     public static void show(CommandContext co, @CmdPar("item") Item item)
     {
         var eb = new ResponseEmbed();
-        eb.setTitle(item.inlineDescription());
+        eb.setTitle(item.getInlineDescription());
         eb.setDescription(item.getDescription());
         eb.setColor(0x008080);
 

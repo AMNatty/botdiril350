@@ -78,7 +78,7 @@ public class Crates
             final int contents = 11;
             final double emptyChance = 0.45;
 
-            if (!BotdirilRnd.rollChance(emptyChance))
+            if (!BotdirilRnd.rollChance(co.rdg, emptyChance))
                 id.addFromPool(CratePools.infernalCrate, contents);
 
         }, "This crate in a quantum superposition of being empty or full at one time. The only way to check is to look inside.");
@@ -89,7 +89,7 @@ public class Crates
         crateHyper = new ItemCrateGeneric("hypercrate", Icons.CRATE_HYPER, "Hyper Crate", 8, CratePools.hyperCrate, (co) -> {
             final double BLESS_CHANCE = 0.3;
 
-            if (BotdirilRnd.RDG.nextUniform(0, 1) < BLESS_CHANCE)
+            if (co.rdg.nextUniform(0, 1) < BLESS_CHANCE)
                 Curser.bless(co);
 
         }, "This crate has been so overpowered that even when the universe reached heat death, this crate was overflowing with energy.");
@@ -100,7 +100,7 @@ public class Crates
         crateInfernal = new ItemCrateGeneric("infernalcrate", Icons.CRATE_INFERNAL, "Infernal Crate", 8, CratePools.infernalCrate, (co) -> {
             final double CURSE_CHANCE = 0.3;
 
-            if (BotdirilRnd.RDG.nextUniform(0, 1) < CURSE_CHANCE)
+            if (BotdirilRnd.rdg().nextUniform(0, 1) < CURSE_CHANCE)
                 Curser.curse(co);
 
         }, "This crate, forged in the depths of hell, will have the items that everyone would like to have. It might curse you, so be careful.");

@@ -32,6 +32,8 @@ public class CommandExecuteAs
         cobj.bot = co.bot;
         cobj.usedAlias = co.usedAlias;
         cobj.usedPrefix = co.usedPrefix;
+        cobj.random = co.random;
+        cobj.rdg = co.rdg;
 
         co.respondf("Executing `%s` as `%s`.", command, member.getEffectiveName());
         co.send();

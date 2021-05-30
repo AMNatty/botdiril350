@@ -9,13 +9,14 @@ public class DailyRewards
     {
         var lvldata = XPRewards.getLevel(level);
 
-        var xp = Math.round(BotdirilRnd.RANDOM.nextDouble() * (lvldata.getDailyMax() - lvldata.getDailyMin()) + lvldata.getDailyMin());
+        var xp = Math.round(BotdirilRnd.random().nextDouble() * (lvldata.getDailyMax() - lvldata.getDailyMin()) + lvldata.getDailyMin());
+        var rdg = BotdirilRnd.rdg();
 
         var levelScalingCoins = Math.pow(level, 1.6);
-        var coins = BotdirilRnd.RDG.nextLong(Math.round(200 + levelScalingCoins * 100), Math.round(300 + levelScalingCoins * 150));
+        var coins = rdg.nextLong(Math.round(200 + levelScalingCoins * 100), Math.round(300 + levelScalingCoins * 150));
 
         var levelScalingKeks = Math.pow(level, 1.8);
-        var keks = BotdirilRnd.RDG.nextLong(Math.round(2000 + levelScalingKeks * 1000), Math.round(10000 + levelScalingKeks * 3000));
+        var keks = rdg.nextLong(Math.round(2000 + levelScalingKeks * 1000), Math.round(10000 + levelScalingKeks * 3000));
 
         var keys = level > 100 ? 5 : 3;
 

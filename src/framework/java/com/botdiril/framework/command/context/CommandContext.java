@@ -8,6 +8,9 @@ import com.botdiril.userdata.UserInventory;
 import com.botdiril.userdata.properties.PropertyObject;
 import com.google.errorprone.annotations.FormatMethod;
 import com.google.errorprone.annotations.FormatString;
+import org.apache.commons.math3.random.RandomDataGenerator;
+
+import java.util.Random;
 
 public abstract class CommandContext
 {
@@ -15,6 +18,9 @@ public abstract class CommandContext
     public UserInventory inventory;
     public PropertyObject userProperties;
     public EntityPlayer player;
+
+    public Random random;
+    public RandomDataGenerator rdg;
 
     public EntityPlayer botPlayer;
     public String botIconURL;
@@ -58,7 +64,10 @@ public abstract class CommandContext
         this.clearResponse();
     }
 
-    public abstract IResponse getDefaultResponse();
+    public IResponse getDefaultResponse()
+    {
+        return this.response;
+    }
 
     public abstract IResponse createResponse();
 }

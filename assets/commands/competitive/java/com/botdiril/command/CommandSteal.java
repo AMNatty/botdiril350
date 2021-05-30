@@ -46,13 +46,13 @@ public class CommandSteal
 
         var maxSteal = Math.round(Math.pow(userLevel * 100, 1.8) * lvlMod);
 
-        var mod = BotdirilRnd.RANDOM.nextDouble() * 0.8 - 0.4;
+        var mod = co.random.nextDouble() * 0.8 - 0.4;
 
         var otherProps = new PropertyObject(co.db, other.getFID());
 
         if (Curser.isCursed(otherProps, EnumCurse.EASIER_TO_ROB))
         {
-            mod = BotdirilRnd.RANDOM.nextDouble() * 0.6 - 0.2;
+            mod = co.random.nextDouble() * 0.6 - 0.2;
         }
 
         if (Curser.isBlessed(otherProps, EnumBlessing.STEAL_IMMUNE))
@@ -81,7 +81,7 @@ public class CommandSteal
             mod = Math.abs(mod);
         }
 
-        if (Curser.isBlessed(co, EnumBlessing.PICKPOCKET) && BotdirilRnd.rollChance(0.5))
+        if (Curser.isBlessed(co, EnumBlessing.PICKPOCKET) && BotdirilRnd.rollChance(co.rdg, 0.5))
         {
             maxSteal *= 100;
         }
@@ -107,7 +107,7 @@ public class CommandSteal
             otherProps.incrementStat(EnumStat.TIMES_ROBBED);
         }
 
-        var xp = Math.round(BotdirilRnd.RANDOM.nextDouble() * (lvlData.getDailyMax() - lvlData.getDailyMin()) + lvlData.getDailyMin()) / 15;
+        var xp = Math.round(co.random.nextDouble() * (lvlData.getDailyMax() - lvlData.getDailyMin()) + lvlData.getDailyMin()) / 15;
         eb.addField("Rewards", BotdirilFmt.amountOfMD(xp, Icons.XP), false);
         co.inventory.addXP(co, xp);
 

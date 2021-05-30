@@ -5,7 +5,7 @@ import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.response.ResponseEmbed;
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.item.Item;
@@ -18,7 +18,7 @@ import java.util.Comparator;
 @Command("kekshop")
 public class CommandTokenShop
 {
-    private static void addItems(ResponseEmbed eb, IIdentifiable item)
+    private static void addItems(ResponseEmbed eb, IGameObject item)
     {
         if (!ShopEntries.canBeBoughtForTokens(item))
         {
@@ -30,7 +30,7 @@ public class CommandTokenShop
         **Price:**: %s
         """.formatted(item.getName(), BotdirilFmt.amountOfMD(ShopEntries.getTokenPrice(item), Icons.TOKEN));
 
-        eb.addField(item.inlineDescription(), sub, true);
+        eb.addField(item.getInlineDescription(), sub, true);
     }
 
     @CmdInvoke

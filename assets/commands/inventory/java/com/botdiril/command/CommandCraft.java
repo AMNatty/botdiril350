@@ -7,7 +7,7 @@ import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.command.invoke.ParType;
 import com.botdiril.framework.util.CommandAssert;
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.item.CraftingEntries;
 import com.botdiril.userdata.item.Item;
@@ -27,13 +27,13 @@ import java.util.stream.Collectors;
 public class CommandCraft
 {
     @CmdInvoke
-    public static void craft(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item)
+    public static void craft(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IGameObject item)
     {
         craft(co, item, 1);
     }
 
     @CmdInvoke
-    public static void craft(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable item, @CmdPar(value = "amount") long amount)
+    public static void craft(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IGameObject item, @CmdPar(value = "amount") long amount)
     {
         CommandAssert.numberMoreThanZeroL(amount, "You can't craft zero items / cards.");
 
@@ -67,7 +67,7 @@ public class CommandCraft
 
         var craftingSurgeActivated = false;
 
-        if (Curser.isBlessed(co, EnumBlessing.CRAFTING_SURGE) && BotdirilRnd.rollChance(0.2))
+        if (Curser.isBlessed(co, EnumBlessing.CRAFTING_SURGE) && BotdirilRnd.rollChance(co.rdg, 0.2))
         {
             craftingSurgeActivated = true;
         }
@@ -78,7 +78,7 @@ public class CommandCraft
 
         var ingr = components.stream().map(ip -> BotdirilFmt.amountOfMD(ip.getAmount() * amount, ip.getItem())).collect(Collectors.joining(", "));
 
-        if (Curser.isCursed(co, EnumCurse.CRAFTING_MAY_FAIL) && BotdirilRnd.RDG.nextUniform(0, 1) < 0.2)
+        if (Curser.isCursed(co, EnumCurse.CRAFTING_MAY_FAIL) && co.rdg.nextUniform(0, 1) < 0.2)
         {
             if (craftingSurgeActivated)
             {
@@ -107,11 +107,11 @@ public class CommandCraft
 
         if (craftingSurgeActivated)
         {
-            co.respondf("You crafted %s out of **%s thin air**.", BotdirilFmt.amountOfMD(product, item.inlineDescription()), Scrolls.scrollOfBlessing.getIcon());
+            co.respondf("You crafted %s out of **%s thin air**.", BotdirilFmt.amountOfMD(product, item.getInlineDescription()), Scrolls.scrollOfBlessing.getIcon());
         }
         else
         {
-            co.respondf("You crafted %s from %s.", BotdirilFmt.amountOfMD(product, item.inlineDescription()), ingr);
+            co.respondf("You crafted %s from %s.", BotdirilFmt.amountOfMD(product, item.getInlineDescription()), ingr);
         }
     }
 }

@@ -5,7 +5,7 @@ import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.ParType;
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 import com.botdiril.userdata.card.Card;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.util.BotdirilFmt;
@@ -14,7 +14,7 @@ import com.botdiril.util.BotdirilFmt;
 public class CommandHowManyOf
 {
     @CmdInvoke
-    public static void count(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IIdentifiable thing)
+    public static void count(CommandContext co, @CmdPar(value = "item or card", type = ParType.ITEM_OR_CARD) IGameObject thing)
     {
         long count;
 
@@ -33,6 +33,6 @@ public class CommandHowManyOf
         }
 
         var countStr = count <= 0 ? "no" : BotdirilFmt.format(count);
-        co.respondf("You have %s.", BotdirilFmt.amountOfMD(countStr, thing.inlineDescription()));
+        co.respondf("You have %s.", BotdirilFmt.amountOfMD(countStr, thing.getInlineDescription()));
     }
 }

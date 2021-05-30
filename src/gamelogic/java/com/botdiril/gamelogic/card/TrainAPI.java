@@ -1,5 +1,6 @@
 package com.botdiril.gamelogic.card;
 
+import com.botdiril.gamelogic.GameAPI;
 import com.botdiril.gamelogic.weighted.IWeightedRandom;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.items.Items;
@@ -8,7 +9,7 @@ import com.botdiril.userdata.items.scrolls.Scrolls;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class TrainAPI
+public class TrainAPI extends GameAPI
 {
     public static final Map<Item, Long> TRAINING_ITEMS = new LinkedHashMap<>();
 

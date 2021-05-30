@@ -1,10 +1,11 @@
 package com.botdiril.gamelogic.gamble;
 
+import com.botdiril.gamelogic.GameAPI;
 import com.botdiril.gamelogic.weighted.IWeightedRandom;
 
 import java.util.function.LongUnaryOperator;
 
-public class GambleAPI
+public class GambleAPI extends GameAPI
 {
     public static final LongUnaryOperator JACKPOT_POOL_CONVERSION = keks -> keks / 8;
     public static final LongUnaryOperator JACKPOT_STORE_CONVERSION = keks -> keks / 25;

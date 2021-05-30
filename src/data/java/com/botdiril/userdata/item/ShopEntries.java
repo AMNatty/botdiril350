@@ -1,6 +1,6 @@
 package com.botdiril.userdata.item;
 
-import com.botdiril.userdata.IIdentifiable;
+import com.botdiril.userdata.IGameObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,12 +25,12 @@ public class ShopEntries
         sellsCoins.put(item.getID(), amount);
     }
 
-    public static void addDisenchant(IIdentifiable item, long amount)
+    public static void addDisenchant(IGameObject item, long amount)
     {
         yieldsDust.put(item.getID(), amount);
     }
 
-    public static void addTokenBuy(IIdentifiable item, long amount)
+    public static void addTokenBuy(IGameObject item, long amount)
     {
         buysTokens.put(item.getID(), amount);
     }
@@ -47,34 +47,34 @@ public class ShopEntries
         return sellsCoins.containsKey(item.getID());
     }
 
-    public static boolean canBeBoughtForTokens(IIdentifiable item)
+    public static boolean canBeBoughtForTokens(IGameObject item)
     {
         return buysTokens.containsKey(item.getID());
     }
 
-    public static boolean canBeDisenchanted(IIdentifiable item)
+    public static boolean canBeDisenchanted(IGameObject item)
     {
         return yieldsDust.containsKey(item.getID());
     }
 
     // RETRIEVING
 
-    public static Long getCoinPrice(IIdentifiable item)
+    public static Long getCoinPrice(IGameObject item)
     {
         return buysCoins.get(item.getID());
     }
 
-    public static Long getDustForDisenchanting(IIdentifiable item)
+    public static Long getDustForDisenchanting(IGameObject item)
     {
         return yieldsDust.get(item.getID());
     }
 
-    public static Long getSellValue(IIdentifiable item)
+    public static Long getSellValue(IGameObject item)
     {
         return sellsCoins.get(item.getID());
     }
 
-    public static Long getTokenPrice(IIdentifiable item)
+    public static Long getTokenPrice(IGameObject item)
     {
         return buysTokens.get(item.getID());
     }

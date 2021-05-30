@@ -1,5 +1,6 @@
 package com.botdiril.gamelogic.woodcut;
 
+import com.botdiril.gamelogic.GameAPI;
 import com.botdiril.gamelogic.weighted.IWeightedRandom;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ItemDrops;
@@ -11,7 +12,7 @@ import com.botdiril.userdata.pools.PoolDrawer;
 import com.botdiril.userdata.xp.XPRewards;
 import com.botdiril.util.BotdirilRnd;
 
-public class WoodCutAPI
+public class WoodCutAPI extends GameAPI
 {
     private static final PoolDrawer<Item> SCROLL_POOL = new PoolDrawer<>();
 
@@ -72,7 +73,7 @@ public class WoodCutAPI
             case CAUSED_WILDFIRE:
                 multiplier = EnumWoodCutOutcome.EnumWoodCutYield.NOTHING;
                 earnedWood = 0;
-                drops.addItem(Items.ash, BotdirilRnd.RDG.nextLong(3, 8));
+                drops.addItem(Items.ash, BotdirilRnd.rdg().nextLong(3, 8));
                 break;
 
             case NULL_USER:
@@ -97,13 +98,13 @@ public class WoodCutAPI
         var base = 5;
         var levelMultiplier = Math.pow((5.0 + level) / 5.0, 2.0);
         var mean = base * multiplier.getModifier() * levelMultiplier;
-        return Math.round(BotdirilRnd.RDG.nextGamma(mean, 0.5));
+        return Math.round(BotdirilRnd.rdg().nextGamma(mean, 0.5));
     }
 
     private static long getXP(int level)
     {
         var base = 100 + XPRewards.getXPAtLevel(level) * Math.pow(10, -Math.log10(20 + level) * 1.05) * 4.0;
-        var amt = BotdirilRnd.RDG.nextGaussian(base, base / 32.0);
+        var amt = BotdirilRnd.rdg().nextGaussian(base, base / 32.0);
         return Math.round(amt);
     }
 }

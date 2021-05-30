@@ -64,7 +64,7 @@ public abstract class ItemCrate extends Item implements IOpenable
 
             if (i <= displayLimit)
             {
-                sb.append(String.format("\n%sx %s", BotdirilFmt.format(amt), item.inlineDescription()));
+                sb.append(String.format("\n%sx %s", BotdirilFmt.format(amt), item.getInlineDescription()));
             }
 
             i++;

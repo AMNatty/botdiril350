@@ -16,7 +16,7 @@ public class CommandAddItem
     {
         co.inventory.addItem(item, 1);
 
-        co.respondf("Added **%d %s**!", 1, item.inlineDescription());
+        co.respondf("Added **%d %s**!", 1, item.getInlineDescription());
     }
 
     @CmdInvoke
@@ -26,7 +26,7 @@ public class CommandAddItem
 
         co.inventory.addItem(item, howmany);
 
-        co.respondf("Added **%d %s**!", howmany, item.inlineDescription());
+        co.respondf("Added **%d %s**!", howmany, item.getInlineDescription());
     }
 
     @CmdInvoke
@@ -36,6 +36,6 @@ public class CommandAddItem
 
         player.inventory().addItem(item, howmany);
 
-        co.respondf("Added **%d %s** to %s's inventory!", howmany, item.inlineDescription(), player.getMention());
+        co.respondf("Added **%d %s** to %s's inventory!", howmany, item.getInlineDescription(), player.getMention());
     }
 }

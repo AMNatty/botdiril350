@@ -34,7 +34,7 @@ public interface IWeightedRandom<E extends Enum<E> & IWeightedRandom<E>>
 
         do
         {
-            var rolledValue = BotdirilRnd.RDG.nextUniform(0, getCumulativeWeight(enumClass));
+            var rolledValue = BotdirilRnd.rdg().nextUniform(0, getCumulativeWeight(enumClass));
 
             for (var enumConstant : ec)
             {

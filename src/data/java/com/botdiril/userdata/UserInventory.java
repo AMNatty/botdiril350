@@ -503,7 +503,7 @@ public abstract class UserInventory
 
         if (newLevel > lvl)
         {
-            co.respond(String.format("*Your **%s** advanced to **level %d**: **%s**!*", card.inlineDescription(), newLevel, tier.getLocalizedName()));
+            co.respond(String.format("*Your **%s** advanced to **level %d**: **%s**!*", card.getInlineDescription(), newLevel, tier.getLocalizedName()));
         }
     }
 
