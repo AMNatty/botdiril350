@@ -1,5 +1,6 @@
 package com.botdiril.userdata;
 
+import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.CommandManager;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.sql.DBConnection;
@@ -429,7 +430,7 @@ public abstract class UserInventory
                 %s
                 **You unlocked the following commands:**
                 %s
-                """, newLevel, rw, cmds.stream().map("  `%s`"::formatted).collect(Collectors.joining("\n")));
+                """, newLevel, rw, cmds.stream().map(Command::value).map("  `%s`"::formatted).collect(Collectors.joining("\n")));
             }
             else
             {
