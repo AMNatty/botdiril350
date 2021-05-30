@@ -1,5 +1,8 @@
-latest: "350.8.5"
+latest: "350.9"
 patchList:
+  "350.9": |-
+
+
   "350.8.5": |-
     * Fix: Fixed a problem where the `$inventory` command shadowed the `inventory` category in `$help`
     * Fix: Fixed command names in level-up messages
