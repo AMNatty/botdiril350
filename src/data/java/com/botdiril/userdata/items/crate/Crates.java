@@ -49,7 +49,7 @@ public class Crates
 
 
         crateEpic = new ItemCrateGeneric("epiccrate", Icons.CRATE_EPIC, "Epic Crate",
-            8, CratePools.basicCrate, "No. Just because it has epic in the name, it doesn't mean it contains Fortnite skins.");
+            8, CratePools.epicCrate, "No. Just because it has epic in the name, it doesn't mean it contains Fortnite skins.");
         ShopEntries.addCoinBuy(crateEpic, 360_000);
         ShopEntries.addCoinSell(crateEpic, 72_000);
         ShopEntries.addTokenBuy(crateEpic, 4_500);

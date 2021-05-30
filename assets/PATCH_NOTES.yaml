@@ -3,6 +3,7 @@ patchList:
   "350.8.4": |-
     * New: Added a new stat to track usages of `$woodcut`
     * Removed: Removed the "Times megakeks lost" stat as it no longer applies
+    * Fix: Fixed a bug where Epic Crate used the Basic Crate pool
     * Fix: Fixed a visual mistake where `$rich` would show Kek icons instead of Coins
     * Fix: Fixed a very sneaky bug in `$collection`
     * Fix: Cleaned up level-up rewards formatting
