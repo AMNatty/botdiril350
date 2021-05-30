@@ -1,5 +1,8 @@
-latest: "350.8.4"
+latest: "350.9"
 patchList:
+  "350.9": |-
+    * Fixed command names in level-up messages
+
   "350.8.4": |-
     * New: Added a new stat to track usages of `$woodcut`
     * Removed: Removed the "Times megakeks lost" stat as it no longer applies
