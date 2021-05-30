@@ -7,7 +7,7 @@ patchList:
     * Fix: Fixed a visual mistake where `$rich` would show Kek icons instead of Coins
     * Fix: Fixed a very sneaky bug in `$collection`
     * Fix: Cleaned up level-up rewards formatting
-    * Fix: The result `$exec` now gets properly sent again
+    * Fix: The result of `$exec` now gets properly sent again
 
   "350.8.3": |-
     * Added Prismatic Oil
