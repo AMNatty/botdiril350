@@ -1,4 +1,4 @@
-name: Inventory commands
+name: Item and card related commands
 commands:
   inventory:
     aliases: [inv, i]

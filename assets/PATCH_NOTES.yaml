@@ -1,7 +1,8 @@
-latest: "350.9"
+latest: "350.8.5"
 patchList:
-  "350.9": |-
-    * Fixed command names in level-up messages
+  "350.8.5": |-
+    * Fix: Fixed a problem where the `$inventory` command shadowed the `inventory` category in `$help`
+    * Fix: Fixed command names in level-up messages
 
   "350.8.4": |-
     * New: Added a new stat to track usages of `$woodcut`

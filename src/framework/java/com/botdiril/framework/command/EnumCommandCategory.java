@@ -18,7 +18,7 @@ public enum EnumCommandCategory
     GAMBLING,
     GENERAL,
     INCOME,
-    INVENTORY,
+    ITEMS,
     SUPERUSER;
 
     private final CategoryInfo info;
