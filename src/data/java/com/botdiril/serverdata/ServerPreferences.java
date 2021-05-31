@@ -90,9 +90,9 @@ public class ServerPreferences
         db.simpleUpdate("INSERT INTO " + PREF_TABLE + "(sc_guild, sc_logchannel) VALUES (?, ?)", sc.getServerID(), sc.getLoggingChannel());
 
         pc.sendMessage("""
-            Hello! This is %s! Please set a prefix via `%sprefix <prefix>`.
-            You can change it later.
-            To set a logging channel please use `%schannel <log channel>`.
+        Hello! This is %s! Please set a prefix via `%sprefix <prefix>`.
+        You can change it later.
+        To set a logging channel please use `%schannel <log channel>`.
         """.formatted(Botdiril.BRANDING, BotdirilConfig.UNIVERSAL_PREFIX, BotdirilConfig.UNIVERSAL_PREFIX)).submit();
     }
 }

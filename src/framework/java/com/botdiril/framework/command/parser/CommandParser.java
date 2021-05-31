@@ -1,11 +1,10 @@
 package com.botdiril.framework.command.parser;
 
-import com.botdiril.framework.command.*;
 import com.botdiril.discord.framework.command.context.DiscordCommandContext;
+import com.botdiril.framework.command.*;
 import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.command.invoke.CommandException;
 import com.botdiril.framework.permission.EnumPowerLevel;
-import com.botdiril.framework.sql.DBException;
 import com.botdiril.serverdata.ChannelPreferences;
 import com.botdiril.userdata.stat.EnumStat;
 import com.botdiril.util.BotdirilLog;
@@ -68,7 +67,9 @@ public class CommandParser
             return true;
         }
 
-        if (co.inventory.getLevel() < info.levelLock() && !(EnumPowerLevel.SUPERUSER_OVERRIDE.check(co.db, co.callerMember, co.textChannel) || EnumPowerLevel.VIP.check(co.db, co.callerMember, co.textChannel)))
+        boolean bypassesLevels = EnumPowerLevel.SUPERUSER_OVERRIDE.check(co.db, co.callerMember, co.textChannel) || EnumPowerLevel.VIP.check(co.db, co.callerMember, co.textChannel);
+
+        if (co.inventory.getLevel() < info.levelLock() && !bypassesLevels)
         {
             co.respond(String.format("You need at least level **%d** to do this.", info.levelLock()));
 
@@ -95,9 +96,11 @@ public class CommandParser
 
                 for (int i = 1; i < argArr.length; i++)
                 {
-                    var parameter = parameters.get(i - 1);
+                    var paramIdx = i - 1;
+
+                    var parameter = parameters.get(paramIdx);
                     var clazz = parameter.getType();
-                    var arg = args.get(i - 1);
+                    var arg = args.get(paramIdx);
                     var ant = parameter.getAnnotation(CmdPar.class);
                     var type = ant.type();
 
@@ -126,21 +129,21 @@ public class CommandParser
                 }
                 catch (InvocationTargetException e)
                 {
-                    if (e.getCause() instanceof CommandException)
+                    co.db.rollback();
+                    co.clearResponse();
+
+                    var cause = e.getCause();
+                    if (cause instanceof CommandException)
                     {
-                        co.db.rollback();
-                        co.clearResponse();
-                        co.respond(e.getCause().getMessage());
-                        return false;
+                        co.respond(cause.getMessage());
                     }
                     else
                     {
-                        co.db.rollback();
-                        co.clearResponse();
                         co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
-                        BotdirilLog.logger.fatal("An exception has occured while invoking a command.", e.getCause());
-                        return false;
+                        BotdirilLog.logger.fatal("An exception has occured while invoking a command.", cause);
                     }
+
+                    return false;
                 }
             }
             catch (CommandException e)
@@ -153,14 +156,6 @@ public class CommandParser
                 else
                     co.respond(e.getMessage());
 
-                return false;
-            }
-            catch (DBException e)
-            {
-                co.db.rollback();
-                co.clearResponse();
-                co.respond("**An error has occured while processing the command.**\nPlease report this to the bot owner.");
-                BotdirilLog.logger.fatal("A database error has occured while invoking a command.", e);
                 return false;
             }
             catch (Exception e)

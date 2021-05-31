@@ -86,6 +86,7 @@ public class ResponseEmbed
         if (this.description == null)
         {
             this.description = new StringBuilder(description);
+            return this;
         }
 
         this.description.append(description);
