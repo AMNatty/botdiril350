@@ -4,11 +4,13 @@ import com.botdiril.discord.framework.command.context.DiscordCommandContext;
 import com.botdiril.framework.command.Command;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.command.invoke.CmdPar;
+import com.botdiril.framework.permission.EnumPowerLevel;
 import com.botdiril.framework.permission.PowerLevel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 
 import java.time.Instant;
+import java.util.Comparator;
 
 @Command("powers")
 public class CommandMyPowers
@@ -36,7 +38,10 @@ public class CommandMyPowers
         eb.setFooter("User ID: " + user.getUser().getIdLong(), null);
         eb.setTimestamp(Instant.now());
 
-        PowerLevel.getCumulativePowers(co.db, user, co.textChannel).forEach(c -> eb.addField(c.toString(), c.getDescription(), false));
+        PowerLevel.getCumulativePowers(co.db, user, co.textChannel)
+            .stream()
+            .sorted(Comparator.comparing(EnumPowerLevel::toString))
+            .forEach(c -> eb.addField(c.toString(), c.getDescription(), false));
 
         co.respond(eb);
     }
