@@ -1,7 +1,7 @@
 latest: "350.9"
 patchList:
   "350.9": |-
-    * New: Meson now *replies* to messages wherever possible
+    * **New: Meson now *replies* to messages wherever possible**
     * New: Added a new blessing that increases woodcutting yields by 300%, outcome odds are mostly unaffected
       * Does not apply the rare drops
     * New: Added a new curse that reduces woodcutting yields by 50%, outcome odds are mostly unaffected
@@ -22,6 +22,7 @@ patchList:
     * Removed: Removed the "Cursed MegaKeks" curse
     * Fix: You can now `$smith` multiple pickaxes at once
     * Fix: Fixed several broken messages
+    * Removed: Scala libraries to avoid unnecessary complexity
 
   "350.8.5": |-
     * Fix: Fixed a problem where the `$inventory` command shadowed the `inventory` category in `$help`
