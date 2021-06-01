@@ -15,8 +15,8 @@ public class DailyRewards
         var levelScalingCoins = Math.pow(level, 1.6);
         var coins = rdg.nextLong(Math.round(200 + levelScalingCoins * 100), Math.round(300 + levelScalingCoins * 150));
 
-        var levelScalingKeks = Math.pow(level, 1.8);
-        var keks = rdg.nextLong(Math.round(2000 + levelScalingKeks * 1000), Math.round(10000 + levelScalingKeks * 3000));
+        var levelScalingKeks = Math.pow(level, 1.6);
+        var keks = rdg.nextLong(Math.round(2000 + levelScalingKeks * 800), Math.round(10000 + levelScalingKeks * 2000));
 
         var keys = level > 100 ? 5 : 3;
 

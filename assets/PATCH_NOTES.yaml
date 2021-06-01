@@ -2,6 +2,18 @@ latest: "350.9"
 patchList:
   "350.9": |-
     * New: Meson now *replies* to messages wherever possible
+    * New: Added a new blessing that increases woodcutting yields by 300%, outcome odds are mostly unaffected
+      * Does not apply the rare drops
+    * New: Added a new curse that reduces woodcutting yields by 50%, outcome odds are mostly unaffected
+      * Does not apply the rare drops
+    * Modified the Pickaxe I/V/X/XV recipes: Now requires 50/500/5000/50000 => 20/300/4000/50000 wood
+    * Mining without a repair kit now yields less insane amounts of XP (only 50-70% more or so) and slightly less rare drops
+    * Reduced the amount of keks gained from level-ups by 50%
+    * Reduced the amount of previous-level pickaxes needed to smith a higher level pickaxe to 8
+    * Reduced the amount of keks gained from `$daily`
+    * Removed: Removed the "Blessed MegaKeks" blessing
+    * Removed: Removed the "Cursed MegaKeks" curse
+    * Fix: You can now `$smith` multiple pickaxes at once
     * Fix: Fixed several broken messages
 
   "350.8.5": |-

@@ -154,10 +154,10 @@ public class CommandCompiler
 
     private static void compileFiles(List<StringJavaFileObject> files) throws ClassNotFoundException
     {
-        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        var compiler = ToolProvider.getSystemJavaCompiler();
 
         var standardFileManager = compiler.getStandardFileManager(null, null, StandardCharsets.UTF_8);
-        ClassFileManager fileManager = new ClassFileManager(standardFileManager);
+        var fileManager = new ClassFileManager(standardFileManager);
 
         var compileTask = compiler.getTask(null, fileManager, null, null, null, files);
         compileTask.call();

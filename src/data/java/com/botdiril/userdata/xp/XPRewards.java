@@ -37,7 +37,7 @@ public class XPRewards
 
     private static void generateLootForLevel(int level, ItemDrops loot)
     {
-        loot.addItem(Items.keks, Math.round(Math.pow(level, 1.85) * 1000.0));
+        loot.addItem(Items.keks, Math.round(Math.pow(level, 1.85) * 500.0));
 
         if (level <= 5)
             loot.addItem(CardPacks.cardPackBasic);

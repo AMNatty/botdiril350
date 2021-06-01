@@ -7,7 +7,6 @@ import com.botdiril.framework.command.invoke.CmdPar;
 import com.botdiril.framework.util.CommandAssert;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ItemAssert;
-import com.botdiril.userdata.item.ItemPair;
 import com.botdiril.userdata.items.Items;
 import com.botdiril.userdata.items.pickaxe.ItemPickaxe;
 import com.botdiril.util.BotdirilFmt;
@@ -15,10 +14,10 @@ import com.botdiril.util.BotdirilFmt;
 @Command("smith")
 public class CommandSmith
 {
-    public static final int SMITH_CONVERSION = 10;
+    public static final long SMITH_CONVERSION = 8;
 
     @CmdInvoke
-    public static void smith(CommandContext co, @CmdPar("pickaxe to smith") Item item)
+    public static void smith(CommandContext co, @CmdPar("pickaxe to smith") Item item, @CmdPar("amount") int amount)
     {
         CommandAssert.assertTrue(item instanceof ItemPickaxe, "That's not a valid pickaxe.");
 
@@ -27,13 +26,21 @@ public class CommandSmith
 
         CommandAssert.assertNotNull(prevPick, "That pickaxe cannot be smithed.");
 
-        ItemAssert.consumeItems(co.inventory, "smith this pickaxe", ItemPair.of(Items.strangeMetal), ItemPair.of(prevPick, SMITH_CONVERSION));
+        long consumedPickaxes = amount * SMITH_CONVERSION;
 
-        co.inventory.addItem(pick, 1);
+        ItemAssert.consumeItems(co.inventory, "smith %s".formatted(BotdirilFmt.amountOfMD(amount, pick)), Items.strangeMetal.ofAmount(amount), prevPick.ofAmount(consumedPickaxes));
+
+        co.inventory.addItem(pick, amount);
 
         co.respondf("You crafted %s from %s and %s.",
-            BotdirilFmt.amountOfMD("a", pick.getInlineDescription()),
-            BotdirilFmt.amountOfMD(SMITH_CONVERSION, prevPick.getInlineDescription()),
-            BotdirilFmt.amountOfMD("one", Items.strangeMetal.getInlineDescription()));
+            BotdirilFmt.amountOfMD(amount, pick.getInlineDescription()),
+            BotdirilFmt.amountOfMD(consumedPickaxes, prevPick.getInlineDescription()),
+            BotdirilFmt.amountOfMD(amount, Items.strangeMetal.getInlineDescription()));
+    }
+
+    @CmdInvoke
+    public static void smith(CommandContext co, @CmdPar("pickaxe to smith") Item item)
+    {
+        smith(co, item, 1);
     }
 }

@@ -5,7 +5,7 @@ import com.botdiril.userdata.icon.Icons;
 public enum EnumCurse
 {
     CURSE_OF_YASUO(0, "Curse of Yasuo", "All cards drawn are now Yasuo.", 60 * 30), //
-    DOUBLE_CHANCE_TO_LOSE_MEGA(1, "Cursed Megakeks", "Double chance to lose everything.", 60 * 60), //
+    WORSE_WOODCUT(1, "Dull Axe", "You earn much less wood from woodcutting.", 60 * 60), //
     DOUBLE_PICKAXE_BREAK_CHANCE(2, "Mining Fatigue", "Double chance to break your pickaxe while mining.", 60 * 45), //
     CANT_TAKE_DAILY(3, "Daily Lockout", "You can't take your daily loot.", 60 * 120), //
     HALVED_SELL_VALUE(4, "Bad Negotiation", "You are really bad at selling goods.", 60 * 35), //

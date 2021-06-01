@@ -5,7 +5,7 @@ import com.botdiril.userdata.icon.Icons;
 public enum EnumBlessing
 {
     UNBREAKABLE_PICKAXE(0, "Unbreakable Pickaxe", "Your pickaxe cannot break.", 60 * 30), //
-    MEGAKEK_LOSS_IMMUNITY(1, "Blessed Megakeks", "The chance to lose megakeks is much lower.", 60 * 3), //
+    BETTER_WOODCUT(1, "Sharpened Axe", "You gain much more wood from woodcutting.", 60 * 60), //
     CANT_BE_CURSED(2, "Curse Immunity", "You cannot be cursed while this blessing is active.", 60 * 30), //
     BETTER_SELL_PRICES(3, "Negotiation Skill", "You have much better sell values.", 60 * 5), //
     CHANCE_NOT_TO_CONSUME_KEY(4, "Skeleton Key", "Chance to not consume a key on use.", 60 * 12), //

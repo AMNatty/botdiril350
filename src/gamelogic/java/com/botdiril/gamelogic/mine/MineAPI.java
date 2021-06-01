@@ -137,7 +137,7 @@ public class MineAPI extends GameAPI
 
         if (!useRepairKit && rareDropMultiplier >= KITLESS_BONUS_THRESHOLD)
         {
-            rareDropMultiplier += 1;
+            rareDropMultiplier += 0.384;
             multiplier *= KITLESS_MULTIPLIER;
             multiplierMap.put(EnumMineMultiplier.MLT_KITLESS, KITLESS_MULTIPLIER);
         }

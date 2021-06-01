@@ -35,6 +35,17 @@ public class WoodCutAPI extends GameAPI
         long earnedXP = getXP(level);
         var drops = new ItemDrops();
 
+        if (input.blessed())
+            earnedWood *= 4;
+
+        if (input.cursed())
+        {
+            if (BotdirilRnd.rollChance(0.2))
+                outcome = EnumWoodCutOutcome.BROKE_AXE;
+            else
+                earnedWood /= 2;
+        }
+
         switch (outcome)
         {
             case OAK_FOREST,
@@ -80,7 +91,19 @@ public class WoodCutAPI extends GameAPI
                 drops.addItem(Items.prismaticDust);
                 break;
 
+            case BROKE_AXE:
+                multiplier = EnumWoodCutOutcome.EnumWoodCutYield.NOTHING;
+                earnedWood = 0;
+                break;
+
             case NEARLY_KILLED_BY_WEREWOLF:
+                if (input.blessed())
+                {
+                    outcome = EnumWoodCutOutcome.DEFEATED_THE_WEREWOLF;
+                    drops.addItem(Items.timewarpCrystal, 3);
+                    break;
+                }
+
                 multiplier = EnumWoodCutOutcome.EnumWoodCutYield.NOTHING;
                 earnedWood = 0;
                 break;

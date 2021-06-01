@@ -21,7 +21,7 @@ public class CommandDraw
     @CmdInvoke
     public static void draw(CommandContext co)
     {
-        TimerUtil.require(co.inventory, EnumTimer.DRAW, "You need to wait $ before drawing cards again.");
+        TimerUtil.require(co.inventory, EnumTimer.DRAW, "You need to wait **$** before **drawing cards** again.");
 
         var lc = new CardDrops();
 
