@@ -9,7 +9,7 @@ patchList:
     * `$nuke` can no longer miss
     * Maximum $nuke damage changed to `up to 12% of target's keks` or `1200 + targetLevel ^ 1.6 * 1200`, whichever is lower
     * Minimum $nuke damage increased to `7.5% of target's keks` or `750 + targetLevel ^ 1.6 * 750`, whichever is lower
-    * Modified the Pickaxe I/V/X/XV recipes: Now requires 50/500/5000/50000 => 1/300/4000/50000 wood
+    * Modified the Pickaxe I/V/X/XV recipes: Now requires 50/500/5000/50000 => 5/300/4000/50000 wood
     * Increased level 1 wood gains by roughly 400%, this bonus slowly diminishes as you levels go higher
     * Reduced ultra late game woodcut yields
     * Pickaxe I is now craftable without mining
