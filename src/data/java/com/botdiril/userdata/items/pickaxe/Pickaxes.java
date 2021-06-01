@@ -101,19 +101,16 @@ public class Pickaxes
         }
 
         ShopEntries.addCoinBuy(pickaxeI, 150);
-        CraftingEntries.add(new Recipe(List.of(
-            ItemPair.of(Items.coal, 80),
-            ItemPair.of(Items.wood, 50)),
-            1, pickaxeI));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(Items.wood, 5)),1, pickaxeI));
 
-        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeI, 3), ItemPair.of(Items.iron, 40)), 1, pickaxeII));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeI, 4), ItemPair.of(Items.wood, 5), ItemPair.of(Items.coal, 20), ItemPair.of(Items.iron, 10)), 1, pickaxeII));
 
-        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeII, 2), ItemPair.of(Items.copper, 40)), 1, pickaxeIII));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeII, 3), ItemPair.of(Items.copper, 10)), 1, pickaxeIII));
 
-        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeIII, 1), ItemPair.of(Items.uranium, 10)), 1, pickaxeIV));
+        CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeIII, 2), ItemPair.of(Items.uranium, 5)), 1, pickaxeIV));
 
         CraftingEntries.add(new Recipe(List.of(
-            ItemPair.of(Items.wood, 500),
+            ItemPair.of(Items.wood, 300),
             ItemPair.of(Items.coal, 6_000),
             ItemPair.of(Items.iron, 2_400),
             ItemPair.of(Items.copper, 150),
@@ -131,7 +128,7 @@ public class Pickaxes
         CraftingEntries.add(new Recipe(List.of(ItemPair.of(pickaxeVIII, 3), ItemPair.of(Items.platinum, 400)), 1, pickaxeIX));
 
         CraftingEntries.add(new Recipe(List.of(
-            ItemPair.of(Items.wood, 5_000),
+            ItemPair.of(Items.wood, 4_000),
             ItemPair.of(Items.coal, 512_000),
             ItemPair.of(Items.iron, 256_000),
             ItemPair.of(Items.copper, 32_768),

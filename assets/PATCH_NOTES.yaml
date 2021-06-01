@@ -6,7 +6,12 @@ patchList:
       * Does not apply the rare drops
     * New: Added a new curse that reduces woodcutting yields by 50%, outcome odds are mostly unaffected
       * Does not apply the rare drops
-    * Modified the Pickaxe I/V/X/XV recipes: Now requires 50/500/5000/50000 => 20/300/4000/50000 wood
+    * `$nuke` can no longer miss
+    * Maximum $nuke damage changed to `up to 12% of target's keks` or `1200 + targetLevel ^ 1.6 * 1200`, whichever is lower
+    * Minimum $nuke damage increased to `7.5% of target's keks` or `750 + targetLevel ^ 1.6 * 750`, whichever is lower
+    * Modified the Pickaxe I/V/X/XV recipes: Now requires 50/500/5000/50000 => 1/300/4000/50000 wood
+    * Pickaxe I is now craftable without mining
+    * Increased the mining cooldown 2 minutes => 3 minutes
     * Mining without a repair kit now yields less insane amounts of XP (only 50-70% more or so) and slightly less rare drops
     * Reduced the amount of keks gained from level-ups by 50%
     * Reduced the amount of previous-level pickaxes needed to smith a higher level pickaxe to 8

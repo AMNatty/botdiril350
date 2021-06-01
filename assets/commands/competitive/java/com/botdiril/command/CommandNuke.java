@@ -17,7 +17,6 @@ import com.botdiril.userdata.tempstat.EnumBlessing;
 import com.botdiril.userdata.timers.EnumTimer;
 import com.botdiril.userdata.timers.TimerUtil;
 import com.botdiril.util.BotdirilFmt;
-import com.botdiril.util.BotdirilRnd;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 @Command("nuke")
@@ -26,8 +25,6 @@ public class CommandNuke
     private static final long uraniumNeeded = 1000;
     private static final long toolboxesNeeded = 5;
     private static final long strangeMetalNeeded = 3;
-
-    private static final double MISS_CHANCE = 0.5;
 
     @CmdInvoke
     public static void nuke(CommandContext co, @CmdPar("player") EntityPlayer player)
@@ -62,19 +59,14 @@ public class CommandNuke
             for (int i = 0; i < 10; i++)
                 Curser.curse(co);
         }
-        else if (BotdirilRnd.rollChance(co.rdg, MISS_CHANCE))
-        {
-            co.respond("**You missed.** " + Icons.KEK);
-            return;
-        }
         else
         {
             Curser.curse(co, player);
         }
 
-        var keks = Math.min(userInv.getKeks(), Math.pow(co.inventory.getLevel() * 50.0, 1.8));
-        var lost = Math.round(co.rdg.nextUniform(0.01, 0.15) * keks);
-        var stolen = Math.round(co.rdg.nextUniform(0.05, 0.25) * keks);
+        var keks = Math.min(userInv.getKeks(), 10000 + Math.pow(co.inventory.getLevel(), 1.6) * 10000);
+        var lost = Math.round(co.rdg.nextUniform(0.02, 0.04) * keks);
+        var stolen = Math.round(co.rdg.nextUniform(0.055, 0.08) * keks);
         var nukeTotal = lost + stolen;
 
         userInv.addKeks(-nukeTotal);
