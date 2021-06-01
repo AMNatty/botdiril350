@@ -49,7 +49,7 @@ public class CommandTopKeks
         co.db.setAutoCommit(false);
 
         if (co instanceof ChatCommandContext ccc)
-            eb.setFooterText(MessageFormat.format("Tip: You can steal some of other players' keks by nuking them with `{0}nuke <player>`.", ccc.usedPrefix));
+            eb.setFooterText("Tip: You can steal some of other players' keks by nuking them with `%snuke <player>`.".formatted(ccc.usedPrefix));
 
         co.respond(eb);
     }

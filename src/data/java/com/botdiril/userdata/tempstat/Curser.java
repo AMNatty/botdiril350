@@ -4,6 +4,7 @@ import com.botdiril.framework.EntityPlayer;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.properties.PropertyObject;
+import com.botdiril.userdata.timers.TimerUtil;
 import com.botdiril.util.BotdirilRnd;
 
 import cz.tefek.pluto.chrono.MiniTime;
@@ -41,13 +42,16 @@ public class Curser
         var millis = blessing.getDurationInSeconds() * 1000;
         var strTime = MiniTime.formatDiff(millis);
 
-        if (isBlessed(co, blessing))
+        var target = player.inventory();
+        var properties = target.getPropertyObject();
+
+        if (isBlessed(properties, blessing))
         {
-            co.userProperties.extendBlessing(blessing, millis);
+            properties.extendBlessing(blessing, millis);
         }
         else
         {
-            co.userProperties.setBlessing(blessing, System.currentTimeMillis() + millis);
+            properties.setBlessing(blessing, System.currentTimeMillis() + millis);
         }
 
         var who = player.equals(co.player) ? "You've" : "%s has".formatted(player.getMention());
@@ -56,7 +60,10 @@ public class Curser
 
     public static void curse(CommandContext co, EntityPlayer player, EnumCurse curse)
     {
-        if (isBlessed(co, EnumBlessing.CANT_BE_CURSED))
+        var target = player.inventory();
+        var properties = target.getPropertyObject();
+
+        if (isBlessed(properties, EnumBlessing.CANT_BE_CURSED))
         {
             var who = player.equals(co.player) ? "Your" : "%s's".formatted(player.getMention());
             co.respondf("***%s %s %s protected you from the %s.***", who, Icons.SCROLL_UNIQUE, EnumBlessing.CANT_BE_CURSED.getLocalizedName(), curse.getLocalizedName());
@@ -66,13 +73,13 @@ public class Curser
         var millis = curse.getDurationInSeconds() * 1000;
         var strTime = MiniTime.formatDiff(millis);
 
-        if (isCursed(co, curse))
+        if (isCursed(properties, curse))
         {
-            co.userProperties.extendCurse(curse, millis);
+            properties.extendCurse(curse, millis);
         }
         else
         {
-            co.userProperties.setCurse(curse, System.currentTimeMillis() + millis);
+            properties.setCurse(curse, System.currentTimeMillis() + millis);
         }
 
         var who = player.equals(co.player) ? "You've" : "%s has".formatted(player.getMention());
@@ -97,5 +104,15 @@ public class Curser
     public static boolean isCursed(PropertyObject po, EnumCurse curse)
     {
         return po.getCurse(curse) > System.currentTimeMillis();
+    }
+
+    public static void clear(PropertyObject po, EnumCurse curse)
+    {
+        po.setCurse(curse, TimerUtil.TIMER_OFF_COOLDOWN);
+    }
+
+    public static void clear(PropertyObject po, EnumBlessing blessing)
+    {
+        po.setBlessing(blessing, TimerUtil.TIMER_OFF_COOLDOWN);
     }
 }

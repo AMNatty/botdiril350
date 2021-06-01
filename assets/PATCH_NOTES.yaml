@@ -1,5 +1,10 @@
-latest: "350.9"
+latest: "350.9.1"
 patchList:
+  "350.9.1": |-
+    * New: Added the `$cleanse` command
+    * Fix: Nuke no longer correctly curses the target instead of the sender
+    * Fix: Fixed a broken label in `$topkeks`
+
   "350.9": |-
     * **New: Meson now *replies* to messages wherever possible**
     * New: Added a new blessing that increases woodcutting yields by 300%, outcome odds are mostly unaffected

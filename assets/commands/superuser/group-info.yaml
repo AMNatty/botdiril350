@@ -58,3 +58,8 @@ commands:
     aliases: []
     powerLevel: SUPERUSER_OWNER
     description: Reloads all commands.
+
+  cleanse:
+    aliases: []
+    powerLevel: SUPERUSER_OVERRIDE
+    description: Removes all status effects from a player.
