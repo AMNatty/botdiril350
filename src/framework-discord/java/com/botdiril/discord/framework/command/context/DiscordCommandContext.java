@@ -23,7 +23,7 @@ public class DiscordCommandContext extends ChatCommandContext
     public DiscordCommandContext(TextChannel textChannel)
     {
         this.textChannel = textChannel;
-        this.response = new DiscordMessageResponse(this.textChannel);
+        this.response = new DiscordMessageResponse(this.textChannel, this.message);
     }
 
     @Override
@@ -35,6 +35,11 @@ public class DiscordCommandContext extends ChatCommandContext
     public DiscordMessageResponse createResponse(MessageChannel channel)
     {
         return new DiscordMessageResponse(channel);
+    }
+
+    public DiscordMessageResponse createResponse(MessageChannel channel, Message message)
+    {
+        return new DiscordMessageResponse(channel, message);
     }
 
     @Override

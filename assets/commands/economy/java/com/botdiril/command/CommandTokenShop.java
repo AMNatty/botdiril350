@@ -55,7 +55,7 @@ public class CommandTokenShop
             .forEach(card -> addItems(eb, card));
 
         if (co instanceof ChatCommandContext cch)
-            eb.setFooterText(MessageFormat.format("Tip: Use `{0}{1} <item> [amount]` or `{0}iteminfo <item>`.", cch.usedPrefix, cch.usedAlias));
+            eb.setFooterText(MessageFormat.format("Tip: Use `{0}exchange <item> [amount]` or `{0}iteminfo <item>`.", cch.usedPrefix));
 
         co.respond(eb);
     }

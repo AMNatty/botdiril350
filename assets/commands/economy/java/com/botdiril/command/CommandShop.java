@@ -31,7 +31,7 @@ public class CommandShop
             .forEach(item -> addItems(eb, item));
 
         if (co instanceof ChatCommandContext cch)
-            eb.setFooterText(MessageFormat.format("Tip: Use `{0}{1} <item> [amount]`, `{0}sell <item> [amount]` or `{0}iteminfo <item>`.", cch.usedPrefix, cch.usedAlias));
+            eb.setFooterText(MessageFormat.format("Tip: Use `{0}buy <item> [amount]`, `{0}sell <item> [amount]` or `{0}iteminfo <item>`.", cch.usedPrefix));
 
         co.respond(eb);
     }

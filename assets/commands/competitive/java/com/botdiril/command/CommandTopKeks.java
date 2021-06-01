@@ -2,6 +2,7 @@ package com.botdiril.command;
 
 import com.botdiril.Botdiril;
 import com.botdiril.framework.command.Command;
+import com.botdiril.framework.command.context.ChatCommandContext;
 import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.framework.response.ResponseEmbed;
@@ -46,6 +47,9 @@ public class CommandTopKeks
             return 0;
         }, Botdiril.AUTHOR_ID);
         co.db.setAutoCommit(false);
+
+        if (co instanceof ChatCommandContext ccc)
+            eb.setFooterText(MessageFormat.format("Tip: You can steal some of other players' keks by nuking them with `{0}nuke <player>`.", ccc.usedPrefix));
 
         co.respond(eb);
     }

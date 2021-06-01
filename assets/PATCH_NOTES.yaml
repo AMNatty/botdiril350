@@ -1,6 +1,7 @@
 latest: "350.9"
 patchList:
   "350.9": |-
+    * New: Meson now *replies* to messages wherever possible
     * Fix: Fixed several broken messages
 
   "350.8.5": |-
