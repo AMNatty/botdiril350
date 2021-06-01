@@ -2,7 +2,7 @@ latest: "350.9.1"
 patchList:
   "350.9.1": |-
     * New: Added the `$cleanse` command
-    * Fix: Nuke no longer correctly curses the target instead of the sender
+    * Fix: Nuke now correctly curses the target instead of the sender
     * Fix: Fixed a broken label in `$topkeks`
 
   "350.9": |-
