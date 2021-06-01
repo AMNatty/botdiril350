@@ -15,7 +15,7 @@ public class CommandExecuteAs
     @CmdInvoke
     public static void exec(DiscordCommandContext co, @CmdPar("user") Member member, @CmdPar("command") String command)
     {
-        var cobj = new DiscordCommandContext(co.textChannel);
+        var cobj = new DiscordCommandContext(co.textChannel, co.message);
         cobj.botPlayer = co.botPlayer;
         cobj.botIconURL = co.botIconURL;
         cobj.caller = member.getUser();
@@ -24,7 +24,6 @@ public class CommandExecuteAs
         cobj.db = co.db;
         cobj.userProperties = new PropertyObject(co.db, cobj.inventory.getFID());
         cobj.callerMember = member;
-        cobj.message = co.message;
         cobj.contents = command;
         cobj.jda = co.jda;
         cobj.sc = co.sc;

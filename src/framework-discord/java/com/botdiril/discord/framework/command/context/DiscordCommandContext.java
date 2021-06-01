@@ -20,16 +20,17 @@ public class DiscordCommandContext extends ChatCommandContext
     public Message message;
     public SelfUser bot;
 
-    public DiscordCommandContext(TextChannel textChannel)
+    public DiscordCommandContext(TextChannel textChannel, Message message)
     {
         this.textChannel = textChannel;
+        this.message = message;
         this.response = new DiscordMessageResponse(this.textChannel, this.message);
     }
 
     @Override
     public DiscordMessageResponse createResponse()
     {
-        return new DiscordMessageResponse(this.textChannel);
+        return new DiscordMessageResponse(this.textChannel, this.message);
     }
 
     public DiscordMessageResponse createResponse(MessageChannel channel)

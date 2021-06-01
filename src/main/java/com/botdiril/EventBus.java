@@ -76,7 +76,7 @@ public class EventBus extends ListenerAdapter
 
             if (!user.isBot())
             {
-                var co = new DiscordCommandContext(textChannel);
+                var co = new DiscordCommandContext(textChannel, message);
                 co.bot = botUser;
                 co.botIconURL = botUser.getEffectiveAvatarUrl();
                 co.caller = user;

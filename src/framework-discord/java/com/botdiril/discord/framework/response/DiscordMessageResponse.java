@@ -51,7 +51,7 @@ public class DiscordMessageResponse extends AbstractChatResponse
             return;
 
         if (this.replyMessage != null)
-            msgAction = msgAction.reference(this.replyMessage);
+            msgAction = msgAction.mentionRepliedUser(false).reference(this.replyMessage);
 
         msgAction.queue();
     }
