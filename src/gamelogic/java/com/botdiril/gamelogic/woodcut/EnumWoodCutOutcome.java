@@ -33,11 +33,11 @@ public enum EnumWoodCutOutcome implements IWeightedRandom<EnumWoodCutOutcome>
     // Got lost, doubled timer
     GOT_LOST(0.9),
     // Escaped near death, losing all wood and getting cursed, can only happen during full moon
-    NEARLY_KILLED_BY_WEREWOLF(20.0, () -> /*EnumMoonPhase.current() == EnumMoonPhase.FULL_MOON*/ true),
+    NEARLY_KILLED_BY_WEREWOLF(2.0, () -> EnumMoonPhase.current() == EnumMoonPhase.FULL_MOON),
     // Killed the werewolf, gained AMAZING loot, conditioned by being blessed
-    DEFEATED_THE_WEREWOLF(0.01, () -> false),
+    DEFEATED_THE_WEREWOLF(0, () -> false),
     // Conditioned by being cursed
-    BROKE_AXE(4.0, () -> false),
+    BROKE_AXE(0, () -> false),
     // Caused a wildfire by an accident, all that was left is Ash
     CAUSED_WILDFIRE(0.5),
     // Found an abandonned mine with supplies, gives either a toolbox or a repair kit

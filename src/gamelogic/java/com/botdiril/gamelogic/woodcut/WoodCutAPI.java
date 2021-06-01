@@ -119,7 +119,7 @@ public class WoodCutAPI extends GameAPI
     private static long getWood(EnumWoodCutOutcome.EnumWoodCutYield multiplier, int level)
     {
         var base = 5;
-        var levelMultiplier = Math.pow((5.0 + level) / 5.0, 2.0);
+        var levelMultiplier = Math.pow((10.0 + level) / 5.0, 1.9);
         var mean = base * multiplier.getModifier() * levelMultiplier;
         return Math.round(BotdirilRnd.rdg().nextGamma(mean, 0.5));
     }
