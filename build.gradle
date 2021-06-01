@@ -1,6 +1,5 @@
 plugins {
     id "java"
-    id "scala"
     id "application"
 }
 
@@ -51,20 +50,8 @@ sourceSets {
             srcDir "assets/commands/gambling/java"
             srcDir "assets/commands/general/java"
             srcDir "assets/commands/income/java"
-            srcDir "assets/commands/inventory/java"
+            srcDir "assets/commands/items/java"
             srcDir "assets/commands/superuser/java"
-        }
-
-        scala {
-            srcDir "assets/commands/administrative/scala"
-            srcDir "assets/commands/competitive/scala"
-            srcDir "assets/commands/economy/scala"
-            srcDir "assets/commands/fun/scala"
-            srcDir "assets/commands/gambling/scala"
-            srcDir "assets/commands/general/scala"
-            srcDir "assets/commands/income/scala"
-            srcDir "assets/commands/inventory/scala"
-            srcDir "assets/commands/superuser/scala"
         }
 
         compileClasspath += main.compileClasspath + main.output
