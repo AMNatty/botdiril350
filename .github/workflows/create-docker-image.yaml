@@ -3,13 +3,14 @@ name: Docker Image CI
 on:
   release:
     types: [published]
+    
+permissions:
+  actions: read
+  id-token: read
+  packages: read
 
 jobs:
-  build:
-    permissions:
-      actions: read
-      id-token: read
-      packages: read
+  build:      
     runs-on: ubuntu-latest
     steps:
       -
