@@ -41,7 +41,8 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          build-args: githubPackagesKey="${{ secrets.PACKAGES_TOKEN }}"
+          build-args: |
+            "githubPackagesKey=${{ secrets.PACKAGES_TOKEN }}"
           tags: tefek/botdiril350:latest,tefek/botdiril350:${{ github.event.release.tag_name }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
