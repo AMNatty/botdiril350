@@ -132,7 +132,9 @@ dependencies {
     implementation("org.apache.commons", "commons-math3", "3.6.1")
     implementation("commons-io", "commons-io", "2.8.0")
 
-    implementation("net.dv8tion", "JDA", "4.3.0_277")
+    implementation("net.dv8tion", "JDA", "4.4.0_351") {
+        exclude(module = "opus-java")
+    }
 
     implementation("cz.tefek", "plutolib", "20.2.0.0-alpha.2")
 }
