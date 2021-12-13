@@ -70,9 +70,9 @@ repositories {
     maven {
         name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/493msi/plutoengine/")
-        credentials(HttpHeaderCredentials::class) {
-            name = "493msi"
-            value = System.getenv("GITHUB_PACKAGES_KEY")
+        credentials {
+            username = "493msi"
+            password = System.getenv("GITHUB_PACKAGES_KEY")
         }
     }
 }
