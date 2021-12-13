@@ -1,12 +1,11 @@
 package com.botdiril.userdata.achievement;
 
 import com.botdiril.userdata.IGameObject;
+import com.botdiril.userdata.ItemLookup;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import com.botdiril.userdata.ItemLookup;
 
 public class Achievement implements IGameObject
 {
@@ -32,7 +31,7 @@ public class Achievement implements IGameObject
     @Override
     public String getName()
     {
-        return name;
+        return this.name;
     }
 
     @Override
@@ -50,19 +49,19 @@ public class Achievement implements IGameObject
     @Override
     public String getDescription()
     {
-        return description;
+        return this.description;
     }
 
     @Override
     public String getLocalizedName()
     {
-        return localizedName;
+        return this.localizedName;
     }
 
     @Override
     public String getInlineDescription()
     {
-        return localizedName;
+        return "%s %s".formatted(this.icon, this.localizedName);
     }
 
     public static Achievement getByName(String name)

@@ -51,6 +51,7 @@ public class CommandGiveItem
         {
             eb.setTitle("*%s Yoink!*".formatted(Icons.SCROLL_UNIQUE));
             recipient = co.botPlayer;
+            recipientUI = recipient.inventory();
         }
 
         if (item instanceof Item iitem)

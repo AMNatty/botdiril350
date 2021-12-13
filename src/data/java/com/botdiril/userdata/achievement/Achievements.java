@@ -10,5 +10,7 @@ public class Achievements
     public static final Achievement ascended = new Achievement("ascended", "Ascended", "Get level 500.", Icons.ACHIEVEMENT_BOT);
     public static final Achievement god = new Achievement("god", "Botdiril God", "Get level 2000.", Icons.ACHIEVEMENT_BOT);
 
+    public static final Achievement max = new Achievement("max", "Max the Doggo", "The goodest boy on Earth.", Icons.OTHER_MAX);
+
     public static final Achievement beta = new Achievement("betatester", "Botdiril Beta Tester", "Be a part of the original beta test.", Icons.ACHIEVEMENT_BETA);
 }

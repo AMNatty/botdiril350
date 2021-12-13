@@ -59,7 +59,7 @@ commands:
   smith:
     aliases: []
     levelLock: 15
-    description: Smith 10 pickaxes of a lower tier to a single pickaxe of a higher tier. Consumes one strange metal.
+    description: Smith 8 pickaxes of a lower tier to a single pickaxe of a higher tier. Consumes one strange metal.
 
   train:
     aliases: [traincard, cardtrain]

@@ -1,5 +1,14 @@
-latest: "350.9.1"
+latest: "350.11"
 patchList:
+  "350.11": |-
+    * Ported the build script to Kotlin
+    * Fix: Updated log4j to fix CVE-2021-44228
+
+  "350.10": |-
+    * **New: Added support for slash commands**
+    * Max is no longer considered an item, now is an achievement instead
+    * Fix: Various small bugfixes
+
   "350.9.1": |-
     * New: Added the `$cleanse` command
     * Fix: Nuke now correctly curses the target instead of the sender

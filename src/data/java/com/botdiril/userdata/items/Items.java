@@ -53,7 +53,6 @@ public class Items
 
     public static Item repairKit;
 
-    public static Item max;
     public static Item oil;
     public static Item goldenOil;
     public static Item prismaticOil;
@@ -150,8 +149,6 @@ public class Items
         CraftingEntries.add(new Recipe(List.of(ItemPair.of(toolBox, 1), ItemPair.of(oil, 1)), 1, repairKit));
 
         Scrolls.load();
-
-        max = new Item("max", Icons.OTHER_MAX, "Max the Doggo", "The goodest boy on Earth.");
 
         Pickaxes.load();
         Crates.load();

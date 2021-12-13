@@ -5,6 +5,7 @@ import com.botdiril.framework.command.context.CommandContext;
 import com.botdiril.framework.command.invoke.CmdInvoke;
 import com.botdiril.gamelogic.woodcut.WoodCutAPI;
 import com.botdiril.gamelogic.woodcut.WoodCutInput;
+import com.botdiril.userdata.achievement.AchievementActivator;
 import com.botdiril.userdata.icon.Icons;
 import com.botdiril.userdata.items.Items;
 import com.botdiril.userdata.stat.EnumStat;
@@ -97,6 +98,8 @@ public class CommandWoodCut
                 timerModifier = 2.0;
             }
         }
+
+        result.achievements().forEach(achievement -> AchievementActivator.fire(co, co.player, achievement));
 
         co.inventory.useTimerModified(EnumTimer.WOODCUT, timerModifier);
         co.userProperties.incrementStat(EnumStat.TIMES_WOODCUT);

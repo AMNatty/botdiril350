@@ -2,6 +2,8 @@ package com.botdiril.gamelogic.woodcut;
 
 import com.botdiril.gamelogic.GameAPI;
 import com.botdiril.gamelogic.weighted.IWeightedRandom;
+import com.botdiril.userdata.achievement.Achievement;
+import com.botdiril.userdata.achievement.Achievements;
 import com.botdiril.userdata.item.Item;
 import com.botdiril.userdata.item.ItemDrops;
 import com.botdiril.userdata.items.Items;
@@ -11,6 +13,8 @@ import com.botdiril.userdata.pools.LootPool;
 import com.botdiril.userdata.pools.PoolDrawer;
 import com.botdiril.userdata.xp.XPRewards;
 import com.botdiril.util.BotdirilRnd;
+
+import java.util.HashSet;
 
 public class WoodCutAPI extends GameAPI
 {
@@ -34,6 +38,7 @@ public class WoodCutAPI extends GameAPI
         long earnedWood = getWood(multiplier, level);
         long earnedXP = getXP(level);
         var drops = new ItemDrops();
+        var achivements = new HashSet<Achievement>();
 
         if (input.blessed())
             earnedWood *= 4;
@@ -67,7 +72,7 @@ public class WoodCutAPI extends GameAPI
                 break;
 
             case FOUND_MAX:
-                drops.addItem(Items.max);
+                achivements.add(Achievements.max);
                 break;
 
             case MET_MURRAY:
@@ -113,7 +118,7 @@ public class WoodCutAPI extends GameAPI
                 break;
         }
 
-        return new WoodCutResult(outcome, multiplier, earnedWood, earnedXP, drops);
+        return new WoodCutResult(outcome, multiplier, earnedWood, earnedXP, drops, achivements);
     }
 
     private static long getWood(EnumWoodCutOutcome.EnumWoodCutYield multiplier, int level)

@@ -63,6 +63,11 @@ public class CommandBalance
                 eb.appendDescription(Icons.ACHIEVEMENT_BETA).appendDescription(" **Beta Tester**\n");
             }
 
+            if (ui.hasAchievement(Achievements.max))
+            {
+                eb.appendDescription(Icons.OTHER_MAX).appendDescription(" **Max**\n");
+            }
+
             var member = dep.getMember();
 
             if (member != null)

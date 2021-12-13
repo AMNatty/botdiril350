@@ -14,9 +14,9 @@ public class AchievementActivator
             ui.fireAchievement(achievement);
 
             if (co.player.equals(player))
-                co.respondf("You've obtained the **%s** achievement - %s.", achievement, achievement.getDescription());
+                co.respondf("*You've obtained the **%s** achievement - %s.*", achievement, achievement.getDescription());
             else
-                co.respondf("%s has obtained the **%s** achievement - %s.", player.getMention(), achievement, achievement.getDescription());
+                co.respondf("*%s has obtained the **%s** achievement - %s.*", player.getMention(), achievement, achievement.getDescription());
 
             return true;
         }

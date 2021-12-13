@@ -176,7 +176,6 @@ public class MineAPI extends GameAPI
         loot.addItem(Scrolls.scrollOfIntelligenceII, rdg.nextPoisson(0.00003));
         loot.addItem(Items.ash, rdg.nextPoisson(0.04 * rareDropMultiplier));
         loot.addItem(Items.prismaticDust, rdg.nextPoisson(0.002));
-        loot.addItem(Items.max, rdg.nextPoisson(0.00001));
 
         var xp = Math.round(Math.pow(rdg.nextGaussian(15, 2), 1.6 + rareDropMultiplier / 2.25));
 
