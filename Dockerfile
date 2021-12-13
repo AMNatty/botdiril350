@@ -1,9 +1,7 @@
 FROM gradle:jdk16 as builder
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-ARG githubPackagesKey
-ENV GITHUB_PACKAGES_KEY $githubPackagesKey
-RUN gradle --no-daemon --stacktrace build
+RUN gradle --no-daemon -PpackagesKey="$githubPackagesKey" --stacktrace build
 WORKDIR /home/gradle/src/build/distributions/
 RUN tar -xvf botdiril350.tar
 
