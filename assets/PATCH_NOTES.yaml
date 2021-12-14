@@ -1,5 +1,8 @@
-latest: "350.11"
+latest: "350.11.1"
 patchList:
+  "350.11.1": |-
+    * Fix: Updated log4j to 2.16
+
   "350.11": |-
     * Ported the build script to Kotlin
     * Fix: Updated log4j to fix CVE-2021-44228
