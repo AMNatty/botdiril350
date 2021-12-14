@@ -87,6 +87,11 @@ tasks.withType<Copy> {
 
 application {
     mainClass.set("com.botdiril.BotMain")
+
+    applicationDistribution.into("assets") {
+        from("assets")
+        exclude("enhancementProposals/")
+    }
 }
 
 tasks.getByName<Tar>("distTar") {
@@ -95,11 +100,6 @@ tasks.getByName<Tar>("distTar") {
     archiveFileName.set("$baseName.tar")
 
     println("Archive file name: $baseName")
-
-    into("assets") {
-        from("assets")
-        exclude("enhancementProposals/")
-    }
 }
 
 
